@@ -1,0 +1,199 @@
+<div class="row" style="    margin-top: 2%;">
+  <div class="col-md-9"></div>
+  
+</div>
+
+<div class="row">
+    <div class="col-md-8"></div>
+ <div class="col-md-4"> <a data-toggle="modal" data-target="#AddNewCall">Add New Call</a></div>
+
+    <div class="col-md-12" [hidden]="show_status == true">
+        <div class="form-group col-sm-12 ">
+            <label class="control-label col-sm-5" for="pwd">Contact Name:</label>
+            <div class="col-sm-7" style="padding:0px">
+                <!--<input type="text" [(ngModel)]="callInfoModel.Name" class="form-control" (change)="onChange($event.target.value)" (ngModelChange)="change_event_contact_name(callInfoModel.Name)"
+                    [ngStyle]="errContactName   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">-->
+                <select class="form-control" [(ngModel)]="callInfoModel.Name" (change)="onChange($event.target.value)" (ngModelChange)="change_event_contact_name(callInfoModel.Name)"
+                    [ngStyle]="errContactName   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">
+                <option  *ngFor="#callName of callInfoModel.Call_Name" value="{{callName.Con_Name}}">   
+                    {{callName.Con_Name}}
+                </option>
+            </select>
+                <small style="color: #a94442" [hidden]="errContactName == false">Select Name</small>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+            <label class="control-label col-sm-5" for="pwd">Start Date</label>
+            <div class="col-sm-7" style="padding:0px">
+                <input type="text" class="form-control" [(ngModel)]="callInfoModel.Call_Startdate" id="datepicker" (ngModelChange)="change_event_Sdate(callInfoModel.Call_Startdate)"
+                    [ngStyle]="errStartDate   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">
+                <small style="color: #a94442" [hidden]="errStartDate == false">Select Call Start Date</small>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+            <label class="control-label col-sm-5" for="pwd">Call Start</label>
+            <div class="col-sm-7" style="padding:0px">
+                <!--<input type="text" class="form-control" id="timepicker" [ngModel]="callInfoModel.Call_Starttime">-->
+                <select class="form-control" [(ngModel)]="callInfoModel.Starttime" (ngModelChange)="change_event_Starttime(callInfoModel.Starttime)"
+                    [ngStyle]="errCallStartTime   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">
+                <option  *ngFor="#Hour of Hourlist" value="{{Hour.Hrs}}"  >   
+                    {{Hour.Hrs}}
+                </option>
+            </select>
+                <small style="color: #a94442" [hidden]="errCallStartTime == false">Select Call Start Time</small>
+            </div>
+
+
+        </div>
+
+        <div class="form-group col-sm-12 ">
+            <label class="control-label col-sm-5" for="pwd">End Date</label>
+            <div class="col-sm-7" style="padding:0px">
+                <input type="text" class="form-control" [(ngModel)]="callInfoModel.Call_Enddate" id="datepickerE" (ngModelChange)="change_event_Enddate(callInfoModel.Call_Enddate)"
+                    [ngStyle]="errEndDate   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">
+                <small style="color: #a94442" [hidden]="errEndDate == false">Select Call End Date</small>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+            <label class="control-label col-sm-5" for="pwd">Call End</label>
+            <div class="col-sm-7" style="padding:0px">
+                <!--<input type="text" class="form-control" id="timepickerE" [ngModel]="callInfoModel.Call_Endtime">-->
+                <select class="form-control" [(ngModel)]="callInfoModel.Endtime" (ngModelChange)="change_event_Endtime(callInfoModel.Endtime)"
+                    [ngStyle]="errCallEndTime   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">
+                <option  *ngFor="#Hour of Hourlist"  value="{{Hour.Hrs}}" >   
+                    {{Hour.Hrs}}
+                </option>
+            </select>
+                <small style="color: #a94442" [hidden]="errCallEndTime == false">Select Call End Time</small>
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-sm-12 ">
+            <label class="control-label col-sm-5" for="pwd">Status</label>
+            <div class="col-sm-7" style="padding:0px">
+                <select class="form-control" [(ngModel)]="callInfoModel.call_Status" (ngModelChange)="change_event_Status(callInfoModel.call_Status)"
+                    [ngStyle]="errStatus   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">
+                <option *ngFor="#callStatus of Call_Status"  >   
+                    {{callStatus.Call_Status_Name}}
+                </option>
+            </select>
+                <small style="color: #a94442" [hidden]="errStatus == false">Select Status</small>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+            <label class="control-label col-sm-4" for="pwd"></label>
+            <div class="col-sm-7">
+                <button type="submit" class="btn btn-success btn-block col-md-3" (click)=updatecallinfo(0,callInfoModel);> Update</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+<div class="modal fade" id="AddNewCall" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <!-- Start body-->
+
+        <div class="form-group col-sm-12 ">
+          <label class="control-label col-sm-4" for="pwd">Contact Name:</label>
+          <div class="col-sm-7">
+         <select class="form-control" [(ngModel)]="callInfoModel.New_Name" (change)="onChange($event.target.value)" (ngModelChange)="change_event_contact_name(callInfoModel.New_Name)"
+                    [ngStyle]="errContactName   ? {'border-color':'#a94442'} : {'border-color':'#e9e9e9'}">
+                <option  *ngFor="#callName of callInfoModel.Call_Name" value="{{callName.Con_Name}}">   
+                    {{callName.Con_Name}}
+                </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+          <label class="control-label col-sm-4" for="pwd">Start Date</label>
+          <div class="col-sm-7">
+            <input type="text" [(ngModel)]="callInfoModel.new_Call_Startdate"   class="datepicker form-control">
+          </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+          <label class="control-label col-sm-4" for="pwd">Call Start Time</label>
+          <div class="col-sm-7">
+            <!--<input type="text" [(ngModel)]="callInfoModel.Call_Starttime" class="timepicker form-control"  >-->
+
+            <select class="form-control" [(ngModel)]="callInfoModel.new_Starttime">
+                <option  *ngFor="#Hour of Hourlist" value="{{Hour.Hrs}}"  >   
+                    {{Hour.Hrs}}
+                </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+          <label class="control-label col-sm-4" for="pwd">End Date</label>
+          <div class="col-sm-7">
+            <input type="text" [(ngModel)]="callInfoModel.new_Call_Enddate" class="datepicker form-control">
+          </div>
+        </div>
+
+        <div class="form-group col-sm-12 ">
+          <label class="control-label col-sm-4" for="pwd">Call End</label>
+          <div class="col-sm-7">
+            <!--<input type="text" [(ngModel)]="callInfoModel.Call_Endtime" class="form-control" class="timepickerE form-control"  >-->
+            <select class="form-control" [(ngModel)]="callInfoModel.new_Endtime">
+                <option  *ngFor="#Hour of Hourlist"  value="{{Hour.Hrs}}" >   
+                    {{Hour.Hrs}}
+                </option>
+            </select>
+          </div>
+        </div>
+
+
+
+        <div class="form-group col-sm-12 ">
+          <label class="control-label col-sm-4" for="pwd">Status</label>
+          <div class="col-sm-7">
+            <select class="form-control" [(ngModel)]="callInfoModel.new_call_Status">
+                <option *ngFor="#callStatus of Call_Status" >   
+                    {{callStatus.Call_Status_Name}}
+                </option>
+            </select>
+          </div>
+        </div>
+
+        <!--End body-->
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success " data-dismiss="modal" (click)=updatecallinfo(1,callInfoModel)>Save</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</div>

@@ -1,0 +1,39 @@
+
+<div class="row" style="    margin-top: 2%;">
+  <div class="col-md-9"></div>
+  
+</div>
+<div class="row">
+
+  <div class="col-md-9"></div>
+  <!--<div class="col-md-3"> <a data-toggle="modal" data-target="#AddNewCall">AddNew Call</a></div>-->
+</div>
+<div class="row">
+<div class="col-md-12"><div class="col-md-6">
+<ul class="items" *ngFor="let call of callModel.company_Call_detail ; let i = index">
+  <a (click)="deleteCall(call,i)">
+    <span class="glyphicon glyphicon-remove" style=" padding-left: 95%; color: red "></span>
+  </a>
+
+  <li>
+
+    <span class="badge" style="width:13%"> 
+      <img style="width:85%" src="http://localhost:3000/app/image/phone-call-icon-phone_call.png" />
+    </span><a data-toggle="modal" data-target="#myModal_call" (click)="sendCallInfoData(call)">{{call.Call_Name}}</a>
+
+
+
+  </li>
+
+
+</ul>
+
+</div>
+
+<div [hidden]="!showdatepickercall" class="col-md-5">
+  <!--<callinfo-component (updateCallComponent)="updateCallComponent($event)"></callinfo-component>-->
+
+</div>
+</div>
+</div>
+

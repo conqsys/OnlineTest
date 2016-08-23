@@ -1,0 +1,19 @@
+﻿
+{
+    
+	 "database_info":{
+	    "host": "cqs05",
+		"user": "root",
+		"password": "sa$123",
+		"database": "officecqs",
+		"multipleStatements": "true"
+	 },
+	 "ConfigurationManager":{
+		"Counter":"10"		 
+	 
+	 
+	 
+	 }
+   
+  
+}    

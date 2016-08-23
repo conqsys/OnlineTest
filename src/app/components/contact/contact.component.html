@@ -1,0 +1,36 @@
+<div class="row" style="    margin-top: 2%;">
+  <div class="col-md-9"></div>
+  
+</div>
+<div class="row">
+  
+<div  class="col-md-6">
+
+
+  
+  <ul class="items" *ngFor="let contact of ContactDetail.company_contact_detail;  let i = index" style="    margin: 7px;">
+     <a  (click)="deleteContact(contact,i)">
+      <span class="glyphicon glyphicon-remove" style=" padding-left: 95%; color: red "></span>
+    </a>
+    <li>
+      <span class="badge" style="width:13%"> 
+       <img style="width:82%" src="http://localhost:3000/app/image/message_outline.png" /></span>
+      <a (click)="updateContactinfo(contact)">{{contact.Con_Name}} </a>   
+        
+    </li>
+
+ <input type="text" [(ngModel)]="contact.ContactNo" class="datepicker form-control">
+       <!--<select class="form-control">
+            <option >{{contact.ContactNo}}</option>
+       </select>-->
+  </ul>
+</div>
+      
+
+  <!--<div [hidden]="showContactDetail ==false" class="col-md-5">
+    <my-contactInfo (updateContactComponent)="updateContactComponent($event)"></my-contactInfo>
+  </div>-->
+
+
+
+</div>

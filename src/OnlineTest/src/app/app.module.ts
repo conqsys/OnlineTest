@@ -14,7 +14,7 @@ if (environment.production) {
   enableProdMode();
 }
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent,QuestionsComponent],
     providers:[
  appRouterProviders,
   

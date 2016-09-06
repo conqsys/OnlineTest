@@ -1,8 +1,10 @@
 import { NgModule }       from '@angular/core';
 import { BrowserModule  } from '@angular/platform-browser';
 import { AppComponent }   from './app.component';
-import {QuestionsComponent} from './components/questions/questions.component';
 
+import {QuestionsComponent} from './components/questions/questions.component';
+import  'materialize-css'
+import {MaterializeDirective} from "angular2-materialize";
 import {HttpModule } from '@angular/http';
 import {FormsModule } from '@angular/forms';
 import {RouterModule } from '@angular/router';
@@ -14,7 +16,7 @@ if (environment.production) {
   enableProdMode();
 }
 @NgModule({
-    declarations: [AppComponent,QuestionsComponent],
+    declarations: [AppComponent,QuestionsComponent,MaterializeDirective],
     providers:[
  appRouterProviders,
   

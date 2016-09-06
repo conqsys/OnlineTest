@@ -1,0 +1,17 @@
+<form materialize class="col s12">
+  <div class="row">
+    <div class="input-field col s6">
+      <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+      <label for="first_name">First Name</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+    <option value="" disabled selected>Select Category </option>
+    <option>two</option>
+    <option>three</option>
+</select>
+    </div>
+  </div>
+</form>

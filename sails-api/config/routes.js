@@ -45,5 +45,6 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'get /students': 'StudentController.getAll'
+  'get /students': 'StudentController.getAll',
+  'get /category': 'CategoryController.getAll'
 };

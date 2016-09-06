@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import{CheckBoxComponent} from '../check-box/check-box.component'
 import{RadioComponent} from '../radio/radio.component'
+
 @Component({
   moduleId: module.id,
   selector: 'app-question',

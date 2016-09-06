@@ -16,8 +16,9 @@ module.exports = function (defaults) {
       'reflect-metadata/**/*.+(ts|js|js.map)',
       'rxjs/**/*.+(js|js.map)',
       '@angular/**/*.+(js|js.map)',
-      'materialize-css/bin/materialize.css',
-      'materialize-css/bin/materialize.js'
+       'jquery/dist/*',
+      'angular2-materialize/dist/*',
+      'materialize-css/dist/**/*'
     ]
   });
 };

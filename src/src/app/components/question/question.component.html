@@ -1,0 +1,26 @@
+<p>
+  question works!
+</p>
+<div>
+
+</div>
+<div></div>
+<div>
+  <div class="row">
+    <div class="col s6 switch">
+      <label>
+                multiple
+                <input type="checkbox" [value]="isSingle" (change)="valueChanged($event.target.value)">
+                <span class="lever"></span>
+                single
+              </label>
+    </div>
+  </div>
+  <div *ngIf="isSingle" class="row">
+    <app-check-box></app-check-box>
+  </div>
+  <div *ngIf="!isSingle"  class="row">
+    <app-radio></app-radio>
+  </div>
+ 
+</div>

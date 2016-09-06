@@ -1,0 +1,105 @@
+
+<style type="text/css">
+	.TFtable{
+		border:1px solid #dddddd;
+		border-collapse:collapse; 
+	}
+	.TFtable td{ 
+		padding:7px; 
+    border:1px solid #dddddd;
+	}
+	/* provide some minimal visual accomodation for IE8 and below */
+	.TFtable tr:hover{
+		background: #f9f9f9
+	}
+  .row-background{
+    background: #e0ecf1
+  }
+  .my-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      
+      width: 100%;
+      height: 100%;
+      
+      text-align: center;
+    }
+    
+    .my-loading .dimmer {
+      position: absolute;
+    
+      top: 0;
+      left: 0;
+      
+      background-color: #000;
+      opacity: 0.5;
+      
+      width: 100%;
+      height: 100%;
+    }
+    
+    .my-loading .loading-bg {
+      position: absolute;
+      display: inline-block;
+      
+      top: 50%;
+      transform: translateY(-50%);
+        
+      background-color: #fff;
+      border-radius: 15px;
+      height: 60px;
+      width: 60px;
+      text-align: center;
+    }
+
+    .my-loading .loading-bg img {
+      border-radius: 15px;
+      height: 60px;
+      width: 60px;
+    }
+</style>
+
+<div class="row">
+  <h2>{{title}}</h2>
+
+  <div class="form-group">
+    <form role="form" method="POST">
+      <div class="col-md-6">
+        <!--<cool-loading-indicator [hidden]="!isLoading">
+          <div class="my-loading">
+            <div class="dimmer"></div>
+            <div class="loading-bg">
+              <img src="/app/image/loader.gif"/>
+            </div>
+          </div>
+        </cool-loading-indicator> -->
+        
+        <button style="width:150px;" name="addStudent" class="btn btn-info btn-block pull-right" (click)="showStudentDetail(0, true)">+ Add Student</button>
+        <table class="table TFtable">
+          <tr style="background: #dae5f4;">
+            <td>Name</td>
+            <td>Gender</td>
+            <td>RollNumber</td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let student of studentDetails" style="cursor:hand;" 
+              (click)="showStudentDetail(student, false)"
+              [ngClass]="{'row-background': student.StudentID==selectedRowId }">
+            <td>{{student.Name}}</td>
+            <td>{{student.Gender}}</td>
+            <td>{{student.RollNumber}}</td>
+            <td><a (click)=deleteStudent(student)>delete</a></td>
+
+            <!--<div style="width:500px">
+              <student-info [student]="student" (updateStudentInfo)="UpdateStudentInfo($event)"></student-info>
+            </div>-->
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        
+      </div>
+    </form>      
+  </div>
+</div>

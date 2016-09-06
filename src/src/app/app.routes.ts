@@ -1,5 +1,6 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
 import {QuestionsComponent} from './components/questions/questions.component';
+import {StudentComponent} from './components/student/student.component';
 
 const routes: RouterConfig = [
   {
@@ -11,7 +12,12 @@ const routes: RouterConfig = [
   {
     path: 'questions',
     component: QuestionsComponent
+  },
+  {
+    path: 'student',
+    component: StudentComponent
   }
+
 
 ];
 

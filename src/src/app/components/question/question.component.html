@@ -1,11 +1,15 @@
-<p>
-  question works!
-</p>
+ <form materialize class="col s12">
 <div>
 
 </div>
 <div></div>
 <div>
+  <div class="row">
+  <div class="input-field col s12">
+              <input  type="file"  class="validate">
+             
+            </div>
+</div>
   <div class="row">
     <div class="col s6 switch">
       <label>
@@ -16,11 +20,27 @@
               </label>
     </div>
   </div>
-  <div *ngIf="isSingle" class="row">
-    <app-check-box></app-check-box>
+  <div class="row">
+  <div class="input-field col s6">
+              <input [(ngModel)]="newOption" name="newOption" placeholder="add option" id="newOption" type="text" class="validate">
+            </div>
+</div>
+<div class="row">
+  <div class="input-field col s12">
+              <input  type="button" value="Add Option" (click)="addOption()" class="validate">
+             
+            </div>
+</div>
+  <div *ngIf="isSingle"  class="row">
+    <div *ngFor="let option of options">
+    <app-check-box [model]="option"></app-check-box>
+    </div>
   </div>
   <div *ngIf="!isSingle"  class="row">
-    <app-radio></app-radio>
+      <div *ngFor="let option of options">
+    <app-radio [model]="option"></app-radio>
+      </div>
   </div>
  
 </div>
+ </form>

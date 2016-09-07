@@ -11,12 +11,26 @@ import{RadioComponent} from '../radio/radio.component'
 })
 export class QuestionComponent implements OnInit {
   isSingle: boolean;
-
+private newOption:string;
+private options:Array<string>;
   constructor() {
+    this.options=new Array<string>();
+    this.options.push("first option");
+    this.options.push("second option");
+    this.options.push("third option");
+    this.newOption="";
     this.isSingle = true;
   }
   valueChanged(value) {
     this.isSingle = !this.isSingle;
+  }
+  addOption() {
+    if(this.newOption==="")
+    alert("can not be blank");
+    else
+    this.options.push(this.newOption);
+    this.newOption="";
+   
   }
   ngOnInit() {
   }

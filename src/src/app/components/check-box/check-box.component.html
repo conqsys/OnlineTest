@@ -1,15 +1,10 @@
 <div class="row">
-  <div class="col s6 checkbox">
-
-    Off
-    <input type="checkbox" checked>
-
-
-  </div>
+  <div class="input-field col s12">
+              <input id="{{model}}" type="checkbox" class="validate">
+              <label attr.for="{{model}}">{{model}}</label>
+            </div>
 </div>
-<div>
-  <label>checkbox option 1</label>
-</div>
+<!--
 <div class="input-field col s6 selectss">
   <select [(ngModel)]="selectedOption" name="selectedOption" materialize="material_select" [materializeSelectOptions]="selectOptions">
                 <option value="" disabled selected>Choose your option</option>
@@ -19,5 +14,5 @@
 </div>
 <div class="row">
   <input materialize="pickadate" type="date" class="datepicker">
-</div>
+</div>-->
 

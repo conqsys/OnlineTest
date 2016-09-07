@@ -46,5 +46,5 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   'get /students': 'StudentController.getAll',
-  'get /category': 'CategoryController.getAll'
+  'post /category': 'CategoryController.saveCategory'
 };

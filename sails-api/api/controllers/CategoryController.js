@@ -6,18 +6,22 @@
  */
 
 module.exports = {
-	getAll: function (req, res) {
-        Category.find().exec(function(err,categories){
-            if(err){
-                console.log(err);
-                return res.json(err);
-            }
-            else{
-                return res.json(categories);
-            }
-        })
-        
-        
+	saveCategory: function (req, res, next) {
+            var str = "CALL spSaveCategory(" + req.body.CategoryID + ",'" + req.body.CategoryName + "','" + req.body.CreatedBy +"','" +  req.body.ModifiedBy + "')";
+            Category.query(str, function (err, success) {
+                returnObject={success:false,data:err };
+                if (err) {
+                    console.log(err);
+                    res.send(returnObject);
+                }
+                else {
+                    returnObject.success=true;
+                    returnObject.data=success;
+                    res.send(returnObject);
+                }
+            });  
     }
+
+    
 };
 

@@ -1,11 +1,18 @@
 <form materialize class="col s12">
   <div class="row">
     <div class="input-field col s6">
-      <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-      <label for="first_name">First Name</label>
+      <input  class="validate" id="category" type="text" [(ngModel)]="model.CategoryName" [ngModelOptions]="{standalone: true}" >
+      <label for="category">Category Name</label>
     </div>
   </div>
-  <div class="row">
+
+  <buttons _ngcontent-yhl-7="">
+        <a class="waves-effect waves-light btn" (click)=addCategory();>Add Category</a>
+        <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
+        <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
+        <br>
+      </buttons>
+  <!--<div class="row">
     <div class="input-field col s6">
       <select materialize="material_select" [materializeSelectOptions]="selectOptions">
     <option value="" disabled selected>Select Category </option>
@@ -13,5 +20,5 @@
     <option>three</option>
 </select>
     </div>
-  </div>
+  </div>-->
 </form>

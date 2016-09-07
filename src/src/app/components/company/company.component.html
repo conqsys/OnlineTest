@@ -1,0 +1,59 @@
+<div class="container ">
+    <form materialize class="col s12">
+
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="Company Name" type="text" [(ngModel)]="model.CategoryName"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="first_name" class="active">Company Name</label>
+            </div>
+            <div class="input-field col s6">
+                <input class="validate" id="last_name" type="text" [(ngModel)]="model.CategoryName" [ngModelOptions]="{standalone: true}">
+                <label for="last_name" class="flow-text ">Address</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="City" type="text" [(ngModel)]="model.CategoryName"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="first_name" class="active">City</label>
+            </div>
+            <div class="input-field col s6">
+                <input class="validate" id="last_name" type="text" [(ngModel)]="model.CategoryName" [ngModelOptions]="{standalone: true}">
+                <label for="last_name" class="flow-text ">PhoneNo</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate" id="last_name" type="text" [(ngModel)]="model.CategoryName" [ngModelOptions]="{standalone: true}">
+                <label for="last_name" class="flow-text ">HR MobileNO</label>
+            </div>
+
+            <div class="input-field col s6">
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="HR EmailID" type="text" [(ngModel)]="model.CategoryName"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="first_name" class="active">HR EmailID</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="Company Url" type="text" [(ngModel)]="model.CategoryName"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="first_name" class="active">Url</label>
+            </div>
+            <div class="input-field col s6">
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="Admin UserID" type="text" [(ngModel)]="model.CategoryName"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="first_name" class="active">AddminURID</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <buttons _ngcontent-yhl-7=" " class="col s4 offset-s5">
+                <a class="waves-effect waves-light btn" (click)=addCategory();>Add Company</a>
+                <br>
+            </buttons>
+        </div>
+    </form>
+</div>

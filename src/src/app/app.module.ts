@@ -6,18 +6,19 @@ import {MaterializeDirective} from "angular2-materialize";
 import {HttpModule } from '@angular/http';
 import {FormsModule } from '@angular/forms';
 import {RouterModule } from '@angular/router';
-import {  environment } from './';
-import { enableProdMode } from '@angular/core';
-import { appRouterProviders } from './app.routes';
+import {environment } from './';
+import {enableProdMode } from '@angular/core';
+import {appRouterProviders } from './app.routes';
 import {provide} from '@angular/core';
 import {CategoryComponent} from './components/category/category.component'
 import {QuestionsComponent} from './components/questions/questions.component';
 import {StudentComponent} from './components/student/student.component';
+import {CompanyComponent} from './components/company/company.component';
 if (environment.production) {
   enableProdMode();
 }
 @NgModule({
-    declarations: [AppComponent,QuestionsComponent,MaterializeDirective,CategoryComponent,StudentComponent],
+    declarations: [AppComponent,QuestionsComponent,MaterializeDirective,CategoryComponent,StudentComponent,CompanyComponent],
     providers:[
  appRouterProviders,
   

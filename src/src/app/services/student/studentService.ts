@@ -1,7 +1,7 @@
 import {Http, Response, Headers} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import { ApiUrls } from '../../shared/ApiUrls';
+import { ApiUrl } from '../../shared/api-url.component';
 
 @Injectable()
 export class StudentService {
@@ -11,7 +11,7 @@ export class StudentService {
   }
 
   getStudents (): any {
-     return this.http.get(ApiUrls.baseUrl+'students')
+     return this.http.get(ApiUrl.baseUrl+'students')
   }
 
 //   saveStudentDetail(data): any {

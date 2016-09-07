@@ -2,7 +2,7 @@
 import {Http, Response, Headers} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import { ApiUrls } from '../../shared/ApiUrls';
+import { ApiUrl } from '../../shared/api-url.component';
 import {CategoryModel} from '../../model/category/category';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class CategoryService {
 
   }
     saveCategory(category):any{
-       return this.http.post(ApiUrls.baseUrl + 'category',category);
+       return this.http.post(ApiUrl.baseUrl + 'category',category);
    }
  
 }

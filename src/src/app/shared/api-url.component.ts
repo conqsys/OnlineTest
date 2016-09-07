@@ -1,5 +1,5 @@
 
-export class ApiUrls {
+export class ApiUrl {
 		static baseUrl:String='http://localhost:1337/';
 		static CreateCustomer() { return this.baseUrl+ '/customers/new'}
 		static GetCustomer(id:any) { return this.baseUrl+ '/customers/'+id}

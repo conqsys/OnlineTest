@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {StatsComponent} from '../shared/stats/stats.component'
-import {StatInfoModel} from '../../model/stats/statinfo';
+import {StatsComponent} from '../../shared/stats/stats.component'
+import {StatInfoModel} from '../../../model/stats/statinfo';
 import {QuestionComponent} from '../question/question.component';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 

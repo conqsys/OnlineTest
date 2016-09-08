@@ -13,5 +13,7 @@ export class TopicService {
     saveTopic(topic):any{
        return this.http.post(ApiUrl.baseUrl + 'topic',topic);
    }
- 
+    getTopic():any{
+        return this.http.get(ApiUrl.baseUrl + 'topics');
+    }
 }

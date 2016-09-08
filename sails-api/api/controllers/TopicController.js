@@ -20,6 +20,20 @@ module.exports = {
                     res.send(returnObject);
                 }
             });  
+    },
+
+    getAll: function (req, res) {
+        Topic.find().exec(function(err,topic){
+            if(err){
+                console.log(err);
+                return res.json(err);
+            }
+            else{
+                return res.json(topic);
+            }
+        })
+        
+        
     }  
 };
 

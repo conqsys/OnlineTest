@@ -14,6 +14,7 @@ import {TopicComponent} from './components/topic/topic.component'
 import {QuestionsComponent} from './components/questions/question-list/questions.component';
 import {StudentComponent} from './components/student/student.component';
 import {CompanyComponent} from './components/company/company.component';
+import {TopicinfoComponent} from './components/topic/topicinfo.component';
 if (environment.production) {
   enableProdMode();
 }

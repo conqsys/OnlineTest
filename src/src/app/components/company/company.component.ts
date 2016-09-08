@@ -23,7 +23,7 @@ export class CompanyComponent {
     this.model.ModifiedBy = 'vipin';   
   }
 
-  addCategory() {
+  addCompany() {
     this.Service.saveCompany(this.model).map(r => r.json())
       .subscribe(a => {
         if (a.success) {

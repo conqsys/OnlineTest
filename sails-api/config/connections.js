@@ -45,7 +45,7 @@ module.exports.connections = {
     host: 'cqspc001',
     user: 'root', //optional
     password: 'root', //optional
-    database: 'angular2sample' //optional
+    database: 'onlinetest' //optional
   },
 
   /***************************************************************************

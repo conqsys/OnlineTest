@@ -1,7 +1,7 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
 import {QuestionsComponent} from './components/questions/questions.component';
 import {StudentComponent} from './components/student/student.component';
-import {CategoryComponent} from './components/category/category.component';
+import {TopicComponent} from './components/topic/topic.component';
 import {CompanyComponent} from './components/company/company.component'
 ;const routes: RouterConfig = [
   {
@@ -19,8 +19,8 @@ import {CompanyComponent} from './components/company/company.component'
     component: StudentComponent
   },
    {
-    path: 'category',
-    component: CategoryComponent
+    path: 'topic',
+    component: TopicComponent
   },
    {
     path: 'company',

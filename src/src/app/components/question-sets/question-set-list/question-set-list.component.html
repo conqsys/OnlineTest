@@ -1,0 +1,66 @@
+
+<style type="text/css">
+	.TFtable{
+		border:1px solid #dddddd;
+		border-collapse:collapse; 
+	}
+	.TFtable td{ 
+		padding:7px; 
+    border:1px solid #dddddd;
+	}
+	/* provide some minimal visual accomodation for IE8 and below */
+	.TFtable tr:hover{
+		background: #f9f9f9
+	}
+  .row-background{
+    background: #e0ecf1
+  }
+</style>
+
+<div class="row">
+  <h2>{{title}}</h2>
+
+  <div class="form-group">
+    <form role="form" method="POST">
+      <div class="col-md-6">
+        <!--<cool-loading-indicator [hidden]="!isLoading">
+          <div class="my-loading">
+            <div class="dimmer"></div>
+            <div class="loading-bg">
+              <img src="/app/image/loader.gif"/>
+            </div>
+          </div>
+        </cool-loading-indicator> -->
+        
+        <button name="addQuestionSet" class="btn btn-info btn-block pull-right" >+ Add Question Set</button>
+        <table class="table TFtable">
+          <tr style="background: #dae5f4;">
+            <td>Title</td>
+            <td>Total Time</td>
+            <td>Total Questions</td>
+            <td>Randomize</td>
+            <td>Option Series</td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let qset of model" style="cursor:hand;" 
+              (click)="selectQuestionSet(qset)"
+              [ngClass]="{'row-background': qset.question_set_id==selectedQuestionSetId }">
+            <td>{{qset.question_set_title}}</td>
+            <td>{{qset.total_time}}</td>
+            <td>{{qset.total_questions}}</td>
+            <td>{{qset.is_randomize}}</td>
+            <td>{{qset.option_series}}</td>
+            <td><a >delete</a></td>
+
+            <!--<div style="width:500px">
+              <student-info [student]="student" (updateStudentInfo)="UpdateStudentInfo($event)"></student-info>
+            </div>-->
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        
+      </div>
+    </form>      
+  </div>
+</div>

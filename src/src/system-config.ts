@@ -11,7 +11,8 @@
 const map: any = {
    "materialize-css": "vendor/materialize-css",
    "angular2-materialize": "vendor/angular2-materialize",
-   "jquery": "vendor/jquery"
+   "jquery": "vendor/jquery",
+   'ng2-froala-editor':          'vendor/ng2-froala-editor'
 };
 
 /** User packages configuration. */
@@ -24,7 +25,8 @@ const packages: any = {
   'angular2-materialize': {
     "main": "dist/index",
     "defaultExtension": "js"
-  }
+  },
+  'ng2-froala-editor':          { main: 'ng2-froala-editor.js', defaultExtension: 'js'}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

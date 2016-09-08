@@ -11,7 +11,7 @@ import {enableProdMode } from '@angular/core';
 import {appRouterProviders } from './app.routes';
 import {provide} from '@angular/core';
 import {TopicComponent} from './components/topic/topic.component'
-import {QuestionsComponent} from './components/questions/questions.component';
+import {QuestionsComponent} from './components/questions/question-list/questions.component';
 import {StudentComponent} from './components/student/student.component';
 import {CompanyComponent} from './components/company/company.component';
 if (environment.production) {

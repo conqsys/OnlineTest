@@ -45,7 +45,7 @@ module.exports = {
                             return res.serverError(err);
                         }
                         else {
-                            obj.question_set_questions = questions;
+                            obj.question_set_questions = questions[0];
                             //var obj = { questionSet: questionSet, questions: questions }
                             return res.json(obj);
                         }

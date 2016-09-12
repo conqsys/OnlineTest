@@ -1,59 +1,90 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
+<style type="text/css">
+	.TFtable{
+		border:1px solid #dddddd;
+		border-collapse:collapse; 
+	}
+	.TFtable td{ 
+		padding:7px; 
+    border:1px solid #dddddd;
+	}
+	/* provide some minimal visual accomodation for IE8 and below */
+	.TFtable tr:hover{
+		background: #f9f9f9
+	}
+  .row-background{
+    background: #e0ecf1
+  }
+</style>
 <div class="container ">
     <form materialize class="col s12">
 
         <div class="row">
             <div class="input-field col s6">
-                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="ques_set_title" placeholder="Question Set Title" type="text" [(ngModel)]="model.question_set_title"
-                    [ngModelOptions]="{standalone: true}">
+                <input class="validate active" id="ques_set_title" type="text" placeholder="Question Set Title"  
+                [(ngModel)]="model.question_set_title" [ngModelOptions]="{standalone: true}">
                 <label for="ques_set_title" class="active">Title</label>
             </div>
             <div class="input-field col s6">
-                <input class="validate" id="total_time" type="text" [(ngModel)]="model.total_time" [ngModelOptions]="{standalone: true}">
-                <label for="total_time" class="flow-text ">Total Time</label>
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="total_time" type="text"
+                [placeholder]="placeholder.total_time" 
+                [(ngModel)]="model.total_time" [ngModelOptions]="{standalone: true}">
+                <label for="total_time">Total Time</label>
             </div>
         </div>
-
+        
         <div class="row">
             <div class="input-field col s6">
-                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="City" type="text" [(ngModel)]="model.CategoryName"
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="total_questions" placeholder="Total Questions" type="text" [(ngModel)]="model.total_questions"
                     [ngModelOptions]="{standalone: true}">
-                <label for="first_name" class="active">City</label>
+                <label for="total_questions" class="active">Total Questions</label>
             </div>
             <div class="input-field col s6">
-                <input class="validate" id="last_name" type="text" [(ngModel)]="model.CategoryName" [ngModelOptions]="{standalone: true}">
-                <label for="last_name" class="flow-text ">PhoneNo</label>
+                <input type="checkbox" id="is_randomize" 
+                [(ngModel)]="model.is_randomize" [ngModelOptions]="{standalone: true}" />
+                <label for="is_randomize">Is Randomize</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s6">
+                <select>
+                    <option value="" selected>Choose your option</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <label>Materialize Select</label>
             </div>
         </div>
         <div class="row">
+            <div class="input-field col s6"></div>
             <div class="input-field col s6">
-                <input class="validate" id="last_name" type="text" [(ngModel)]="model.CategoryName" [ngModelOptions]="{standalone: true}">
-                <label for="last_name" class="flow-text ">HR MobileNO</label>
-            </div>
-
-            <div class="input-field col s6">
-                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="HR EmailID" type="text" [(ngModel)]="model.CategoryName"
-                    [ngModelOptions]="{standalone: true}">
-                <label for="first_name" class="active">HR EmailID</label>
+                <buttons _ngcontent-yhl-7="">
+                    <a class="waves-effect waves-light btn" (click)=addQuestions()>
+                        <i class="material-icons left">add</i>Add Questions
+                    </a>
+                </buttons>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
-                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="Company Url" type="text" [(ngModel)]="model.CategoryName"
-                    [ngModelOptions]="{standalone: true}">
-                <label for="first_name" class="active">Url</label>
+            <div class="input-field col s12">
+                 <table class="table TFtable">
+                    <tr style="background: #dae5f4;">
+                        <td>Question Description</td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let ques of model.question_set_questions" style="cursor:hand;" >
+                        <td>{{ques.question_description}}</td>
+                        <td><a >delete</a></td>
+                    </tr>
+                </table>
             </div>
-            <div class="input-field col s6">
-                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="first_name" placeholder="Admin UserID" type="text" [(ngModel)]="model.CategoryName"
-                    [ngModelOptions]="{standalone: true}">
-                <label for="first_name" class="active">AddminURID</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <buttons _ngcontent-yhl-7=" " class="col s4 offset-s5">
-                <a class="waves-effect waves-light btn" (click)=addCategory();>Add Company</a>
-                <br>
-            </buttons>
         </div>
     </form>
 </div>
+

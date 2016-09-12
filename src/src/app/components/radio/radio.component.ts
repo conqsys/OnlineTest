@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-
+import {QuestionOptionModel} from '../../model/question/questionOption'
 @Component({
   moduleId: module.id,
   selector: 'app-radio',
@@ -7,7 +7,7 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['radio.component.css']
 })
 export class RadioComponent implements OnInit {
-@Input()model:string;
+@Input()model:QuestionOptionModel;
   constructor() { }
 
   ngOnInit() {

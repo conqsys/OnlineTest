@@ -1,4 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
+import {QuestionOptionModel} from '../../model/question/questionOption'
 
 @Component({
   moduleId: module.id,
@@ -7,7 +8,7 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['check-box.component.css']
 })
 export class CheckBoxComponent implements OnInit {
-  @Input()model:string;
+  @Input()model:QuestionOptionModel;
  private firstName = "";
   private selectedOption = "";
 

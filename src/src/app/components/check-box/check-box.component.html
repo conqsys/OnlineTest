@@ -1,7 +1,7 @@
 <div class="row">
   <div class="input-field col s12">
-              <input id="{{model}}" type="checkbox" class="validate">
-              <label attr.for="{{model}}">{{model}}</label>
+              <input id="{{model.description}}" type="checkbox" [(ngModel)]="model.is_correct" class="validate">
+              <label attr.for="{{model.description}}">{{model.description}}</label>
             </div>
 </div>
 <!--

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="input-field col s12">
-              <input  name="option" id="{{model}}" type="radio" value="{{model}}">
-              <label attr.for="{{model}}"> {{model}}</label>
+              <input  name="option" id="{{model.description}}" [checked]="model.is_correct"  type="radio" >
+              <label attr.for="{{model.description}}"> {{model.description}}</label>
             </div>
 </div>

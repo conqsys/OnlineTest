@@ -14,4 +14,14 @@ class QuestionSetModel {
     updated_by:string
     created_datetime:string
     updated_datetime:string
+    question_set_questions: Array<QuestionSetQuestionsModel>
+}
+
+export /**
+ * question-set-questions-model
+ */
+class QuestionSetQuestionsModel {
+    question_set_id: number
+    question_id: number
+    question_description: string
 }

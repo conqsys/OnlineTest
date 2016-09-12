@@ -45,10 +45,14 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
- 'get /students': 'StudentController.getAll',
+  'get /students': 'StudentController.getAll',
   'post /topic': 'CategoryController.saveTopic',
-  'post /question':'QuestionController.saveQuestion',
+  
   'get /questionSet/:company_id': 'QuestionSetController.getQuestionSets',
+  'get /questionSet/:company_id/:question_set_id': 'QuestionSetController.getQuestionSet',
+  
+  'post /question':'QuestionController.saveQuestion',
   'get /questions': 'QuestionController.getQuestions'
+
 
 };

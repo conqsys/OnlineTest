@@ -4,7 +4,7 @@ import { QuestionSetModel } from '../../../model/question-set/question-set.model
 import { QuestionSetService } from '../../../services/question-set/question-set.service';
 
 @Component({
-    selector:'my-student',
+    selector:'question-set-list',
     templateUrl: '../app/components/question-sets/question-set-list/question-set-list.component.html',
     providers:[QuestionSetService],
     directives: [FORM_DIRECTIVES]
@@ -21,10 +21,10 @@ class QuestionSetListComponent {
     constructor(private questionSetService: QuestionSetService) {
         this.title = 'Question Sets';
         this.model = new Array<QuestionSetModel>();
-        this.getQuestionSet(1);
+        this.getQuestionSets(1);
     }
 
-    getQuestionSet(company_id){
+    getQuestionSets(company_id){
         this.questionSetService.getQuestionSets(company_id).map(r=>r.json())
         .subscribe(result => {
             this.model = result;

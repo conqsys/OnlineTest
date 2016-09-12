@@ -11,7 +11,11 @@ export class QuestionSetService {
   }
 
   getQuestionSets (company_id): any {
-     return this.http.get(ApiUrl.baseUrl+'questionSet?company_id='+company_id)
+     return this.http.get(ApiUrl.baseUrl + 'questionSet/' + company_id);
+  }
+
+  getQuestionSet (company_id, question_set_id): any {
+     return this.http.get(ApiUrl.baseUrl + 'questionSet/' + company_id + '/' + question_set_id);
   }
 
 //   saveStudentDetail(data): any {

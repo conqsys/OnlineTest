@@ -20,8 +20,10 @@ export class QuestionsComponent implements OnInit {
   stats: Array<StatInfoModel>
   model: Array<QuestionModel>
   selectedQuestion: QuestionModel;
+  questionVisibility:boolean;
   constructor(private Service: QuestionService) {
     this.statInfo = new StatInfoModel();
+    this.questionVisibility=false;
     this.model = new Array<QuestionModel>();
     this.selectedQuestion = new QuestionModel();
     this.selectedQuestion.answer_explanation = "";
@@ -47,8 +49,9 @@ export class QuestionsComponent implements OnInit {
         this.selectedQuestion.options.push({ description: "third option", is_correct: false, option_id: 1, question_id: 1 });
       });
   }
-  selectQuestionSet(selectedQuestion: QuestionModel) {
+  selectQuestion(selectedQuestion: QuestionModel) {
     this.selectedQuestion = selectedQuestion;
+    this.questionVisibility=true;
   }
 
 }

@@ -37,4 +37,4 @@
       </div>
     </form>     
    <!--<app-stats [stats]="stats"></app-stats>-->
-   <app-question [model]="selectedQuestion"></app-question>
+   <app-question *ngIf="questionVisibility" [model]="selectedQuestion"></app-question>

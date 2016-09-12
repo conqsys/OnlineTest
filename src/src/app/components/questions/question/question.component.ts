@@ -33,6 +33,7 @@ private newOption:string;
   }
   valueChanged(value) {
     // alert(JSON.stringify(value));
+    console.log(value);
     this.model.is_multiple_option = !this.model.is_multiple_option;
   }
 //   onFroalaModelChanged(event: any) {

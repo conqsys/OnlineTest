@@ -20,7 +20,7 @@
     <div class="col s6 switch">
       <label>
                 multiple
-                <input type="checkbox" [value]="model.is_multiple_option"  (change)="valueChanged($event.target.value)">
+                <input type="checkbox" [checked]="model.is_multiple_option" [value]="model.is_multiple_option"  (change)="valueChanged($event.target.value)">
                 <span class="lever"></span>
                 single
               </label>

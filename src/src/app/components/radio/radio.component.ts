@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {QuestionOptionModel} from '../../model/question/questionOption'
+import {QuestionOptionModel} from '../../model/question/question-option'
 @Component({
   moduleId: module.id,
   selector: 'app-radio',
@@ -11,6 +11,10 @@ export class RadioComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+   valueChanged(value) {
+    // alert(JSON.stringify(value));
+    console.log(value);
   }
 
 }

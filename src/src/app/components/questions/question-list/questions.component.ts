@@ -5,7 +5,9 @@ import {QuestionComponent} from '../question/question.component';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { QuestionService } from '../../../services/question/question.service';
 import {QuestionModel} from '../../../model/question/question';
-import {QuestionOptionModel} from '../../../model/question/questionOption'
+import {QuestionOptionModel} from '../../../model/question/question-option';
+import { QuestionOptionService } from '../../../services/question-option/question-option.service';
+
 
 @Component({
   moduleId: module.id,
@@ -13,17 +15,17 @@ import {QuestionOptionModel} from '../../../model/question/questionOption'
   templateUrl: 'questions.component.html',
   styleUrls: ['questions.component.css'],
   directives: [StatsComponent, QuestionComponent, ROUTER_DIRECTIVES],
-  providers: [QuestionService]
+  providers: [QuestionService, QuestionOptionService]
 })
 export class QuestionsComponent implements OnInit {
   statInfo: StatInfoModel
   stats: Array<StatInfoModel>
   model: Array<QuestionModel>
   selectedQuestion: QuestionModel;
-  questionVisibility:boolean;
-  constructor(private Service: QuestionService) {
+  questionVisibility: boolean;
+  constructor(private Service: QuestionService, private questionOptionService: QuestionOptionService) {
     this.statInfo = new StatInfoModel();
-    this.questionVisibility=false;
+    this.questionVisibility = false;
     this.model = new Array<QuestionModel>();
     this.selectedQuestion = new QuestionModel();
     this.selectedQuestion.answer_explanation = "";
@@ -42,16 +44,30 @@ export class QuestionsComponent implements OnInit {
       .subscribe(result => {
         this.model = result;
         this.selectedQuestion = this.model[0];
-        this.selectedQuestion.is_multiple_option = false;
+      
         this.selectedQuestion.options = new Array<QuestionOptionModel>();
-        this.selectedQuestion.options.push({ description: "first option", is_correct: true, option_id: 1, question_id: 1 });
-        this.selectedQuestion.options.push({ description: "second option", is_correct: false, option_id: 1, question_id: 1 });
-        this.selectedQuestion.options.push({ description: "third option", is_correct: false, option_id: 1, question_id: 1 });
       });
+  }
+  SetQuestionVisibility(value) {
+
+    this.questionVisibility = value;
   }
   selectQuestion(selectedQuestion: QuestionModel) {
     this.selectedQuestion = selectedQuestion;
-    this.questionVisibility=true;
+    this.questionOptionService.getQuestionOptions(selectedQuestion.question_id).map(r => r.json())
+      .subscribe(result => {
+        this.selectedQuestion.options = result;
+        this.questionVisibility = true;
+      })
+
+
+
+  }
+  addQuestion() {
+    this.selectedQuestion = new QuestionModel();
+    this.selectedQuestion.options = new Array<QuestionOptionModel>();
+    this.questionVisibility = true;
+
   }
 
 }

@@ -17,6 +17,16 @@
             </div>
 </div>
   <div class="row">
+                <div class="input-field col s6">
+                <select [(ngModel)]="model.topic_id" name="model.topic_id"  
+                        materialize="material_select" [materializeSelectOptions]="topics">
+                    <option value="0" disabled selected>Choose your topic</option>
+                    <option *ngFor="let topic of topics" [value]="topic.topic_id">{{topic.topic_title}}</option>
+                </select>
+                <label for="model.topic_id" class="active" style="top:2px;">Select Topic</label>
+                </div>
+            </div>
+  <div class="row">
     <div class="col s6 switch">
       <label>
                 multiple
@@ -40,14 +50,14 @@
     <div class="row">
   <div class="input-field col s6">
               <input [(ngModel)]="newOption" name="newOption" placeholder="add option" id="newOption" type="text" class="validate">
-            </div>
-</div>
-<div class="row">
-  <div class="input-field col s12">
               <input  type="button" value="Add Option" (click)="addOption()" class="validate">
-             
             </div>
 </div>
- 
+ <div class="row">
+  <div class="input-field col s12">
+              <input  type="button" value="Save" (click)="saveQuestion()" class="validate">
+              <input  type="button" value="Cancel" (click)="cancel()" class="validate">
+            </div>
+</div>
 </div>
  </form>

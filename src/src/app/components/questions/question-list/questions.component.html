@@ -1,7 +1,5 @@
-<p>
-  questions works!
-</p>
-<form role="form" method="POST">
+
+<div *ngIf="!questionVisibility">
       <div class="col-md-6">
         <!--<cool-loading-indicator [hidden]="!isLoading">
           <div class="my-loading">
@@ -12,7 +10,7 @@
           </div>
         </cool-loading-indicator> -->
         
-        <button name="addQuestionSet" class="btn btn-info btn-block pull-right" >+ Add Question</button>
+        <button name="addQuestionSet" class="btn btn-info btn-block pull-right" (click)="addQuestion()" >+ Add Question</button>
         <table class="table TFtable">
           <tr style="background: #dae5f4;">
             <td>Description</td>
@@ -35,6 +33,6 @@
       <div class="col-md-6">
         
       </div>
-    </form>     
+</div>     
    <!--<app-stats [stats]="stats"></app-stats>-->
-   <app-question *ngIf="questionVisibility" [model]="selectedQuestion"></app-question>
+   <app-question *ngIf="questionVisibility" [model]="selectedQuestion" (setQuestionVisibility)="SetQuestionVisibility($event)"></app-question>

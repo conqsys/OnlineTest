@@ -13,4 +13,7 @@ class QuestionModel {
     created_datetime:string
     updated_datetime:string
     options:Array<QuestionOptionModel>
+
+    is_selected: boolean
 }
+

@@ -54,7 +54,8 @@ module.exports.routes = {
   'get /questionSet/:company_id/:question_set_id': 'QuestionSetController.getQuestionSet',
   
   'post /question':'QuestionController.saveQuestion',
-  'get /questions': 'QuestionController.getQuestions'
+  'get /questions/:company_id': 'QuestionController.getQuestions',
+  'get /question/:topic_id': 'QuestionController.getQuestionsByTopic'
 
 
 };

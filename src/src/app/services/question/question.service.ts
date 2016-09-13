@@ -10,8 +10,12 @@ export class QuestionService {
 
   }
 
-  getQuestions (): any {
-     return this.http.get(ApiUrl.baseUrl+'questions');
+  getQuestions (company_id): any {
+     return this.http.get(ApiUrl.baseUrl+'questions/'+company_id);
+  }
+
+  getQuestionsByTopic (topic_id): any {
+     return this.http.get(ApiUrl.baseUrl+'questions/'+topic_id);
   }
 
   saveQuestion(data): any {

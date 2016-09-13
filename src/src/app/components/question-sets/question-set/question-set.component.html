@@ -49,30 +49,17 @@
                 <label for="is_randomize">Is Randomize</label>
             </div>
         </div>
-        
-        <!--<div class="row">
-            <div class="input-field col s6">
-                <select class="form-control"
-                name="topic"
-                >
-                    <option value="0">
-                    Select Topic
-                    </option>
-                    <option *ngFor="let topic of topics" value={{topic.topic_id}}>
-                    {{topic.topic_title}}
-                    </option>
-                </select>
-                
-                <label>Materialize Select</label>
-            </div>
-        </div>-->
-          <div class="input-field col s6">
-              <select [(ngModel)]="selectedOption" name="selectedOption" materialize="material_select" [materializeSelectOptions]="topics">
-                <option value="" disabled selected>Choose your option</option>
-                <option *ngFor="let topic of topics" [value]="topic.topic_id">{{topic.topic_title}}</option>
+        <div class="row">
+           <div class="input-field col s6">
+              <select [(ngModel)]="selectedOptionSeries" name="optionSeries" 
+                    materialize="material_select" [materializeSelectOptions]="topics">
+                <option value="0" disabled selected>Choose Option Series</option>
+                <option value="Numerical Order">Numerical Order</option>
+                <option value="Alphabetical Order">Alphabetical Order</option>
               </select>
-              <label>Materialize Select</label>
+              <label for="optionSeries" class="active" style="top:2px;">Select Option Series</label>
             </div>
+        </div>
         <div class="row">
             <div class="input-field col s6"></div>
             <div class="input-field col s6">
@@ -83,7 +70,7 @@
                 </buttons>
             </div>
         </div>
-        <div class="row">
+        <div class="row" [hidden]="isAddQuestion">
             <div class="input-field col s12">
                  <table class="table TFtable">
                     <tr style="background: #dae5f4;">
@@ -95,6 +82,35 @@
                         <td><a >delete</a></td>
                     </tr>
                 </table>
+            </div>
+        </div>
+        <div class="row" [hidden]="!isAddQuestion">
+            <div class="row">
+                <div class="input-field col s6">
+                <select [(ngModel)]="selectedTopic" name="selectedTopic"  
+                        materialize="material_select" [materializeSelectOptions]="topics">
+                    <option value="0" disabled selected>Choose your option</option>
+                    <option *ngFor="let topic of topics" [value]="topic.topic_id">{{topic.topic_title}}</option>
+                </select>
+                <label for="selectedTopic" class="active" style="top:2px;">Select Topic</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                 <table class="table TFtable">
+                    <tr style="background: #dae5f4;">
+                        <td></td>
+                        <td>Questions</td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let ques of questions" style="cursor:hand;" >
+                        <td><input type="checkbox" id="is_selected" 
+                            [(ngModel)]="ques.is_selected" [ngModelOptions]="{standalone: true}" /></td>
+                        <td>{{ques.question_description}}</td>
+                        <td><a >delete</a></td>
+                    </tr>
+                </table>
+            </div>
             </div>
         </div>
     </form>

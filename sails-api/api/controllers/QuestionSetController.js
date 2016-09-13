@@ -9,9 +9,9 @@ module.exports = {
 	getQuestionSets: function (req, res) {
         var companyId = req.param('company_id');
         QuestionSet.find({ company_id: companyId })
-            .exec(function(err, results){
+            .exec(function(err, result){
                 if (err) return res.serverError(err); 
-                else return res.json(results);
+                else return res.json(result);
         })
     },
 
@@ -20,21 +20,21 @@ module.exports = {
         var quesSetId = req.param('question_set_id');
 
         QuestionSet.findOne({ company_id: companyId, question_set_id: quesSetId })
-            .exec(function(err, results){
+            .exec(function(err, result){
                 if (err) return res.serverError(err); 
                 else {
-                    var obj = results;
+                    var obj = result;
                     obj.question_set_questions = [];
                     //return res.json(questionSet);
 
                     var str = "CALL spGetQuestionSetQuestions(" + quesSetId + "," + companyId + ")";
-                    QuestionSet.query(str, function (err, results) {
+                    QuestionSet.query(str, function (err, result) {
                         if(err) return res.serverError(err);
                         else {
-                            if(results[0].length==1 && results[0][0].question_set_id == null)
+                            if(result[0].length==1 && result[0][0].question_set_id == null)
                                 obj.question_set_questions = [];
                             else 
-                                obj.question_set_questions = results[0];
+                                obj.question_set_questions = result[0];
 
                             return res.json(obj);
                         }

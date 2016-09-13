@@ -8,32 +8,30 @@
 module.exports = {
 	saveQuestion: function (req, res, next) {
             var str = "CALL spSaveCategory(" + req.body.CategoryID + ",'" + req.body.CategoryName + "','" + req.body.CreatedBy +"','" +  req.body.ModifiedBy + "')";
-            Question.query(str, function (err, success) {
-                returnObject={success:false,data:err };
-                if (err) {
-                    console.log(err);
-                    res.send(returnObject);
-                }
+            Question.query(str, function (err, result) {
+                if (err) return res.serverError(err); 
                 else {
-                    returnObject.success=true;
-                    returnObject.data=success;
-                    res.send(returnObject);
+                    res.send(result);
                 }
             });  
     },
-     getQuestions: function (req, res) {
-        Question.find().exec(function(err,questions){
-            if(err){
-                console.log(err);
-                return res.json(err);
-            }
+    getQuestions: function (req, res) {
+        var companyId = req.param('company_id');
+        Question.find({company_id:companyId}).exec(function(err,result){
+            if (err) return res.serverError(err); 
             else{
-                return res.json(questions);
+                return res.json(result);
             }
         })
-        
-        
-    }  
-
+    },
+    getQuestionsByTopic: function (req, res) {
+        var topicId = req.param('topic_id');
+        Question.find({topic_id: topicId}).exec(function(err,result){
+            if (err) return res.serverError(err); 
+            else{
+                return res.json(result);
+            }
+        })
+    }
 };
 

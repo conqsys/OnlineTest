@@ -38,7 +38,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.Service.getQuestions().map(r => r.json())
+    this.Service.getQuestions(1).map(r => r.json())
       .subscribe(result => {
         this.model = result;
         this.selectedQuestion = this.model[0];

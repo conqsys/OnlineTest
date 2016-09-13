@@ -21,16 +21,24 @@ class QuestionSetComponent {
     title: string;
     model: QuestionSetModel;
     placeholder: QuestionSetModel;
-    questions = QuestionModel;
+    questions = Array<QuestionModel>();
     topics = Array<TopicModel>();
+
+    selectedOptionSeries: string;
+    selectedTopic: number;
+    company_id: number;
+    isAddQuestion:boolean;
 
     constructor(private questionSetService: QuestionSetService, 
                 private questionService: QuestionService,
                 private topicService: TopicService) {
         this.title = 'Question Sets';
+        this.selectedOptionSeries = "Numerical Order";
         this.model = new QuestionSetModel;
         this.placeholder = new QuestionSetModel;
-        this.getQuestionSet(1, 1);
+        this.isAddQuestion = false;
+        this.company_id = 1;
+        this.getQuestionSet(this.company_id, 1);
     }
 
     getQuestionSet(company_id, question_set_id){
@@ -42,17 +50,20 @@ class QuestionSetComponent {
     }
 
     showQuestions() {
-        this.topicService.getTopic(1).map(r=>r.json())
+        this.isAddQuestion = true;
+        this.topicService.getTopic(this.company_id).map(r=>r.json())
         .subscribe(result => {
             this.topics = result;
-
-            this.getQuestions(1, 0);
+            if (this.topics.length > 0) {
+                this.selectedTopic = this.topics[0].topic_id;
+                this.getQuestions(this.selectedTopic);
+            }
         })
         
     }
 
-    getQuestions(company_id, topic_id) {
-        this.questionService.getQuestions().map(r=>r.json())
+    getQuestions(topic_id) {
+        this.questionService.getQuestionsByTopic(topic_id).map(r=>r.json())
         .subscribe(result => {
             this.questions = result;
         })

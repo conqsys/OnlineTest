@@ -24,8 +24,7 @@ export class TopicComponent {
     this.model.company_id = 1;
     this.model.created_by = 'vipin';
     this.model.updated_by = 'vipin';  
-    this.topicIsActive = false; 
-  }
+    }
   
   addTopic() {
     if(this.model.topic_title == "" || this.model.topic_title == undefined){
@@ -35,7 +34,6 @@ export class TopicComponent {
       .subscribe(result => {
         if (result.success) {
           alert("category inserted!");
-          this.topicIsActive = true;
          this.changeTopic.emit(this.model);
         }
         else {

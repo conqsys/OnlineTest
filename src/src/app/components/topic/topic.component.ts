@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output  } from '@angular/core';
 import {TopicModel} from '../../model/topic/topic.model';
 import {TopicService} from '../../services/topic/topic.service';
 @Component({

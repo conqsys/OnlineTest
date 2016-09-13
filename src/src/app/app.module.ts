@@ -12,14 +12,15 @@ import {appRouterProviders } from './app.routes';
 import {provide} from '@angular/core';
 import {TopicComponent} from './components/topic/topic.component'
 import {QuestionsComponent} from './components/questions/question-list/questions.component';
+import { QuestionSetListComponent } from './components/question-sets/question-set-list/question-set-list.component';
 import {StudentComponent} from './components/student/student.component';
 import {CompanyComponent} from './components/company/company.component';
-import {TopicinfoComponent} from './components/topic/topicinfo.component';
+import {TopicListComponent} from './components/topic-list/topic-list.component';
 if (environment.production) {
   enableProdMode();
 }
 @NgModule({
-    declarations: [AppComponent,QuestionsComponent,MaterializeDirective,TopicComponent,StudentComponent,CompanyComponent],
+    declarations: [AppComponent,QuestionsComponent,QuestionSetListComponent,MaterializeDirective,TopicComponent,StudentComponent,CompanyComponent,TopicListComponent],
     providers:[
  appRouterProviders,
   

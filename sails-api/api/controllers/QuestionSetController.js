@@ -9,16 +9,9 @@ module.exports = {
 	getQuestionSets: function (req, res) {
         var companyId = req.param('company_id');
         QuestionSet.find({ company_id: companyId })
-            .exec(function(err,questionSets){
-                if (err) {
-                    return res.serverError(err);
-                }
-                if (questionSets === undefined) {
-                    return res.notFound();
-                } 
-                else {
-                    return res.json(questionSets);
-                }
+            .exec(function(err, results){
+                if (err) return res.serverError(err); 
+                else return res.json(results);
         })
     },
 
@@ -27,26 +20,22 @@ module.exports = {
         var quesSetId = req.param('question_set_id');
 
         QuestionSet.findOne({ company_id: companyId, question_set_id: quesSetId })
-            .exec(function(err, questionSet){
-                if(err) {
-                    return res.serverError(err)
-                }
-                if(questionSet === undefined) {
-                    return res.notFound();
-                }
+            .exec(function(err, results){
+                if (err) return res.serverError(err); 
                 else {
-                    var obj = questionSet;
+                    var obj = results;
                     obj.question_set_questions = [];
                     //return res.json(questionSet);
 
                     var str = "CALL spGetQuestionSetQuestions(" + quesSetId + "," + companyId + ")";
-                    QuestionSet.query(str, function (err, questions) {
-                        if(err) {
-                            return res.serverError(err);
-                        }
+                    QuestionSet.query(str, function (err, results) {
+                        if(err) return res.serverError(err);
                         else {
-                            obj.question_set_questions = questions[0];
-                            //var obj = { questionSet: questionSet, questions: questions }
+                            if(results[0].length==1 && results[0][0].question_set_id == null)
+                                obj.question_set_questions = [];
+                            else 
+                                obj.question_set_questions = results[0];
+
                             return res.json(obj);
                         }
                     })

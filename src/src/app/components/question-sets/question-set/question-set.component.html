@@ -50,7 +50,7 @@
             </div>
         </div>
         
-        <div class="row">
+        <!--<div class="row">
             <div class="input-field col s6">
                 <select class="form-control"
                 name="topic"
@@ -65,7 +65,14 @@
                 
                 <label>Materialize Select</label>
             </div>
-        </div>
+        </div>-->
+          <div class="input-field col s6">
+              <select [(ngModel)]="selectedOption" name="selectedOption" materialize="material_select" [materializeSelectOptions]="topics">
+                <option value="" disabled selected>Choose your option</option>
+                <option *ngFor="let topic of topics" [value]="topic.topic_id">{{topic.topic_title}}</option>
+              </select>
+              <label>Materialize Select</label>
+            </div>
         <div class="row">
             <div class="input-field col s6"></div>
             <div class="input-field col s6">

@@ -42,7 +42,7 @@ class QuestionSetComponent {
     }
 
     showQuestions() {
-        this.topicService.getTopic().map(r=>r.json())
+        this.topicService.getTopic(1).map(r=>r.json())
         .subscribe(result => {
             this.topics = result;
 

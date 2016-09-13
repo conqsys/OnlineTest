@@ -28,6 +28,7 @@ class QuestionSetComponent {
     selectedTopic: number;
     company_id: number;
     isAddQuestion:boolean;
+    question_set_id: number
 
     constructor(private questionSetService: QuestionSetService, 
                 private questionService: QuestionService,
@@ -38,13 +39,15 @@ class QuestionSetComponent {
         this.placeholder = new QuestionSetModel;
         this.isAddQuestion = false;
         this.company_id = 1;
-        this.getQuestionSet(this.company_id, 1);
+        this.question_set_id = 1;
+        this.getQuestionSet(this.company_id, this.question_set_id);
     }
 
     getQuestionSet(company_id, question_set_id){
         this.questionSetService.getQuestionSet(company_id, question_set_id).map(r=>r.json())
         .subscribe(result => {
             this.model = result;
+            this.model.is_randomize=result.is_randomize.data[0];
             this.placeholder = result;
         })
     }
@@ -59,14 +62,39 @@ class QuestionSetComponent {
                 this.getQuestions(this.selectedTopic);
             }
         })
-        
     }
 
     getQuestions(topic_id) {
         this.questionService.getQuestionsByTopic(topic_id).map(r=>r.json())
         .subscribe(result => {
-            this.questions = result;
+            this.questions = [];
+            for (var i = 0; i < result.length; i++) {
+                var selectedQuestion = this.model.question_set_questions.filter(
+                                        ques => ques.question_id === result[i].question_id);
+                
+                if(selectedQuestion.length == 0) {
+                    this.questions.splice(this.questions.length,0, result[i]);
+                }
+            }
         })
+    }
+
+    addQuestionsInQuestionSet(){
+        this.isAddQuestion = false;
+
+        var selectedQuestions = this.questions.filter(ques => ques.is_selected === true);
+        for (var i = 0; i < selectedQuestions.length; i++) {
+            var obj = { set_question_id: 0, question_set_id: this.question_set_id, question_id: selectedQuestions[i].question_id, question_description: selectedQuestions[i].question_description }
+            this.model.question_set_questions.splice(this.model.question_set_questions.length,0, obj)    
+        }
+
+        var obj2 = { question_set_id : this.question_set_id, question_set_questions: this.model.question_set_questions } 
+
+        this.questionSetService.saveQuestionsInQuestionSet(obj2).map(r=>r.json())
+        .subscribe(result => {
+            
+        })
+        
     }
 
 }

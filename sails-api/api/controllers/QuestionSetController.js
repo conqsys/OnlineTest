@@ -41,6 +41,24 @@ module.exports = {
                     })
                 }
             })
+    },
+
+    saveSetQuestion: function(req, res) {
+        var question_set_id = req.body.question_set_id;
+        var question_set_questions = req.body.question_set_questions;
+        var j = 0;
+        for (var i = 0; i < question_set_questions.length; i++) {
+            var str = "CALL spSaveSetQuestion(" + question_set_questions[i].set_question_id + "," + question_set_questions[i].question_set_id + "," + question_set_questions[i].question_id + ")";
+            QuestionSet.query(str, function (err, result) {
+                if(err) return res.serverError(err);
+                else {
+
+                    return res.json(result);
+                }
+                //j++;
+            })
+        }
+        
     }
 };
 

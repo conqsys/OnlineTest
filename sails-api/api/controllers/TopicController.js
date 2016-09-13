@@ -22,7 +22,7 @@ module.exports = {
             });  
     },
 
-    getAll: function (req, res) {
+    getAllTopic: function (req, res) {
         Topic.find().exec(function(err,topic){
             if(err){
                 console.log(err);

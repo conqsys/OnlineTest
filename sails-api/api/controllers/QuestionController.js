@@ -11,7 +11,7 @@ module.exports = {
             Question.query(str, function (err, result) {
                 if (err) return res.serverError(err); 
                 else {
-                    res.send(result);
+                    res.json(result);
                 }
             });  
            // res.json("result");

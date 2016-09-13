@@ -17,11 +17,11 @@
   }
 </style>
 
-<div class="row">
+<div class="row" >
   <h2>{{title}}</h2>
 
   <div class="form-group">
-    <form role="form" method="POST">
+    
       <div class="col-md-6">
         <!--<cool-loading-indicator [hidden]="!isLoading">
           <div class="my-loading">
@@ -32,7 +32,7 @@
           </div>
         </cool-loading-indicator> -->
         
-        <button name="addQuestionSet" class="btn btn-info btn-block pull-right" >+ Add Question Set</button>
+        <button name="addQuestionSet" class="btn btn-info btn-block pull-right" (click)="addQuestionSet()" >+ Add Question Set</button>
         <table class="table TFtable">
           <tr style="background: #dae5f4;">
             <td>Title</td>
@@ -43,9 +43,8 @@
             <td></td>
           </tr>
           <tr *ngFor="let qset of model" style="cursor:hand;" 
-              (click)="selectQuestionSet(qset)"
               [ngClass]="{'row-background': qset.question_set_id==selectedQuestionSetId }">
-            <td>{{qset.question_set_title}}</td>
+            <td><a (click)="selectQuestionSet(qset)">{{qset.question_set_title}}</a></td>
             <td>{{qset.total_time}}</td>
             <td>{{qset.total_questions}}</td>
             <td>{{qset.is_randomize}}</td>
@@ -61,6 +60,6 @@
       <div class="col-md-6">
         
       </div>
-    </form>      
+          
   </div>
 </div>

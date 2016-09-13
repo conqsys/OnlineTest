@@ -1,6 +1,7 @@
 import { Component, ViewChild, Input, Output } from '@angular/core';
 import {DatePipe, FORM_DIRECTIVES} from "@angular/common";
-import { QuestionSetModel } from '../../../model/question-set/question-set.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { QuestionSetModel, QuestionSetQuestionsModel } from '../../../model/question-set/question-set.model';
 import { QuestionModel } from '../../../model/question/question';
 import { TopicModel } from '../../../model/topic/topic.model';
 import { QuestionSetService } from '../../../services/question-set/question-set.service';
@@ -21,8 +22,8 @@ class QuestionSetComponent {
     title: string;
     model: QuestionSetModel;
     placeholder: QuestionSetModel;
-    questions = Array<QuestionModel>();
-    topics = Array<TopicModel>();
+    questions: Array<QuestionModel>=[];
+    topics: Array<TopicModel>=[];
 
     selectedTopic: number;
     company_id: number;
@@ -31,14 +32,37 @@ class QuestionSetComponent {
 
     constructor(private questionSetService: QuestionSetService, 
                 private questionService: QuestionService,
-                private topicService: TopicService) {
+                private topicService: TopicService,
+                private activatedRoute: ActivatedRoute, 
+                private _router:Router) {
         this.title = 'Question Sets';
-        this.model = new QuestionSetModel;
-        this.placeholder = new QuestionSetModel;
+        this.model = new QuestionSetModel();
+        this.model.question_set_questions = Array<QuestionSetQuestionsModel>();
+        this.placeholder = new QuestionSetModel();
         this.isAddQuestion = false;
         this.company_id = 1;
         this.question_set_id = 1;
-        this.getQuestionSet(this.company_id, this.question_set_id);
+    }
+
+    ngOnInit() {
+
+        var subscriptions = this.activatedRoute.params.subscribe(params => {
+         this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
+        });
+
+        if(this.question_set_id != 0 && this.question_set_id != undefined) {
+            this.getQuestionSet(this.company_id, this.question_set_id);
+        }
+        else {  
+            this.model.question_set_id=0;
+            this.model.question_set_title="";
+            this.model.total_time="";
+            this.model.company_id=this.company_id;
+            this.model.total_questions=0;
+            this.model.is_randomize=false;
+            this.model.option_series="Numerical Order";
+            this.model.question_set_questions= [];
+        }
     }
 
     getQuestionSet(company_id, question_set_id){
@@ -97,8 +121,20 @@ class QuestionSetComponent {
         this.model.updated_by = 'admin';
         this.questionSetService.saveQuestionSet(this.model).map(r=>r.json())
         .subscribe(result => {
-            
+            this._router.navigate(['/questionsets']);
         })
+    }
+
+    deleteSetQuestion(question, index){
+        if(question.set_question_id == 0){
+            this.model.question_set_questions.splice(index,1);
+        }
+        else {
+            this.questionSetService.deleteSetQuestion(question.set_question_id).map(r=>r.json())
+            .subscribe(result => {
+                this.model.question_set_questions.splice(index,1);
+            })
+        }
     }
 
 }

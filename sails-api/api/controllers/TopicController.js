@@ -16,16 +16,16 @@ module.exports = {
 
     getAllTopic: function (req, res) {
         var companyId = req.param('company_id');
-        Topic.find({ company_id: companyId }).exec(function(err,results){
+        Topic.find({ company_id: companyId }).exec(function(err,result){
             if (err) return res.serverError(err); 
-                else return res.json(results);
+                else return res.json(result);
         })    
     },
     getTopic: function (req, res) {
         var topicId = req.param('topic_id');
-        Topic.find({ topic_id: topicId }).exec(function(err,results){
+        Topic.find({ topic_id: topicId }).exec(function(err,result){
             if (err) return res.serverError(err); 
-                else return res.json(results);
+                else return res.json(result);
         })    
     },
      removeTopic: function (req, res) {

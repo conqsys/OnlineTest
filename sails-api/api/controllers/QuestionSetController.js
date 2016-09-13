@@ -77,6 +77,17 @@ module.exports = {
                 return res.json(result);           
             }
         })
-    }
+    },
+
+    deleteSetQuestion: function(req, res) {
+        var setQuestionId = req.param('set_question_id');
+        var str = "CALL spDeleteSetQuestion("+ setQuestionId +")";
+        QuestionSet.query(str, function(err, result) {
+            if(err) return res.serverError(err);
+            else {
+                return res.json(result);           
+            }
+        })
+    } 
 };
 

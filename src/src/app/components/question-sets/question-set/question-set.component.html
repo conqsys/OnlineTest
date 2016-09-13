@@ -20,8 +20,9 @@
     background: #e0ecf1
   }
 </style>
+
 <div class="container ">
-    <form materialize class="col s12">
+    <div materialize class="col s12">
 
         <div class="row">
             <div class="input-field col s6">
@@ -30,17 +31,16 @@
                 <label for="ques_set_title" class="active">Title</label>
             </div>
             <div class="input-field col s6">
-                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="total_time" type="text"
-                [placeholder]="placeholder.total_time" 
-                [(ngModel)]="model.total_time" [ngModelOptions]="{standalone: true}">
-                <label for="total_time">Total Time</label>
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" type="time" id="total_time" 
+                [(ngModel)]="model.total_time" [ngModelOptions]="{standalone: true}" placeholder="Total Time" />
+                <label for="total_time" style="margin-top:-25px;font-size:0.8rem">Total Time</label>
             </div>
         </div>
         
         <div class="row">
             <div class="input-field col s6">
-                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="total_questions" placeholder="Total Questions" type="text" [(ngModel)]="model.total_questions"
-                    [ngModelOptions]="{standalone: true}">
+                <input class="validate ng-valid ng-dirty ng-touched flow-text" id="total_questions" placeholder="Total Questions" type="number" 
+                       [(ngModel)]="model.total_questions" [ngModelOptions]="{standalone: true}">
                 <label for="total_questions" class="active">Total Questions</label>
             </div>
             <div class="input-field col s6">
@@ -77,9 +77,9 @@
                         <td>Question Description</td>
                         <td></td>
                     </tr>
-                    <tr *ngFor="let ques of model.question_set_questions" style="cursor:hand;" >
+                    <tr *ngFor="let ques of model.question_set_questions; let index=index" style="cursor:hand;" >
                         <td>{{ques.question_description}}</td>
-                        <td><a >delete</a></td>
+                        <td><a (click)="deleteSetQuestion(ques, index)">delete</a></td>
                     </tr>
                 </table>
             </div>
@@ -102,7 +102,6 @@
                         <tr style="background: #dae5f4;">
                             <td></td>
                             <td>Questions</td>
-                            <td></td>
                         </tr>
                         <tr *ngFor="let ques of questions" style="cursor:hand;" >
                             <td>
@@ -111,7 +110,6 @@
                                 <label attr.for="{{ques.question_id}}"></label>
                             </td>
                             <td>{{ques.question_description}}</td>
-                            <td><a >delete</a></td>
                         </tr>
                     </table>
                 </div>
@@ -138,6 +136,6 @@
                 </buttons>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 

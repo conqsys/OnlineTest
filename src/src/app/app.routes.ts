@@ -28,7 +28,7 @@ const routes: RouterConfig = [
     component: QuestionSetListComponent
   },
   {
-    path: 'questionset',
+    path: 'questionset/:question_set_id',
     component: QuestionSetComponent
   },
    {

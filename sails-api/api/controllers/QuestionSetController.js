@@ -52,13 +52,31 @@ module.exports = {
             QuestionSet.query(str, function (err, result) {
                 if(err) return res.serverError(err);
                 else {
-
-                    return res.json(result);
+                    if(j == question_set_questions.length - 1) {
+                        return res.json(result);
+                    }            
                 }
-                //j++;
+                j++;
             })
         }
-        
+    },
+
+    saveQuestionSet: function(req, res) {
+        var str = "CALL spSaveQuestionSet(" + req.body.question_set_id + ",'" 
+                                            + req.body.question_set_title + "','" 
+                                            + req.body.total_time + "'," 
+                                            + req.body.company_id + "," 
+                                            + req.body.total_questions + "," 
+                                            + req.body.is_randomize + ",'" 
+                                            + req.body.option_series + "','" 
+                                            + req.body.created_by + "','" 
+                                            + req.body.updated_by + "')";
+        QuestionSet.query(str, function (err, result) {
+            if(err) return res.serverError(err);
+            else {
+                return res.json(result);           
+            }
+        })
     }
 };
 

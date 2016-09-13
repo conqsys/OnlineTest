@@ -51,7 +51,7 @@
         </div>
         <div class="row">
            <div class="input-field col s6">
-              <select [(ngModel)]="selectedOptionSeries" name="optionSeries" 
+              <select [(ngModel)]="model.option_series" name="optionSeries" 
                     materialize="material_select" [materializeSelectOptions]="topics">
                 <option value="0" disabled selected>Choose Option Series</option>
                 <option value="Numerical Order">Numerical Order</option>
@@ -125,6 +125,17 @@
                         </a>
                     </buttons>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6"></div>
+            <div class="input-field col s6">
+                <buttons _ngcontent-yhl-7="">
+                    <a class="waves-effect waves-light btn" (click)=saveQuestionSet()>
+                        <i class="material-icons left">save</i>Save Question Set
+                    </a>
+                </buttons>
             </div>
         </div>
     </form>

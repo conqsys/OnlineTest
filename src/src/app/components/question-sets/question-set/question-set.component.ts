@@ -24,7 +24,6 @@ class QuestionSetComponent {
     questions = Array<QuestionModel>();
     topics = Array<TopicModel>();
 
-    selectedOptionSeries: string;
     selectedTopic: number;
     company_id: number;
     isAddQuestion:boolean;
@@ -34,7 +33,6 @@ class QuestionSetComponent {
                 private questionService: QuestionService,
                 private topicService: TopicService) {
         this.title = 'Question Sets';
-        this.selectedOptionSeries = "Numerical Order";
         this.model = new QuestionSetModel;
         this.placeholder = new QuestionSetModel;
         this.isAddQuestion = false;
@@ -47,7 +45,6 @@ class QuestionSetComponent {
         this.questionSetService.getQuestionSet(company_id, question_set_id).map(r=>r.json())
         .subscribe(result => {
             this.model = result;
-            this.model.is_randomize=result.is_randomize.data[0];
             this.placeholder = result;
         })
     }
@@ -87,14 +84,21 @@ class QuestionSetComponent {
             var obj = { set_question_id: 0, question_set_id: this.question_set_id, question_id: selectedQuestions[i].question_id, question_description: selectedQuestions[i].question_description }
             this.model.question_set_questions.splice(this.model.question_set_questions.length,0, obj)    
         }
+        if(selectedQuestions.length > 0) {
+            var obj2 = { question_set_id : this.question_set_id, question_set_questions: this.model.question_set_questions }
+            this.questionSetService.saveQuestionsInQuestionSet(obj2).map(r=>r.json())
+            .subscribe(result => {
+            })
+        }
+    }
 
-        var obj2 = { question_set_id : this.question_set_id, question_set_questions: this.model.question_set_questions } 
-
-        this.questionSetService.saveQuestionsInQuestionSet(obj2).map(r=>r.json())
+    saveQuestionSet(){
+        this.model.created_by = 'admin';
+        this.model.updated_by = 'admin';
+        this.questionSetService.saveQuestionSet(this.model).map(r=>r.json())
         .subscribe(result => {
             
         })
-        
     }
 
 }

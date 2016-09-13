@@ -8,12 +8,13 @@
 module.exports = {
 	saveQuestion: function (req, res, next) {
             var str = "CALL spSaveCategory(" + req.body.CategoryID + ",'" + req.body.CategoryName + "','" + req.body.CreatedBy +"','" +  req.body.ModifiedBy + "')";
-            Question.query(str, function (err, result) {
-                if (err) return res.serverError(err); 
-                else {
-                    res.send(result);
-                }
-            });  
+            // Question.query(str, function (err, result) {
+            //     if (err) return res.serverError(err); 
+            //     else {
+            //         res.send(result);
+            //     }
+            // });  
+            res.json("result");
     },
     getQuestions: function (req, res) {
         var companyId = req.param('company_id');

@@ -26,10 +26,11 @@ module.exports = {
     },
     getQuestionsByTopic: function (req, res) {
         var topicId = req.param('topic_id');
-        Question.find({topic_id: topicId}).exec(function(err,result){
+        var str = "CALL spGetQuestionsByTopic(" + topicId + ")";
+        Question.query(str, function (err, result) {
             if (err) return res.serverError(err); 
             else{
-                return res.json(result);
+                return res.json(result[0]);
             }
         })
     }

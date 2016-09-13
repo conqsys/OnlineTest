@@ -15,7 +15,7 @@ export class QuestionService {
   }
 
   getQuestionsByTopic (topic_id): any {
-     return this.http.get(ApiUrl.baseUrl+'questions/'+topic_id);
+     return this.http.get(ApiUrl.baseUrl+'question/'+topic_id);
   }
 
   saveQuestion(data): any {

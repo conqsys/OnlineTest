@@ -7,7 +7,7 @@
 
 module.exports = {
 	saveQuestion: function (req, res, next) {
-            var str = "CALL spSaveQuestion(" + req.body.question_id + ",'" + req.body.question_description + "',"+req.body.topic_id+","+req.body.is_multiple_option+",'"+req.body.answer_explanation+"',"+req.body.company_id+",'" + req.body.CreatedBy +"','" +  req.body.ModifiedBy + "')";
+            var str = "CALL spSaveQuestion(" + req.body.question_id + ",'" + req.body.question_description + "',"+req.body.topic_id+","+req.body.is_multiple_option+",'"+req.body.answer_explanation+"',"+req.body.company_id+",'" + req.body.created_by +"','" +  req.body.updated_by + "')";
             Question.query(str, function (err, result) {
                 if (err) return res.serverError(err); 
                 else {

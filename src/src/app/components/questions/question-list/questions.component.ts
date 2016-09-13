@@ -54,7 +54,7 @@ export class QuestionsComponent implements OnInit {
   }
   selectQuestion(selectedQuestion: QuestionModel) {
     this.selectedQuestion = selectedQuestion;
-    this.questionOptionService.getQuestionOptions(selectedQuestion.question_id).map(r => r.json())
+    this.questionOptionService.getQuestionOptions(1).map(r => r.json())
       .subscribe(result => {
         this.selectedQuestion.options = result;
         this.questionVisibility = true;
@@ -66,6 +66,11 @@ export class QuestionsComponent implements OnInit {
   addQuestion() {
     this.selectedQuestion = new QuestionModel();
     this.selectedQuestion.options = new Array<QuestionOptionModel>();
+    this.selectedQuestion.is_multiple_option=false;
+    this.selectedQuestion.company_id=1;
+    this.selectedQuestion.created_by="admin";
+    this.selectedQuestion.updated_by="admin";
+    this.selectedQuestion.question_id=0;
     this.questionVisibility = true;
 
   }

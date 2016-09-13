@@ -20,6 +20,10 @@ module.exports = {
       type:"string",
       required:true
     },
+     company_id:{
+      type:"integer",
+      required:true
+    },
      topic_id:{
       type:"integer",
       required:true

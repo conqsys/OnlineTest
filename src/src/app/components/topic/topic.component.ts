@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, Input, Output,EventEmitter  } from '@angular/core';
-import {TopicModel} from '../../model/topic/topic.model';
-import {TopicService} from '../../services/topic/topic.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TopicModel } from '../../model/topic/topic.model';
+import { TopicService } from '../../services/topic/topic.service';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   moduleId: module.id,
   selector: 'app-topic',
@@ -9,32 +11,46 @@ import {TopicService} from '../../services/topic/topic.service';
   providers: [TopicModel, TopicService]
 })
 export class TopicComponent {
-  @Input() model: TopicModel;
-  @Output() changeTopic:EventEmitter<TopicModel>;
-  topicIsActive: boolean;
-  constructor(private Service: TopicService) {
+  private model: TopicModel;
+  btnText:string;
+  constructor(private Service: TopicService, private routeinfo: ActivatedRoute, private _router: Router) {
     this.bydefault();
-    this.changeTopic = new EventEmitter<TopicModel>();
+    this.getTopicByID(routeinfo.params);
   }
 
   bydefault() {
     this.model = new TopicModel();
+    this.btnText='Submitted Topic';
     this.model.topic_id = 0;
     this.model.topic_title = "";
     this.model.company_id = 1;
     this.model.created_by = 'vipin';
-    this.model.updated_by = 'vipin';  
+    this.model.updated_by = 'vipin';
+  }
+  getTopicByID(param) {
+    if (param.value.id != undefined) {
+      this.Service.getTopicByID(param.value.id)
+        .map(r => r.json())
+        .subscribe(result => {
+          this.model =result[0];
+          this.btnText = 'Update Topic';
+        });
     }
-  
+  }
+
   addTopic() {
-    if(this.model.topic_title == "" || this.model.topic_title == undefined){
+    if (this.model.topic_title == "" || this.model.topic_title == undefined) {
       alert("Topic Title is blank");
+      return false;
     }
+    this.model.company_id = 1;
     this.Service.saveTopic(this.model).map(r => r.json())
       .subscribe(result => {
-        if (result.success) {
+        if (result) {
+
           alert("category inserted!");
-         this.changeTopic.emit(this.model);
+          this._router.navigate(['/topiclist']);
+
         }
         else {
           alert(result.data);

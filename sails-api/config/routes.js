@@ -47,9 +47,10 @@ module.exports.routes = {
   ***************************************************************************/
   'get /students': 'StudentController.getAll',
   
-  'get /topics/:company_id': 'TopicController.getAllTopic',
+  'get /gettopics/:company_id': 'TopicController.getAllTopic',
+  'get /gettopic/:topic_id': 'TopicController.getTopic',
   'get /delete/:topic_id': 'TopicController.removeTopic',
-  'post /topic': 'TopicController.saveTopic',
+  'post /savetopic': 'TopicController.saveTopic',
   
   'post /company':'CompanyController.saveCompany',
    'get /getCompanies': 'CompanyController.getAllCompanies',

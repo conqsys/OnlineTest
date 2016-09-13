@@ -11,11 +11,14 @@ export class TopicService {
 
   }
     saveTopic(topic):any{
-       return this.http.post(ApiUrl.baseUrl + 'topic',topic);
+       return this.http.post(ApiUrl.baseUrl + 'savetopic',topic);
    }
     getTopic(companyId):any{
-        return this.http.get(ApiUrl.baseUrl + 'topics/'+ companyId);
+        return this.http.get(ApiUrl.baseUrl + 'gettopics/'+ companyId);
     } 
+    getTopicByID(topicId):any{
+         return this.http.get(ApiUrl.baseUrl + 'gettopic/'+ topicId);
+    }
     removeTopic(topicId):any{
         return this.http.get(ApiUrl.baseUrl + 'delete/'+ topicId);
     }

@@ -21,6 +21,13 @@ module.exports = {
                 else return res.json(results);
         })    
     },
+    getTopic: function (req, res) {
+        var topicId = req.param('topic_id');
+        Topic.find({ topic_id: topicId }).exec(function(err,results){
+            if (err) return res.serverError(err); 
+                else return res.json(results);
+        })    
+    },
      removeTopic: function (req, res) {
         var topicId = req.param('topic_id');
          var str = "delete from  topic where topic_id ="+ topicId;

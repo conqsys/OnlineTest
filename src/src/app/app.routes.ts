@@ -35,6 +35,10 @@ const routes: RouterConfig = [
     path: 'topic',
     component: TopicComponent
   },
+  {
+    path: 'topic/:id',
+    component: TopicComponent
+  },
    {
     path: 'topiclist',
     component: TopicListComponent

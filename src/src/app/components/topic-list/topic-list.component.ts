@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild, EventEmitter } from '@angular/core';
 import {TopicModel} from '../../model/topic/topic.model';
 import {TopicService} from '../../services/topic/topic.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 @Component({
   moduleId: module.id,
   selector: 'app-topiclist',
@@ -12,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TopicListComponent {
   private selectedTopic:TopicModel;
   topicdata:any;
-  constructor(private Service: TopicService, private routeinfo: ActivatedRoute ) {
+  constructor(private Service: TopicService, private routeinfo: ActivatedRoute,private _router:Router ) {
     this.selectedTopic = new TopicModel();
     this.getTopic();
   }
@@ -29,10 +30,10 @@ export class TopicListComponent {
       });
   }
   public editTopic(item) {
-    this.selectedTopic = item;
+    this._router.navigate(['/topic/' + item.topic_id]);
    }
-   updateTopic(item) {
-  this.getTopic();
+  public showTopic(){
+    this._router.navigate(['/topic']);
   }
 
    public removeItem(item: any) {

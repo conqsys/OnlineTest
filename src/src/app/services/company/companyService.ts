@@ -12,5 +12,11 @@ export class CompanyService {
     saveCompany(company):any{
        return this.http.post(ApiUrl.baseUrl+'company',company);
    }
+     getCompanies():any{
+       return this.http.get(ApiUrl.baseUrl+'getCompanies');
+   }
+    getCompanyById(id):any{
+       return this.http.get(ApiUrl.baseUrl+'getCompanyById/'+id);
+   }
  
 }

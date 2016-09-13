@@ -51,11 +51,16 @@ module.exports.routes = {
   'get /delete/:topic_id': 'TopicController.removeTopic',
   'post /topic': 'TopicController.saveTopic',
   
+  'post /company':'CompanyController.saveCompany',
+   'get /getCompanies': 'CompanyController.getAllCompanies',
+   'get /getCompanyById/:company_id': 'CompanyController.getCompanyByID',
+
   'get /questionSet/:company_id': 'QuestionSetController.getQuestionSets',
   'get /questionSet/:company_id/:question_set_id': 'QuestionSetController.getQuestionSet',
+
   'post /saveSetQuestion': 'QuestionSetController.saveSetQuestion',
   'post /saveQuestionSet': 'QuestionSetController.saveQuestionSet',
-  
+
   'post /question':'QuestionController.saveQuestion',
   'get /questions/:company_id': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',

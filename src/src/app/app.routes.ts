@@ -6,6 +6,7 @@ import {CompanyComponent} from './components/company/company.component';
 import { QuestionSetListComponent } from './components/question-sets/question-set-list/question-set-list.component';
 import { QuestionSetComponent } from './components/question-sets/question-set/question-set.component';
 import {TopicListComponent} from './components/topic-list/topic-list.component';
+import {CompaniesComponent} from './components/company/company-list/companies.component';
 
 const routes: RouterConfig = [
   {
@@ -41,6 +42,14 @@ const routes: RouterConfig = [
    {
     path: 'company',
     component: CompanyComponent
+  },
+  {
+    path: 'company/:id',
+    component: CompanyComponent
+  },
+   {
+    path: 'companylist',
+    component: CompaniesComponent
   }
 
 

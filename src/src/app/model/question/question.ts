@@ -1,4 +1,4 @@
-import {QuestionOptionModel} from './questionOption'
+import {QuestionOptionModel} from './question-option'
 export /**
  * question-model
  */

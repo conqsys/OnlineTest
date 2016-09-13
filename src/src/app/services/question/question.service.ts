@@ -19,7 +19,7 @@ export class QuestionService {
   }
 
   saveQuestion(data): any {
-    return this.http.post(ApiUrl.baseUrl + 'saveQuestion', data)
+    return this.http.post(ApiUrl.baseUrl + 'question', data)
   }
 
   deleteQuestion(id):any{

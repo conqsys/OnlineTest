@@ -79,7 +79,11 @@ export class QuestionComponent implements OnInit {
       })
   }
   saveQuestion(){
- this.setQuestionVisibility.emit(false);
+      this.questionService.saveQuestion(this.model).map(r => r.json())
+      .subscribe(result => {
+       alert(result);
+      })
+ //this.setQuestionVisibility.emit(false);
   }
   cancel(){
      this.setQuestionVisibility.emit(false);

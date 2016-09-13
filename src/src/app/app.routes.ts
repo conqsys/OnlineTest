@@ -35,7 +35,7 @@ const routes: RouterConfig = [
     component: TopicComponent
   },
    {
-    path: 'topiclist/:id',
+    path: 'topiclist',
     component: TopicListComponent
   },
    {

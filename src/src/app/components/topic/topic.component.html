@@ -1,18 +1,19 @@
-<form materialize class="col s12">
-  <div class="row">
-    <div class="input-field col s6">
-      <input  class="validate" id="title" type="text" [(ngModel)]="model.topic_title" [ngModelOptions]="{standalone: true}" >
-      <label for="title">Topic Title</label>
+<div *ngIf="topicIsActive">
+  <form materialize class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input class="validate" id="title" type="text" [(ngModel)]="model.topic_title" [ngModelOptions]="{standalone: true}">
+        <label for="title">Topic Title</label>
+      </div>
     </div>
-  </div>
 
-  <buttons _ngcontent-yhl-7="">
-        <a class="waves-effect waves-light btn" (click)=addTopic();>Add Topic</a>
-        <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
-        <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
-        <br>
-      </buttons>
-  <!--<div class="row">
+    <buttons _ngcontent-yhl-7="">
+      <a class="waves-effect waves-light btn" (click)=addTopic();>Submitted Topic</a>
+      <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
+      <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
+      <br>
+    </buttons>
+    <!--<div class="row">
     <div class="input-field col s6">
       <select materialize="material_select" [materializeSelectOptions]="selectOptions">
     <option value="" disabled selected>Select Category </option>
@@ -21,4 +22,5 @@
 </select>
     </div>
   </div>-->
-</form>
+  </form>
+</div>

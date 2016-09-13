@@ -16,7 +16,7 @@
         <td>{{item.created_by}}</td>
         <td>{{item.updated_by}}</td>
         <td>
-          <button class="btn-floating btn-Medium green" title="edit" (click)="editSubject(item)">
+          <button class="btn-floating btn-Medium green" title="edit" (click)="editTopic(item)">
             <i class="Medium material-icons">mode_edit</i>
             </button>
         </td>
@@ -29,4 +29,13 @@
       </tr>
     </tbody>
   </table>
+
+  <buttons _ngcontent-yhl-7="">
+      <a class="waves-effect waves-light btn" (click)="showTopic()">Add<i class="material-icons right">add</i></a>
+      <br>
+    </buttons>
+
+   <div class="col-md-12">
+        <app-topic [model]="selectedTopic" (changeTopic)="updateTopic($event)"></app-topic>
+    </div>
 </div>

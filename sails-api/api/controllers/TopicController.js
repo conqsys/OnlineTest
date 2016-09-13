@@ -7,33 +7,27 @@
 
 module.exports = {
 	saveTopic: function (req, res, next) {
-            var str = "CALL spSaveTopic(" + req.body.topic_id + ",'" + req.body.topic_title + "','" + req.body.created_by +"','" +  req.body.updated_by + "')";
-            Topic.query(str, function (err, success) {
-                returnObject={success:false,data:err };
-                if (err) {
-                    console.log(err);
-                    res.send(returnObject);
-                }
-                else {
-                    returnObject.success=true;
-                    returnObject.data=success;
-                    res.send(returnObject);
-                }
+            var str = "CALL spSaveTopic(" + req.body.topic_id + ",'" + req.body.topic_title + "','" + req.body.company_id + "','" + req.body.created_by +"','" +  req.body.updated_by + "')";
+            Topic.query(str, function (err, result) {
+                if (err) return res.serverError(err); 
+                else return res.json(result);
             });  
     },
 
     getAllTopic: function (req, res) {
-        Topic.find().exec(function(err,topic){
-            if(err){
-                console.log(err);
-                return res.json(err);
-            }
-            else{
-                return res.json(topic);
-            }
-        })
-        
-        
-    }  
+        var companyId = req.param('company_id');
+        Topic.find({ company_id: companyId }).exec(function(err,results){
+            if (err) return res.serverError(err); 
+                else return res.json(results);
+        })    
+    },
+     removeTopic: function (req, res) {
+        var topicId = req.param('topic_id');
+         var str = "delete from  topic where topic_id ="+ topicId;
+        Topic.query(str, function (err, result){
+            if (err) return res.serverError(err); 
+                else return res.json(result);
+        })    
+    }    
 };
 

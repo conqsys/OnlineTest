@@ -13,7 +13,10 @@ export class TopicService {
     saveTopic(topic):any{
        return this.http.post(ApiUrl.baseUrl + 'topic',topic);
    }
-    getTopic(company_id):any{
-        return this.http.get(ApiUrl.baseUrl + 'topics/'+company_id);
+    getTopic(companyId):any{
+        return this.http.get(ApiUrl.baseUrl + 'topics/'+ companyId);
+    } 
+    removeTopic(topicId):any{
+        return this.http.get(ApiUrl.baseUrl + 'delete/'+ topicId);
     }
 }

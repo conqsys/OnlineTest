@@ -19,7 +19,10 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "~0.1.6",
+    "jsonwebtoken": "^7.1.6",
+    "passport-local": "^1.0.0",
     "rc": "1.0.1",
+    "passport": "^0.3.2",
     "sails": "~0.12.4",
     "sails-disk": "~0.10.9",
     "sails-mysql": "^0.11.5"

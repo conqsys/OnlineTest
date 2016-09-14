@@ -1,7 +1,6 @@
 import { Component, OnInit, Input,Output,EventEmitter} from '@angular/core';
 import {CheckBoxComponent} from '../../check-box/check-box.component'
 import {RadioComponent} from '../../radio/radio.component'
-import {FroalaEditorCompnoent} from "ng2-froala-editor/ng2-froala-editor";
 import {QuestionModel} from '../../../model/question/question';
 import {QuestionOptionModel} from '../../../model/question/question-option'
 import { TopicService } from '../../../services/topic/topic.service';
@@ -15,7 +14,7 @@ import { TopicModel } from '../../../model/topic/topic.model';
   styleUrls: ['question.component.css'],
   providers: [QuestionService, TopicService],
 
-  directives: [CheckBoxComponent, RadioComponent, FroalaEditorCompnoent]
+  directives: [CheckBoxComponent, RadioComponent]
 })
 export class QuestionComponent implements OnInit {
   @Input() model: QuestionModel

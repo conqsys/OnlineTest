@@ -7,7 +7,7 @@ import { QuestionSetListComponent } from './components/question-sets/question-se
 import { QuestionSetComponent } from './components/question-sets/question-set/question-set.component';
 import {TopicListComponent} from './components/topic-list/topic-list.component';
 import {CompaniesComponent} from './components/company/company-list/companies.component';
-
+import {TextEditorComponent} from './components/froala/texteditor.component'
 const routes: RouterConfig = [
   {
     path: '',
@@ -42,6 +42,10 @@ const routes: RouterConfig = [
    {
     path: 'topiclist',
     component: TopicListComponent
+  },
+   {
+    path: 'froala',
+    component: TextEditorComponent
   },
    {
     path: 'company',

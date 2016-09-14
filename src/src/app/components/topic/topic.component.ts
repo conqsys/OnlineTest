@@ -33,6 +33,7 @@ export class TopicComponent {
         .map(r => r.json())
         .subscribe(result => {
           this.model =result[0];
+          this.model.topic_title = result[0].topic_title;
           this.btnText = 'Update Topic';
         });
     }

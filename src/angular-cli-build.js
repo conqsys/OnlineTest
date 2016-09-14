@@ -18,8 +18,7 @@ module.exports = function (defaults) {
       '@angular/**/*.+(js|js.map)',
        'jquery/dist/*',
       'angular2-materialize/dist/*',
-      'materialize-css/dist/**/*',
-      'ng2-froala-editor/**/*'
+      'materialize-css/dist/**/*'
     ]
   });
 };

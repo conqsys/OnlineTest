@@ -41,7 +41,6 @@ class QuestionSetComponent {
         this.placeholder = new QuestionSetModel();
         this.isAddQuestion = false;
         this.company_id = 1;
-        this.question_set_id = 1;
     }
 
     ngOnInit() {
@@ -54,7 +53,7 @@ class QuestionSetComponent {
             this.getQuestionSet(this.company_id, this.question_set_id);
         }
         else {  
-            this.model.question_set_id=0;
+            this.model.question_set_id=this.question_set_id;
             this.model.question_set_title="";
             this.model.total_time="";
             this.model.company_id=this.company_id;
@@ -91,7 +90,7 @@ class QuestionSetComponent {
             this.questions = [];
             for (var i = 0; i < result.length; i++) {
                 var selectedQuestion = this.model.question_set_questions.filter(
-                                        ques => ques.question_id === result[i].question_id);
+                                        ques => ques.question_id === result[i].question_id && ques.is_deleted === 0);
                 
                 if(selectedQuestion.length == 0) {
                     this.questions.splice(this.questions.length,0, result[i]);
@@ -105,14 +104,14 @@ class QuestionSetComponent {
 
         var selectedQuestions = this.questions.filter(ques => ques.is_selected === true);
         for (var i = 0; i < selectedQuestions.length; i++) {
-            var obj = { set_question_id: 0, question_set_id: this.question_set_id, question_id: selectedQuestions[i].question_id, question_description: selectedQuestions[i].question_description }
-            this.model.question_set_questions.splice(this.model.question_set_questions.length,0, obj)    
-        }
-        if(selectedQuestions.length > 0) {
-            var obj2 = { question_set_id : this.question_set_id, question_set_questions: this.model.question_set_questions }
-            this.questionSetService.saveQuestionsInQuestionSet(obj2).map(r=>r.json())
-            .subscribe(result => {
-            })
+            var deletedQuestion = this.model.question_set_questions.filter(ques => ques.question_id === selectedQuestions[i].question_id);
+            if(deletedQuestion.length > 0) {
+                deletedQuestion[0].is_deleted = 0;
+            }
+            else {
+                var obj = { set_question_id: 0, question_set_id: this.question_set_id, question_id: selectedQuestions[i].question_id, question_description: selectedQuestions[i].question_description, is_deleted: 0 }
+                this.model.question_set_questions.splice(this.model.question_set_questions.length,0, obj)
+            }    
         }
     }
 
@@ -130,10 +129,7 @@ class QuestionSetComponent {
             this.model.question_set_questions.splice(index,1);
         }
         else {
-            this.questionSetService.deleteSetQuestion(question.set_question_id).map(r=>r.json())
-            .subscribe(result => {
-                this.model.question_set_questions.splice(index,1);
-            })
+            question.is_deleted = 1;
         }
     }
 

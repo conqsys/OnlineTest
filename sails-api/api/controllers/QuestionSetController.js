@@ -43,25 +43,10 @@ module.exports = {
             })
     },
 
-    saveSetQuestion: function(req, res) {
-        var question_set_id = req.body.question_set_id;
-        var question_set_questions = req.body.question_set_questions;
-        var j = 0;
-        for (var i = 0; i < question_set_questions.length; i++) {
-            var str = "CALL spSaveSetQuestion(" + question_set_questions[i].set_question_id + "," + question_set_questions[i].question_set_id + "," + question_set_questions[i].question_id + ")";
-            QuestionSet.query(str, function (err, result) {
-                if(err) return res.serverError(err);
-                else {
-                    if(j == question_set_questions.length - 1) {
-                        return res.json(result);
-                    }            
-                }
-                j++;
-            })
-        }
-    },
-
     saveQuestionSet: function(req, res) {
+        
+        var question_set_questions = req.body.question_set_questions;
+
         var str = "CALL spSaveQuestionSet(" + req.body.question_set_id + ",'" 
                                             + req.body.question_set_title + "','" 
                                             + req.body.total_time + "'," 
@@ -74,20 +59,39 @@ module.exports = {
         QuestionSet.query(str, function (err, result) {
             if(err) return res.serverError(err);
             else {
-                return res.json(result);           
+                var question_set_id = result[0][0].id;
+                if(question_set_questions.length > 0) {
+                    var j = 0;
+                    for (var i = 0; i < question_set_questions.length; i++) {
+                        if(question_set_questions[i].set_question_id === 0) {
+                            str = "CALL spSaveSetQuestion(" + question_set_questions[i].set_question_id + "," + question_set_id + "," + question_set_questions[i].question_id + ")";    
+                        }
+                        else if(question_set_questions[i].is_deleted === 1) {
+                            str = "CALL spDeleteSetQuestion("+ question_set_questions[i].set_question_id +")";
+                        }
+                        else {
+                            str = "";
+                        }
+                        if(str != "") {
+                            QuestionSet.query(str, function (err, result) {
+                                if(err) return res.serverError(err);
+                                else {
+                                    if(j == question_set_questions.length - 1) {
+                                        return res.json(result);
+                                    }
+                                }
+                                j++;
+                            })
+                        }
+                        else {
+                            j++;
+                        }
+                    }
+                }
+                else
+                    return res.json(question_set_id);
             }
         })
-    },
-
-    deleteSetQuestion: function(req, res) {
-        var setQuestionId = req.param('set_question_id');
-        var str = "CALL spDeleteSetQuestion("+ setQuestionId +")";
-        QuestionSet.query(str, function(err, result) {
-            if(err) return res.serverError(err);
-            else {
-                return res.json(result);           
-            }
-        })
-    } 
+    }
 };
 

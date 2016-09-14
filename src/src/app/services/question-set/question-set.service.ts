@@ -18,15 +18,7 @@ export class QuestionSetService {
      return this.http.get(ApiUrl.baseUrl + 'questionSet/' + company_id + '/' + question_set_id);
   }
 
-  saveQuestionsInQuestionSet(data): any {
-    return this.http.post(ApiUrl.baseUrl + 'saveSetQuestion', data)
-  }
-
   saveQuestionSet(data): any {
     return this.http.post(ApiUrl.baseUrl + 'saveQuestionSet', data)
-  }
-
-  deleteSetQuestion(set_question_id):any{
-    return this.http.delete(ApiUrl.baseUrl+'deleteSetQuestion/'+set_question_id);
   }
 }

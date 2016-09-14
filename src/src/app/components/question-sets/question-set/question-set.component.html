@@ -77,7 +77,7 @@
                         <td>Question Description</td>
                         <td></td>
                     </tr>
-                    <tr *ngFor="let ques of model.question_set_questions; let index=index" style="cursor:hand;" >
+                    <tr *ngFor="let ques of model.question_set_questions; let index=index" style="cursor:hand;" [hidden]="ques.is_deleted">
                         <td>{{ques.question_description}}</td>
                         <td><a (click)="deleteSetQuestion(ques, index)">delete</a></td>
                     </tr>

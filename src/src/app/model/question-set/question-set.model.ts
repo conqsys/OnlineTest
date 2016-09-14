@@ -21,7 +21,9 @@ export /**
  * question-set-questions-model
  */
 class QuestionSetQuestionsModel {
+    set_question_id: number
     question_set_id: number
     question_id: number
     question_description: string
+    is_deleted: number
 }

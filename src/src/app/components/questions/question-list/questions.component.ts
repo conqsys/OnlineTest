@@ -7,6 +7,7 @@ import { QuestionService } from '../../../services/question/question.service';
 import {QuestionModel} from '../../../model/question/question';
 import {QuestionOptionModel} from '../../../model/question/question-option';
 import { QuestionOptionService } from '../../../services/question-option/question-option.service';
+import { Router} from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class QuestionsComponent implements OnInit {
   model: Array<QuestionModel>
   selectedQuestion: QuestionModel;
   questionVisibility: boolean;
-  constructor(private Service: QuestionService, private questionOptionService: QuestionOptionService) {
+  constructor(private Service: QuestionService, private questionOptionService: QuestionOptionService,
+  private _router: Router) {
     this.statInfo = new StatInfoModel();
     this.questionVisibility = false;
     this.model = new Array<QuestionModel>();
@@ -54,24 +56,13 @@ export class QuestionsComponent implements OnInit {
   }
   selectQuestion(selectedQuestion: QuestionModel) {
     this.selectedQuestion = selectedQuestion;
-    this.questionOptionService.getQuestionOptions(1).map(r => r.json())
-      .subscribe(result => {
-        this.selectedQuestion.options = result;
-        this.questionVisibility = true;
-      })
+        this._router.navigate(['/question/'+ selectedQuestion.question_id]);
 
 
 
   }
   addQuestion() {
-    this.selectedQuestion = new QuestionModel();
-    this.selectedQuestion.options = new Array<QuestionOptionModel>();
-    this.selectedQuestion.is_multiple_option=false;
-    this.selectedQuestion.company_id=1;
-    this.selectedQuestion.created_by="admin";
-    this.selectedQuestion.updated_by="admin";
-    this.selectedQuestion.question_id=0;
-    this.questionVisibility = true;
+  this._router.navigate(['/question/0']);
 
   }
 

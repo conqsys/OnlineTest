@@ -51,6 +51,7 @@ const barrels: string[] = [
   'app/my-new-component',
   'app/components/check-box',
   'app/components/radio',
+  'app/components/froala'
   /** @cli-barrel */
 ];
 

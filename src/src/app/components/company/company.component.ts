@@ -33,6 +33,8 @@ ngOnInit() {
   bydefault() {
     this.model = new CompanyModel();
     this.model.company_id = 0;
+    this.model.company_address="a";
+    this.model.company_email="a";
     this.model.created_by = 'Harendra Maurya';
     this.model.updated_by = 'Harendra Maurya';  
   }

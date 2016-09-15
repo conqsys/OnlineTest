@@ -23,6 +23,7 @@
     "@angular/router": "3.0.0-rc.1",
     "angular2-materialize": "^5.1.0",
     "es6-shim": "0.35.1",
+    "froala-editor": "^2.3.4",
     "hammerjs": "^2.0.8",
     "jquery": "^2.2.4",
     "materialize-css": "^0.97.7",

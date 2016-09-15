@@ -11,7 +11,17 @@ module.exports = {
             Question.query(str, function (err, result) {
                 if (err) return res.serverError(err); 
                 else {
-                    res.json(result);
+                    if(req.body.options.length>0)
+                    {
+                        req.body.options.forEach(function(option){
+                            var  str = "CALL spSaveQuestionOption(" + option.option_id + ",'" + option.description + "',"+option.is_correct+","+option.question_id+")";
+                           Question.query(str, function (err, result) {
+
+                           })
+
+                        });
+                            res.json(result);
+                    }
                 }
             });  
            // res.json("result");
@@ -35,5 +45,25 @@ module.exports = {
             }
         })
     }
+    ,
+    getQuestionByQuestionID: function (req, res) {
+        var question_id = req.param('question_id');
+        if(question_id==0)return res.json([]);
+       Question.findOne({question_id:question_id}).exec(function(err,result){
+            if (err) return res.serverError(err); 
+            else{
+                 QuestionOption.find({ question_id: question_id })
+            .exec(function(err, options){
+                if (err) return res.serverError(err); 
+                else{
+                    result.options=options;
+                     return res.json(result);
+                }
+        })
+               
+            }
+        })
+    }
+    
 };
 

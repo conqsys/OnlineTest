@@ -18,6 +18,9 @@ var app_routing_1 = require('./app.routing');
 var hero_service_1 = require('./hero.service');
 var hero_search_component_1 = require('./hero-search.component');
 var question_service_1 = require('./services/question/question.service');
+var topic_service_1 = require('./services/topic/topic.service');
+var question_option_service_1 = require('./services/question-option/question-option.service');
+var companyService_1 = require('./services/company/companyService');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +39,10 @@ var AppModule = (function () {
             ],
             providers: [
                 hero_service_1.HeroService,
-                question_service_1.QuestionService
+                question_service_1.QuestionService,
+                topic_service_1.TopicService,
+                question_option_service_1.QuestionOptionService,
+                companyService_1.CompanyService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

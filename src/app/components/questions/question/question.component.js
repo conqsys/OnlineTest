@@ -102,8 +102,7 @@ var QuestionComponent = (function () {
             moduleId: module.id,
             selector: 'app-question',
             templateUrl: 'question.component.html',
-            styleUrls: ['question.component.css'],
-            providers: [question_service_1.QuestionService, topic_service_1.TopicService, question_option_service_1.QuestionOptionService]
+            styleUrls: ['question.component.css']
         }), 
         __metadata('design:paramtypes', [question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, question_option_service_1.QuestionOptionService, router_1.Router])
     ], QuestionComponent);

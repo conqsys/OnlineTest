@@ -10,8 +10,10 @@ export class TopicService {
   constructor(private http: Http) {
 
   }
-    saveTopic(topic:any):any{
-       return this.http.post(ApiUrl.baseUrl + 'savetopic',topic);
+    saveTopic(topic:any):Promise<TopicModel[]>{
+       return this.http.post(ApiUrl.baseUrl + 'savetopic',topic).toPromise()
+      .then(response => response.json() as TopicModel[])
+      .catch(this.handleError);
    }
     getTopic(companyId:any):Promise<TopicModel[]>{
          return this.http
@@ -21,11 +23,15 @@ export class TopicService {
       .catch(this.handleError);
        
     } 
-    getTopicByID(topicId:any):any{
-         return this.http.get(ApiUrl.baseUrl + 'gettopic/'+ topicId);
+    getTopicByID(topicId:any):Promise<TopicModel[]>{
+         return this.http.get(ApiUrl.baseUrl + 'gettopic/'+ topicId).toPromise()
+      .then(response => response.json() as TopicModel[])
+      .catch(this.handleError);
     }
-    removeTopic(topicId:any):any{
-        return this.http.get(ApiUrl.baseUrl + 'delete/'+ topicId);
+    removeTopic(topicId:any):Promise<TopicModel[]>{
+        return this.http.get(ApiUrl.baseUrl + 'delete/'+ topicId).toPromise()
+      .then(response => response.json() as TopicModel[])
+      .catch(this.handleError);
     }
      private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);

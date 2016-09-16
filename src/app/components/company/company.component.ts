@@ -20,8 +20,8 @@ export class CompanyComponent {
   ngOnInit() {
     this.paramsSub = this.activatedRoute.params.subscribe(params => {
       this.company_id = Number.parseInt(params['id'], 10);
-      // if (this.company_id > 0)
-      //   this.getCompanyByID(this.company_id);
+      if (this.company_id > 0)
+        this.getCompanyByID(this.company_id);
     });
   }
 
@@ -32,66 +32,62 @@ export class CompanyComponent {
   bydefault() {
     this.model = new CompanyModel();
     this.model.company_id = 0;
-    this.model.company_address = "a";
-    this.model.company_email = "a";
+    this.model.company_address = "";
+    this.model.company_email = "";
     this.model.created_by = 'Harendra Maurya';
     this.model.updated_by = 'Harendra Maurya';
   }
 
-  // addCompany() {
+  addCompany() {
 
-  //   if (this.model.company_title == "") {
-  //     alert("Please enter company title.");
-  //     return;
-  //   }
+    if (this.model.company_title == "") {
+      alert("Please enter company title.");
+      return;
+    }
 
-  //   if (this.model.company_url == "") {
-  //     alert("Please enter company url.");
-  //     return;
-  //   }
+    if (this.model.company_url == "") {
+      alert("Please enter company url.");
+      return;
+    }
 
-  //   if (this.model.company_email == "") {
-  //     alert("Please enter company title.");
-  //     return;
-  //   }
+    if (this.model.company_email == "") {
+      alert("Please enter company title.");
+      return;
+    }
 
-  //   if (this.model.company_hr_phone == "") {
-  //     alert("Please enter company hr phone.");
-  //     return;
-  //   }
+    if (this.model.company_hr_phone == "") {
+      alert("Please enter company hr phone.");
+      return;
+    }
 
-  //   if (this.model.company_hr_emailid == "") {
-  //     alert("Please enter company hr emailID.");
-  //     return;
-  //   }
+    if (this.model.company_hr_emailid == "") {
+      alert("Please enter company hr emailID.");
+      return;
+    }
 
-  //   this.companyService.saveCompany(this.model).map(r => r.json())
-  //     .subscribe(a => {
-  //       if (a.success) {
-  //         alert("Company saved successfully.!");
-  //         this.model.company_title = "";
-  //         this.model.company_url = "";
-  //         this.model.company_address = "";
-  //         this.model.company_city = "";
-  //         this.model.company_hr_emailid = "";
-  //         this.model.company_phone = "";
-  //         this.model.company_hr_phone = "";
-  //         this.model.company_user_id = "";
-  //         this.model.company_email = "";
-  //       }
-  //       else {
-  //         alert(a.data);
-  //       }
-  //     });
+    this.companyService.saveCompany(this.model).then(result => {
+        if (result) {
+          alert("Company saved successfully.!");
+          this.model.company_title = "";
+          this.model.company_url = "";
+          this.model.company_address = "";
+          this.model.company_hr_emailid = "";
+          this.model.company_phone = "";
+          this.model.company_hr_phone = "";
+          this.model.company_email = "";
+        }
+        else {
+          alert(result);
+        }
+      });
 
-  // }
+  }
 
-  // getCompanyByID(id) {
-  //   this.companyService.getCompanyById(id).map(r => r.json())
-  //     .subscribe(result => {
-  //       this.model = result;
-  //     })
-  // }
+  getCompanyByID(id:any) {
+    this.companyService.getCompanyById(id).then(result => {
+        this.model = result[0];
+      })
+  }
 
 
 }

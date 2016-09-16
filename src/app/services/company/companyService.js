@@ -16,13 +16,23 @@ var CompanyService = (function () {
         this.http = http;
     }
     CompanyService.prototype.saveCompany = function (company) {
-        return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'company', company);
+        return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'company', company).toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     CompanyService.prototype.getCompanies = function () {
-        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getCompanies');
+        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getCompanies').toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     CompanyService.prototype.getCompanyById = function (id) {
-        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getCompanyById/' + id);
+        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getCompanyById/' + id).toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    CompanyService.prototype.handleError = function (error) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
     };
     CompanyService = __decorate([
         core_1.Injectable(), 

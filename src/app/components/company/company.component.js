@@ -22,8 +22,8 @@ var CompanyComponent = (function () {
         var _this = this;
         this.paramsSub = this.activatedRoute.params.subscribe(function (params) {
             _this.company_id = Number.parseInt(params['id'], 10);
-            // if (this.company_id > 0)
-            //   this.getCompanyByID(this.company_id);
+            if (_this.company_id > 0)
+                _this.getCompanyByID(_this.company_id);
         });
     };
     CompanyComponent.prototype.ngOnDestroy = function () {
@@ -32,10 +32,54 @@ var CompanyComponent = (function () {
     CompanyComponent.prototype.bydefault = function () {
         this.model = new company_1.CompanyModel();
         this.model.company_id = 0;
-        this.model.company_address = "a";
-        this.model.company_email = "a";
+        this.model.company_address = "";
+        this.model.company_email = "";
         this.model.created_by = 'Harendra Maurya';
         this.model.updated_by = 'Harendra Maurya';
+    };
+    CompanyComponent.prototype.addCompany = function () {
+        var _this = this;
+        if (this.model.company_title == "") {
+            alert("Please enter company title.");
+            return;
+        }
+        if (this.model.company_url == "") {
+            alert("Please enter company url.");
+            return;
+        }
+        if (this.model.company_email == "") {
+            alert("Please enter company title.");
+            return;
+        }
+        if (this.model.company_hr_phone == "") {
+            alert("Please enter company hr phone.");
+            return;
+        }
+        if (this.model.company_hr_emailid == "") {
+            alert("Please enter company hr emailID.");
+            return;
+        }
+        this.companyService.saveCompany(this.model).then(function (result) {
+            if (result) {
+                alert("Company saved successfully.!");
+                _this.model.company_title = "";
+                _this.model.company_url = "";
+                _this.model.company_address = "";
+                _this.model.company_hr_emailid = "";
+                _this.model.company_phone = "";
+                _this.model.company_hr_phone = "";
+                _this.model.company_email = "";
+            }
+            else {
+                alert(result);
+            }
+        });
+    };
+    CompanyComponent.prototype.getCompanyByID = function (id) {
+        var _this = this;
+        this.companyService.getCompanyById(id).then(function (result) {
+            _this.model = result[0];
+        });
     };
     CompanyComponent = __decorate([
         core_1.Component({

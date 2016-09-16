@@ -19,10 +19,10 @@ var CompaniesComponent = (function () {
         this.getCompanies();
     }
     CompaniesComponent.prototype.getCompanies = function () {
-        //  this.companyService.getCompanies().map(r => r.json())
-        // .subscribe(result => {
-        //     this.model=result;
-        // })
+        var _this = this;
+        this.companyService.getCompanies().then(function (result) {
+            _this.model = result;
+        });
     };
     CompaniesComponent.prototype.addCompany = function () {
         this.router.navigate(['/company/' + 3]);

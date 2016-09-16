@@ -14,8 +14,7 @@ declare var tinymce: any;
   moduleId: module.id,
   selector: 'app-question',
   templateUrl: 'question.component.html',
-  styleUrls: ['question.component.css'],
-  providers: [QuestionService, TopicService, QuestionOptionService]
+  styleUrls: ['question.component.css']
 })
 export class QuestionComponent implements OnInit {
   @Input() model: QuestionModel

@@ -10,7 +10,7 @@ var ApiUrl = (function () {
     ;
     ApiUrl.UpdateBid = function (auctionId, bidId) { return this.baseUrl + '/auctions/' + auctionId + '/bids/' + bidId + '/update'; };
     ;
-    ApiUrl.baseUrl = 'http://192.168.1.161:1337/';
+    ApiUrl.baseUrl = 'http://localhost:1337/';
     return ApiUrl;
 }());
 exports.ApiUrl = ApiUrl;

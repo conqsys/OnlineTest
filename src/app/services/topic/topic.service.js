@@ -16,7 +16,9 @@ var TopicService = (function () {
         this.http = http;
     }
     TopicService.prototype.saveTopic = function (topic) {
-        return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'savetopic', topic);
+        return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'savetopic', topic).toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     TopicService.prototype.getTopic = function (companyId) {
         return this.http
@@ -26,10 +28,14 @@ var TopicService = (function () {
             .catch(this.handleError);
     };
     TopicService.prototype.getTopicByID = function (topicId) {
-        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'gettopic/' + topicId);
+        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'gettopic/' + topicId).toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     TopicService.prototype.removeTopic = function (topicId) {
-        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'delete/' + topicId);
+        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'delete/' + topicId).toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     TopicService.prototype.handleError = function (error) {
         console.error('An error occurred', error);

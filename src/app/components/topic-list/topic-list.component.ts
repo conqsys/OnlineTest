@@ -18,15 +18,14 @@ export class TopicListComponent {
   }
 
    getTopic() {
-    // this.Service.getTopic(1).map(r => r.json())
-    //   .subscribe(result => {
-    //     if (result != undefined && result != null) {
-    //       this.topicdata = result;       
-    //     }
-    //     else {
-    //       alert(result.data);
-    //     }
-    //   });
+    this.Service.getTopic(1).then(result => {
+        if (result != undefined && result != null) {
+          this.topicdata = result;       
+        }
+        else {
+         // alert(result.data);
+        }
+      });
   }
   public editTopic(item:TopicModel) {
     this._router.navigate(['/topic/' + item.topic_id]);
@@ -36,18 +35,16 @@ export class TopicListComponent {
   }
 
    public removeItem(item: any) {
-    // this.data = _.filter(this.data, (elem)=>elem!=item);
-    // this.Service.removeTopic(item.topic_id)
-    //   .map(r => r.json())
-    //   .subscribe(result => {
-    //     if (result) {
-    //       alert("record succesfully deleted!");
-    //       this.getTopic();
-    //     }
-    //     else {
-    //       alert("record not deleted!");
-    //     }
-    //   });
+   // this.data = _.filter(this.data, (elem)=>elem!=item);
+    this.Service.removeTopic(item.topic_id).then(result => {
+        if (result) {
+          alert("record succesfully deleted!");
+          this.getTopic();
+        }
+        else {
+          alert("record not deleted!");
+        }
+      });
     // console.log("Remove: ", (item.SubjectID);
   }
 

@@ -9,14 +9,24 @@ export class CompanyService {
   constructor(private http: Http) {
 
   }
-    saveCompany(company:any):any{
-       return this.http.post(ApiUrl.baseUrl+'company',company);
+    saveCompany(company:any):Promise<CompanyModel[]>{
+       return this.http.post(ApiUrl.baseUrl+'company',company).toPromise()
+      .then(response => response.json() as CompanyModel[])
+      .catch(this.handleError);
    }
-     getCompanies():any{
-       return this.http.get(ApiUrl.baseUrl+'getCompanies');
+     getCompanies():Promise<CompanyModel[]>{
+       return this.http.get(ApiUrl.baseUrl+'getCompanies').toPromise()
+      .then(response => response.json() as CompanyModel[])
+      .catch(this.handleError);
    }
-    getCompanyById(id:any):any{
-       return this.http.get(ApiUrl.baseUrl+'getCompanyById/'+id);
+    getCompanyById(id:any):Promise<CompanyModel[]>{
+       return this.http.get(ApiUrl.baseUrl+'getCompanyById/'+id).toPromise()
+      .then(response => response.json() as CompanyModel[])
+      .catch(this.handleError);
    }
+     private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
  
 }

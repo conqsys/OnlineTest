@@ -14,47 +14,43 @@ export class TopicComponent {
   btnText:string;
   constructor(private Service: TopicService, private routeinfo: ActivatedRoute, private _router: Router) {
     this.bydefault();
-    // this.getTopicByID(routeinfo.params);
+     this.getTopicByID(routeinfo.params);
   }
 
   bydefault() {
     this.model = new TopicModel();
-    this.btnText='Submitted Topic';
+    this.btnText='Save Topic';
     this.model.topic_id = 0;
     this.model.topic_title = "";
     this.model.company_id = 1;
     this.model.created_by = 'vipin';
     this.model.updated_by = 'vipin';
   }
-  // getTopicByID(param) {
-  //   if (param.value.id != undefined) {
-  //     this.Service.getTopicByID(param.value.id)
-  //       .map(r => r.json())
-  //       .subscribe(result => {
-  //         this.model =result[0];
-  //         this.model.topic_title = result[0].topic_title;
-  //         this.btnText = 'Update Topic';
-  //       });
-  //   }
-  // }
+  getTopicByID(param:any) {
+    if (param.value.id != undefined) {
+      this.Service.getTopicByID(param.value.id).then(result => {
+          this.model =result[0];
+          this.model.topic_title = result[0].topic_title;
+          this.btnText = 'Update Topic';
+        });
+    }
+  }
 
   addTopic() {
     if (this.model.topic_title == "" || this.model.topic_title == undefined) {
-      alert("Topic Title is blank");
+      alert("Please insert Topic");
       return false;
     }
     this.model.company_id = 1;
-    // this.Service.saveTopic(this.model).map(r => r.json())
-    //   .subscribe(result => {
-    //     if (result) {
+    this.Service.saveTopic(this.model).then(result => {
+        if (result) {
+          alert("category inserted!");
+          this._router.navigate(['/topiclist']);
 
-    //       alert("category inserted!");
-    //       this._router.navigate(['/topiclist']);
-
-    //     }
-    //     else {
-    //       alert(result.data);
-    //     }
-    //   });
+        }
+        else {
+         // alert(result.data);
+        }
+      });
   }
 }

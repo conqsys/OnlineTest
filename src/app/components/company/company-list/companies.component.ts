@@ -17,10 +17,9 @@ export class CompaniesComponent {
  
   getCompanies()
   {
-      //  this.companyService.getCompanies().map(r => r.json())
-      // .subscribe(result => {
-      //     this.model=result;
-      // })
+       this.companyService.getCompanies().then(result => {
+          this.model=result;
+      })
   }
 
   addCompany(){

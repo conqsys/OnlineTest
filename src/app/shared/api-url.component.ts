@@ -1,6 +1,6 @@
 
 export class ApiUrl {
-		static baseUrl:String='http://192.168.1.161:1337/';
+		static baseUrl:String='http://localhost:1337/';
 		static CreateCustomer() { return this.baseUrl+ '/customers/new'}
 		static GetCustomer(id:any) { return this.baseUrl+ '/customers/'+id}
 	 	static GetAllDeals() { return this.baseUrl+ '/deals' }

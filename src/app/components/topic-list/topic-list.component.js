@@ -22,15 +22,14 @@ var TopicListComponent = (function () {
         this.getTopic();
     }
     TopicListComponent.prototype.getTopic = function () {
-        // this.Service.getTopic(1).map(r => r.json())
-        //   .subscribe(result => {
-        //     if (result != undefined && result != null) {
-        //       this.topicdata = result;       
-        //     }
-        //     else {
-        //       alert(result.data);
-        //     }
-        //   });
+        var _this = this;
+        this.Service.getTopic(1).then(function (result) {
+            if (result != undefined && result != null) {
+                _this.topicdata = result;
+            }
+            else {
+            }
+        });
     };
     TopicListComponent.prototype.editTopic = function (item) {
         this._router.navigate(['/topic/' + item.topic_id]);
@@ -39,18 +38,17 @@ var TopicListComponent = (function () {
         this._router.navigate(['/topic']);
     };
     TopicListComponent.prototype.removeItem = function (item) {
+        var _this = this;
         // this.data = _.filter(this.data, (elem)=>elem!=item);
-        // this.Service.removeTopic(item.topic_id)
-        //   .map(r => r.json())
-        //   .subscribe(result => {
-        //     if (result) {
-        //       alert("record succesfully deleted!");
-        //       this.getTopic();
-        //     }
-        //     else {
-        //       alert("record not deleted!");
-        //     }
-        //   });
+        this.Service.removeTopic(item.topic_id).then(function (result) {
+            if (result) {
+                alert("record succesfully deleted!");
+                _this.getTopic();
+            }
+            else {
+                alert("record not deleted!");
+            }
+        });
         // console.log("Remove: ", (item.SubjectID);
     };
     TopicListComponent = __decorate([

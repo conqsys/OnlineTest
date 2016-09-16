@@ -19,44 +19,42 @@ var TopicComponent = (function () {
         this.routeinfo = routeinfo;
         this._router = _router;
         this.bydefault();
-        // this.getTopicByID(routeinfo.params);
+        this.getTopicByID(routeinfo.params);
     }
     TopicComponent.prototype.bydefault = function () {
         this.model = new topic_model_1.TopicModel();
-        this.btnText = 'Submitted Topic';
+        this.btnText = 'Save Topic';
         this.model.topic_id = 0;
         this.model.topic_title = "";
         this.model.company_id = 1;
         this.model.created_by = 'vipin';
         this.model.updated_by = 'vipin';
     };
-    // getTopicByID(param) {
-    //   if (param.value.id != undefined) {
-    //     this.Service.getTopicByID(param.value.id)
-    //       .map(r => r.json())
-    //       .subscribe(result => {
-    //         this.model =result[0];
-    //         this.model.topic_title = result[0].topic_title;
-    //         this.btnText = 'Update Topic';
-    //       });
-    //   }
-    // }
+    TopicComponent.prototype.getTopicByID = function (param) {
+        var _this = this;
+        if (param.value.id != undefined) {
+            this.Service.getTopicByID(param.value.id).then(function (result) {
+                _this.model = result[0];
+                _this.model.topic_title = result[0].topic_title;
+                _this.btnText = 'Update Topic';
+            });
+        }
+    };
     TopicComponent.prototype.addTopic = function () {
+        var _this = this;
         if (this.model.topic_title == "" || this.model.topic_title == undefined) {
-            alert("Topic Title is blank");
+            alert("Please insert Topic");
             return false;
         }
         this.model.company_id = 1;
-        // this.Service.saveTopic(this.model).map(r => r.json())
-        //   .subscribe(result => {
-        //     if (result) {
-        //       alert("category inserted!");
-        //       this._router.navigate(['/topiclist']);
-        //     }
-        //     else {
-        //       alert(result.data);
-        //     }
-        //   });
+        this.Service.saveTopic(this.model).then(function (result) {
+            if (result) {
+                alert("category inserted!");
+                _this._router.navigate(['/topiclist']);
+            }
+            else {
+            }
+        });
     };
     TopicComponent = __decorate([
         core_1.Component({

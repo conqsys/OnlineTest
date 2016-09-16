@@ -10,9 +10,6 @@ export class QuestionService {
   constructor(private http: Http) {
 
   }
-    private questionUrl = ApiUrl.baseUrl+'question';  // URL to web api
-
-  
  
   getQuestionById(question_id:any) {
     return this.http
@@ -39,12 +36,8 @@ export class QuestionService {
   }
 
   saveQuestion(data:any): Promise<string> {
-     let headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-
      return this.http
-      .post(ApiUrl.baseUrl + 'question', JSON.stringify(data), { headers: headers })
+      .post(ApiUrl.baseUrl + 'question', JSON.stringify(data), { headers: ApiUrl.headers })
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);

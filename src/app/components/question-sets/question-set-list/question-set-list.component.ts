@@ -21,7 +21,7 @@ class QuestionSetListComponent {
     company_id: number; 
     questionSetVisibility: boolean;
 
-    constructor(private questionSetService: QuestionSetService, private _router: Router) {
+    constructor(private service: QuestionSetService, private _router: Router) {
         this.title = 'Question Sets';
         this.model = new Array<QuestionSetModel>();
         this.company_id = 1;
@@ -32,10 +32,10 @@ class QuestionSetListComponent {
     }
 
     getQuestionSets(company_id:number){
-        // this.questionSetService.getQuestionSets(company_id).map(r=>r.json())
-        // .subscribe(result => {
-        //     this.model = result;
-        // })
+        this.service.getQuestionSets(company_id)
+            .then(questionSets => { 
+              this.model = questionSets;
+            });
     }
 
     selectQuestionSet(selectedQuestionSet:QuestionSetModel){

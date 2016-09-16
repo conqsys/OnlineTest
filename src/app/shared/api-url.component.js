@@ -1,4 +1,5 @@
 "use strict";
+var http_1 = require('@angular/http');
 var ApiUrl = (function () {
     function ApiUrl() {
     }
@@ -11,6 +12,9 @@ var ApiUrl = (function () {
     ApiUrl.UpdateBid = function (auctionId, bidId) { return this.baseUrl + '/auctions/' + auctionId + '/bids/' + bidId + '/update'; };
     ;
     ApiUrl.baseUrl = 'http://localhost:1337/';
+    ApiUrl.headers = new http_1.Headers({
+        'Content-Type': 'application/json'
+    });
     return ApiUrl;
 }());
 exports.ApiUrl = ApiUrl;

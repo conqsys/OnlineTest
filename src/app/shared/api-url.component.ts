@@ -1,6 +1,13 @@
+import {Headers} from '@angular/http';
 
 export class ApiUrl {
+
 		static baseUrl:String='http://localhost:1337/';
+
+		static headers = new Headers({
+							'Content-Type': 'application/json'
+						});
+
 		static CreateCustomer() { return this.baseUrl+ '/customers/new'}
 		static GetCustomer(id:any) { return this.baseUrl+ '/customers/'+id}
 	 	static GetAllDeals() { return this.baseUrl+ '/deals' }

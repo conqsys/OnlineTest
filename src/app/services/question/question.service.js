@@ -14,7 +14,6 @@ var api_url_component_1 = require('../../shared/api-url.component');
 var QuestionService = (function () {
     function QuestionService(http) {
         this.http = http;
-        this.questionUrl = api_url_component_1.ApiUrl.baseUrl + 'question'; // URL to web api
     }
     QuestionService.prototype.getQuestionById = function (question_id) {
         return this.http
@@ -38,11 +37,8 @@ var QuestionService = (function () {
             .catch(this.handleError);
     };
     QuestionService.prototype.saveQuestion = function (data) {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json'
-        });
         return this.http
-            .post(api_url_component_1.ApiUrl.baseUrl + 'question', JSON.stringify(data), { headers: headers })
+            .post(api_url_component_1.ApiUrl.baseUrl + 'question', JSON.stringify(data), { headers: api_url_component_1.ApiUrl.headers })
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);

@@ -12,8 +12,8 @@ var core_1 = require('@angular/core');
 var question_set_service_1 = require('../../../services/question-set/question-set.service');
 var router_1 = require('@angular/router');
 var QuestionSetListComponent = (function () {
-    function QuestionSetListComponent(questionSetService, _router) {
-        this.questionSetService = questionSetService;
+    function QuestionSetListComponent(service, _router) {
+        this.service = service;
         this._router = _router;
         this.model = [];
         this.title = 'Question Sets';
@@ -24,10 +24,11 @@ var QuestionSetListComponent = (function () {
         this.getQuestionSets(this.company_id);
     };
     QuestionSetListComponent.prototype.getQuestionSets = function (company_id) {
-        // this.questionSetService.getQuestionSets(company_id).map(r=>r.json())
-        // .subscribe(result => {
-        //     this.model = result;
-        // })
+        var _this = this;
+        this.service.getQuestionSets(company_id)
+            .then(function (questionSets) {
+            _this.model = questionSets;
+        });
     };
     QuestionSetListComponent.prototype.selectQuestionSet = function (selectedQuestionSet) {
         this.selectedQuestionSetId = selectedQuestionSet.question_set_id;

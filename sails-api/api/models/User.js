@@ -6,9 +6,21 @@
  */
 
 module.exports = {
-
-  attributes: {
-
-  }
+    attributes: {
+        email: {
+            type: 'email',
+            required: true,
+            unique: true
+        },
+        password: {
+            type: 'string',
+            minLength: 6,
+            required: true
+        },
+        toJSON: function() {
+            var obj = this.toObject();
+            delete obj.password;
+            return obj;
+        }
+    }
 };
-

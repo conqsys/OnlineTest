@@ -18,7 +18,19 @@
 
 
 module.exports.policies = {
+ '*': true,
 
+  // 'QuestionController': {
+  //   '*': 'isAuthenticated'
+  // },
+
+  // 'CompanyController': {
+  //   '*': 'isAuthenticated'
+  // },
+
+  // 'FileController': {
+  //   '*': 'isAuthenticated'
+  // },
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *

@@ -64,8 +64,11 @@ module.exports.routes = {
   'get /questions/:company_id': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',
   'get /questionoptions/:question_id': 'QuestionOptionController.getQuestionOptions',
-  'get /file/upload' :'FileController.upload',
-  'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID'
+  'post /file/upload' :'FileController.upload',
+  'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',
+  'post /login': 'AuthController.login',
+
+  '/logout': 'AuthController.logout'
   
 
 

@@ -11,17 +11,17 @@ module.exports = {
         return res.json({ 'status': 'GET not allowed' });
     //	Call to /upload via GET is error
 
-    var uploadFile = req.file('uploadFile');
+    var uploadFile = req.file('file');
     console.log(uploadFile);
 
-    uploadFile.upload(function onUploadComplete(err, files) {
+    uploadFile.upload({ dirname: require('path').normalize(__dirname + '/../../upload') },function onUploadComplete(err, files) {
         //	Files will be uploaded to .tmp/uploads
 
         if (err) return res.serverError(err);
         //	IF ERROR Return and send 500 error with error
-
+var filepath =files[0].fd.split("\\");
         console.log(files);
-        res.json({ status: 200, file: files });
+        res.json({ link:"http://localhost:1337/images/"+filepath[filepath.length-1] });
     });
 }
 };

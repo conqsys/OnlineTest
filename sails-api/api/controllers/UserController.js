@@ -22,12 +22,11 @@ module.exports = {
             else {
                 if (req.body.user_id != 0) {
                     req.body.options.forEach(function (option) {
-                        var str = "CALL spSaveCompanyUser(" + req.body.user_id + "," + option.question_id + ")";
+                        var str = "CALL spSaveCompanyuser(" + 0 + ",'" + req.body.company_id + "," + req.body.user_id + ")";
                         CompanyUser.query(str, function (err, result) {
-
                         })
                     });
-                   return res.json(result);
+                    return res.json(result);
                 }
             }
         });
@@ -47,12 +46,12 @@ module.exports = {
         User.findOne({ where: { email: useremailId } }).exec(function (err, user) {
             if (user) {
                 if (user.password != userpwd) {
-                   res.serverError(err)
+                    res.serverError(err)
                 }
                 var token = passport.issueJWT(user);
                 user.access_token = token.access_token;
                 user.refresh_token = token.refresh_token;
-               return res.json(user);
+                return res.json(user);
             }
             else {
                 // message = "Email and Password invalid."

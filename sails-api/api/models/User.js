@@ -33,7 +33,7 @@ module.exports = {
 
         user_name :{
             type:"string",
-            required:tue
+            required:true
         },
         user_email :{
             type: 'email',

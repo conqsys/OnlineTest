@@ -1,0 +1,52 @@
+<div class="container ">
+    <form materialize class="col s12">
+
+        <div class="row">
+            <div class="input-field col s6">
+                 <input class="validate" id="company_title" type="text" [(ngModel)]="model.company_title" [ngModelOptions]="{standalone: true}">
+                <label for="company_title" class="flow-text ">Company Name</label>
+            </div>
+            <div class="input-field col s6">
+                <input class="validate" id="company_Address" type="text" [(ngModel)]="model.company_address" [ngModelOptions]="{standalone: true}">
+                <label for="company_Address" class="flow-text ">Address</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate" id="company_PhoneNo" type="text" [(ngModel)]="model.company_phone" [ngModelOptions]="{standalone: true}">
+                <label for="company_phoneNo" class="flow-text ">PhoneNo</label>
+            </div>
+             <div class="input-field col s6">
+                 <input class="validate" id="company_url" type="text" [(ngModel)]="model.company_url" [ngModelOptions]="{standalone: true}">
+                <label for="company_url" class="flow-text ">Url</label>
+            </div>
+        </div>
+            <div class="row">
+            <div class="input-field col s6">
+                 <input class="validate" id="company_url" type="text" [(ngModel)]="model.company_email" [ngModelOptions]="{standalone: true}">
+                <label for="company_url" class="flow-text ">Company EmailID</label>
+            </div>
+                <div class="input-field col s6">
+                <input class="validate" id="company_hr_phone" type="text" [(ngModel)]="model.company_hr_phone" [ngModelOptions]="{standalone: true}">
+                <label for="company_hr_phone" class="flow-text ">HR MobileNO</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate" id="company_hr_emailid" type="text" [(ngModel)]="model.company_hr_emailid" [ngModelOptions]="{standalone: true}">
+                <label for="company_hr_emailid" class="flow-text ">HR EmailID</label>
+            </div>
+             <div class="input-field col s6">
+                <input class="validate" id="company_user_id" type="text" [(ngModel)]="model.company_user_id" [ngModelOptions]="{standalone: true}">
+                <label for="company_user_id" class="flow-text ">AddminURID</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--<buttons _ngcontent-yhl-7=" " class="col s4 offset-s5">
+                <a class="waves-effect waves-light btn" (click)=addCompany();>Add Company</a>
+                <br>
+            </buttons>-->
+        </div>
+    </form>
+</div>

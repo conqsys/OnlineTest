@@ -20,7 +20,7 @@ module.exports = {
                            })
 
                         });
-                            res.json(result);
+                            res.json("Save success");
                     }
                 }
             });  

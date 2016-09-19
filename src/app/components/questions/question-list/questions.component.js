@@ -15,10 +15,10 @@ var question_1 = require('../../../model/question/question');
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
 var router_1 = require('@angular/router');
 var QuestionsComponent = (function () {
-    function QuestionsComponent(Service, questionOptionService, _router) {
+    function QuestionsComponent(Service, questionOptionService, router) {
         this.Service = Service;
         this.questionOptionService = questionOptionService;
-        this._router = _router;
+        this.router = router;
         this.statInfo = new statinfo_1.StatInfoModel();
         this.questionVisibility = false;
         this.model = new Array();
@@ -51,10 +51,10 @@ var QuestionsComponent = (function () {
     };
     QuestionsComponent.prototype.selectQuestion = function (selectedQuestion) {
         this.selectedQuestion = selectedQuestion;
-        this._router.navigate(['/question/' + selectedQuestion.question_id]);
+        this.router.navigate(['/question', selectedQuestion.question_id]);
     };
     QuestionsComponent.prototype.addQuestion = function () {
-        this._router.navigate(['/question/0']);
+        this.router.navigate(['/question', 0]);
     };
     QuestionsComponent = __decorate([
         core_1.Component({
@@ -62,8 +62,6 @@ var QuestionsComponent = (function () {
             selector: 'app-questions',
             templateUrl: 'questions.component.html',
             styleUrls: ['questions.component.css'],
-            // directives: [StatsComponent, QuestionComponent, ROUTER_DIRECTIVES],
-            providers: [question_service_1.QuestionService, question_option_service_1.QuestionOptionService]
         }), 
         __metadata('design:paramtypes', [question_service_1.QuestionService, question_option_service_1.QuestionOptionService, router_1.Router])
     ], QuestionsComponent);

@@ -14,8 +14,6 @@ import { Router} from '@angular/router';
   selector: 'app-questions',
   templateUrl: 'questions.component.html',
   styleUrls: ['questions.component.css'],
-  // directives: [StatsComponent, QuestionComponent, ROUTER_DIRECTIVES],
-  providers: [QuestionService, QuestionOptionService]
 })
 export class QuestionsComponent implements OnInit {
   statInfo: StatInfoModel
@@ -24,7 +22,7 @@ export class QuestionsComponent implements OnInit {
   selectedQuestion: QuestionModel;
   questionVisibility: boolean;
   constructor(private Service: QuestionService, private questionOptionService: QuestionOptionService,
-  private _router: Router) {
+  private router: Router) {
     this.statInfo = new StatInfoModel();
     this.questionVisibility = false;
     this.model = new Array<QuestionModel>();
@@ -40,7 +38,7 @@ export class QuestionsComponent implements OnInit {
     this.stats.push(this.statInfo);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.Service.getQuestions(1)
             .then(questions =>{ 
               this.model = questions;
@@ -54,20 +52,17 @@ export class QuestionsComponent implements OnInit {
     //     this.selectedQuestion.options = new Array<QuestionOptionModel>();
     //   });
   }
-  SetQuestionVisibility(value:boolean) {
+  SetQuestionVisibility(value:boolean): void {
 
     this.questionVisibility = value;
   }
-  selectQuestion(selectedQuestion: QuestionModel) {
+  selectQuestion(selectedQuestion: QuestionModel): void {
     this.selectedQuestion = selectedQuestion;
-        this._router.navigate(['/question/'+ selectedQuestion.question_id]);
-
-
-
+    
+    this.router.navigate(['/question', selectedQuestion.question_id]);
   }
-  addQuestion() {
-  this._router.navigate(['/question/0']);
-
+  addQuestion(): void {
+    this.router.navigate(['/question', 0]);
   }
 
 }

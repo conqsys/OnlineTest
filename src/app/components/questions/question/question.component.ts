@@ -38,7 +38,7 @@ export class QuestionComponent implements OnInit {
   constructor(private questionService: QuestionService,
     private topicService: TopicService, private activatedRoute: ActivatedRoute,
     private questionOptionService: QuestionOptionService,
-    private _router: Router) {
+    private router: Router) {
     this.setQuestionVisibility = new EventEmitter<boolean>();
 
     this.model = new QuestionModel();
@@ -54,7 +54,7 @@ export class QuestionComponent implements OnInit {
     this.model.question_id = 0;
 
   }
-  valueChanged(value: boolean) {
+  valueChanged(value: boolean): void {
     // alert(JSON.stringify(value));
     console.log(value);
     this.model.is_multiple_option = !this.model.is_multiple_option;
@@ -63,7 +63,7 @@ export class QuestionComponent implements OnInit {
     });
   }
 
-  addOption() {
+  addOption(): void {
     if (this.newOption === "")
       alert("can not be blank");
     else
@@ -71,7 +71,7 @@ export class QuestionComponent implements OnInit {
     this.newOption = "";
 
   }
-  ngOnInit() {
+  ngOnInit(): void {
     var subscriptions = this.activatedRoute.params.subscribe(params => {
       this.question_id = +params['question_id']; // (+) converts string 'id' to a number
     });
@@ -96,15 +96,15 @@ export class QuestionComponent implements OnInit {
   //   alert(value);
   //   $('#my_form').submit();
   // }
-  saveQuestion() {
+  saveQuestion(): void {
     this.questionService.saveQuestion(this.model)
     .then(result => {
-        this._router.navigate(['/questions']);
+        this.router.navigate(['/questions']);
       })
     this.setQuestionVisibility.emit(false);
   }
-  cancel() {
-    this._router.navigate(['/questions']);
+  cancel(): void {
+    this.router.navigate(['/questions']);
   }
 
 }

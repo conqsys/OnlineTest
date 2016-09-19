@@ -8,7 +8,6 @@ import { Router} from '@angular/router';
 @Component({
     selector:'question-set-list',
     templateUrl: '../app/components/question-sets/question-set-list/question-set-list.component.html',
-    providers:[QuestionSetService]
 })
 export /**
  * QuestionSetListComponent
@@ -16,34 +15,35 @@ export /**
 class QuestionSetListComponent {
 
     title: string;
-    model: Array<QuestionSetModel>=[];
+    model: QuestionSetModel[]=[];
     selectedQuestionSetId: number;
     company_id: number; 
     questionSetVisibility: boolean;
 
-    constructor(private service: QuestionSetService, private _router: Router) {
+    constructor(private service: QuestionSetService, private router: Router) {
         this.title = 'Question Sets';
         this.model = new Array<QuestionSetModel>();
         this.company_id = 1;
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getQuestionSets(this.company_id);
     }
 
-    getQuestionSets(company_id:number){
+    getQuestionSets(company_id:number): void {
         this.service.getQuestionSets(company_id)
             .then(questionSets => { 
               this.model = questionSets;
             });
     }
 
-    selectQuestionSet(selectedQuestionSet:QuestionSetModel){
+    selectQuestionSet(selectedQuestionSet:QuestionSetModel): void {
         this.selectedQuestionSetId = selectedQuestionSet.question_set_id; 
-        this._router.navigate(['/questionset/'+ this.selectedQuestionSetId]);
+        
+        this.router.navigate(['/questionset', this.selectedQuestionSetId]);
     }
 
-    addQuestionSet() {
-        this._router.navigate(['/questionset/0']);
+    addQuestionSet(): void {
+        this.router.navigate(['/questionset', 0]);
     }
 }

@@ -20,12 +20,12 @@ var QuestionComponent = (function () {
     //   froalaOptions: any = {
     //     height: 300
     //   };
-    function QuestionComponent(questionService, topicService, activatedRoute, questionOptionService, _router) {
+    function QuestionComponent(questionService, topicService, activatedRoute, questionOptionService, router) {
         this.questionService = questionService;
         this.topicService = topicService;
         this.activatedRoute = activatedRoute;
         this.questionOptionService = questionOptionService;
-        this._router = _router;
+        this.router = router;
         this.topics = Array();
         this.setQuestionVisibility = new core_1.EventEmitter();
         this.model = new question_1.QuestionModel();
@@ -82,12 +82,12 @@ var QuestionComponent = (function () {
         var _this = this;
         this.questionService.saveQuestion(this.model)
             .then(function (result) {
-            _this._router.navigate(['/questions']);
+            _this.router.navigate(['/questions']);
         });
         this.setQuestionVisibility.emit(false);
     };
     QuestionComponent.prototype.cancel = function () {
-        this._router.navigate(['/questions']);
+        this.router.navigate(['/questions']);
     };
     __decorate([
         core_1.Input(), 

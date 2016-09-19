@@ -11,6 +11,8 @@ import {TextEditorComponent} from './components/froala/texteditor.component'
 import {HeroesComponent} from './heroes.component'
 import {CheckBoxComponent} from './components/check-box/check-box.component'
 import {RadioComponent} from './components/radio/radio.component'
+import {test_child,test_child_child} from './components/test/test.child'
+
 import  'materialize-css'
 import {MaterializeDirective} from "angular2-materialize";
 const appRoutes: Routes = [
@@ -65,6 +67,10 @@ const appRoutes: Routes = [
    {
     path: 'companylist',
     component: CompaniesComponent
+  },
+   {
+    path: 'testchild',
+    component: test_child
   }
 ];
 
@@ -72,6 +78,6 @@ export const routing = RouterModule.forRoot(appRoutes);
 
 export const routedComponents = [QuestionsComponent, QuestionComponent, TopicComponent,
 CompanyComponent,QuestionSetListComponent,QuestionSetComponent,TopicListComponent,
-CompaniesComponent,TextEditorComponent,HeroesComponent,CheckBoxComponent,RadioComponent,MaterializeDirective
+CompaniesComponent,TextEditorComponent,HeroesComponent,CheckBoxComponent,RadioComponent,MaterializeDirective,test_child,test_child_child
 ];
 

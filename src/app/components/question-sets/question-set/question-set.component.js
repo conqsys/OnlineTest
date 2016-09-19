@@ -15,18 +15,17 @@ var question_set_service_1 = require('../../../services/question-set/question-se
 var question_service_1 = require('../../../services/question/question.service');
 var topic_service_1 = require('../../../services/topic/topic.service');
 var QuestionSetComponent = (function () {
-    function QuestionSetComponent(questionSetService, questionService, topicService, activatedRoute, _router) {
-        this.questionSetService = questionSetService;
+    function QuestionSetComponent(service, questionService, topicService, activatedRoute, router) {
+        this.service = service;
         this.questionService = questionService;
         this.topicService = topicService;
         this.activatedRoute = activatedRoute;
-        this._router = _router;
+        this.router = router;
         this.questions = [];
         this.topics = [];
         this.title = 'Question Sets';
         this.model = new question_set_model_1.QuestionSetModel();
         this.model.question_set_questions = Array();
-        this.placeholder = new question_set_model_1.QuestionSetModel();
         this.isAddQuestion = false;
         this.company_id = 1;
     }
@@ -50,35 +49,36 @@ var QuestionSetComponent = (function () {
         }
     };
     QuestionSetComponent.prototype.getQuestionSet = function (company_id, question_set_id) {
-        // this.questionSetService.getQuestionSet(company_id, question_set_id).map(r=>r.json())
-        // .subscribe(result => {
-        //     this.model = result;
-        //     this.placeholder = result;
-        // })
+        var _this = this;
+        this.service.getQuestionSet(company_id, question_set_id)
+            .then(function (questionSet) {
+            _this.model = questionSet;
+        });
     };
     QuestionSetComponent.prototype.showQuestions = function () {
+        var _this = this;
         this.isAddQuestion = true;
-        // this.topicService.getTopic(this.company_id).map(r=>r.json())
-        // .subscribe(result => {
-        //     this.topics = result;
-        //     if (this.topics.length > 0) {
-        //         this.selectedTopic = this.topics[0].topic_id;
-        //         this.getQuestions(this.selectedTopic);
-        //     }
-        // })
+        this.topicService.getTopic(this.company_id)
+            .then(function (topics) {
+            _this.topics = topics;
+            if (_this.topics.length > 0) {
+                _this.selectedTopic = _this.topics[0].topic_id;
+                _this.getQuestions(_this.selectedTopic);
+            }
+        });
     };
     QuestionSetComponent.prototype.getQuestions = function (topic_id) {
-        // this.questionService.getQuestionsByTopic(topic_id).map(r=>r.json())
-        // .subscribe(result => {
-        //     this.questions = [];
-        //     for (var i = 0; i < result.length; i++) {
-        //         var selectedQuestion = this.model.question_set_questions.filter(
-        //                                 ques => ques.question_id === result[i].question_id && ques.is_deleted === 0);
-        //         if(selectedQuestion.length == 0) {
-        //             this.questions.splice(this.questions.length,0, result[i]);
-        //         }
-        //     }
-        // })
+        var _this = this;
+        this.questionService.getQuestionsByTopic(topic_id)
+            .then(function (questions) {
+            _this.questions = [];
+            for (var i = 0; i < questions.length; i++) {
+                var selectedQuestion = _this.model.question_set_questions.filter(function (ques) { return ques.question_id === questions[i].question_id && ques.is_deleted === 0; });
+                if (selectedQuestion.length == 0) {
+                    _this.questions.splice(_this.questions.length, 0, questions[i]);
+                }
+            }
+        });
     };
     QuestionSetComponent.prototype.addQuestionsInQuestionSet = function () {
         this.isAddQuestion = false;
@@ -95,18 +95,26 @@ var QuestionSetComponent = (function () {
         }
     };
     QuestionSetComponent.prototype.saveQuestionSet = function () {
+        var _this = this;
         this.model.created_by = 'admin';
         this.model.updated_by = 'admin';
-        // this.questionSetService.saveQuestionSet(this.model).map(r=>r.json())
-        // .subscribe(result => {
-        //     this._router.navigate(['/questionsets']);
-        // })
+        this.service.saveQuestionSet(this.model)
+            .then(function (result) {
+            _this.router.navigate(['/questionsets']);
+        });
+    };
+    QuestionSetComponent.prototype.deleteSetQuestion = function (question, index) {
+        if (question.set_question_id == 0) {
+            this.model.question_set_questions.splice(index, 1);
+        }
+        else {
+            question.is_deleted = 1;
+        }
     };
     QuestionSetComponent = __decorate([
         core_1.Component({
             selector: 'question-set',
             templateUrl: '../app/components/question-sets/question-set/question-set.component.html',
-            providers: [question_set_service_1.QuestionSetService, question_service_1.QuestionService, topic_service_1.TopicService]
         }), 
         __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, router_1.Router])
     ], QuestionSetComponent);

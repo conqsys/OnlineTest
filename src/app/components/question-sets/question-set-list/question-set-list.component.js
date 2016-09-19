@@ -12,9 +12,9 @@ var core_1 = require('@angular/core');
 var question_set_service_1 = require('../../../services/question-set/question-set.service');
 var router_1 = require('@angular/router');
 var QuestionSetListComponent = (function () {
-    function QuestionSetListComponent(service, _router) {
+    function QuestionSetListComponent(service, router) {
         this.service = service;
-        this._router = _router;
+        this.router = router;
         this.model = [];
         this.title = 'Question Sets';
         this.model = new Array();
@@ -32,16 +32,15 @@ var QuestionSetListComponent = (function () {
     };
     QuestionSetListComponent.prototype.selectQuestionSet = function (selectedQuestionSet) {
         this.selectedQuestionSetId = selectedQuestionSet.question_set_id;
-        this._router.navigate(['/questionset/' + this.selectedQuestionSetId]);
+        this.router.navigate(['/questionset', this.selectedQuestionSetId]);
     };
     QuestionSetListComponent.prototype.addQuestionSet = function () {
-        this._router.navigate(['/questionset/0']);
+        this.router.navigate(['/questionset', 0]);
     };
     QuestionSetListComponent = __decorate([
         core_1.Component({
             selector: 'question-set-list',
             templateUrl: '../app/components/question-sets/question-set-list/question-set-list.component.html',
-            providers: [question_set_service_1.QuestionSetService]
         }), 
         __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, router_1.Router])
     ], QuestionSetListComponent);

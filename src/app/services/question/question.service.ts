@@ -27,7 +27,7 @@ export class QuestionService {
       .catch(this.handleError);
   }
 
-  getQuestionsByTopic(topic_id:any): any {
+  getQuestionsByTopic(topic_id:number): Promise<QuestionModel[]> {
      return this.http
       .get(ApiUrl.baseUrl + 'question/' + topic_id)
       .toPromise()

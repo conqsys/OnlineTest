@@ -17,7 +17,8 @@ import { HeroSearchComponent } from './hero-search.component';
 import { QuestionService } from './services/question/question.service';
 import { TopicService } from './services/topic/topic.service';
 import { QuestionOptionService } from './services/question-option/question-option.service';
-import {CompanyService} from './services/company/companyService';
+import { CompanyService } from './services/company/companyService';
+import { QuestionSetService } from './services/question-set/question-set.service';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {CompanyService} from './services/company/companyService';
     QuestionService,
     TopicService,
     QuestionOptionService,
-    CompanyService
+    CompanyService,
+    QuestionSetService
 
   ],
   bootstrap: [AppComponent]

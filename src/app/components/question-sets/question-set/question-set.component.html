@@ -49,7 +49,7 @@
                 <label for="is_randomize">Is Randomize</label>
             </div>
         </div>
-        <!--<div class="row">
+        <div class="row">
            <div class="input-field col s6">
               <select [(ngModel)]="model.option_series" name="optionSeries" 
                     materialize="material_select" [materializeSelectOptions]="topics">
@@ -59,15 +59,13 @@
               </select>
               <label for="optionSeries" class="active" style="top:2px;">Select Option Series</label>
             </div>
-        </div>-->
+        </div>
         <div class="row" [hidden]="isAddQuestion">
             <div class="input-field col s6"></div>
             <div class="input-field col s6">
-                <!--<buttons _ngcontent-yhl-7="">
                     <a class="waves-effect waves-light btn" (click)=showQuestions()>
-                        <i class="material-icons left">add</i>Add Questions
-                    </a>
-                </buttons>-->
+                            <i class="material-icons left">add</i>Add Questions
+                        </a>
             </div>
         </div>
         <div class="row" [hidden]="isAddQuestion">
@@ -85,7 +83,7 @@
             </div>
         </div>
         <div class="row" [hidden]="!isAddQuestion">
-            <!--<div class="row">
+            <div class="row">
                 <div class="input-field col s6">
                 <select [(ngModel)]="selectedTopic" name="selectedTopic"  
                         materialize="material_select" [materializeSelectOptions]="topics"
@@ -95,7 +93,7 @@
                 </select>
                 <label for="selectedTopic" class="active" style="top:2px;">Select Topic</label>
                 </div>
-            </div>-->
+            </div>
             <div class="row">
                 <div class="input-field col s12">
                     <table class="table TFtable">
@@ -117,11 +115,9 @@
             <div class="row">
                 <div class="input-field col s6"></div>
                 <div class="input-field col s6">
-                    <!--<buttons _ngcontent-yhl-7="">
                         <a class="waves-effect waves-light btn" (click)=addQuestionsInQuestionSet()>
                             <i class="material-icons left">add</i>Add Question in question set
                         </a>
-                    </buttons>-->
                 </div>
             </div>
         </div>
@@ -129,11 +125,9 @@
         <div class="row">
             <div class="input-field col s6"></div>
             <div class="input-field col s6">
-                <!--<buttons _ngcontent-yhl-7="">
                     <a class="waves-effect waves-light btn" (click)=saveQuestionSet()>
                         <i class="material-icons left">save</i>Save Question Set
                     </a>
-                </buttons>-->
             </div>
         </div>
     </div>

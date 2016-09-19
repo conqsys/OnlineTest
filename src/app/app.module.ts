@@ -20,6 +20,7 @@ import { QuestionOptionService } from './services/question-option/question-optio
 import { CompanyService } from './services/company/companyService';
 import { QuestionSetService } from './services/question-set/question-set.service';
 import { OnlineTestService } from './services/online-test/online-test.service';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   imports: [
@@ -40,8 +41,8 @@ import { OnlineTestService } from './services/online-test/online-test.service';
     QuestionOptionService,
     CompanyService,
     QuestionSetService,
-    OnlineTestService
-
+    OnlineTestService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

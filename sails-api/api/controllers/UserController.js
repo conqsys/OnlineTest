@@ -7,27 +7,62 @@
 
 module.exports = {
     getUser: function (req, res) {
-        User.find().exec(function (err, user) {
+        var companyId = req.param('company_id');
+        var str = "CALL spGetUsers(" + companyId + ")";
+        User.query(str, function (err, result) {
             if (err) return res.serverError(err);
-            else return res.json(user);
+            else return res.json(result[0]);
         })
     },
-    addUser: function (req, res) {
-        // var userVal = (req.body.value) ? req.body.value : undefined
-        var str = "CALL spSaveUser(" + req.body.user_id + ",'" + req.body.user_name + "'," + req.body.user_email + "," + req.body.user_mobile_no + ",'" + req.body.user_address + "',"
-            + req.body.user_pwd + ",'" + req.body.is_active + "','" + req.body.is_fresher + "','" + req.body.user_exp_month + "','"
-            + req.body.user_exp_year + ",'" + req.body.role_id + ",'" + req.body.created_by + ",'" + req.body.updated_by + "')";
-        Question.query(str, function (err, result) {
+
+    getUserById: function (req, res) {
+        var companyId = req.param('company_id');
+        var userId = req.param('user_id');
+        var str = "CALL spGetUserById(" + userId + "," + companyId + ")";
+        User.query(str, function (err, result) {
+            if (err) return res.serverError(err);
+                else if (result == undefined) return res.json({});
+                else return res.json(result[0][0].toJSON());
+        })
+    },
+
+    searchUserByEmail: function (req, res) {
+        var emailId = req.param('email_id');
+        User.findOne({ user_email: emailId })
+            .exec(function(err, result){
+                if (err) return res.serverError(err);
+                else if (result == undefined) return res.json({});
+                else return res.json(result.toJSON());
+            })
+    },
+    
+    saveUser: function (req, res) {
+        var userData = req.body;
+        var pwd = makeid();
+        var str = "CALL spSaveUser(" + userData.user_id + ",'" 
+                                     + userData.user_name + "','" 
+                                     + userData.user_email + "','" 
+                                     + userData.user_mobile_no + "','" 
+                                     + userData.user_address + "','"
+                                     + pwd + "'," 
+                                     + userData.is_active + "," 
+                                     + userData.is_fresher + "," 
+                                     + userData.user_exp_month + "," 
+                                     + userData.user_exp_year + "," 
+                                     + userData.role_id + ",'" 
+                                     + userData.created_by + "','" 
+                                     + userData.updated_by + "')";
+
+        User.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else {
-                if (req.body.user_id != 0) {
-                    req.body.options.forEach(function (option) {
-                        var str = "CALL spSaveCompanyuser(" + 0 + ",'" + req.body.company_id + "," + req.body.user_id + ")";
-                        CompanyUser.query(str, function (err, result) {
-                        })
-                    });
-                    return res.json(result);
-                }
+                var user_id = result[0][0].id;
+                var str = "CALL spSaveCompanyUser(" + userData.company_id + "," + user_id + ")";
+                User.query(str, function (err, result) {
+                    if (err) return res.serverError(err);
+                    else
+                        return res.json(result);
+                })
             }
         });
     },
@@ -63,3 +98,13 @@ module.exports = {
     },
 };
 
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 8; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}

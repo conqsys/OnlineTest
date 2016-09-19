@@ -74,6 +74,12 @@ module.exports.routes = {
   'get /questionoptions/:question_id': 'QuestionOptionController.getQuestionOptions',
   'post /file/upload' :'FileController.upload',
   'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',
+
+  'get /users/:company_id': 'UserController.getUser',
+  'get /user/:email_id': 'UserController.searchUserByEmail',
+  'get /user/:company_id/:user_id': 'UserController.getUserById',
+  'post /user' :'UserController.saveUser',
+
   'post /login': 'AuthController.login',
 
   '/logout': 'AuthController.logout'

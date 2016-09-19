@@ -23,6 +23,7 @@ var question_option_service_1 = require('./services/question-option/question-opt
 var companyService_1 = require('./services/company/companyService');
 var question_set_service_1 = require('./services/question-set/question-set.service');
 var online_test_service_1 = require('./services/online-test/online-test.service');
+var user_service_1 = require('./services/user/user.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -46,7 +47,8 @@ var AppModule = (function () {
                 question_option_service_1.QuestionOptionService,
                 companyService_1.CompanyService,
                 question_set_service_1.QuestionSetService,
-                online_test_service_1.OnlineTestService
+                online_test_service_1.OnlineTestService,
+                user_service_1.UserService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

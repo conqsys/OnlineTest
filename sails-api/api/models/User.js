@@ -6,23 +6,11 @@
  */
 
 module.exports = {
-    attributes: {
-        email: {
-            type: 'email',
-            required: true,
-            unique: true
-        },
-        password: {
-            type: 'string',
-            minLength: 6,
-            required: true
-        },
-        toJSON: function() {
-            var obj = this.toObject();
-            delete obj.password;
-            return obj;
-        },
+    autoCreatedAt:false,
+    autoUpdatedAt:false,
+    autoPK: false,
 
+    attributes: {
         user_id :{
             type:"integer",
             required:true,
@@ -30,7 +18,6 @@ module.exports = {
             index: true,
             primaryKey: true
         },
-
         user_name :{
             type:"string",
             required:true
@@ -43,14 +30,13 @@ module.exports = {
         user_mobile_no :{
             type:"string"
         },
-
         user_address :{
             type:"string"
         },
         user_pwd :{
-            type: "integer",
+            type: "string",
             minLength: 6,
-            maxLength:15,
+            maxLength:30,
             required: true
         }, 
         is_active :{
@@ -80,6 +66,11 @@ module.exports = {
         },
         updated_datetime :{
             type:"datetime"
-        }
+        },
+        toJSON: function() {
+            var obj = this.toObject();
+            delete obj.user_pwd;
+            return obj;
+        },
     }
 };

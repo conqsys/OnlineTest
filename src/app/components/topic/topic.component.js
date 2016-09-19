@@ -14,10 +14,10 @@ var topic_service_1 = require('../../services/topic/topic.service');
 var router_1 = require('@angular/router');
 var router_2 = require('@angular/router');
 var TopicComponent = (function () {
-    function TopicComponent(Service, routeinfo, _router) {
-        this.Service = Service;
+    function TopicComponent(service, routeinfo, router) {
+        this.service = service;
         this.routeinfo = routeinfo;
-        this._router = _router;
+        this.router = router;
         this.bydefault();
         this.getTopicByID(routeinfo.params);
     }
@@ -33,7 +33,7 @@ var TopicComponent = (function () {
     TopicComponent.prototype.getTopicByID = function (param) {
         var _this = this;
         if (param.value.id != undefined) {
-            this.Service.getTopicByID(param.value.id).then(function (result) {
+            this.service.getTopicByID(param.value.id).then(function (result) {
                 _this.model = result[0];
                 _this.btnText = 'Update Topic';
             });
@@ -46,10 +46,10 @@ var TopicComponent = (function () {
             return false;
         }
         this.model.company_id = 1;
-        this.Service.saveTopic(this.model).then(function (result) {
+        this.service.saveTopic(this.model).then(function (result) {
             if (result) {
                 alert("category inserted!");
-                _this._router.navigate(['/topiclist']);
+                _this.router.navigate(['/topiclist']);
             }
             else {
             }
@@ -59,8 +59,7 @@ var TopicComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'app-topic',
-            templateUrl: 'topic.component.html',
-            providers: [topic_model_1.TopicModel, topic_service_1.TopicService]
+            templateUrl: 'topic.component.html'
         }), 
         __metadata('design:paramtypes', [topic_service_1.TopicService, router_1.ActivatedRoute, router_2.Router])
     ], TopicComponent);

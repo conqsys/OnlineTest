@@ -19,6 +19,7 @@ import { TopicService } from './services/topic/topic.service';
 import { QuestionOptionService } from './services/question-option/question-option.service';
 import { CompanyService } from './services/company/companyService';
 import { QuestionSetService } from './services/question-set/question-set.service';
+import { OnlineTestService } from './services/online-test/online-test.service';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { QuestionSetService } from './services/question-set/question-set.service
     TopicService,
     QuestionOptionService,
     CompanyService,
-    QuestionSetService
+    QuestionSetService,
+    OnlineTestService
 
   ],
   bootstrap: [AppComponent]

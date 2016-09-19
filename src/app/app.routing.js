@@ -12,6 +12,7 @@ var texteditor_component_1 = require('./components/froala/texteditor.component')
 var heroes_component_1 = require('./heroes.component');
 var check_box_component_1 = require('./components/check-box/check-box.component');
 var radio_component_1 = require('./components/radio/radio.component');
+var online_test_component_1 = require('./components/online-test/online-test.component');
 require('materialize-css');
 var angular2_materialize_1 = require("angular2-materialize");
 var appRoutes = [
@@ -63,11 +64,19 @@ var appRoutes = [
     {
         path: 'companylist',
         component: companies_component_1.CompaniesComponent
+    },
+    {
+        path: 'onlinetest',
+        component: online_test_component_1.OnlineTestComponent
     }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
-exports.routedComponents = [questions_component_1.QuestionsComponent, question_component_1.QuestionComponent, topic_component_1.TopicComponent,
-    company_component_1.CompanyComponent, question_set_list_component_1.QuestionSetListComponent, question_set_component_1.QuestionSetComponent, topic_list_component_1.TopicListComponent,
-    companies_component_1.CompaniesComponent, texteditor_component_1.TextEditorComponent, heroes_component_1.HeroesComponent, check_box_component_1.CheckBoxComponent, radio_component_1.RadioComponent, angular2_materialize_1.MaterializeDirective
+exports.routedComponents = [
+    questions_component_1.QuestionsComponent, question_component_1.QuestionComponent,
+    question_set_list_component_1.QuestionSetListComponent, question_set_component_1.QuestionSetComponent,
+    topic_list_component_1.TopicListComponent, topic_component_1.TopicComponent,
+    companies_component_1.CompaniesComponent, company_component_1.CompanyComponent,
+    texteditor_component_1.TextEditorComponent, heroes_component_1.HeroesComponent, check_box_component_1.CheckBoxComponent, radio_component_1.RadioComponent, angular2_materialize_1.MaterializeDirective,
+    online_test_component_1.OnlineTestComponent
 ];
 //# sourceMappingURL=app.routing.js.map

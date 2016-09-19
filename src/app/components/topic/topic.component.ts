@@ -6,13 +6,12 @@ import { Router } from '@angular/router';
 @Component({
   moduleId: module.id,
   selector: 'app-topic',
-  templateUrl: 'topic.component.html',
-  providers: [TopicModel, TopicService]
+  templateUrl: 'topic.component.html'
 })
 export class TopicComponent {
   private model: TopicModel;
   btnText:string;
-  constructor(private Service: TopicService, private routeinfo: ActivatedRoute, private _router: Router) {
+  constructor(private service: TopicService, private routeinfo: ActivatedRoute, private router: Router) {
     this.bydefault();
      this.getTopicByID(routeinfo.params);
   }
@@ -28,7 +27,7 @@ export class TopicComponent {
   }
   getTopicByID(param:any) {
     if (param.value.id != undefined) {
-      this.Service.getTopicByID(param.value.id).then(result => {
+      this.service.getTopicByID(param.value.id).then(result => {
           this.model =result[0];
           this.btnText = 'Update Topic';
         });
@@ -41,10 +40,10 @@ export class TopicComponent {
       return false;
     }
     this.model.company_id = 1;
-    this.Service.saveTopic(this.model).then(result => {
+    this.service.saveTopic(this.model).then(result => {
         if (result) {
           alert("category inserted!");
-          this._router.navigate(['/topiclist']);
+          this.router.navigate(['/topiclist']);
 
         }
         else {

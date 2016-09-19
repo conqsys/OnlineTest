@@ -1,0 +1,61 @@
+<div class="container ">
+    <form materialize class="col s12">
+
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate" id="company_id" type="text" placeholder="company_id" [(ngModel)]="model.company_id" [ngModelOptions]="{standalone: true}">
+                <label for="company_id" class="flow-text ">Company Id</label>
+            </div>
+            <div class="input-field col s6">
+                <input class="validate" id="online_test_title" type="text" placeholder="online_test_title" [(ngModel)]="model.online_test_title"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="online_test_title" class="flow-text ">Online Test Title</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate" id="test_start_date" type="text" placeholder="test_start_date" [(ngModel)]="model.test_start_date"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="test_start_date" class="flow-text ">Test Start Date</label>
+            </div>
+            <div class="input-field col s6">
+                <input class="validate" id="test_end_date" type="text" placeholder="test_end_date" [(ngModel)]="model.test_end_date" [ngModelOptions]="{standalone: true}">
+                <label for="test_end_date" class="flow-text ">Test End Date</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate" id="test_start_time" type="text" placeholder="test_start_time" [(ngModel)]="model.test_start_time" [ngModelOptions]="{standalone: true}">
+                <label for="test_start_time" class="flow-text ">Test Start Time</label>
+            </div>
+            <div class="input-field col s6">
+                <input class="validate" id="test_end_time" type="text" placeholder="test_end_time" [(ngModel)]="model.test_end_time" [ngModelOptions]="{standalone: true}">
+                <label for="test_end_time" class="flow-text ">Test End Time</label>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input class="validate" id="question_set_id" type="text" placeholder="question_set_id" [(ngModel)]="model.question_set_id"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="question_set_id" class="flow-text ">Question Set ID</label>
+            </div>
+             <div class="input-field col s6">
+                <input class="validate" id="test_experience_years" type="text" placeholder="test_experience_years" [(ngModel)]="model.test_experience_years"
+                    [ngModelOptions]="{standalone: true}">
+                <label for="test_experience_years" class="flow-text ">Test Experience Years</label>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="test_support_text" class="materialize-textarea validate" [(ngModel)]="model.test_support_text" [ngModelOptions]="{standalone: true}"></textarea>
+                <label for="test_support_text" class="flow-text ">Test Support Text</label>
+            </div>
+        </div>
+        <div class="row">
+            <button name="addOnlineTest" class="btn btn-info btn-block" (click)=addOnlineTest()>
+                     + Add Online Test</button>
+        </div>
+    </form>
+</div>

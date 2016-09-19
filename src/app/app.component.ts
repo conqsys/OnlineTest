@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
           <a class="btn" routerLink="/topiclist" routerLinkActive="active">Topic</a>
           <a class="btn" routerLink="/companylist" routerLinkActive="active">Companies</a>
           <a class="btn" routerLink="/users" routerLinkActive="active">Users</a>
+          <a class="btn" routerLink="/onlinetest" routerLinkActive="active">Online Test</a>
 
     </div>
     <div class="col-md-12">

@@ -15,7 +15,7 @@ export class TopicService {
       .then(response => response.json() as TopicModel[])
       .catch(this.handleError);
    }
-    getTopic(companyId:any):Promise<TopicModel[]>{
+    getTopic(companyId:number):Promise<TopicModel[]>{
          return this.http
       .get(ApiUrl.baseUrl + 'gettopics/'+ companyId)
       .toPromise()

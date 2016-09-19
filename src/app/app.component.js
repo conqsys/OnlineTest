@@ -17,7 +17,7 @@ var AppComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'my-app',
-            template: "<div class=\"col-md-12\">\n      \n          <a class=\"btn\" routerLink=\"/questions\" routerLinkActive=\"active\">Questions</a>\n          <a class=\"btn\" routerLink=\"/questionsets\" routerLinkActive=\"active\">Question Sets</a>\n          <a class=\"btn\" routerLink=\"/topiclist\" routerLinkActive=\"active\">Topic</a>\n          <a class=\"btn\" routerLink=\"/companylist\" routerLinkActive=\"active\">Companies</a>\n          <a class=\"btn\" routerLink=\"/users\" routerLinkActive=\"active\">Users</a>\n\n    </div>\n    <div class=\"col-md-12\">\n    <router-outlet></router-outlet></div>",
+            template: "<div class=\"col-md-12\">\n      \n          <a class=\"btn\" routerLink=\"/questions\" routerLinkActive=\"active\">Questions</a>\n          <a class=\"btn\" routerLink=\"/questionsets\" routerLinkActive=\"active\">Question Sets</a>\n          <a class=\"btn\" routerLink=\"/topiclist\" routerLinkActive=\"active\">Topic</a>\n          <a class=\"btn\" routerLink=\"/companylist\" routerLinkActive=\"active\">Companies</a>\n          <a class=\"btn\" routerLink=\"/users\" routerLinkActive=\"active\">Users</a>\n          <a class=\"btn\" routerLink=\"/onlinetest\" routerLinkActive=\"active\">Online Test</a>\n\n    </div>\n    <div class=\"col-md-12\">\n    <router-outlet></router-outlet></div>",
             styleUrls: ['app.component.css']
         }), 
         __metadata('design:paramtypes', [])

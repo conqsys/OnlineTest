@@ -6,8 +6,9 @@ import { QuestionSetService } from '../../../services/question-set/question-set.
 import { Router} from '@angular/router';
 
 @Component({
+    moduleId: module.id,
     selector:'question-set-list',
-    templateUrl: '../app/components/question-sets/question-set-list/question-set-list.component.html',
+    templateUrl: 'question-set-list.component.html',
 })
 export /**
  * QuestionSetListComponent

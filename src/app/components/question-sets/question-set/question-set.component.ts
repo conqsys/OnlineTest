@@ -9,8 +9,9 @@ import { QuestionService } from '../../../services/question/question.service';
 import { TopicService } from '../../../services/topic/topic.service';
 
 @Component({
+    moduleId: module.id,
     selector:'question-set',
-    templateUrl: '../app/components/question-sets/question-set/question-set.component.html',
+    templateUrl: 'question-set.component.html',
 })
 export /**
  * QuestionSetComponent

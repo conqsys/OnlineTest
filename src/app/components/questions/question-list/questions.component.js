@@ -15,8 +15,8 @@ var question_1 = require('../../../model/question/question');
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
 var router_1 = require('@angular/router');
 var QuestionsComponent = (function () {
-    function QuestionsComponent(Service, questionOptionService, router) {
-        this.Service = Service;
+    function QuestionsComponent(service, questionOptionService, router) {
+        this.service = service;
         this.questionOptionService = questionOptionService;
         this.router = router;
         this.statInfo = new statinfo_1.StatInfoModel();
@@ -35,7 +35,7 @@ var QuestionsComponent = (function () {
     }
     QuestionsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.Service.getQuestions(1)
+        this.service.getQuestions(1)
             .then(function (questions) {
             _this.model = questions;
         });

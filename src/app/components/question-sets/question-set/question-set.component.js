@@ -113,8 +113,9 @@ var QuestionSetComponent = (function () {
     };
     QuestionSetComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'question-set',
-            templateUrl: '../app/components/question-sets/question-set/question-set.component.html',
+            templateUrl: 'question-set.component.html',
         }), 
         __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, router_1.Router])
     ], QuestionSetComponent);

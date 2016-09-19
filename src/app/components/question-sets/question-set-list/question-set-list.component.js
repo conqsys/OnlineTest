@@ -39,8 +39,9 @@ var QuestionSetListComponent = (function () {
     };
     QuestionSetListComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'question-set-list',
-            templateUrl: '../app/components/question-sets/question-set-list/question-set-list.component.html',
+            templateUrl: 'question-set-list.component.html',
         }), 
         __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, router_1.Router])
     ], QuestionSetListComponent);

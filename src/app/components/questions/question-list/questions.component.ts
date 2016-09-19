@@ -21,7 +21,7 @@ export class QuestionsComponent implements OnInit {
   model: Array<QuestionModel>
   selectedQuestion: QuestionModel;
   questionVisibility: boolean;
-  constructor(private Service: QuestionService, private questionOptionService: QuestionOptionService,
+  constructor(private service: QuestionService, private questionOptionService: QuestionOptionService,
   private router: Router) {
     this.statInfo = new StatInfoModel();
     this.questionVisibility = false;
@@ -39,7 +39,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.Service.getQuestions(1)
+    this.service.getQuestions(1)
             .then(questions =>{ 
               this.model = questions;
               

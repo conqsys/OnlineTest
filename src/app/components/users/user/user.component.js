@@ -76,8 +76,10 @@ var UserComponent = (function () {
         });
     };
     UserComponent.prototype.saveUser = function () {
+        var _this = this;
         this.service.saveUser(this.model)
             .then(function (user) {
+            _this.router.navigate(['/users']);
         });
     };
     UserComponent = __decorate([

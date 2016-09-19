@@ -88,6 +88,7 @@ class UserComponent implements OnInit {
     saveUser(): void {
         this.service.saveUser(this.model)
             .then(user => {
+                this.router.navigate(['/users']);
             })
     }
 }

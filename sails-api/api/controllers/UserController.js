@@ -22,7 +22,10 @@ module.exports = {
         User.query(str, function (err, result) {
             if (err) return res.serverError(err);
                 else if (result == undefined) return res.json({});
-                else return res.json(result[0][0].toJSON());
+                else {
+                    delete result[0][0].user_pwd; 
+                    return res.json(result[0][0]);
+                }
         })
     },
 

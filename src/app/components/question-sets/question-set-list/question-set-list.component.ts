@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output } from '@angular/core';
+import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
 import {DatePipe} from "@angular/common";
 
 import { QuestionSetModel } from '../../../model/question-set/question-set.model';
@@ -13,7 +13,7 @@ import { Router} from '@angular/router';
 export /**
  * QuestionSetListComponent
  */
-class QuestionSetListComponent {
+class QuestionSetListComponent implements OnInit {
 
     title: string;
     model: QuestionSetModel[]=[];

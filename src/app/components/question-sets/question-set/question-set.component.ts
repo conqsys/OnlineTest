@@ -20,8 +20,8 @@ class QuestionSetComponent {
 
     title: string;
     model: QuestionSetModel;
-    questions: Array<QuestionModel>=[];
-    topics: Array<TopicModel>=[];
+    questions: QuestionModel[]=[];
+    topics: TopicModel[]=[];
 
     selectedTopic: number;
     company_id: number;

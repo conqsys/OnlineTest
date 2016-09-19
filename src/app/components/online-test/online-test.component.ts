@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {OnlineTestModel} from '../../model/online-test/online-test.model';
+import { ActivatedRoute,Router } from '@angular/router';
+import { OnlineTestModel } from '../../model/online-test/online-test.model';
+import { QuestionSetModel } from '../../model/question-set/question-set.model';
 import { OnlineTestService } from '../../services/online-test/online-test.service';
 @Component({
   moduleId: module.id,
@@ -10,12 +10,11 @@ import { OnlineTestService } from '../../services/online-test/online-test.servic
 })
 export class OnlineTestComponent {
   private model: OnlineTestModel;
-  online_test_id: any;
+  online_test_id: number;
   paramsSub: any;
-  constructor(private service: OnlineTestService, private activatedRoute: ActivatedRoute) {
-    //this.model = new Array<CompanyModel>
+  questionSetData:Array<QuestionSetModel>;
+  constructor(private service: OnlineTestService, private activatedRoute: ActivatedRoute,private router: Router) {
     this.bydefault();
-    
   }
 
   ngOnInit() {
@@ -44,6 +43,17 @@ export class OnlineTestComponent {
     this.model.test_experience_years = 2016;
     this.model.created_by = 'Vipin';
     this.model.updated_by = 'Vipin';
+    this.getQuestion();
+  }
+
+
+  getQuestion() {
+    this.service.getQuestion().then(result => {
+      if (result) {
+       this.questionSetData = result;
+      }
+    }
+    )
   }
 
   addOnlineTest() {
@@ -83,16 +93,17 @@ export class OnlineTestComponent {
     this.service.saveOnlineTest(this.model).then(result => {
       if (result) {
         alert("Company saved successfully.!");
-        this.model.online_test_id = 0;
-        this.model.company_id = 0;
-        this.model.online_test_title = "";
-        this.model.test_start_date = "";
-        this.model.test_start_time = "";
-        this.model.test_end_date = "";
-        this.model.test_end_time = "";
-        this.model.question_set_id = 0;
-        this.model.test_support_text = "";
-        this.model.test_experience_years =2016;
+          this.router.navigate(['/onlinetestlist']);
+        // this.model.online_test_id = 0;
+        // this.model.company_id = 1;
+        // this.model.online_test_title = "";
+        // this.model.test_start_date = "";
+        // this.model.test_start_time = "";
+        // this.model.test_end_date = "";
+        // this.model.test_end_time = "";
+        // this.model.question_set_id = 0;
+        // this.model.test_support_text = "";
+        // this.model.test_experience_years = 0;
       }
       else {
         alert(result);

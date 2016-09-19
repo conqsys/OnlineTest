@@ -46,13 +46,21 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   'get /students': 'StudentController.getAll',
+
   
   'get /gettopics/:company_id': 'TopicController.getAllTopic',
   'get /gettopic/:topic_id': 'TopicController.getTopic',
   'get /deletetopic/:topic_id': 'TopicController.removeTopic',
   'post /savetopic': 'TopicController.saveTopic',
-  
-  'post /company':'CompanyController.saveCompany',
+
+
+  'post /onlineTest':'OnlineTestController.saveOnlineTest',
+  'get /getQuestions': 'OnlineTestController.getAllQuestions',
+   'get /getOnlineTests': 'OnlineTestController.getOnlineTests',
+   'get /getOnlineTestById/:online_test_id': 'OnlineTestController.getOnlineTestByID',
+    'get /deletetest/:online_test_id': 'OnlineTestController.removeTest',
+    
+   'post /company':'CompanyController.saveCompany',
    'get /getCompanies': 'CompanyController.getAllCompanies',
    'get /getCompanyById/:company_id': 'CompanyController.getCompanyByID',
 

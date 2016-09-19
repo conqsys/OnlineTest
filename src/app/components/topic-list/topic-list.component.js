@@ -31,13 +31,13 @@ var TopicListComponent = (function () {
             }
         });
     };
-    TopicListComponent.prototype.editTopic = function (item) {
+    TopicListComponent.prototype.editTest = function (item) {
         this._router.navigate(['/topic/' + item.topic_id]);
     };
-    TopicListComponent.prototype.showTopic = function () {
+    TopicListComponent.prototype.showOnlineTest = function () {
         this._router.navigate(['/topic']);
     };
-    TopicListComponent.prototype.removeItem = function (item) {
+    TopicListComponent.prototype.removeTest = function (item) {
         var _this = this;
         // this.data = _.filter(this.data, (elem)=>elem!=item);
         this.Service.removeTopic(item.topic_id).then(function (result) {

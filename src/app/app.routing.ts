@@ -12,6 +12,7 @@ import {HeroesComponent} from './heroes.component'
 import {CheckBoxComponent} from './components/check-box/check-box.component'
 import {RadioComponent} from './components/radio/radio.component'
 import { OnlineTestComponent } from './components/online-test/online-test.component';
+import { OnlineTestListComponent } from './components/online-test-list/online-test-list.component';
 import  'materialize-css'
 import {MaterializeDirective} from "angular2-materialize";
 const appRoutes: Routes = [
@@ -70,7 +71,15 @@ const appRoutes: Routes = [
    {
     path: 'onlinetest',
     component: OnlineTestComponent
-  }
+  },
+  {
+    path: 'onlinetest/:id',
+    component: OnlineTestComponent
+  },
+   {
+    path: 'onlinetestlist',
+    component: OnlineTestListComponent
+  },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
@@ -81,6 +90,6 @@ export const routedComponents = [
   TopicListComponent, TopicComponent,
   CompaniesComponent, CompanyComponent,
   TextEditorComponent, HeroesComponent,CheckBoxComponent,RadioComponent,MaterializeDirective,
-  OnlineTestComponent
+  OnlineTestComponent, OnlineTestListComponent
 ];
 

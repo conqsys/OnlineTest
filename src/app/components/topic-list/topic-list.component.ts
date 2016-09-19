@@ -27,14 +27,14 @@ export class TopicListComponent {
         }
       });
   }
-  public editTopic(item:TopicModel) {
+  public editTest(item:TopicModel) {
     this._router.navigate(['/topic/' + item.topic_id]);
    }
-  public showTopic(){
+  public showOnlineTest(){
     this._router.navigate(['/topic']);
   }
 
-   public removeItem(item: any) {
+   public removeTest(item: any) {
    // this.data = _.filter(this.data, (elem)=>elem!=item);
     this.Service.removeTopic(item.topic_id).then(result => {
         if (result) {

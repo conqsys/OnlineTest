@@ -13,10 +13,10 @@ var router_1 = require('@angular/router');
 var online_test_model_1 = require('../../model/online-test/online-test.model');
 var online_test_service_1 = require('../../services/online-test/online-test.service');
 var OnlineTestComponent = (function () {
-    function OnlineTestComponent(service, activatedRoute) {
+    function OnlineTestComponent(service, activatedRoute, router) {
         this.service = service;
         this.activatedRoute = activatedRoute;
-        //this.model = new Array<CompanyModel>
+        this.router = router;
         this.bydefault();
     }
     OnlineTestComponent.prototype.ngOnInit = function () {
@@ -44,6 +44,15 @@ var OnlineTestComponent = (function () {
         this.model.test_experience_years = 2016;
         this.model.created_by = 'Vipin';
         this.model.updated_by = 'Vipin';
+        this.getQuestion();
+    };
+    OnlineTestComponent.prototype.getQuestion = function () {
+        var _this = this;
+        this.service.getQuestion().then(function (result) {
+            if (result) {
+                _this.questionSetData = result;
+            }
+        });
     };
     OnlineTestComponent.prototype.addOnlineTest = function () {
         // if (this.model.company_title == "") {
@@ -78,16 +87,7 @@ var OnlineTestComponent = (function () {
         this.service.saveOnlineTest(this.model).then(function (result) {
             if (result) {
                 alert("Company saved successfully.!");
-                _this.model.online_test_id = 0;
-                _this.model.company_id = 0;
-                _this.model.online_test_title = "";
-                _this.model.test_start_date = "";
-                _this.model.test_start_time = "";
-                _this.model.test_end_date = "";
-                _this.model.test_end_time = "";
-                _this.model.question_set_id = 0;
-                _this.model.test_support_text = "";
-                _this.model.test_experience_years = 2016;
+                _this.router.navigate(['/onlinetestlist']);
             }
             else {
                 alert(result);
@@ -106,7 +106,7 @@ var OnlineTestComponent = (function () {
             selector: 'online-test',
             templateUrl: 'online-test.component.html',
         }), 
-        __metadata('design:paramtypes', [online_test_service_1.OnlineTestService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [online_test_service_1.OnlineTestService, router_1.ActivatedRoute, router_1.Router])
     ], OnlineTestComponent);
     return OnlineTestComponent;
 }());

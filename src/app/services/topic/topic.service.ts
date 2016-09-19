@@ -23,13 +23,13 @@ export class TopicService {
       .catch(this.handleError);
        
     } 
-    getTopicByID(topicId:any):Promise<TopicModel[]>{
+    getTopicByID(topicId:any):Promise<TopicModel>{
          return this.http.get(ApiUrl.baseUrl + 'gettopic/'+ topicId).toPromise()
-      .then(response => response.json() as TopicModel[])
+      .then(response => response.json() as TopicModel)
       .catch(this.handleError);
     }
     removeTopic(topicId:any):Promise<TopicModel[]>{
-        return this.http.get(ApiUrl.baseUrl + 'delete/'+ topicId).toPromise()
+        return this.http.get(ApiUrl.baseUrl + 'deletetopic/'+ topicId).toPromise()
       .then(response => response.json() as TopicModel[])
       .catch(this.handleError);
     }

@@ -1,8 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
-import {CompanyModel} from '../../model/company/company';
-import {CompanyService} from '../../services/company/companyService';
+import { ActivatedRoute } from '@angular/router';
+import { CompanyModel } from '../../model/company/company';
+import { CompanyService } from '../../services/company/companyService';
 @Component({
   moduleId: module.id,
   selector: 'app-company',
@@ -14,7 +14,9 @@ export class CompanyComponent {
   company_id: any;
   paramsSub: any;
   constructor(private companyService: CompanyService, private activatedRoute: ActivatedRoute) {
+    //this.model = new Array<CompanyModel>
     this.bydefault();
+    
   }
 
   ngOnInit() {
@@ -31,9 +33,13 @@ export class CompanyComponent {
 
   bydefault() {
     this.model = new CompanyModel();
-    this.model.company_id = 0;
+    this.model.company_title = "";
     this.model.company_address = "";
+    this.model.company_phone = "";
+    this.model.company_url = "";
     this.model.company_email = "";
+    this.model.company_hr_phone = "";
+    this.model.company_hr_emailid = "";
     this.model.created_by = 'Harendra Maurya';
     this.model.updated_by = 'Harendra Maurya';
   }
@@ -44,7 +50,14 @@ export class CompanyComponent {
       alert("Please enter company title.");
       return;
     }
-
+    if( this.model.company_address ==  ""){
+        alert("Please enter company address");
+          return;
+    }
+    if( this.model.company_phone  ==  ""){
+        alert("Please enter company phone");
+          return;
+    }
     if (this.model.company_url == "") {
       alert("Please enter company url.");
       return;
@@ -66,27 +79,27 @@ export class CompanyComponent {
     }
 
     this.companyService.saveCompany(this.model).then(result => {
-        if (result) {
-          alert("Company saved successfully.!");
-          this.model.company_title = "";
-          this.model.company_url = "";
-          this.model.company_address = "";
-          this.model.company_hr_emailid = "";
-          this.model.company_phone = "";
-          this.model.company_hr_phone = "";
-          this.model.company_email = "";
-        }
-        else {
-          alert(result);
-        }
-      });
+      if (result) {
+        alert("Company saved successfully.!");
+        this.model.company_title = "";
+        this.model.company_url = "";
+        this.model.company_address = "";
+        this.model.company_hr_emailid = "";
+        this.model.company_phone = "";
+        this.model.company_hr_phone = "";
+        this.model.company_email = "";
+      }
+      else {
+        alert(result);
+      }
+    });
 
   }
 
-  getCompanyByID(id:any) {
+  getCompanyByID(id: any) {
     this.companyService.getCompanyById(id).then(result => {
-        this.model = result[0];
-      })
+      this.model = result;
+    })
   }
 
 

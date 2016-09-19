@@ -16,6 +16,7 @@ var CompanyComponent = (function () {
     function CompanyComponent(companyService, activatedRoute) {
         this.companyService = companyService;
         this.activatedRoute = activatedRoute;
+        //this.model = new Array<CompanyModel>
         this.bydefault();
     }
     CompanyComponent.prototype.ngOnInit = function () {
@@ -31,9 +32,13 @@ var CompanyComponent = (function () {
     };
     CompanyComponent.prototype.bydefault = function () {
         this.model = new company_1.CompanyModel();
-        this.model.company_id = 0;
+        this.model.company_title = "";
         this.model.company_address = "";
+        this.model.company_phone = "";
+        this.model.company_url = "";
         this.model.company_email = "";
+        this.model.company_hr_phone = "";
+        this.model.company_hr_emailid = "";
         this.model.created_by = 'Harendra Maurya';
         this.model.updated_by = 'Harendra Maurya';
     };
@@ -41,6 +46,14 @@ var CompanyComponent = (function () {
         var _this = this;
         if (this.model.company_title == "") {
             alert("Please enter company title.");
+            return;
+        }
+        if (this.model.company_address == "") {
+            alert("Please enter company address");
+            return;
+        }
+        if (this.model.company_phone == "") {
+            alert("Please enter company phone");
             return;
         }
         if (this.model.company_url == "") {
@@ -78,7 +91,7 @@ var CompanyComponent = (function () {
     CompanyComponent.prototype.getCompanyByID = function (id) {
         var _this = this;
         this.companyService.getCompanyById(id).then(function (result) {
-            _this.model = result[0];
+            _this.model = result;
         });
     };
     CompanyComponent = __decorate([

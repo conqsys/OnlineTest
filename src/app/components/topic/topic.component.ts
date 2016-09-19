@@ -30,7 +30,6 @@ export class TopicComponent {
     if (param.value.id != undefined) {
       this.Service.getTopicByID(param.value.id).then(result => {
           this.model =result[0];
-          this.model.topic_title = result[0].topic_title;
           this.btnText = 'Update Topic';
         });
     }

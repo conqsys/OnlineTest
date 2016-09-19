@@ -19,9 +19,9 @@ export class CompanyService {
       .then(response => response.json() as CompanyModel[])
       .catch(this.handleError);
    }
-    getCompanyById(id:any):Promise<CompanyModel[]>{
+    getCompanyById(id:any):Promise<CompanyModel>{
        return this.http.get(ApiUrl.baseUrl+'getCompanyById/'+id).toPromise()
-      .then(response => response.json() as CompanyModel[])
+      .then(response => response.json() as CompanyModel)
       .catch(this.handleError);
    }
      private handleError(error: any): Promise<any> {

@@ -49,7 +49,7 @@ module.exports.routes = {
   
   'get /gettopics/:company_id': 'TopicController.getAllTopic',
   'get /gettopic/:topic_id': 'TopicController.getTopic',
-  'get /delete/:topic_id': 'TopicController.removeTopic',
+  'get /deletetopic/:topic_id': 'TopicController.removeTopic',
   'post /savetopic': 'TopicController.saveTopic',
   
   'post /company':'CompanyController.saveCompany',

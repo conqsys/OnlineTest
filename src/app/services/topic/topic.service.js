@@ -33,7 +33,7 @@ var TopicService = (function () {
             .catch(this.handleError);
     };
     TopicService.prototype.removeTopic = function (topicId) {
-        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'delete/' + topicId).toPromise()
+        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'deletetopic/' + topicId).toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };

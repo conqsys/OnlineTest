@@ -35,7 +35,6 @@ var TopicComponent = (function () {
         if (param.value.id != undefined) {
             this.Service.getTopicByID(param.value.id).then(function (result) {
                 _this.model = result[0];
-                _this.model.topic_title = result[0].topic_title;
                 _this.btnText = 'Update Topic';
             });
         }

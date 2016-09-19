@@ -20,6 +20,7 @@ var UserComponent = (function () {
         this.title = 'User';
         this.model = new user_model_1.UserModel();
         this.company_id = 1;
+        this.disabled = false;
     }
     UserComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -67,10 +68,12 @@ var UserComponent = (function () {
         this.service.searchUserByEmail(this.model.user_email)
             .then(function (user) {
             if (user.user_id) {
+                _this.disabled = true;
                 _this.model = user;
                 _this.model.company_id = _this.company_id;
             }
             else {
+                _this.disabled = false;
                 _this.createUserObject(_this.model.user_email);
             }
         });
@@ -81,6 +84,9 @@ var UserComponent = (function () {
             .then(function (user) {
             _this.router.navigate(['/users']);
         });
+    };
+    UserComponent.prototype.cancel = function () {
+        this.router.navigate(['/users']);
     };
     UserComponent = __decorate([
         core_1.Component({

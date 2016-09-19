@@ -17,6 +17,7 @@ class UserComponent implements OnInit {
     model: UserModel;
     company_id: number;
     user_id: number
+    disabled: boolean
     
     constructor(private service: UserService, 
                 private activatedRoute: ActivatedRoute, 
@@ -24,6 +25,7 @@ class UserComponent implements OnInit {
         this.title = 'User';
         this.model = new UserModel();
         this.company_id = 1;
+        this.disabled = false;
     }
 
     ngOnInit(): void {
@@ -76,10 +78,12 @@ class UserComponent implements OnInit {
         this.service.searchUserByEmail(this.model.user_email)
             .then(user => {
                 if(user.user_id) {
+                    this.disabled = true;
                     this.model = user;
                     this.model.company_id = this.company_id;
                 }
                 else {
+                    this.disabled = false;
                     this.createUserObject(this.model.user_email);      
                 }
             })
@@ -90,5 +94,9 @@ class UserComponent implements OnInit {
             .then(user => {
                 this.router.navigate(['/users']);
             })
+    }
+
+    cancel(): void {
+        this.router.navigate(['/users']);
     }
 }

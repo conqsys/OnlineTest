@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output } from '@angular/core';
+import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
 import {DatePipe} from "@angular/common";
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionSetModel, QuestionSetQuestionsModel } from '../../../model/question-set/question-set.model';
@@ -16,7 +16,7 @@ import { TopicService } from '../../../services/topic/topic.service';
 export /**
  * QuestionSetComponent
  */
-class QuestionSetComponent {
+class QuestionSetComponent implements OnInit {
 
     title: string;
     model: QuestionSetModel;

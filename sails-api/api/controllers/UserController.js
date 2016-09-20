@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var mailService = require('../services/email');
+
 module.exports = {
     getUser: function (req, res) {
         var companyId = req.param('company_id');

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OnlineTestModel } from '../../model/online-test/online-test.model';
 import { QuestionSetModel } from '../../model/question-set/question-set.model';
 import { OnlineTestService } from '../../services/online-test/online-test.service';
@@ -12,8 +12,8 @@ export class OnlineTestComponent {
   private model: OnlineTestModel;
   online_test_id: number;
   paramsSub: any;
-  questionSetData:Array<QuestionSetModel>;
-  constructor(private service: OnlineTestService, private activatedRoute: ActivatedRoute,private router: Router) {
+  questionSetData: Array<QuestionSetModel>;
+  constructor(private service: OnlineTestService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.bydefault();
   }
 
@@ -40,7 +40,7 @@ export class OnlineTestComponent {
     this.model.test_end_time = "";
     this.model.question_set_id = 0;
     this.model.test_support_text = "";
-    this.model.test_experience_years = 2016;
+    this.model.test_experience_years = 0;
     this.model.created_by = 'Vipin';
     this.model.updated_by = 'Vipin';
     this.getQuestion();
@@ -50,7 +50,7 @@ export class OnlineTestComponent {
   getQuestion() {
     this.service.getQuestion().then(result => {
       if (result) {
-       this.questionSetData = result;
+        this.questionSetData = result;
       }
     }
     )
@@ -89,11 +89,11 @@ export class OnlineTestComponent {
     //   alert("Please enter company hr emailID.");
     //   return;
     // }
-
+   
     this.service.saveOnlineTest(this.model).then(result => {
       if (result) {
         alert("Company saved successfully.!");
-          this.router.navigate(['/onlinetestlist']);
+        this.router.navigate(['/onlinetestlist']);
         // this.model.online_test_id = 0;
         // this.model.company_id = 1;
         // this.model.online_test_title = "";
@@ -114,6 +114,10 @@ export class OnlineTestComponent {
 
   getOnlineTestByID(id: any) {
     this.service.getOnlineTestById(id).then(result => {
+      var start_date = result.test_start_date.split("T");
+      var end_date = result.test_end_date.split("T");
+      result.test_start_date = start_date[0];
+      result.test_end_date = end_date[0];
       this.model = result;
     })
   }

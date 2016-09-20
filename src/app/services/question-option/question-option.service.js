@@ -15,6 +15,7 @@ var QuestionOptionService = (function () {
     function QuestionOptionService(http) {
         this.http = http;
     }
+    // get Question option from database
     QuestionOptionService.prototype.getQuestionOptions = function (question_id) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'questionoptions/' + question_id);
     };

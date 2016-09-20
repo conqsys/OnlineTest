@@ -15,21 +15,25 @@ var CompanyService = (function () {
     function CompanyService(http) {
         this.http = http;
     }
+    // save company into database
     CompanyService.prototype.saveCompany = function (company) {
         return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'company', company).toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get company from database
     CompanyService.prototype.getCompanies = function () {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getCompanies').toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get company by company_id from database
     CompanyService.prototype.getCompanyById = function (id) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getCompanyById/' + id).toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // error handling method
     CompanyService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

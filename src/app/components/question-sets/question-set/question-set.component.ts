@@ -22,7 +22,6 @@ class QuestionSetComponent implements OnInit {
     model: QuestionSetModel;
     questions: QuestionModel[]=[];
     topics: TopicModel[]=[];
-
     selectedTopic: number;
     company_id: number;
     isAddQuestion:boolean;
@@ -60,14 +59,14 @@ class QuestionSetComponent implements OnInit {
             this.model.question_set_questions= [];
         }
     }
-
+// get Question Set by company_id and question_set_id
     getQuestionSet(company_id:number, question_set_id:number): void {
         this.service.getQuestionSet(company_id, question_set_id)
             .then(questionSet => { 
               this.model = questionSet;
             });
     }
-
+// get topic_id by company_id then get Question by topic_id 
     showQuestions(): void {
         this.isAddQuestion = true;
         this.topicService.getTopic(this.company_id)
@@ -77,9 +76,9 @@ class QuestionSetComponent implements OnInit {
                     this.selectedTopic = this.topics[0].topic_id;
                     this.getQuestions(this.selectedTopic);
                 }
-            });
+          });
     }
-
+// get Question by topic_id 
     getQuestions(topic_id:number): void {
         this.questionService.getQuestionsByTopic(topic_id)
             .then(questions => { 
@@ -94,7 +93,7 @@ class QuestionSetComponent implements OnInit {
                 }
             });
     }
-
+// add Question in Question Set
     addQuestionsInQuestionSet(): void {
         this.isAddQuestion = false;
 
@@ -111,6 +110,7 @@ class QuestionSetComponent implements OnInit {
         }
     }
 
+// save Question Set  
     saveQuestionSet(): void {
         this.model.created_by = 'admin';
         this.model.updated_by = 'admin';
@@ -119,7 +119,7 @@ class QuestionSetComponent implements OnInit {
                 this.router.navigate(['/questionsets']);
             });
     }
-
+// delete Question set by question_id
     deleteSetQuestion(question:QuestionSetQuestionsModel, index:number): void {
         if(question.set_question_id == 0){
             this.model.question_set_questions.splice(index,1);

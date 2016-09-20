@@ -21,6 +21,7 @@ var TopicListComponent = (function () {
         this.selectedTopic = new topic_model_1.TopicModel();
         this.getTopic();
     }
+    // get Topic by company_id
     TopicListComponent.prototype.getTopic = function () {
         var _this = this;
         this.Service.getTopic(1).then(function (result) {
@@ -31,12 +32,15 @@ var TopicListComponent = (function () {
             }
         });
     };
+    // navigate topic_id to Topic Component.ts
     TopicListComponent.prototype.editTopic = function (item) {
         this._router.navigate(['/topic/' + item.topic_id]);
     };
+    //open topic page for add topic 
     TopicListComponent.prototype.showTopic = function () {
         this._router.navigate(['/topic']);
     };
+    //remove Topic by topic_id
     TopicListComponent.prototype.removeItem = function (item) {
         var _this = this;
         // this.data = _.filter(this.data, (elem)=>elem!=item);

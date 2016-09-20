@@ -30,20 +30,20 @@ class QuestionSetListComponent implements OnInit {
     ngOnInit(): void {
         this.getQuestionSets(this.company_id);
     }
-
+// get Question set by company_id
     getQuestionSets(company_id:number): void {
         this.service.getQuestionSets(company_id)
             .then(questionSets => { 
               this.model = questionSets;
             });
     }
-
+// navigate question_set_id to Question set component.ts
     selectQuestionSet(selectedQuestionSet:QuestionSetModel): void {
         this.selectedQuestionSetId = selectedQuestionSet.question_set_id; 
         
         this.router.navigate(['/questionset', this.selectedQuestionSetId]);
     }
-
+// open Question set page for add Questionset 
     addQuestionSet(): void {
         this.router.navigate(['/questionset', 0]);
     }

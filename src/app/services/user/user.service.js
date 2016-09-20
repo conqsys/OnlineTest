@@ -15,6 +15,7 @@ var UserService = (function () {
     function UserService(http) {
         this.http = http;
     }
+    // get User by company_id from database
     UserService.prototype.getUsers = function (company_id) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'users/' + company_id)
@@ -22,6 +23,7 @@ var UserService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get User by company_id and user_id from database
     UserService.prototype.getUser = function (company_id, user_id) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'user/' + company_id + '/' + user_id)
@@ -29,6 +31,7 @@ var UserService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get User by emailId from database
     UserService.prototype.searchUserByEmail = function (emailId) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'user/' + emailId)
@@ -36,6 +39,7 @@ var UserService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // save User into database
     UserService.prototype.saveUser = function (data) {
         return this.http
             .post(api_url_component_1.ApiUrl.baseUrl + 'user', JSON.stringify(data), { headers: api_url_component_1.ApiUrl.headers })

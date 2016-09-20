@@ -44,9 +44,10 @@ var OnlineTestComponent = (function () {
         this.model.test_experience_years = 0;
         this.model.created_by = 'Vipin';
         this.model.updated_by = 'Vipin';
-        this.getQuestion();
+        this.getQuestionSet();
     };
-    OnlineTestComponent.prototype.getQuestion = function () {
+    // get qustionset
+    OnlineTestComponent.prototype.getQuestionSet = function () {
         var _this = this;
         this.service.getQuestion().then(function (result) {
             if (result) {
@@ -54,6 +55,7 @@ var OnlineTestComponent = (function () {
             }
         });
     };
+    // save test details 
     OnlineTestComponent.prototype.addOnlineTest = function () {
         // if (this.model.company_title == "") {
         //   alert("Please enter company title.");
@@ -94,13 +96,10 @@ var OnlineTestComponent = (function () {
             }
         });
     };
+    // get test details by online_test_id 
     OnlineTestComponent.prototype.getOnlineTestByID = function (id) {
         var _this = this;
         this.service.getOnlineTestById(id).then(function (result) {
-            var start_date = result.test_start_date.split("T");
-            var end_date = result.test_end_date.split("T");
-            result.test_start_date = start_date[0];
-            result.test_end_date = end_date[0];
             _this.model = result;
         });
     };

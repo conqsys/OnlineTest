@@ -14,6 +14,7 @@ export class OnlineTestListComponent {
   constructor(private service: OnlineTestService, private router: Router) {
     this.getOnlineTests();
   }
+// get test details 
   getOnlineTests() {
     this.service.getOnlineTests().then(result => {
       if (result != undefined && result != null) {
@@ -24,13 +25,16 @@ export class OnlineTestListComponent {
       }
     });
   }
+
+  //pass the online_test_id to online-test component.ts 
   public editTest(item: OnlineTestModel) {
     this.router.navigate(['/onlinetest/' + item.online_test_id]);
   }
+  //open onlinetest page for add test 
   public showOnlineTest() {
     this.router.navigate(['/onlinetest']);
   }
-
+//delete test by online_test_id
   public removeTest(item: OnlineTestModel) {
     // this.data = _.filter(this.data, (elem)=>elem!=item);
     this.service.removeOnlineTest(item.online_test_id).then(result => {
@@ -42,7 +46,6 @@ export class OnlineTestListComponent {
         alert("record not deleted!");
       }
     });
-    // console.log("Remove: ", (item.SubjectID);
   }
 
 }

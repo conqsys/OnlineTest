@@ -29,20 +29,20 @@ class UserListComponent implements OnInit {
     ngOnInit(): void {
         this.getUsers(this.company_id);
     }
-
+// get user by company_id
     getUsers(company_id:number): void {
         this.service.getUsers(company_id)
             .then(users => { 
               this.model = users;
             });
     }
-
+// navigate user_id to user component.ts
     selectUser(selectedUser:UserModel): void {
         this.selectedUserId = selectedUser.user_id; 
         
         this.router.navigate(['/user', this.selectedUserId]);
     }
-
+// open user page for add user
     addUser(): void {
         this.router.navigate(['/user', 0]);
     }

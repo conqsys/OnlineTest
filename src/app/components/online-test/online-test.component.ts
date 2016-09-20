@@ -43,11 +43,11 @@ export class OnlineTestComponent {
     this.model.test_experience_years = 0;
     this.model.created_by = 'Vipin';
     this.model.updated_by = 'Vipin';
-    this.getQuestion();
+    this.getQuestionSet();
   }
 
-
-  getQuestion() {
+// get qustionset
+  getQuestionSet() {
     this.service.getQuestion().then(result => {
       if (result) {
         this.questionSetData = result;
@@ -55,7 +55,7 @@ export class OnlineTestComponent {
     }
     )
   }
-
+// save test details 
   addOnlineTest() {
 
     // if (this.model.company_title == "") {
@@ -111,14 +111,10 @@ export class OnlineTestComponent {
     });
 
   }
-
+  // get test details by online_test_id 
   getOnlineTestByID(id: any) {
     this.service.getOnlineTestById(id).then(result => {
-      var start_date = result.test_start_date.split("T");
-      var end_date = result.test_end_date.split("T");
-      result.test_start_date = start_date[0];
-      result.test_end_date = end_date[0];
-      this.model = result;
+     this.model = result;
     })
   }
 

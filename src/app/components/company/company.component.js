@@ -13,9 +13,10 @@ var router_1 = require('@angular/router');
 var company_1 = require('../../model/company/company');
 var companyService_1 = require('../../services/company/companyService');
 var CompanyComponent = (function () {
-    function CompanyComponent(companyService, activatedRoute) {
+    function CompanyComponent(companyService, activatedRoute, router) {
         this.companyService = companyService;
         this.activatedRoute = activatedRoute;
+        this.router = router;
         //this.model = new Array<CompanyModel>
         this.bydefault();
     }
@@ -32,6 +33,7 @@ var CompanyComponent = (function () {
     };
     CompanyComponent.prototype.bydefault = function () {
         this.model = new company_1.CompanyModel();
+        this.model.company_id = 0;
         this.model.company_title = "";
         this.model.company_address = "";
         this.model.company_phone = "";
@@ -39,55 +41,55 @@ var CompanyComponent = (function () {
         this.model.company_email = "";
         this.model.company_hr_phone = "";
         this.model.company_hr_emailid = "";
+        this.model.smtp_host = "";
+        this.model.smtp_port = 0;
+        this.model.smtp_username = "";
+        this.model.smtp_password = "";
         this.model.created_by = 'Harendra Maurya';
         this.model.updated_by = 'Harendra Maurya';
     };
+    // save company  
     CompanyComponent.prototype.addCompany = function () {
+        // if (this.model.company_title == "") {
+        //   this.errorMesssage ="Please enter company title.";
+        //   return;
+        // }
+        // if( this.model.company_address ==  ""){
+        //      this.errorMesssage ="Please enter company address.";
+        //       return;
+        // }
+        // if( this.model.company_phone  ==  ""){
+        //     alert("Please enter company phone");
+        //       return;
+        // }
+        // if (this.model.company_url == "") {
+        //   alert("Please enter company url.");
+        //   return;
+        // }
         var _this = this;
-        if (this.model.company_title == "") {
-            alert("Please enter company title.");
-            return;
-        }
-        if (this.model.company_address == "") {
-            alert("Please enter company address");
-            return;
-        }
-        if (this.model.company_phone == "") {
-            alert("Please enter company phone");
-            return;
-        }
-        if (this.model.company_url == "") {
-            alert("Please enter company url.");
-            return;
-        }
-        if (this.model.company_email == "") {
-            alert("Please enter company title.");
-            return;
-        }
-        if (this.model.company_hr_phone == "") {
-            alert("Please enter company hr phone.");
-            return;
-        }
-        if (this.model.company_hr_emailid == "") {
-            alert("Please enter company hr emailID.");
-            return;
-        }
+        // if (this.model.company_email == "") {
+        //   alert("Please enter company title.");
+        //   return;
+        // }
+        // if (this.model.company_hr_phone == "") {
+        //   alert("Please enter company hr phone.");
+        //   return;
+        // }
+        // if (this.model.company_hr_emailid == "") {
+        //   alert("Please enter company hr emailID.");
+        //   return;
+        // }
         this.companyService.saveCompany(this.model).then(function (result) {
             if (result) {
                 alert("Company saved successfully.!");
-                _this.model.company_title = "";
-                _this.model.company_url = "";
-                _this.model.company_address = "";
-                _this.model.company_hr_emailid = "";
-                _this.model.company_phone = "";
-                _this.model.company_hr_phone = "";
-                _this.model.company_email = "";
+                _this.router.navigate(['/companylist']);
             }
             else {
                 alert(result);
             }
         });
     };
+    // get companies details from service
     CompanyComponent.prototype.getCompanyByID = function (id) {
         var _this = this;
         this.companyService.getCompanyById(id).then(function (result) {
@@ -101,7 +103,7 @@ var CompanyComponent = (function () {
             templateUrl: 'company.component.html',
             providers: [company_1.CompanyModel, companyService_1.CompanyService]
         }), 
-        __metadata('design:paramtypes', [companyService_1.CompanyService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [companyService_1.CompanyService, router_1.ActivatedRoute, router_1.Router])
     ], CompanyComponent);
     return CompanyComponent;
 }());

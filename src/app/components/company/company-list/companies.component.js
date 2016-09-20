@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var router_1 = require('@angular/router');
 var core_1 = require('@angular/core');
-var company_1 = require('../../../model/company/company');
 var companyService_1 = require('../../../services/company/companyService');
 var CompaniesComponent = (function () {
     function CompaniesComponent(companyService, router) {
@@ -18,20 +17,21 @@ var CompaniesComponent = (function () {
         this.router = router;
         this.getCompanies();
     }
+    //get company details 
     CompaniesComponent.prototype.getCompanies = function () {
         var _this = this;
         this.companyService.getCompanies().then(function (result) {
             _this.model = result;
         });
     };
+    // open add company page from company list
     CompaniesComponent.prototype.addCompany = function () {
-        this.router.navigate(['/company/' + 3]);
+        this.router.navigate(['/company']);
     };
     CompaniesComponent = __decorate([
         core_1.Component({
             selector: 'app-companies',
             templateUrl: '../app/components/company/company-list/companies.component.html',
-            providers: [company_1.CompanyModel, companyService_1.CompanyService]
         }), 
         __metadata('design:paramtypes', [companyService_1.CompanyService, router_1.Router])
     ], CompaniesComponent);

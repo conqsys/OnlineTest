@@ -17,6 +17,7 @@ var OnlineTestListComponent = (function () {
         this.router = router;
         this.getOnlineTests();
     }
+    // get test details 
     OnlineTestListComponent.prototype.getOnlineTests = function () {
         var _this = this;
         this.service.getOnlineTests().then(function (result) {
@@ -27,12 +28,15 @@ var OnlineTestListComponent = (function () {
             }
         });
     };
+    //pass the online_test_id to online-test component.ts 
     OnlineTestListComponent.prototype.editTest = function (item) {
         this.router.navigate(['/onlinetest/' + item.online_test_id]);
     };
+    //open onlinetest page for add test 
     OnlineTestListComponent.prototype.showOnlineTest = function () {
         this.router.navigate(['/onlinetest']);
     };
+    //delete test by online_test_id
     OnlineTestListComponent.prototype.removeTest = function (item) {
         var _this = this;
         // this.data = _.filter(this.data, (elem)=>elem!=item);
@@ -45,7 +49,6 @@ var OnlineTestListComponent = (function () {
                 alert("record not deleted!");
             }
         });
-        // console.log("Remove: ", (item.SubjectID);
     };
     OnlineTestListComponent = __decorate([
         core_1.Component({

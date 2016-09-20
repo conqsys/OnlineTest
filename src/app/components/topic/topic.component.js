@@ -21,6 +21,7 @@ var TopicComponent = (function () {
         this.bydefault();
         this.getTopicByID(routeinfo.params);
     }
+    // create default object for save topic
     TopicComponent.prototype.bydefault = function () {
         this.model = new topic_model_1.TopicModel();
         this.btnText = 'Save Topic';
@@ -30,6 +31,7 @@ var TopicComponent = (function () {
         this.model.created_by = 'vipin';
         this.model.updated_by = 'vipin';
     };
+    // get Topic by topic_id
     TopicComponent.prototype.getTopicByID = function (param) {
         var _this = this;
         if (param.value.id != undefined) {
@@ -39,6 +41,7 @@ var TopicComponent = (function () {
             });
         }
     };
+    // save topic 
     TopicComponent.prototype.addTopic = function () {
         var _this = this;
         if (this.model.topic_title == "" || this.model.topic_title == undefined) {

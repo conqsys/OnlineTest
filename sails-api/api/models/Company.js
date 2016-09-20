@@ -44,6 +44,21 @@ company_hr_emailid:{
   type:"string",
    required:false
 },
+smtp_host:{
+  type:"string",
+   required:false}, 
+smtp_port:{
+    type:"integer",
+      required:false
+}, 
+smtp_username:{
+  type:"string",
+   required:false
+}, 
+smtp_password :{
+  type:"string",
+  required:false
+},
 created_by:{
       type:"string"
     },
@@ -58,4 +73,3 @@ updated_datetime:{
     }
   }
 };
-

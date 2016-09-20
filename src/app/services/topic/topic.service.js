@@ -15,11 +15,13 @@ var TopicService = (function () {
     function TopicService(http) {
         this.http = http;
     }
+    //save topic into database
     TopicService.prototype.saveTopic = function (topic) {
         return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'savetopic', topic).toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get topic by companyId from database
     TopicService.prototype.getTopic = function (companyId) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'gettopics/' + companyId)
@@ -27,11 +29,13 @@ var TopicService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get topic by topicId from database
     TopicService.prototype.getTopicByID = function (topicId) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'gettopic/' + topicId).toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get topic by topicId from database
     TopicService.prototype.removeTopic = function (topicId) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'deletetopic/' + topicId).toPromise()
             .then(function (response) { return response.json(); })

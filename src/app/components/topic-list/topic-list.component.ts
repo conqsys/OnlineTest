@@ -16,7 +16,7 @@ export class TopicListComponent {
     this.selectedTopic = new TopicModel();
     this.getTopic();
   }
-
+// get Topic by company_id
    getTopic() {
     this.Service.getTopic(1).then(result => {
         if (result != undefined && result != null) {
@@ -27,13 +27,15 @@ export class TopicListComponent {
         }
       });
   }
+  // navigate topic_id to Topic Component.ts
   public editTopic(item:TopicModel) {
     this._router.navigate(['/topic/' + item.topic_id]);
    }
+  //open topic page for add topic 
   public showTopic(){
     this._router.navigate(['/topic']);
   }
-
+//remove Topic by topic_id
    public removeItem(item: any) {
    // this.data = _.filter(this.data, (elem)=>elem!=item);
     this.Service.removeTopic(item.topic_id).then(result => {

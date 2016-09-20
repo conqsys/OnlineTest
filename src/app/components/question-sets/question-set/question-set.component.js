@@ -48,6 +48,7 @@ var QuestionSetComponent = (function () {
             this.model.question_set_questions = [];
         }
     };
+    // get Question Set by company_id and question_set_id
     QuestionSetComponent.prototype.getQuestionSet = function (company_id, question_set_id) {
         var _this = this;
         this.service.getQuestionSet(company_id, question_set_id)
@@ -55,6 +56,7 @@ var QuestionSetComponent = (function () {
             _this.model = questionSet;
         });
     };
+    // get topic_id by company_id then get Question by topic_id 
     QuestionSetComponent.prototype.showQuestions = function () {
         var _this = this;
         this.isAddQuestion = true;
@@ -67,6 +69,7 @@ var QuestionSetComponent = (function () {
             }
         });
     };
+    // get Question by topic_id 
     QuestionSetComponent.prototype.getQuestions = function (topic_id) {
         var _this = this;
         this.questionService.getQuestionsByTopic(topic_id)
@@ -80,6 +83,7 @@ var QuestionSetComponent = (function () {
             }
         });
     };
+    // add Question in Question Set
     QuestionSetComponent.prototype.addQuestionsInQuestionSet = function () {
         this.isAddQuestion = false;
         var selectedQuestions = this.questions.filter(function (ques) { return ques.is_selected === true; });
@@ -94,6 +98,7 @@ var QuestionSetComponent = (function () {
             }
         }
     };
+    // save Question Set  
     QuestionSetComponent.prototype.saveQuestionSet = function () {
         var _this = this;
         this.model.created_by = 'admin';
@@ -103,6 +108,7 @@ var QuestionSetComponent = (function () {
             _this.router.navigate(['/questionsets']);
         });
     };
+    // delete Question set by question_id
     QuestionSetComponent.prototype.deleteSetQuestion = function (question, index) {
         if (question.set_question_id == 0) {
             this.model.question_set_questions.splice(index, 1);

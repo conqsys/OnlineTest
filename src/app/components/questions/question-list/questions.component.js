@@ -46,13 +46,16 @@ var QuestionsComponent = (function () {
         //     this.selectedQuestion.options = new Array<QuestionOptionModel>();
         //   });
     };
+    // set question show or not 
     QuestionsComponent.prototype.SetQuestionVisibility = function (value) {
         this.questionVisibility = value;
     };
+    // selected Question
     QuestionsComponent.prototype.selectQuestion = function (selectedQuestion) {
         this.selectedQuestion = selectedQuestion;
         this.router.navigate(['/question', selectedQuestion.question_id]);
     };
+    // open question for add question 
     QuestionsComponent.prototype.addQuestion = function () {
         this.router.navigate(['/question', 0]);
     };

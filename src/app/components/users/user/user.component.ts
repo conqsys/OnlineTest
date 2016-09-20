@@ -41,7 +41,7 @@ class UserComponent implements OnInit {
             this.createUserObject("");
         }
     }
-
+// create user object for save user 
     createUserObject(emailId: string): void {
         this.model = new UserModel(); 
         this.model.user_id=0;
@@ -60,7 +60,7 @@ class UserComponent implements OnInit {
         
         this.model.company_id=this.company_id;
     }
-
+// get user by company_id and user_id
     getUser(company_id: number, user_id: number): void {
         this.service.getUser(company_id, user_id)
             .then(user => { 
@@ -73,7 +73,7 @@ class UserComponent implements OnInit {
                 }
             });
     }
-
+// search user by Email
     searchUserByEmail(): void {
         this.service.searchUserByEmail(this.model.user_email)
             .then(user => {
@@ -88,14 +88,14 @@ class UserComponent implements OnInit {
                 }
             })
     }
-
+// save user 
     saveUser(): void {
         this.service.saveUser(this.model)
             .then(user => {
                 this.router.navigate(['/users']);
             })
     }
-
+// open user list page
     cancel(): void {
         this.router.navigate(['/users']);
     }

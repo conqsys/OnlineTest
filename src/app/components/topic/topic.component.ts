@@ -15,7 +15,7 @@ export class TopicComponent {
     this.bydefault();
      this.getTopicByID(routeinfo.params);
   }
-
+// create default object for save topic
   bydefault() {
     this.model = new TopicModel();
     this.btnText='Save Topic';
@@ -25,6 +25,7 @@ export class TopicComponent {
     this.model.created_by = 'vipin';
     this.model.updated_by = 'vipin';
   }
+  // get Topic by topic_id
   getTopicByID(param:any) {
     if (param.value.id != undefined) {
       this.service.getTopicByID(param.value.id).then(result => {
@@ -33,7 +34,7 @@ export class TopicComponent {
         });
     }
   }
-
+// save topic 
   addTopic() {
     if (this.model.topic_title == "" || this.model.topic_title == undefined) {
       alert("Please insert Topic");

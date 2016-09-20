@@ -52,15 +52,19 @@ export class QuestionsComponent implements OnInit {
     //     this.selectedQuestion.options = new Array<QuestionOptionModel>();
     //   });
   }
+  // set question show or not 
   SetQuestionVisibility(value:boolean): void {
 
     this.questionVisibility = value;
   }
+  // selected Question
   selectQuestion(selectedQuestion: QuestionModel): void {
     this.selectedQuestion = selectedQuestion;
     
     this.router.navigate(['/question', selectedQuestion.question_id]);
   }
+
+// open question for add question 
   addQuestion(): void {
     this.router.navigate(['/question', 0]);
   }

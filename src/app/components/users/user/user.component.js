@@ -34,6 +34,7 @@ var UserComponent = (function () {
             this.createUserObject("");
         }
     };
+    // create user object for save user 
     UserComponent.prototype.createUserObject = function (emailId) {
         this.model = new user_model_1.UserModel();
         this.model.user_id = 0;
@@ -50,6 +51,7 @@ var UserComponent = (function () {
         this.model.updated_by = "admin";
         this.model.company_id = this.company_id;
     };
+    // get user by company_id and user_id
     UserComponent.prototype.getUser = function (company_id, user_id) {
         var _this = this;
         this.service.getUser(company_id, user_id)
@@ -63,6 +65,7 @@ var UserComponent = (function () {
             }
         });
     };
+    // search user by Email
     UserComponent.prototype.searchUserByEmail = function () {
         var _this = this;
         this.service.searchUserByEmail(this.model.user_email)
@@ -78,6 +81,7 @@ var UserComponent = (function () {
             }
         });
     };
+    // save user 
     UserComponent.prototype.saveUser = function () {
         var _this = this;
         this.service.saveUser(this.model)
@@ -85,6 +89,7 @@ var UserComponent = (function () {
             _this.router.navigate(['/users']);
         });
     };
+    // open user list page
     UserComponent.prototype.cancel = function () {
         this.router.navigate(['/users']);
     };

@@ -23,6 +23,7 @@ var QuestionSetListComponent = (function () {
     QuestionSetListComponent.prototype.ngOnInit = function () {
         this.getQuestionSets(this.company_id);
     };
+    // get Question set by company_id
     QuestionSetListComponent.prototype.getQuestionSets = function (company_id) {
         var _this = this;
         this.service.getQuestionSets(company_id)
@@ -30,10 +31,12 @@ var QuestionSetListComponent = (function () {
             _this.model = questionSets;
         });
     };
+    // navigate question_set_id to Question set component.ts
     QuestionSetListComponent.prototype.selectQuestionSet = function (selectedQuestionSet) {
         this.selectedQuestionSetId = selectedQuestionSet.question_set_id;
         this.router.navigate(['/questionset', this.selectedQuestionSetId]);
     };
+    // open Question set page for add Questionset 
     QuestionSetListComponent.prototype.addQuestionSet = function () {
         this.router.navigate(['/questionset', 0]);
     };

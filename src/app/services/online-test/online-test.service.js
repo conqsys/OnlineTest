@@ -15,26 +15,31 @@ var OnlineTestService = (function () {
     function OnlineTestService(http) {
         this.http = http;
     }
+    // get Question from database
     OnlineTestService.prototype.getQuestion = function () {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getQuestions').toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // save test into database
     OnlineTestService.prototype.saveOnlineTest = function (onlineTest) {
         return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'onlineTest', onlineTest).toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get Test from database
     OnlineTestService.prototype.getOnlineTests = function () {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getOnlineTests').toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get Test by test from database
     OnlineTestService.prototype.getOnlineTestById = function (id) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getOnlineTestById/' + id).toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    //Remove test from database
     OnlineTestService.prototype.removeOnlineTest = function (id) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'deletetest/' + id).toPromise()
             .then(function (response) { return response.json(); })

@@ -23,6 +23,7 @@ var UserListComponent = (function () {
     UserListComponent.prototype.ngOnInit = function () {
         this.getUsers(this.company_id);
     };
+    // get user by company_id
     UserListComponent.prototype.getUsers = function (company_id) {
         var _this = this;
         this.service.getUsers(company_id)
@@ -30,10 +31,12 @@ var UserListComponent = (function () {
             _this.model = users;
         });
     };
+    // navigate user_id to user component.ts
     UserListComponent.prototype.selectUser = function (selectedUser) {
         this.selectedUserId = selectedUser.user_id;
         this.router.navigate(['/user', this.selectedUserId]);
     };
+    // open user page for add user
     UserListComponent.prototype.addUser = function () {
         this.router.navigate(['/user', 0]);
     };

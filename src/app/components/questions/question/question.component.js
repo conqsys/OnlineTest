@@ -15,11 +15,6 @@ var topic_service_1 = require('../../../services/topic/topic.service');
 var question_service_1 = require('../../../services/question/question.service');
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
 var QuestionComponent = (function () {
-    // text: string = '<div>Hey we are testing Froala Editor</div>';
-    //   editor: any;
-    //   froalaOptions: any = {
-    //     height: 300
-    //   };
     function QuestionComponent(questionService, topicService, activatedRoute, questionOptionService, router) {
         this.questionService = questionService;
         this.topicService = topicService;
@@ -48,6 +43,7 @@ var QuestionComponent = (function () {
             option.is_correct = false;
         });
     };
+    // add option 
     QuestionComponent.prototype.addOption = function () {
         if (this.newOption === "")
             alert("can not be blank");
@@ -55,6 +51,7 @@ var QuestionComponent = (function () {
             this.model.options.push({ description: this.newOption, is_correct: false, option_id: 0, question_id: this.model.question_id });
         this.newOption = "";
     };
+    // get Question by question_id or get Topic by company_id
     QuestionComponent.prototype.ngOnInit = function () {
         var _this = this;
         var subscriptions = this.activatedRoute.params.subscribe(function (params) {
@@ -78,6 +75,7 @@ var QuestionComponent = (function () {
     //   alert(value);
     //   $('#my_form').submit();
     // }
+    // save Question 
     QuestionComponent.prototype.saveQuestion = function () {
         var _this = this;
         this.questionService.saveQuestion(this.model)
@@ -86,6 +84,7 @@ var QuestionComponent = (function () {
         });
         this.setQuestionVisibility.emit(false);
     };
+    // open  Question list 
     QuestionComponent.prototype.cancel = function () {
         this.router.navigate(['/questions']);
     };

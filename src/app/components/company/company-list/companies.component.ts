@@ -6,7 +6,6 @@ import {CompanyService} from '../../../services/company/companyService';
 @Component({
   selector: 'app-companies',
   templateUrl: '../app/components/company/company-list/companies.component.html',
-  providers: [CompanyModel, CompanyService]
 })
 export class CompaniesComponent {
   private model:Array<CompanyModel>;
@@ -14,16 +13,16 @@ export class CompaniesComponent {
     this.getCompanies();
   }
 
- 
+ //get company details 
   getCompanies()
   {
-       this.companyService.getCompanies().then(result => {
+           this.companyService.getCompanies().then(result => {
           this.model=result;
       })
   }
-
+// open add company page from company list
   addCompany(){
-    this.router.navigate(['/company/'+3])
+    this.router.navigate(['/company']);
   }
 
 }

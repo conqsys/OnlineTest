@@ -15,6 +15,7 @@ var QuestionService = (function () {
     function QuestionService(http) {
         this.http = http;
     }
+    // get Question by question_id from database
     QuestionService.prototype.getQuestionById = function (question_id) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'questionbyid/' + question_id)
@@ -22,6 +23,7 @@ var QuestionService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get Question by company_id from database
     QuestionService.prototype.getQuestions = function (company_id) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'questions/' + company_id)
@@ -29,6 +31,7 @@ var QuestionService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get Question by topic_id from database
     QuestionService.prototype.getQuestionsByTopic = function (topic_id) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'question/' + topic_id)
@@ -36,6 +39,7 @@ var QuestionService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // save Question into database
     QuestionService.prototype.saveQuestion = function (data) {
         return this.http
             .post(api_url_component_1.ApiUrl.baseUrl + 'question', JSON.stringify(data), { headers: api_url_component_1.ApiUrl.headers })
@@ -43,6 +47,7 @@ var QuestionService = (function () {
             .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    // delete from  database
     QuestionService.prototype.deleteQuestion = function (id) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'deleteQuestion?questionID=' + id);
     };

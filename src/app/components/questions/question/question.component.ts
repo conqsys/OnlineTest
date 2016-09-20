@@ -28,13 +28,7 @@ export class QuestionComponent implements OnInit {
   win: any
   fieldname: any;
   private newOption: string;
-  // text: string = '<div>Hey we are testing Froala Editor</div>';
-  //   editor: any;
-
-  //   froalaOptions: any = {
-  //     height: 300
-  //   };
-
+ 
   constructor(private questionService: QuestionService,
     private topicService: TopicService, private activatedRoute: ActivatedRoute,
     private questionOptionService: QuestionOptionService,
@@ -62,7 +56,7 @@ export class QuestionComponent implements OnInit {
       option.is_correct = false;
     });
   }
-
+// add option 
   addOption(): void {
     if (this.newOption === "")
       alert("can not be blank");
@@ -71,6 +65,7 @@ export class QuestionComponent implements OnInit {
     this.newOption = "";
 
   }
+  // get Question by question_id or get Topic by company_id
   ngOnInit(): void {
     var subscriptions = this.activatedRoute.params.subscribe(params => {
       this.question_id = +params['question_id']; // (+) converts string 'id' to a number
@@ -96,6 +91,7 @@ export class QuestionComponent implements OnInit {
   //   alert(value);
   //   $('#my_form').submit();
   // }
+  // save Question 
   saveQuestion(): void {
     this.questionService.saveQuestion(this.model)
     .then(result => {
@@ -103,6 +99,7 @@ export class QuestionComponent implements OnInit {
       })
     this.setQuestionVisibility.emit(false);
   }
+  // open  Question list 
   cancel(): void {
     this.router.navigate(['/questions']);
   }

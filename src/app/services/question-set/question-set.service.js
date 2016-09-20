@@ -15,6 +15,7 @@ var QuestionSetService = (function () {
     function QuestionSetService(http) {
         this.http = http;
     }
+    // get Question by company_id from database
     QuestionSetService.prototype.getQuestionSets = function (company_id) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'questionSet/' + company_id)
@@ -22,6 +23,7 @@ var QuestionSetService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get Question by company_id and question_set_id from database
     QuestionSetService.prototype.getQuestionSet = function (company_id, question_set_id) {
         return this.http
             .get(api_url_component_1.ApiUrl.baseUrl + 'questionSet/' + company_id + '/' + question_set_id)
@@ -29,6 +31,7 @@ var QuestionSetService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // save Question into database
     QuestionSetService.prototype.saveQuestionSet = function (data) {
         return this.http
             .post(api_url_component_1.ApiUrl.baseUrl + 'saveQuestionSet', JSON.stringify(data), { headers: api_url_component_1.ApiUrl.headers })

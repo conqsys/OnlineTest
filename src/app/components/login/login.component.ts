@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
 	constructor(private loginService: LoginService,
 				private router: Router) { 
 		this.model = new Login();
+		this.model.username="b@b.com"
+		this.model.password="vuedlHlS"
 	}
 
 	ngOnInit() {

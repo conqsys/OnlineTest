@@ -27,8 +27,11 @@ passport.use(new LocalStrategy({
                 return done(null, false, {
                     message: 'Invalid Password'
                 });
+            var token = passport.issueJWT(user);
             var returnUser = {
                 email: user.email,
+                access_token: token.access_token,
+                refresh_token:token.refresh_token,
                 createdAt: user.createdAt,
                 id: user.id
             };

@@ -24,6 +24,7 @@ var companyService_1 = require('./services/company/companyService');
 var question_set_service_1 = require('./services/question-set/question-set.service');
 var online_test_service_1 = require('./services/online-test/online-test.service');
 var user_service_1 = require('./services/user/user.service');
+var login_service_1 = require('./services/login/login.service');
 var control_messages_component_1 = require('./Components/validation/control-messages.component');
 var validation_service_1 = require('./services/validation/validation.service');
 ;
@@ -54,6 +55,7 @@ var AppModule = (function () {
                 question_set_service_1.QuestionSetService,
                 online_test_service_1.OnlineTestService,
                 user_service_1.UserService,
+                login_service_1.LoginService,
                 validation_service_1.ValidationService,
             ],
             bootstrap: [app_component_1.AppComponent]

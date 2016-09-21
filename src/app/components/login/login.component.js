@@ -17,6 +17,8 @@ var LoginComponent = (function () {
         this.loginService = loginService;
         this.router = router;
         this.model = new login_model_1.Login();
+        this.model.username = "b@b.com";
+        this.model.password = "vuedlHlS";
     }
     LoginComponent.prototype.ngOnInit = function () {
     };

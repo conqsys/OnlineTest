@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import  'materialize-css'
 import {MaterializeDirective} from "angular2-materialize";
-
 import {QuestionsComponent} from './components/questions/question-list/questions.component';
 import {QuestionComponent} from './components/questions/question/question.component';
 import {TopicComponent} from './components/topic/topic.component';
@@ -92,8 +91,7 @@ const appRoutes: Routes = [
    {
     path: 'onlinetestlist',
     component: OnlineTestListComponent
-  }
-  ,
+  },
    {
     path: 'login',
     component: LoginComponent

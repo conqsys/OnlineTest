@@ -14,7 +14,7 @@ module.exports = {
     var uploadFile = req.file('file');
     console.log(uploadFile);
 
-    uploadFile.upload({ dirname: require('path').normalize(__dirname + '/../../upload') },function onUploadComplete(err, files) {
+    uploadFile.upload({ dirname: require('path').normalize(__dirname + '/../../.tmp/public/images') },function onUploadComplete(err, files) {
         //	Files will be uploaded to .tmp/uploads
 
         if (err) return res.serverError(err);

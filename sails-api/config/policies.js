@@ -18,7 +18,7 @@
 
 
 module.exports.policies = {
- '*': true,
+ '*':  false,
 
   // 'QuestionController': {
   //   '*': 'isAuthenticated'

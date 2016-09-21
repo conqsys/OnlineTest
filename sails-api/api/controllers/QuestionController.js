@@ -14,7 +14,7 @@ module.exports = {
                     if(req.body.options.length>0)
                     {
                         req.body.options.forEach(function(option){
-                            var  str = "CALL spSaveQuestionOption(" + option.option_id + ",'" + option.description + "',"+option.is_correct+","+option.question_id+")";
+                            var  str = "CALL spSaveQuestionOption(" + option.option_id + ",'" + option.description + "',"+option.is_correct+","+result[0][0].id+")";
                            Question.query(str, function (err, result) {
 
                            })
@@ -51,7 +51,7 @@ module.exports = {
         if(question_id==0)return res.json([]);
        Question.findOne({question_id:question_id}).exec(function(err,result){
             if (err) return res.serverError(err); 
-            else{
+            else if(result){
                  QuestionOption.find({ question_id: question_id })
             .exec(function(err, options){
                 if (err) return res.serverError(err); 
@@ -62,8 +62,19 @@ module.exports = {
         })
                
             }
+            else{
+                return res.json(result);
+            }
         })
-    }
+    },
+     deleteQuestion: function (req, res) {
+        var question_id = req.param('question_id');
+         var str = "delete from  question where question_id ="+ question_id;
+        Topic.query(str, function (err, result){
+            if (err) return res.serverError(err); 
+                else return res.json(result);
+        })    
+    }    
     
 };
 

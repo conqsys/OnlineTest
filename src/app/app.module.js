@@ -12,11 +12,18 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
+var httpInterceptor_1 = require('./shared/httpInterceptor');
+var http_2 = require('@angular/http');
+// Imports for loading & configuring the in-memory web api
+var http_3 = require('@angular/http');
 require('./rxjs-extensions');
+require('materialize-css');
+var angular2_materialize_1 = require("angular2-materialize");
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
-var hero_service_1 = require('./hero.service');
 var hero_search_component_1 = require('./hero-search.component');
+var hero_service_1 = require('./hero.service');
 var question_service_1 = require('./services/question/question.service');
 var topic_service_1 = require('./services/topic/topic.service');
 var question_option_service_1 = require('./services/question-option/question-option.service');
@@ -25,8 +32,6 @@ var question_set_service_1 = require('./services/question-set/question-set.servi
 var online_test_service_1 = require('./services/online-test/online-test.service');
 var user_service_1 = require('./services/user/user.service');
 var login_service_1 = require('./services/login/login.service');
-require('materialize-css');
-var angular2_materialize_1 = require("angular2-materialize");
 var control_messages_component_1 = require('./Components/validation/control-messages.component');
 var validation_service_1 = require('./services/validation/validation.service');
 ;
@@ -62,6 +67,13 @@ var AppModule = (function () {
                 user_service_1.UserService,
                 login_service_1.LoginService,
                 validation_service_1.ValidationService,
+                {
+                    provide: http_2.Http,
+                    useFactory: function (xhrBackend, requestOptions, router) {
+                        return new httpInterceptor_1.HttpInterceptor(xhrBackend, requestOptions, router);
+                    },
+                    deps: [http_3.XHRBackend, http_2.RequestOptions, router_1.Router]
+                },
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

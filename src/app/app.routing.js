@@ -18,6 +18,7 @@ var online_test_component_1 = require('./components/online-test/online-test.comp
 var user_list_component_1 = require('./components/users/user-list/user-list.component');
 var user_component_1 = require('./components/users/user/user.component');
 var online_test_list_component_1 = require('./components/online-test-list/online-test-list.component');
+var login_component_1 = require('./components/login/login.component');
 var appRoutes = [
     {
         path: '',
@@ -87,6 +88,10 @@ var appRoutes = [
     {
         path: 'onlinetestlist',
         component: online_test_list_component_1.OnlineTestListComponent
+    },
+    {
+        path: 'login',
+        component: login_component_1.LoginComponent
     }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
@@ -97,6 +102,7 @@ exports.routedComponents = [
     companies_component_1.CompaniesComponent, company_component_1.CompanyComponent,
     texteditor_component_1.TextEditorComponent, heroes_component_1.HeroesComponent, check_box_component_1.CheckBoxComponent, radio_component_1.RadioComponent, angular2_materialize_1.MaterializeDirective,
     user_list_component_1.UserListComponent, user_component_1.UserComponent,
-    online_test_component_1.OnlineTestComponent, online_test_list_component_1.OnlineTestListComponent
+    online_test_component_1.OnlineTestComponent, online_test_list_component_1.OnlineTestListComponent,
+    login_component_1.LoginComponent
 ];
 //# sourceMappingURL=app.routing.js.map

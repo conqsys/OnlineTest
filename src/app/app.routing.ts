@@ -18,6 +18,7 @@ import { OnlineTestComponent } from './components/online-test/online-test.compon
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { UserComponent } from './components/users/user/user.component';
 import { OnlineTestListComponent } from './components/online-test-list/online-test-list.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
  
@@ -92,6 +93,11 @@ const appRoutes: Routes = [
     path: 'onlinetestlist',
     component: OnlineTestListComponent
   }
+  ,
+   {
+    path: 'login',
+    component: LoginComponent
+  }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
@@ -103,6 +109,7 @@ export const routedComponents = [
   CompaniesComponent, CompanyComponent,
   TextEditorComponent, HeroesComponent,CheckBoxComponent,RadioComponent,MaterializeDirective,
   UserListComponent, UserComponent,
-  OnlineTestComponent, OnlineTestListComponent
+  OnlineTestComponent, OnlineTestListComponent,
+  LoginComponent
 ];
 

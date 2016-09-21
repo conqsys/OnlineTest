@@ -21,6 +21,7 @@ import { CompanyService } from './services/company/companyService';
 import { QuestionSetService } from './services/question-set/question-set.service';
 import { OnlineTestService } from './services/online-test/online-test.service';
 import { UserService } from './services/user/user.service';
+import { LoginService } from './services/login/login.service';
 
 import { ControlMessages } from './Components/validation/control-messages.component';
 import { ValidationService } from './services/validation/validation.service';;
@@ -48,6 +49,7 @@ import { ValidationService } from './services/validation/validation.service';;
     QuestionSetService,
     OnlineTestService,
     UserService,
+    LoginService,
     ValidationService,
   ],
   bootstrap: [AppComponent]

@@ -80,10 +80,12 @@ module.exports.routes = {
   'get /user/:company_id/:user_id': 'UserController.getUserById',
   'post /user' :'UserController.saveUser',
   
+  'get /email': 'EmailController.email',
+
   'post /login': 'AuthController.login',
 
   '/logout': 'AuthController.logout'
   
-
+  
 
 };

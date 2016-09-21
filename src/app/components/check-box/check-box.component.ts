@@ -9,9 +9,6 @@ import {QuestionOptionModel} from '../../model/question/question-option'
 })
 export class CheckBoxComponent implements OnInit {
   @Input()model:QuestionOptionModel;
- private firstName = "";
-  private selectedOption = "";
-
   constructor() { }
 
   ngOnInit() {

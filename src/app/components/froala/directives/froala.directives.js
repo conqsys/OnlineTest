@@ -9,25 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-require('../script/froala_editor.pkgd.min');
 var FroalaEditorDirective = (function () {
     function FroalaEditorDirective(el) {
         // editor options
         this._opts = {
-            immediateAngularModelUpdate: false
+            immediateAngularModelUpdate: false,
+            angularIgnoreAttrs: null
         };
-        // flag to tell if _initContent is populated
-        this._gotContent = false;
+        this.SPECIAL_TAGS = ['img', 'button', 'input', 'a'];
+        this.INNER_HTML_ATTR = 'innerHTML';
+        this._hasSpecialTag = false;
         this._listeningEvents = [];
-        //blur--froalaInit directive as output:send texteditor component in textchanged 
-        this.froalaEditorTextUpdate = new core_1.EventEmitter();
+        this._editorInitialized = false;
+        this._oldModel = null;
         // froalaModel directive as output: update model if editor contentChanged
         this.froalaModelChange = new core_1.EventEmitter();
         // froalaInit directive as output: send manual editor initialization
         this.froalaInit = new core_1.EventEmitter();
+        var element = el.nativeElement;
+        // check if the element is a special tag
+        if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) != -1) {
+            this._hasSpecialTag = true;
+        }
         // jquery wrap and store element 
-        this._$element = $(el.nativeElement);
-        this.froalaEditorTextUpdate = new core_1.EventEmitter();
+        this._$element = $(element);
     }
     Object.defineProperty(FroalaEditorDirective.prototype, "froalaEditor", {
         // froalaEditor directive as input: store the editor options
@@ -40,9 +45,12 @@ var FroalaEditorDirective = (function () {
     Object.defineProperty(FroalaEditorDirective.prototype, "froalaModel", {
         // froalaModel directive as input: store initial editor content
         set: function (content) {
-            if (!this._gotContent) {
-                this._initContent = content;
-                this._gotContent = true;
+            if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
+                return;
+            }
+            this._model = content;
+            if (this._editorInitialized) {
+                this.setContent();
             }
         },
         enumerable: true,
@@ -50,10 +58,30 @@ var FroalaEditorDirective = (function () {
     });
     // update model if editor contentChanged
     FroalaEditorDirective.prototype.updateModel = function () {
-        var returnedHtml = this._$element.froalaEditor('html.get');
-        if (typeof returnedHtml === 'string') {
-            this.froalaModelChange.emit(returnedHtml);
+        var modelContent = null;
+        if (this._hasSpecialTag) {
+            var attributeNodes = this._$element[0].attributes;
+            var attrs = {};
+            for (var i = 0; i < attributeNodes.length; i++) {
+                var attrName = attributeNodes[i].name;
+                if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
+                    continue;
+                }
+                attrs[attrName] = attributeNodes[i].value;
+            }
+            if (this._$element[0].innerHTML) {
+                attrs[this.INNER_HTML_ATTR] = this._$element[0].innerHTML;
+            }
+            modelContent = attrs;
         }
+        else {
+            var returnedHtml = this._$element.froalaEditor('html.get');
+            if (typeof returnedHtml === 'string') {
+                modelContent = returnedHtml;
+            }
+        }
+        this._oldModel = modelContent;
+        this.froalaModelChange.emit(modelContent);
     };
     // register event on jquery element
     FroalaEditorDirective.prototype.registerEvent = function (element, eventName, callback) {
@@ -66,7 +94,7 @@ var FroalaEditorDirective = (function () {
     FroalaEditorDirective.prototype.initListeners = function () {
         var self = this;
         // bind contentChange and keyup event to froalaModel
-        this.registerEvent(this._$element, 'froalaEditor.contentChanged', function (ed) {
+        this.registerEvent(this._$element, 'froalaEditor.contentChanged', function () {
             self.updateModel();
         });
         if (this._opts.immediateAngularModelUpdate) {
@@ -87,22 +115,54 @@ var FroalaEditorDirective = (function () {
         }
     };
     FroalaEditorDirective.prototype.createEditor = function () {
-        var self = this;
-        this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
-        // set initial content
-        if (this._initContent) {
-            this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
-                self._$element.froalaEditor('html.set', self._initContent || '', true);
-                //This will reset the undo stack everytime the model changes externally. Can we fix this?
-                self._$element.froalaEditor('undo.reset');
-                self._$element.froalaEditor('undo.saveStep');
-            });
+        if (this._editorInitialized) {
+            return;
         }
+        this.setContent(true);
         // Registering events before initializing the editor will bind the initialized event correctly.
         this.registerFroalaEvents();
         // init editor
         this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
         this.initListeners();
+        this._editorInitialized = true;
+    };
+    FroalaEditorDirective.prototype.setContent = function (firstTime) {
+        if (firstTime === void 0) { firstTime = false; }
+        var self = this;
+        // set initial content
+        if (this._model || this._model == '') {
+            this._oldModel = this._model;
+            if (this._hasSpecialTag) {
+                var tags = this._model;
+                // add tags on element
+                if (tags) {
+                    for (var attr in tags) {
+                        if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
+                            this._$element.attr(attr, tags[attr]);
+                        }
+                    }
+                    if (tags.hasOwnProperty(this.INNER_HTML_ATTR)) {
+                        this._$element[0].innerHTML = tags[this.INNER_HTML_ATTR];
+                    }
+                }
+            }
+            else {
+                if (firstTime) {
+                    this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
+                        self._$element.froalaEditor('html.set', self._model || '', true);
+                        //This will reset the undo stack everytime the model changes externally. Can we fix this?
+                        self._$element.froalaEditor('undo.reset');
+                        self._$element.froalaEditor('undo.saveStep');
+                    });
+                }
+                else {
+                    self._$element.froalaEditor('html.set', self._model || '', true);
+                    //This will reset the undo stack everytime the model changes externally. Can we fix this?
+                    self._$element.froalaEditor('undo.reset');
+                    self._$element.froalaEditor('undo.saveStep');
+                }
+            }
+        }
     };
     FroalaEditorDirective.prototype.destroyEditor = function () {
         if (this._$element) {
@@ -110,6 +170,7 @@ var FroalaEditorDirective = (function () {
             this._editor.off('keyup');
             this._$element.froalaEditor('destroy');
             this._listeningEvents.length = 0;
+            this._editorInitialized = false;
         }
     };
     FroalaEditorDirective.prototype.getEditor = function () {
@@ -141,10 +202,6 @@ var FroalaEditorDirective = (function () {
     FroalaEditorDirective.prototype.ngOnDestroy = function () {
         this.destroyEditor();
     };
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', core_1.EventEmitter)
-    ], FroalaEditorDirective.prototype, "froalaEditorTextUpdate", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object), 

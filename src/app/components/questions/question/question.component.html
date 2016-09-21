@@ -7,13 +7,18 @@
 </div>-->
 <div></div>
 <div>
-  <div class="row">
-  <div class="input-field col s12">
-            <!--<froala [froalaOptions]="froalaOptions" [froalaData]="text" (model)="onFroalaModelChanged($event)" (editorInitialized)="onEditorInitialized()"></froala>-->
-              <input [(ngModel)]="model.question_description" [ngModelOptions]="{standalone: true}"  placeholder="Add question description" id="question_description" type="text" class="validate">
-             
+  <div froala-edtior="" class="ng-scope">
+        <div class="text-editor" id="1470986671642" em-height-source="">
+          <div class="container-fluid row s-logs-col text-editor-container">
+            <div class="col l12 m12 s12">
+              <div class="" style="">            
+                <textarea [froalaEditor]="froalaOptions"  [(froalaModel)]="model.question_description" ></textarea>
+              </div>
             </div>
-</div>
+          </div>
+        </div>
+      </div>
+        
  <div class="row">
   <div class="input-field col s12">
               <input [(ngModel)]="model.answer_explanation" [ngModelOptions]="{standalone: true}"  placeholder="Add answer explanation" id="answer_explanation" type="text" class="validate">

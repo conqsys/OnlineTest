@@ -12,8 +12,6 @@ var core_1 = require('@angular/core');
 var question_option_1 = require('../../model/question/question-option');
 var CheckBoxComponent = (function () {
     function CheckBoxComponent() {
-        this.firstName = "";
-        this.selectedOption = "";
     }
     CheckBoxComponent.prototype.ngOnInit = function () {
     };

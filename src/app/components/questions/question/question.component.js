@@ -26,7 +26,7 @@ var QuestionComponent = (function () {
         this.model = new question_1.QuestionModel();
         this.model.options = new Array();
         this.model.answer_explanation = "";
-        this.model.question_description = "";
+        //this.model.question_description = "";
         this.company_id = 1;
         this.newOption = "";
         this.model.is_multiple_option = false;
@@ -54,13 +54,20 @@ var QuestionComponent = (function () {
     // get Question by question_id or get Topic by company_id
     QuestionComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.initializeFloraEditor();
         var subscriptions = this.activatedRoute.params.subscribe(function (params) {
             _this.question_id = +params['question_id']; // (+) converts string 'id' to a number
         });
         if (this.question_id !== 0) {
             this.questionService.getQuestionById(this.question_id)
                 .then(function (result) {
-                _this.model = result;
+                if (result) {
+                    _this.model = result;
+                }
+                else {
+                    alert("no question found");
+                    _this.router.navigate(['/questions']);
+                }
             });
         }
         this.topicService.getTopic(this.company_id)
@@ -70,11 +77,14 @@ var QuestionComponent = (function () {
             }
         });
     };
-    // FileChanged(value)
-    // {
-    //   alert(value);
-    //   $('#my_form').submit();
-    // }
+    QuestionComponent.prototype.initializeFloraEditor = function () {
+        this.froalaOptions = {
+            placeholderText: 'Edit Your Content Here!',
+            charCounterCount: false,
+            imageUploadURL: 'http://localhost:1337/file/upload'
+        };
+        //  this.model.question_description = "<p>This is my awesome content</p>";
+    };
     // save Question 
     QuestionComponent.prototype.saveQuestion = function () {
         var _this = this;

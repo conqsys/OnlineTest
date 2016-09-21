@@ -25,8 +25,9 @@ export class QuestionComponent implements OnInit {
 
   topics = Array<TopicModel>();
   selectedTopic: number;
-  win: any
-  fieldname: any;
+ 
+  froalaOptions: any;
+
   private newOption: string;
  
   constructor(private questionService: QuestionService,
@@ -38,7 +39,7 @@ export class QuestionComponent implements OnInit {
     this.model = new QuestionModel();
     this.model.options = new Array<QuestionOptionModel>();
     this.model.answer_explanation = "";
-    this.model.question_description = "";
+    //this.model.question_description = "";
     this.company_id = 1;
     this.newOption = "";
     this.model.is_multiple_option = false;
@@ -67,34 +68,48 @@ export class QuestionComponent implements OnInit {
   }
   // get Question by question_id or get Topic by company_id
   ngOnInit(): void {
+    this.initializeFloraEditor();
     var subscriptions = this.activatedRoute.params.subscribe(params => {
       this.question_id = +params['question_id']; // (+) converts string 'id' to a number
     });
     if (this.question_id !== 0) {
       this.questionService.getQuestionById(this.question_id)
         .then(result => {
-          this.model = result;
-
+          if (result){
+            this.model = result;
+           
+          }
+          else {
+            alert("no question found");
+            this.router.navigate(['/questions']);
+          }
         });
     }
 
     this.topicService.getTopic(this.company_id)
-    .then(result => {
+      .then(result => {
         this.topics = result;
         if (this.topics.length > 0) {
 
         }
-      })
+      });
+         
+
   }
-  // FileChanged(value)
-  // {
-  //   alert(value);
-  //   $('#my_form').submit();
-  // }
+ private initializeFloraEditor() {
+   
+    this.froalaOptions = {
+      placeholderText: 'Edit Your Content Here!',
+      charCounterCount: false,
+      imageUploadURL: 'http://localhost:1337/file/upload'
+    }
+   //  this.model.question_description = "<p>This is my awesome content</p>";
+
+  }
   // save Question 
   saveQuestion(): void {
     this.questionService.saveQuestion(this.model)
-    .then(result => {
+      .then(result => {
         this.router.navigate(['/questions']);
       })
     this.setQuestionVisibility.emit(false);

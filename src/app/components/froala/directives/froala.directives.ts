@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter, HostListener } from '@angular/core';
-import '../script/froala_editor.pkgd.min';
+import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter } from '@angular/core';
+
 // non-typescript definitions
 declare var $:any;
 
@@ -10,31 +10,40 @@ export class FroalaEditorDirective {
 
   // editor options
   private _opts: any = {
-    immediateAngularModelUpdate: false
+    immediateAngularModelUpdate: false,
+    angularIgnoreAttrs: null
   };
 
   // jquery wrapped element
   private _$element: any;
 
+  private SPECIAL_TAGS: string[] = ['img', 'button', 'input', 'a'];
+  private INNER_HTML_ATTR: string = 'innerHTML';
+  private _hasSpecialTag: boolean = false;
+
   // editor element
   private _editor: any;
 
   // initial editor content
-  private _initContent: string
-
-  // flag to tell if _initContent is populated
-  private _gotContent: boolean = false;
+  private _model: string;
 
   private _listeningEvents: string[] = [];
 
-  //blur--froalaInit directive as output:send texteditor component in textchanged 
-  @Output() froalaEditorTextUpdate: EventEmitter<Object> = new EventEmitter<Object>();
+  private _editorInitialized: boolean = false;
+
+  private _oldModel: string = null;
 
   constructor(el: ElementRef) {
 
+    let element: any = el.nativeElement;
+
+    // check if the element is a special tag
+    if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) != -1) {
+      this._hasSpecialTag = true;
+    }
+
     // jquery wrap and store element 
-    this._$element = (<any>$(el.nativeElement));
-    this.froalaEditorTextUpdate = new EventEmitter<any>();
+    this._$element = (<any>$(element));
   }
 
   // froalaEditor directive as input: store the editor options
@@ -45,28 +54,55 @@ export class FroalaEditorDirective {
   // froalaModel directive as input: store initial editor content
   @Input() set froalaModel(content: string) {
 
-    if (!this._gotContent) {
+    if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
+      return;
+    }
+    this._model = content;
 
-      this._initContent = content;
-      this._gotContent = true;
+    if (this._editorInitialized) {
+      this.setContent();
     }
   }
   // froalaModel directive as output: update model if editor contentChanged
-  @Output() froalaModelChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() froalaModelChange: EventEmitter<any> = new EventEmitter<any>();
 
   // froalaInit directive as output: send manual editor initialization
   @Output() froalaInit: EventEmitter<Object> = new EventEmitter<Object>();
 
-
   // update model if editor contentChanged
   private updateModel() {
 
-    let returnedHtml: any = this._$element.froalaEditor('html.get');
-    if (typeof returnedHtml === 'string') {
-      this.froalaModelChange.emit(returnedHtml);
-      //blur--
-      //this.froalaEditorTextUpdate.emit(returnedHtml);
+    let modelContent: any = null;
+
+    if (this._hasSpecialTag) {
+
+      let attributeNodes = this._$element[0].attributes;
+      let attrs = {};
+
+      for (let i = 0; i < attributeNodes.length; i++ ) {
+
+        let attrName = attributeNodes[i].name;
+        if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
+          continue;
+        }
+        attrs[attrName] = attributeNodes[i].value;
+      }
+
+      if (this._$element[0].innerHTML) {
+        attrs[this.INNER_HTML_ATTR] = this._$element[0].innerHTML;
+      }
+
+      modelContent = attrs;
+    } else {
+
+      let returnedHtml: any = this._$element.froalaEditor('html.get');
+      if (typeof returnedHtml === 'string') {
+        modelContent = returnedHtml;
+      }
     }
+
+    this._oldModel = modelContent;
+    this.froalaModelChange.emit(modelContent);
   }
 
   // register event on jquery element
@@ -85,12 +121,12 @@ export class FroalaEditorDirective {
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._$element, 'froalaEditor.contentChanged', function (ed:any) {
+    this.registerEvent(this._$element, 'froalaEditor.contentChanged',function () {
       self.updateModel();
     });
     if (this._opts.immediateAngularModelUpdate) {
       this.registerEvent(this._editor, 'keyup', function () {
-        self.updateModel();
+        self.updateModel(); 
       });
     }
   }
@@ -102,7 +138,7 @@ export class FroalaEditorDirective {
       return;
     }
 
-    for (var eventName in this._opts.events) {
+    for (let eventName in this._opts.events) {
 
       if (this._opts.events.hasOwnProperty(eventName)) {
         this.registerEvent(this._$element, eventName, this._opts.events[eventName]);
@@ -112,19 +148,11 @@ export class FroalaEditorDirective {
 
   private createEditor() {
 
-    let self = this;
-    this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
-    // set initial content
-    if (this._initContent) {
-
-      this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
-
-        self._$element.froalaEditor('html.set', self._initContent || '', true);
-        //This will reset the undo stack everytime the model changes externally. Can we fix this?
-        self._$element.froalaEditor('undo.reset');
-        self._$element.froalaEditor('undo.saveStep');
-      });
+    if (this._editorInitialized) {
+      return;
     }
+
+    this.setContent(true);
 
     // Registering events before initializing the editor will bind the initialized event correctly.
     this.registerFroalaEvents();
@@ -133,10 +161,54 @@ export class FroalaEditorDirective {
     this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
 
     this.initListeners();
+
+    this._editorInitialized = true;
   }
 
+  private setContent(firstTime = false) {
 
+    let self = this;
+    // set initial content
+    if (this._model || this._model == '') {
+      this._oldModel = this._model;
+      if (this._hasSpecialTag) {
 
+        let tags: Object = this._model;
+
+        // add tags on element
+        if (tags) {
+
+          for (let attr in tags) {
+            if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
+              this._$element.attr(attr, tags[attr]);
+            }
+          }
+
+          if (tags.hasOwnProperty(this.INNER_HTML_ATTR)) {
+            this._$element[0].innerHTML = tags[this.INNER_HTML_ATTR];
+          }
+        }
+      } else {
+
+       
+
+        if (firstTime) {
+          this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
+            self._$element.froalaEditor('html.set', self._model || '', true);
+          //This will reset the undo stack everytime the model changes externally. Can we fix this?
+          self._$element.froalaEditor('undo.reset');
+          self._$element.froalaEditor('undo.saveStep');
+          });
+        } else {
+          self._$element.froalaEditor('html.set', self._model || '', true);
+          //This will reset the undo stack everytime the model changes externally. Can we fix this?
+          self._$element.froalaEditor('undo.reset');
+          self._$element.froalaEditor('undo.saveStep');
+        }
+
+      }
+    }
+  }
 
   private destroyEditor() {
 
@@ -146,6 +218,7 @@ export class FroalaEditorDirective {
       this._editor.off('keyup');
       this._$element.froalaEditor('destroy');
       this._listeningEvents.length = 0;
+      this._editorInitialized = false;
     }
   }
 
@@ -160,8 +233,8 @@ export class FroalaEditorDirective {
   // send manual editor initialization
   private generateManualController() {
 
-    var self = this;
-    var controls = {
+    let self = this;
+    let controls = {
       initialize: this.createEditor.bind(this),
       destroy: this.destroyEditor.bind(this),
       getEditor: this.getEditor.bind(this),
@@ -198,7 +271,7 @@ export class FroalaViewDirective {
   }
 
   // update content model as it comes
-  @Input() set froalaView(content: string) {
+  @Input() set froalaView(content: string){
     this._element.innerHTML = content;
   }
 

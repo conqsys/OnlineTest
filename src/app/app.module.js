@@ -24,6 +24,9 @@ var companyService_1 = require('./services/company/companyService');
 var question_set_service_1 = require('./services/question-set/question-set.service');
 var online_test_service_1 = require('./services/online-test/online-test.service');
 var user_service_1 = require('./services/user/user.service');
+var control_messages_component_1 = require('./Components/validation/control-messages.component');
+var validation_service_1 = require('./services/validation/validation.service');
+;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,11 +35,13 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
                 app_routing_1.routing,
                 http_1.HttpModule
             ],
             declarations: [
                 app_component_1.AppComponent,
+                control_messages_component_1.ControlMessages,
                 hero_search_component_1.HeroSearchComponent,
                 app_routing_1.routedComponents
             ],
@@ -48,7 +53,8 @@ var AppModule = (function () {
                 companyService_1.CompanyService,
                 question_set_service_1.QuestionSetService,
                 online_test_service_1.OnlineTestService,
-                user_service_1.UserService
+                user_service_1.UserService,
+                validation_service_1.ValidationService,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

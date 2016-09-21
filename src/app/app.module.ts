@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
@@ -22,15 +22,20 @@ import { QuestionSetService } from './services/question-set/question-set.service
 import { OnlineTestService } from './services/online-test/online-test.service';
 import { UserService } from './services/user/user.service';
 
+import { ControlMessages } from './Components/validation/control-messages.component';
+import { ValidationService } from './services/validation/validation.service';;
+
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     routing,
     HttpModule
   ],
   declarations: [
     AppComponent,
+    ControlMessages,
     HeroSearchComponent,
     routedComponents
   ],
@@ -42,7 +47,8 @@ import { UserService } from './services/user/user.service';
     CompanyService,
     QuestionSetService,
     OnlineTestService,
-    UserService
+    UserService,
+    ValidationService,
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import {TopicModel} from '../../model/topic/topic.model';
 import {TopicService} from '../../services/topic/topic.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router} from '@angular/router';
+declare var Materialize:any;
 @Component({
   moduleId: module.id,
   selector: 'app-topiclist',
@@ -12,15 +13,16 @@ import { Router} from '@angular/router';
 export class TopicListComponent {
   private selectedTopic:TopicModel;
   topicdata:any;
-  constructor(private Service: TopicService, private routeinfo: ActivatedRoute,private _router:Router ) {
+  constructor(private service: TopicService, private routeinfo: ActivatedRoute,private router:Router ) {
     this.selectedTopic = new TopicModel();
     this.getTopic();
   }
 // get Topic by company_id
    getTopic() {
-    this.Service.getTopic(1).then(result => {
+    this.service.getTopic(1).then(result => {
         if (result != undefined && result != null) {
-          this.topicdata = result;       
+          this.topicdata = result;   
+         // Materialize.toast('Topic Loaded !', 2000, 'rounded');    
         }
         else {
          // alert(result.data);
@@ -29,22 +31,23 @@ export class TopicListComponent {
   }
   // navigate topic_id to Topic Component.ts
   public editTopic(item:TopicModel) {
-    this._router.navigate(['/topic/' + item.topic_id]);
+    this.router.navigate(['/topic/' + item.topic_id]);
    }
   //open topic page for add topic 
   public showTopic(){
-    this._router.navigate(['/topic']);
+    this.router.navigate(['/topic']);
   }
 //remove Topic by topic_id
    public removeItem(item: any) {
    // this.data = _.filter(this.data, (elem)=>elem!=item);
-    this.Service.removeTopic(item.topic_id).then(result => {
+    this.service.removeTopic(item.topic_id).then(result => {
         if (result) {
-          alert("record succesfully deleted!");
+          Materialize.toast('Topic deleted!', 2000, 'rounded');
           this.getTopic();
         }
         else {
-          alert("record not deleted!");
+           Materialize.toast('Topic not deleted!', 2000, 'rounded');
+          alert("");
         }
       });
     // console.log("Remove: ", (item.SubjectID);

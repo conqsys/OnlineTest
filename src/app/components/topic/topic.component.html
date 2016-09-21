@@ -1,33 +1,36 @@
+<style>
+  
+  control-messages {
+    color: #EB7077;
+  
+  }
+</style>
+
 <div>
-  <form materialize class="col s12">
+  <form materialize class="col s12" [formGroup]="topicForm" (submit)="saveTopic()">
     <div class="row">
       <div class="input-field col s6">
-        <input class="validate" id="title" type="text" [(ngModel)]="model.topic_title" placeholder="Topic Name" [ngModelOptions]="{standalone: true}">
-        <label for="title">Topic Title</label>
+        <input class="validate" formControlName="title" id="title" type="text" [(ngModel)]="model.topic_title" placeholder="Topic Name">
+        <label for="title" >Topic Title</label>
+        <control-messages class="validate" [control]="topicForm.controls.title"></control-messages>
       </div>
     </div>
 
-    <button >
-      <a class="waves-effect waves-light btn" (click)=addTopic();>{{btnText}}</a>
-    </button>
-    <!--<button _ngcontent-yhl-7="">
-        <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
-           <br>
-    </button>
-    <button _ngcontent-yhl-7="">
-    <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
-           <br>
-    </button>-->
-   
-    
-    <!--<div class="row">
-    <div class="input-field col s6">
-      <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-    <option value="" disabled selected>Select Category </option>
-    <option>two</option>
-    <option>three</option>
-</select>
-    </div>
-  </div>-->
+    <button class="waves-effect waves-light btn" type="submit" [disabled]="!topicForm.valid">{{btnText}}</button>
+
+    <!--
+    <label for="name">Name</label>
+  <input formControlName="name" id="name" />
+  <control-messages class="validate" [control]="userForm.controls.name"></control-messages>
+
+  <label for="email">Email</label>
+  <input formControlName="email" id="email" />
+  <control-messages [control]="userForm.controls.email"></control-messages>
+
+  <label for="profile">Profile Description</label>
+  <textarea formControlName="profile" id="profile"></textarea>
+  <control-messages [control]="userForm.controls.profile"></control-messages>
+
+  <button type="submit" [disabled]="!userForm.valid">Submit</button>-->
   </form>
 </div>

@@ -13,13 +13,18 @@ var topic_model_1 = require('../../model/topic/topic.model');
 var topic_service_1 = require('../../services/topic/topic.service');
 var router_1 = require('@angular/router');
 var router_2 = require('@angular/router');
+var forms_1 = require('@angular/forms');
 var TopicComponent = (function () {
-    function TopicComponent(service, routeinfo, router) {
+    function TopicComponent(formBuilder, service, routeinfo, router) {
+        this.formBuilder = formBuilder;
         this.service = service;
         this.routeinfo = routeinfo;
         this.router = router;
         this.bydefault();
         this.getTopicByID(routeinfo.params);
+        this.topicForm = this.formBuilder.group({
+            'title': ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+        });
     }
     // create default object for save topic
     TopicComponent.prototype.bydefault = function () {
@@ -42,21 +47,19 @@ var TopicComponent = (function () {
         }
     };
     // save topic 
-    TopicComponent.prototype.addTopic = function () {
+    TopicComponent.prototype.saveTopic = function () {
         var _this = this;
-        if (this.model.topic_title == "" || this.model.topic_title == undefined) {
-            alert("Please insert Topic");
-            return false;
+        if (this.topicForm.valid) {
+            this.model.company_id = 1;
+            this.service.saveTopic(this.model).then(function (result) {
+                if (result) {
+                    Materialize.toast(_this.btnText, 1000, 'rounded');
+                    _this.router.navigate(['/topiclist']);
+                }
+                else {
+                }
+            });
         }
-        this.model.company_id = 1;
-        this.service.saveTopic(this.model).then(function (result) {
-            if (result) {
-                alert("category inserted!");
-                _this.router.navigate(['/topiclist']);
-            }
-            else {
-            }
-        });
     };
     TopicComponent = __decorate([
         core_1.Component({
@@ -64,7 +67,7 @@ var TopicComponent = (function () {
             selector: 'app-topic',
             templateUrl: 'topic.component.html'
         }), 
-        __metadata('design:paramtypes', [topic_service_1.TopicService, router_1.ActivatedRoute, router_2.Router])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, topic_service_1.TopicService, router_1.ActivatedRoute, router_2.Router])
     ], TopicComponent);
     return TopicComponent;
 }());

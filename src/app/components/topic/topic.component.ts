@@ -3,6 +3,10 @@ import { TopicModel } from '../../model/topic/topic.model';
 import { TopicService } from '../../services/topic/topic.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule ,FormBuilder, Validators  } from '@angular/forms';
+import { ControlMessages } from '../../Components/validation/control-messages.component';
+import { ValidationService } from '../../services/validation/validation.service';
+declare var Materialize:any;
 @Component({
   moduleId: module.id,
   selector: 'app-topic',
@@ -11,9 +15,17 @@ import { Router } from '@angular/router';
 export class TopicComponent {
   private model: TopicModel;
   btnText:string;
-  constructor(private service: TopicService, private routeinfo: ActivatedRoute, private router: Router) {
+  topicForm:any
+  constructor(private formBuilder: FormBuilder, private service: TopicService, private routeinfo: ActivatedRoute, private router: Router) {
+   
     this.bydefault();
      this.getTopicByID(routeinfo.params);
+
+      this.topicForm = this.formBuilder.group({
+      'title': ['',[ Validators.required,Validators.minLength(5)]],
+      // 'email': ['', [Validators.required, ValidationService.emailValidator]],
+      // 'profile': ['', [Validators.required, Validators.minLength(10)]]
+    });
   }
 // create default object for save topic
   bydefault() {
@@ -35,15 +47,12 @@ export class TopicComponent {
     }
   }
 // save topic 
-  addTopic() {
-    if (this.model.topic_title == "" || this.model.topic_title == undefined) {
-      alert("Please insert Topic");
-      return false;
-    }
+  saveTopic() {
+   if (this.topicForm.valid) {
     this.model.company_id = 1;
     this.service.saveTopic(this.model).then(result => {
         if (result) {
-          alert("category inserted!");
+          Materialize.toast(this.btnText, 1000, 'rounded');
           this.router.navigate(['/topiclist']);
 
         }
@@ -52,4 +61,7 @@ export class TopicComponent {
         }
       });
   }
+
+  }
+ 
 }

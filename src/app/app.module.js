@@ -25,9 +25,12 @@ var question_set_service_1 = require('./services/question-set/question-set.servi
 var online_test_service_1 = require('./services/online-test/online-test.service');
 var user_service_1 = require('./services/user/user.service');
 var login_service_1 = require('./services/login/login.service');
+require('materialize-css');
+var angular2_materialize_1 = require("angular2-materialize");
 var control_messages_component_1 = require('./Components/validation/control-messages.component');
 var validation_service_1 = require('./services/validation/validation.service');
 ;
+var froala_directives_1 = require('./components/froala/directives/froala.directives');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -44,7 +47,9 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 control_messages_component_1.ControlMessages,
                 hero_search_component_1.HeroSearchComponent,
-                app_routing_1.routedComponents
+                app_routing_1.routedComponents,
+                angular2_materialize_1.MaterializeDirective,
+                froala_directives_1.FroalaEditorDirective
             ],
             providers: [
                 hero_service_1.HeroService,

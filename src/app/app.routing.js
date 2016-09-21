@@ -1,7 +1,5 @@
 "use strict";
 var router_1 = require('@angular/router');
-require('materialize-css');
-var angular2_materialize_1 = require("angular2-materialize");
 var questions_component_1 = require('./components/questions/question-list/questions.component');
 var question_component_1 = require('./components/questions/question/question.component');
 var topic_component_1 = require('./components/topic/topic.component');
@@ -100,7 +98,7 @@ exports.routedComponents = [
     question_set_list_component_1.QuestionSetListComponent, question_set_component_1.QuestionSetComponent,
     topic_list_component_1.TopicListComponent, topic_component_1.TopicComponent,
     companies_component_1.CompaniesComponent, company_component_1.CompanyComponent,
-    texteditor_component_1.TextEditorComponent, heroes_component_1.HeroesComponent, check_box_component_1.CheckBoxComponent, radio_component_1.RadioComponent, angular2_materialize_1.MaterializeDirective,
+    texteditor_component_1.TextEditorComponent, heroes_component_1.HeroesComponent, check_box_component_1.CheckBoxComponent, radio_component_1.RadioComponent,
     user_list_component_1.UserListComponent, user_component_1.UserComponent,
     online_test_component_1.OnlineTestComponent, online_test_list_component_1.OnlineTestListComponent,
     login_component_1.LoginComponent

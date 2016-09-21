@@ -1,6 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import  'materialize-css'
-import {MaterializeDirective} from "angular2-materialize";
+
 import {QuestionsComponent} from './components/questions/question-list/questions.component';
 import {QuestionComponent} from './components/questions/question/question.component';
 import {TopicComponent} from './components/topic/topic.component';
@@ -105,7 +104,7 @@ export const routedComponents = [
   QuestionSetListComponent, QuestionSetComponent,
   TopicListComponent, TopicComponent,
   CompaniesComponent, CompanyComponent,
-  TextEditorComponent, HeroesComponent,CheckBoxComponent,RadioComponent,MaterializeDirective,
+  TextEditorComponent, HeroesComponent,CheckBoxComponent,RadioComponent,
   UserListComponent, UserComponent,
   OnlineTestComponent, OnlineTestListComponent,
   LoginComponent

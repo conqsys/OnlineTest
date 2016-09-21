@@ -22,10 +22,11 @@ import { QuestionSetService } from './services/question-set/question-set.service
 import { OnlineTestService } from './services/online-test/online-test.service';
 import { UserService } from './services/user/user.service';
 import { LoginService } from './services/login/login.service';
-
+import  'materialize-css'
+import {MaterializeDirective} from "angular2-materialize";
 import { ControlMessages } from './Components/validation/control-messages.component';
 import { ValidationService } from './services/validation/validation.service';;
-
+import { FroalaEditorDirective, FroalaViewDirective } from './components/froala/directives/froala.directives';
 @NgModule({
   imports: [
     BrowserModule,
@@ -38,7 +39,9 @@ import { ValidationService } from './services/validation/validation.service';;
     AppComponent,
     ControlMessages,
     HeroSearchComponent,
-    routedComponents
+    routedComponents,
+    MaterializeDirective,
+    FroalaEditorDirective
   ],
   providers: [
     HeroService,

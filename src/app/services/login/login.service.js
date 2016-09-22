@@ -18,7 +18,7 @@ var LoginService = (function () {
     }
     LoginService.prototype.login = function (data) {
         return this.http
-            .post(api_url_component_1.ApiUrl.baseUrl + 'login', JSON.stringify(data), { headers: api_url_component_1.ApiUrl.headers })
+            .post(api_url_component_1.ApiUrl.baseUrl + 'login', JSON.stringify(data))
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);

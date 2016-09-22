@@ -29,7 +29,7 @@ export class QuestionSetService {
    // save Question into database
   saveQuestionSet(data:any): Promise<string> {
     return this.http
-      .post(ApiUrl.baseUrl + 'saveQuestionSet', JSON.stringify(data), { headers: ApiUrl.headers })
+      .post(ApiUrl.baseUrl + 'saveQuestionSet', JSON.stringify(data))
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);

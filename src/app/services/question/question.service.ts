@@ -38,7 +38,7 @@ export class QuestionService {
    // save Question into database
   saveQuestion(data:any): Promise<string> {
      return this.http
-      .post(ApiUrl.baseUrl + 'question', JSON.stringify(data), { headers: ApiUrl.headers })
+      .post(ApiUrl.baseUrl + 'question', JSON.stringify(data))
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);

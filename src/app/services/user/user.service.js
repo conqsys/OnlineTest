@@ -42,7 +42,7 @@ var UserService = (function () {
     // save User into database
     UserService.prototype.saveUser = function (data) {
         return this.http
-            .post(api_url_component_1.ApiUrl.baseUrl + 'user', JSON.stringify(data), { headers: api_url_component_1.ApiUrl.headers })
+            .post(api_url_component_1.ApiUrl.baseUrl + 'user', JSON.stringify(data))
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);

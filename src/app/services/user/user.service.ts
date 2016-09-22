@@ -37,7 +37,7 @@ export class UserService {
 // save User into database
   saveUser(data:UserModel): Promise<string> {
     return this.http
-      .post(ApiUrl.baseUrl + 'user', JSON.stringify(data), { headers: ApiUrl.headers })
+      .post(ApiUrl.baseUrl + 'user', JSON.stringify(data))
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);

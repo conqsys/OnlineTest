@@ -13,7 +13,7 @@ export class LoginService {
 
 	login(data:Login): Promise<any> {
 		return this.http
-		.post(ApiUrl.baseUrl + 'login', JSON.stringify(data), { headers: ApiUrl.headers })
+		.post(ApiUrl.baseUrl + 'login', JSON.stringify(data))
 		.toPromise()
 		.then(res => res.json())
 		.catch(this.handleError);

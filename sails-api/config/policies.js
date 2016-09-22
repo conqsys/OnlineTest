@@ -18,19 +18,7 @@
 
 
 module.exports.policies = {
- '*':  false,
 
-  // 'QuestionController': {
-  //   '*': 'isAuthenticated'
-  // },
-
-  // 'CompanyController': {
-  //   '*': 'isAuthenticated'
-  // },
-
-  // 'FileController': {
-  //   '*': 'isAuthenticated'
-  // },
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *
@@ -39,6 +27,7 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
+  '*': ['isAuthorized'], // Everything resctricted here
 
   /***************************************************************************
   *                                                                          *
@@ -46,6 +35,9 @@ module.exports.policies = {
   * and its actions                                                          *
   *                                                                          *
   ***************************************************************************/
+  'AuthController': {
+    '*': true // We dont need authorization here, allowing public access
+  },
 	// RabbitController: {
 
 		// Apply the `false` policy as the default for all of RabbitController's actions

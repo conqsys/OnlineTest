@@ -5,6 +5,9 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
+// We don't want to store password with out encryption
+var bcrypt = require('bcrypt-nodejs');
+
 module.exports = {
     autoCreatedAt:false,
     autoUpdatedAt:false,
@@ -72,5 +75,43 @@ module.exports = {
             delete obj.user_pwd;
             return obj;
         },
+    },
+
+    // Here we encrypt password before creating a User
+    beforeCreate : function (user, next) {
+        bcrypt.genSalt(10, function (err, salt) {
+            if(err) { 
+                return next(err);
+            }
+            var progress = function() {};
+
+            bcrypt.hash(user.user_pwd, salt, progress, function (err, hash) {
+                if(err) return next(err);
+                user.user_pwd = hash;
+                next(err, user);
+            })
+        })
+    },
+
+    comparePassword : function (password, user, callback) {
+        bcrypt.compare(password, user.user_pwd, function (err, match) {
+
+        if(err) callback(err);
+        if(match) {
+            callback(null, true);
+        } else {
+            callback(err);
+        }
+        })
+    },
+
+    generateRandomPassword: function() {
+        var text = "";
+        var possible = "hijklRSmnABCDEJKLp4MNOPcQTUVWXYZabdeFGHIfgo56qrstxyz0123uvw789";
+
+        for( var i=0; i < 8; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
     }
 };

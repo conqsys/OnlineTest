@@ -43,33 +43,40 @@ module.exports = {
     
     saveUser: function (req, res) {
         var userData = req.body;
-        var pwd = makeid();
-        var str = "CALL spSaveUser(" + userData.user_id + ",'" 
-                                     + userData.user_name + "','" 
-                                     + userData.user_email + "','" 
-                                     + userData.user_mobile_no + "','" 
-                                     + userData.user_address + "','"
-                                     + pwd + "'," 
-                                     + userData.is_active + "," 
-                                     + userData.is_fresher + "," 
-                                     + userData.user_exp_month + "," 
-                                     + userData.user_exp_year + "," 
-                                     + userData.role_id + ",'" 
-                                     + userData.created_by + "','" 
-                                     + userData.updated_by + "')";
-
-        User.query(str, function (err, result) {
-            if (err) return res.serverError(err);
-            else {
-                var user_id = result[0][0].id;
-                var str = "CALL spSaveCompanyUser(" + userData.company_id + "," + user_id + ")";
-                User.query(str, function (err, result) {
-                    if (err) return res.serverError(err);
-                    else
-                        return res.json(result);
-                })
+        var pwd = User.generateRandomPassword();
+        userData.user_pwd = pwd;
+        User.beforeCreate(userData, function(err, user){
+            if(err){
+                return res.json(403, {err: 'error in generating password'});
             }
-        });
+            var str = "CALL spSaveUser("+ user.user_id + ",'" 
+                                        + user.user_name + "','" 
+                                        + user.user_email + "','" 
+                                        + user.user_mobile_no + "','" 
+                                        + user.user_address + "','"
+                                        + user.user_pwd + "'," 
+                                        + user.is_active + "," 
+                                        + user.is_fresher + "," 
+                                        + user.user_exp_month + "," 
+                                        + user.user_exp_year + "," 
+                                        + user.role_id + ",'" 
+                                        + user.created_by + "','" 
+                                        + user.updated_by + "')";
+
+            User.query(str, function (err, result) {
+                if (err) { 
+                    return res.serverError(err);
+                } else {
+                    var user_id = result[0][0].id;
+                    var str = "CALL spSaveCompanyUser(" + userData.company_id + "," + user_id + ")";
+                    User.query(str, function (err, result) {
+                        if (err) return res.serverError(err);
+                        else
+                            return res.json(result);
+                    })
+                }
+            });
+        })
     },
     removeUser: function (req, res) {
         var userId = req.param('user_id');
@@ -78,38 +85,5 @@ module.exports = {
             if (err) return res.serverError(err);
             else return res.json(result);
         })
-    },
-    loginUser: function (req, res) {
-        var useremailId = req.param('user_email');
-        var userpwd = req.param('user_pwd');
-
-        User.findOne({ where: { email: useremailId } }).exec(function (err, user) {
-            if (user) {
-                if (user.password != userpwd) {
-                    res.serverError(err)
-                }
-                var token = passport.issueJWT(user);
-                user.access_token = token.access_token;
-                user.refresh_token = token.refresh_token;
-                return res.json(user);
-            }
-            else {
-                // message = "Email and Password invalid."
-                // res.json(message);
-                res.serverError(err)
-            }
-
-        });
-    },
+    }
 };
-
-function makeid()
-{
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for( var i=0; i < 8; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}

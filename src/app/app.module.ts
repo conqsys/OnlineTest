@@ -15,6 +15,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 import './rxjs-extensions';
 import  'materialize-css'
 import {MaterializeDirective} from "angular2-materialize";
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { AppComponent } from './app.component';
 import { routing, routedComponents } from './app.routing';
@@ -62,12 +63,17 @@ import { FroalaEditorDirective, FroalaViewDirective } from './components/froala/
     UserService,
     LoginService,
     ValidationService,
+    CookieService,
     { 
       provide: Http, 
       useFactory: ( xhrBackend: XHRBackend, 
                     requestOptions: RequestOptions, 
-                    router: Router) => new HttpInterceptor(xhrBackend, requestOptions, router), 
-      deps: [XHRBackend, RequestOptions, Router]
+                    router: Router,
+                    cookie: CookieService) => new HttpInterceptor(xhrBackend, 
+                                                                  requestOptions, 
+                                                                  router, 
+                                                                  cookie), 
+      deps: [XHRBackend, RequestOptions, Router, CookieService]
     },
   ],
   bootstrap: [AppComponent]

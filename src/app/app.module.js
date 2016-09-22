@@ -20,6 +20,7 @@ var http_3 = require('@angular/http');
 require('./rxjs-extensions');
 require('materialize-css');
 var angular2_materialize_1 = require("angular2-materialize");
+var cookies_service_1 = require('angular2-cookie/services/cookies.service');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var hero_search_component_1 = require('./hero-search.component');
@@ -67,12 +68,13 @@ var AppModule = (function () {
                 user_service_1.UserService,
                 login_service_1.LoginService,
                 validation_service_1.ValidationService,
+                cookies_service_1.CookieService,
                 {
                     provide: http_2.Http,
-                    useFactory: function (xhrBackend, requestOptions, router) {
-                        return new httpInterceptor_1.HttpInterceptor(xhrBackend, requestOptions, router);
+                    useFactory: function (xhrBackend, requestOptions, router, cookie) {
+                        return new httpInterceptor_1.HttpInterceptor(xhrBackend, requestOptions, router, cookie);
                     },
-                    deps: [http_3.XHRBackend, http_2.RequestOptions, router_1.Router]
+                    deps: [http_3.XHRBackend, http_2.RequestOptions, router_1.Router, cookies_service_1.CookieService]
                 },
             ],
             bootstrap: [app_component_1.AppComponent]

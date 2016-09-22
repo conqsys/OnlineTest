@@ -11,7 +11,7 @@ export class LoginService {
 
 	constructor(private http: Http) { }
 
-	login(data:Login): Promise<string> {
+	login(data:Login): Promise<any> {
 		return this.http
 		.post(ApiUrl.baseUrl + 'login', JSON.stringify(data), { headers: ApiUrl.headers })
 		.toPromise()

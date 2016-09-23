@@ -35,7 +35,6 @@ var user_service_1 = require('./services/user/user.service');
 var login_service_1 = require('./services/login/login.service');
 var control_messages_component_1 = require('./Components/validation/control-messages.component');
 var validation_service_1 = require('./services/validation/validation.service');
-;
 var froala_directives_1 = require('./components/froala/directives/froala.directives');
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 var localStorageServiceConfig = {

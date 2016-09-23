@@ -28,7 +28,7 @@ var FroalaEditorDirective = (function () {
         this.froalaInit = new core_1.EventEmitter();
         var element = el.nativeElement;
         // check if the element is a special tag
-        if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) != -1) {
+        if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) !== -1) {
             this._hasSpecialTag = true;
         }
         // jquery wrap and store element 
@@ -45,7 +45,7 @@ var FroalaEditorDirective = (function () {
     Object.defineProperty(FroalaEditorDirective.prototype, "froalaModel", {
         // froalaModel directive as input: store initial editor content
         set: function (content) {
-            if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
+            if (JSON.stringify(this._oldModel) === JSON.stringify(content)) {
                 return;
             }
             this._model = content;
@@ -56,6 +56,20 @@ var FroalaEditorDirective = (function () {
         enumerable: true,
         configurable: true
     });
+    // TODO not sure if ngOnInit is executed after @inputs
+    FroalaEditorDirective.prototype.ngOnInit = function () {
+        // check if output froalaInit is present. Maybe observers is private and should not be used?? 
+        // TODO how to better test that an output directive is present. 
+        if (!this.froalaInit.observers.length) {
+            this.createEditor();
+        }
+        else {
+            this.generateManualController();
+        }
+    };
+    FroalaEditorDirective.prototype.ngOnDestroy = function () {
+        this.destroyEditor();
+    };
     // update model if editor contentChanged
     FroalaEditorDirective.prototype.updateModel = function () {
         var modelContent = null;
@@ -64,7 +78,7 @@ var FroalaEditorDirective = (function () {
             var attrs = {};
             for (var i = 0; i < attributeNodes.length; i++) {
                 var attrName = attributeNodes[i].name;
-                if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
+                if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) !== -1) {
                     continue;
                 }
                 attrs[attrName] = attributeNodes[i].value;
@@ -130,14 +144,14 @@ var FroalaEditorDirective = (function () {
         if (firstTime === void 0) { firstTime = false; }
         var self = this;
         // set initial content
-        if (this._model || this._model == '') {
+        if (this._model || this._model === '') {
             this._oldModel = this._model;
             if (this._hasSpecialTag) {
                 var tags = this._model;
                 // add tags on element
                 if (tags) {
                     for (var attr in tags) {
-                        if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
+                        if (tags.hasOwnProperty(attr) && attr !== this.INNER_HTML_ATTR) {
                             this._$element.attr(attr, tags[attr]);
                         }
                     }
@@ -150,14 +164,14 @@ var FroalaEditorDirective = (function () {
                 if (firstTime) {
                     this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
                         self._$element.froalaEditor('html.set', self._model || '', true);
-                        //This will reset the undo stack everytime the model changes externally. Can we fix this?
+                        // This will reset the undo stack everytime the model changes externally. Can we fix this?
                         self._$element.froalaEditor('undo.reset');
                         self._$element.froalaEditor('undo.saveStep');
                     });
                 }
                 else {
                     self._$element.froalaEditor('html.set', self._model || '', true);
-                    //This will reset the undo stack everytime the model changes externally. Can we fix this?
+                    // This will reset the undo stack everytime the model changes externally. Can we fix this?
                     self._$element.froalaEditor('undo.reset');
                     self._$element.froalaEditor('undo.saveStep');
                 }
@@ -166,7 +180,7 @@ var FroalaEditorDirective = (function () {
     };
     FroalaEditorDirective.prototype.destroyEditor = function () {
         if (this._$element) {
-            this._$element.off(this._listeningEvents.join(" "));
+            this._$element.off(this._listeningEvents.join(' '));
             this._editor.off('keyup');
             this._$element.froalaEditor('destroy');
             this._listeningEvents.length = 0;
@@ -181,7 +195,6 @@ var FroalaEditorDirective = (function () {
     };
     // send manual editor initialization
     FroalaEditorDirective.prototype.generateManualController = function () {
-        var self = this;
         var controls = {
             initialize: this.createEditor.bind(this),
             destroy: this.destroyEditor.bind(this),
@@ -189,29 +202,11 @@ var FroalaEditorDirective = (function () {
         };
         this.froalaInit.emit(controls);
     };
-    // TODO not sure if ngOnInit is executed after @inputs
-    FroalaEditorDirective.prototype.ngOnInit = function () {
-        // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present. 
-        if (!this.froalaInit.observers.length) {
-            this.createEditor();
-        }
-        else {
-            this.generateManualController();
-        }
-    };
-    FroalaEditorDirective.prototype.ngOnDestroy = function () {
-        this.destroyEditor();
-    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object), 
         __metadata('design:paramtypes', [Object])
     ], FroalaEditorDirective.prototype, "froalaEditor", null);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String), 
-        __metadata('design:paramtypes', [String])
-    ], FroalaEditorDirective.prototype, "froalaModel", null);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
@@ -220,6 +215,11 @@ var FroalaEditorDirective = (function () {
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], FroalaEditorDirective.prototype, "froalaInit", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String), 
+        __metadata('design:paramtypes', [String])
+    ], FroalaEditorDirective.prototype, "froalaModel", null);
     FroalaEditorDirective = __decorate([
         core_1.Directive({
             selector: '[froalaEditor]'
@@ -243,7 +243,7 @@ var FroalaViewDirective = (function () {
         configurable: true
     });
     FroalaViewDirective.prototype.ngAfterViewInit = function () {
-        this.renderer.setElementClass(this._element, "fr-view", true);
+        this.renderer.setElementClass(this._element, 'fr-view', true);
     };
     __decorate([
         core_1.Input(), 

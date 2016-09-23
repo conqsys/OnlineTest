@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Login } from '../../model/login/login.model';
 import { LoginService } from '../../services/login/login.service';
 
+import {BaseComponent} from '../base.component';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
@@ -11,14 +12,15 @@ import { LocalStorageService } from 'angular-2-local-storage';
 	selector: 'login',
 	templateUrl: 'login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent extends BaseComponent {
 	model: Login;
 
 	constructor(
 		private loginService: LoginService,
-		private router: Router,
-		private localStorageService: LocalStorageService) {
-
+		localStorageService: LocalStorageService,
+		router: Router) {
+		super(localStorageService, router);
+		
 		this.model = new Login();
 		this.model.username = 'amit8774@gmail.com';
 		this.model.password = 'Ff3VvbeE';

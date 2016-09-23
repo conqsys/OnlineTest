@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,12 +17,13 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_model_1 = require('../../model/login/login.model');
 var login_service_1 = require('../../services/login/login.service');
+var base_component_1 = require('../base.component');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
-var LoginComponent = (function () {
-    function LoginComponent(loginService, router, localStorageService) {
+var LoginComponent = (function (_super) {
+    __extends(LoginComponent, _super);
+    function LoginComponent(loginService, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.loginService = loginService;
-        this.router = router;
-        this.localStorageService = localStorageService;
         this.model = new login_model_1.Login();
         this.model.username = 'amit8774@gmail.com';
         this.model.password = 'Ff3VvbeE';
@@ -37,9 +43,9 @@ var LoginComponent = (function () {
             selector: 'login',
             templateUrl: 'login.component.html'
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router, angular_2_local_storage_1.LocalStorageService])
+        __metadata('design:paramtypes', [login_service_1.LoginService, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], LoginComponent);
     return LoginComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

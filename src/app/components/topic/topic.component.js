@@ -43,7 +43,7 @@ var TopicComponent = (function (_super) {
         this.model = new topic_model_1.TopicModel();
         this.btnText = 'Save Topic';
         this.model.topic_id = 0;
-        this.model.topic_title = "";
+        this.model.topic_title = '';
         this.model.company_id = this.user.company_id;
         this.model.created_by = this.user.user_id;
         this.model.updated_by = this.user.user_id;
@@ -51,7 +51,7 @@ var TopicComponent = (function (_super) {
     // get Topic by topic_id
     TopicComponent.prototype.getTopicByID = function (param) {
         var _this = this;
-        if (param.value.id != undefined) {
+        if (param.value.id !== undefined) {
             this.service.getTopicByID(param.value.id).then(function (result) {
                 _this.model = result[0];
                 _this.btnText = 'Update Topic';

@@ -8,8 +8,8 @@
 var mailService = require('../services/email');
 
 module.exports = {
-	
-    email: function (req, res) {
+	// send EMail to user
+     email: function (req, res) {
         var smtpTransport = mailService.createTransport(null);
         var mailOptions = mailService.createMailOptions(null);
 

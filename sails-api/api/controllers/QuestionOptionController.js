@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+ // get QuestionOptions by question_id from  database
 	getQuestionOptions: function (req, res) {
         var question_id = req.param('question_id');
         QuestionOption.find({ question_id: question_id })

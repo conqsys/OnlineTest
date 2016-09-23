@@ -9,7 +9,7 @@ module.exports = {
         shortcuts: false,
         rest: false
     },
-
+// user login method 
     login: function(req, res) {
 
         var email = req.body.username;
@@ -19,12 +19,11 @@ module.exports = {
            return res.json(401, {err: 'email and password required'});
         }
 
-        
-
         User.findOne({user_email: email}, function (err, user) {
             if (!user) {
                 return res.json(401, {err: 'invalid email or password'});
             }
+       // CALL comparePassword for user login     
             User.comparePassword(password, user, function (err, valid) {
                 if (err) {
                     return res.forbidden(err);
@@ -50,7 +49,7 @@ module.exports = {
             })
         })
     },
-
+// user logout method
     logout: function(req, res) {
         req.logout();
         res.redirect('/');

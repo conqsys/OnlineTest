@@ -8,6 +8,7 @@
 var mailService = require('../services/email');
 
 module.exports = {
+    // get users by company_id from  database
     getUser: function (req, res) {
         var companyId = req.param('company_id');
         var str = "CALL spGetUsers(" + companyId + ")";
@@ -16,7 +17,7 @@ module.exports = {
             else return res.json(result[0]);
         })
     },
-
+// get user by question_id and user_id from  database
     getUserById: function (req, res) {
         var companyId = req.param('company_id');
         var userId = req.param('user_id');
@@ -30,7 +31,7 @@ module.exports = {
                 }
         })
     },
-
+// search user by email_id from  database
     searchUserByEmail: function (req, res) {
         var emailId = req.param('email_id');
         User.findOne({ user_email: emailId })
@@ -40,7 +41,7 @@ module.exports = {
                 else return res.json(result.toJSON());
             })
     },
-    
+    // save user into database
     saveUser: function (req, res) {
         var userData = req.body;
         var pwd = User.generateRandomPassword();
@@ -78,6 +79,7 @@ module.exports = {
             });
         })
     },
+    // get user by user_id from  database
     removeUser: function (req, res) {
         var userId = req.param('user_id');
         var str = "delete from  user where user_id =" + userId;

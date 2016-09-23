@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+//    upload file and image
 	upload: function(req, res) {
     if (req.method === 'GET')
         return res.json({ 'status': 'GET not allowed' });

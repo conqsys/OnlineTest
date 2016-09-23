@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+  // get QuestionSets by company_id from  database
 	getQuestionSets: function (req, res) {
         var companyId = req.param('company_id');
         QuestionSet.find({ company_id: companyId })
@@ -14,7 +15,7 @@ module.exports = {
                 else return res.json(result);
         })
     },
-
+ // get QuestionSets by company_id and question_id from  database
     getQuestionSet: function(req, res) {
         var companyId = req.param('company_id');
         var quesSetId = req.param('question_set_id');
@@ -42,7 +43,7 @@ module.exports = {
                 }
             })
     },
-
+ // save QuestionSets into database
     saveQuestionSet: function(req, res) {
         
         var question_set_questions = req.body.question_set_questions;

@@ -6,14 +6,14 @@
  */
 
 module.exports = {
-
+ // get Questionsets from  database 
     getAllQuestions: function (req, res, next) {
         QuestionSet.find().exec(function (err, result) {
             if (err) return res.serverError(err);
             else return res.json(result);
         })
     },
-
+// save Test details into database 
     saveOnlineTest: function (req, res, next) {
         var start_date = req.body.test_start_date.split("/");
         req.body.test_start_date = start_date[2] + "-" + start_date[1] + "-" + start_date[0];
@@ -25,6 +25,7 @@ module.exports = {
             else return res.json(result);
         });
     },
+     // get Tests from  database  
     getOnlineTests: function (req, res) {
         OnlineTest.find().exec(function (err, result) {
             if (err) return res.serverError(err);
@@ -37,6 +38,7 @@ module.exports = {
             }
         })
     },
+     // get Test from  database 
     getOnlineTestByID: function (req, res) {
         var online_test_id = req.param('online_test_id');
         OnlineTest.findOne({ online_test_id: online_test_id }).exec(function (err, result) {
@@ -48,6 +50,7 @@ module.exports = {
             return res.json(result);
         })
     },
+    //  // remove Test from  database 
     removeTest: function (req, res) {
         var online_test_id = req.param('online_test_id');
         var str = "delete from  onlinetest where online_test_id =" + online_test_id;

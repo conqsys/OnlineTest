@@ -29,7 +29,7 @@ module.exports = function (req, res, next) {
   } else {
     return res.json(401, {err: 'No Authorization header was found'});
   }
-
+// verify token on request
   jwToken.verify(token, function (err, token) {
     if (err) { 
         return res.json(401, {err: 'Invalid Token!'});

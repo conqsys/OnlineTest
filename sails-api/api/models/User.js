@@ -77,7 +77,7 @@ module.exports = {
         },
     },
 
-    // Here we encrypt password before creating a User
+    // Here create encrypt password for user before creating a User
     beforeCreate : function (user, next) {
         bcrypt.genSalt(10, function (err, salt) {
             if(err) { 
@@ -93,6 +93,7 @@ module.exports = {
         })
     },
 
+// compare password of user Rndompwd and encrypt password
     comparePassword : function (password, user, callback) {
         bcrypt.compare(password, user.user_pwd, function (err, match) {
 
@@ -105,7 +106,8 @@ module.exports = {
         })
     },
 
-    generateRandomPassword: function() {
+// create random password for user 
+     generateRandomPassword: function() {
         var text = "";
         var possible = "hijklRSmnABCDEJKLp4MNOPcQTUVWXYZabdeFGHIfgo56qrstxyz0123uvw789";
 

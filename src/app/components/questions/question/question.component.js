@@ -33,9 +33,9 @@ var QuestionComponent = (function (_super) {
         this.setQuestionVisibility = new core_1.EventEmitter();
         this.model = new question_1.QuestionModel();
         this.model.options = new Array();
-        this.model.answer_explanation = "";
-        //this.model.question_description = "";
-        this.newOption = "";
+        this.model.answer_explanation = '';
+        // this.model.question_description = "";
+        this.newOption = '';
         this.model.is_multiple_option = false;
         this.model.company_id = this.user.company_id;
         this.model.created_by = this.user.user_id;
@@ -46,7 +46,7 @@ var QuestionComponent = (function (_super) {
         var _this = this;
         if (this.user) {
             this.initializeFloraEditor();
-            var subscriptions = this.activatedRoute.params.subscribe(function (params) {
+            this.activatedRoute.params.subscribe(function (params) {
                 _this.question_id = +params['question_id']; // (+) converts string 'id' to a number
             });
             this.getTopic();
@@ -69,7 +69,7 @@ var QuestionComponent = (function (_super) {
                     _this.model = result;
                 }
                 else {
-                    alert("no question found");
+                    alert('no question found');
                     _this.router.navigate(['/questions']);
                 }
             });
@@ -85,19 +85,13 @@ var QuestionComponent = (function (_super) {
     };
     // add option 
     QuestionComponent.prototype.addOption = function () {
-        if (this.newOption === "")
-            alert("can not be blank");
-        else
+        if (this.newOption === '') {
+            alert('can not be blank');
+        }
+        else {
             this.model.options.push({ description: this.newOption, is_correct: false, option_id: 0, question_id: this.model.question_id });
-        this.newOption = "";
-    };
-    QuestionComponent.prototype.initializeFloraEditor = function () {
-        this.froalaOptions = {
-            placeholderText: 'Edit Your Content Here!',
-            charCounterCount: false,
-            imageUploadURL: 'http://localhost:1337/file/upload'
-        };
-        //  this.model.question_description = "<p>This is my awesome content</p>";
+            this.newOption = '';
+        }
     };
     // save Question 
     QuestionComponent.prototype.saveQuestion = function () {
@@ -111,6 +105,14 @@ var QuestionComponent = (function (_super) {
     // open  Question list 
     QuestionComponent.prototype.cancel = function () {
         this.router.navigate(['/questions']);
+    };
+    QuestionComponent.prototype.initializeFloraEditor = function () {
+        this.froalaOptions = {
+            placeholderText: 'Edit Your Content Here!',
+            charCounterCount: false,
+            imageUploadURL: 'http://localhost:1337/file/upload'
+        };
+        //  this.model.question_description = "<p>This is my awesome content</p>";
     };
     __decorate([
         core_1.Input(), 

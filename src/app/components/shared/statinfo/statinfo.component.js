@@ -13,8 +13,6 @@ var statinfo_1 = require('../../../model/stats/statinfo');
 var StatinfoComponent = (function () {
     function StatinfoComponent() {
     }
-    StatinfoComponent.prototype.ngOnInit = function () {
-    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', statinfo_1.StatInfoModel)

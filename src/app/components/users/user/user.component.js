@@ -32,14 +32,14 @@ var UserComponent = (function (_super) {
     UserComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (this.user) {
-            var subscriptions = this.activatedRoute.params.subscribe(function (params) {
+            this.activatedRoute.params.subscribe(function (params) {
                 _this.user_id = +params['user_id']; // (+) converts string 'id' to a number
             });
-            if (this.user_id != 0 && this.user_id != undefined) {
+            if (this.user_id !== 0 && this.user_id !== undefined) {
                 this.getUser(this.user.company_id, this.user_id);
             }
             else {
-                this.createUserObject("");
+                this.createUserObject('');
             }
         }
     };
@@ -47,10 +47,10 @@ var UserComponent = (function (_super) {
     UserComponent.prototype.createUserObject = function (emailId) {
         this.model = new user_model_1.UserModel();
         this.model.user_id = 0;
-        this.model.user_name = "";
+        this.model.user_name = '';
         this.model.user_email = emailId;
-        this.model.user_mobile_no = "";
-        this.model.user_address = "";
+        this.model.user_mobile_no = '';
+        this.model.user_address = '';
         this.model.is_active = true;
         this.model.is_fresher = false;
         this.model.user_exp_month = 0;
@@ -106,7 +106,7 @@ var UserComponent = (function (_super) {
         core_1.Component({
             moduleId: module.id,
             selector: 'app-user',
-            templateUrl: 'user.component.html',
+            templateUrl: 'user.component.html'
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], UserComponent);

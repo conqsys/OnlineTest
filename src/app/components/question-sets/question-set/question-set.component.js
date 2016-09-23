@@ -39,20 +39,20 @@ var QuestionSetComponent = (function (_super) {
     QuestionSetComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (this.user) {
-            var subscriptions = this.activatedRoute.params.subscribe(function (params) {
+            this.activatedRoute.params.subscribe(function (params) {
                 _this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
             });
-            if (this.question_set_id != 0 && this.question_set_id != undefined) {
+            if (this.question_set_id !== 0 && this.question_set_id !== undefined) {
                 this.getQuestionSet(this.user.company_id, this.question_set_id);
             }
             else {
                 this.model.question_set_id = this.question_set_id;
-                this.model.question_set_title = "";
-                this.model.total_time = "";
+                this.model.question_set_title = '';
+                this.model.total_time = '';
                 this.model.company_id = this.user.company_id;
                 this.model.total_questions = 0;
                 this.model.is_randomize = false;
-                this.model.option_series = "Numerical Order";
+                this.model.option_series = 'Numerical Order';
                 this.model.question_set_questions = [];
             }
         }
@@ -84,11 +84,14 @@ var QuestionSetComponent = (function (_super) {
         this.questionService.getQuestionsByTopic(topic_id)
             .then(function (questions) {
             _this.questions = [];
-            for (var i = 0; i < questions.length; i++) {
+            var _loop_1 = function(i) {
                 var selectedQuestion = _this.model.question_set_questions.filter(function (ques) { return ques.question_id === questions[i].question_id && ques.is_deleted === 0; });
-                if (selectedQuestion.length == 0) {
+                if (selectedQuestion.length === 0) {
                     _this.questions.splice(_this.questions.length, 0, questions[i]);
                 }
+            };
+            for (var i = 0; i < questions.length; i++) {
+                _loop_1(i);
             }
         });
     };
@@ -96,15 +99,25 @@ var QuestionSetComponent = (function (_super) {
     QuestionSetComponent.prototype.addQuestionsInQuestionSet = function () {
         this.isAddQuestion = false;
         var selectedQuestions = this.questions.filter(function (ques) { return ques.is_selected === true; });
-        for (var i = 0; i < selectedQuestions.length; i++) {
-            var deletedQuestion = this.model.question_set_questions.filter(function (ques) { return ques.question_id === selectedQuestions[i].question_id; });
+        var _loop_2 = function(i) {
+            var deletedQuestion = this_1.model.question_set_questions.filter(function (ques) { return ques.question_id === selectedQuestions[i].question_id; });
             if (deletedQuestion.length > 0) {
                 deletedQuestion[0].is_deleted = 0;
             }
             else {
-                var obj = { set_question_id: 0, question_set_id: this.question_set_id, question_id: selectedQuestions[i].question_id, question_description: selectedQuestions[i].question_description, is_deleted: 0 };
-                this.model.question_set_questions.splice(this.model.question_set_questions.length, 0, obj);
+                var obj = {
+                    set_question_id: 0,
+                    question_set_id: this_1.question_set_id,
+                    question_id: selectedQuestions[i].question_id,
+                    question_description: selectedQuestions[i].question_description,
+                    is_deleted: 0
+                };
+                this_1.model.question_set_questions.splice(this_1.model.question_set_questions.length, 0, obj);
             }
+        };
+        var this_1 = this;
+        for (var i = 0; i < selectedQuestions.length; i++) {
+            _loop_2(i);
         }
     };
     // save Question Set  
@@ -119,7 +132,7 @@ var QuestionSetComponent = (function (_super) {
     };
     // delete Question set by question_id
     QuestionSetComponent.prototype.deleteSetQuestion = function (question, index) {
-        if (question.set_question_id == 0) {
+        if (question.set_question_id === 0) {
             this.model.question_set_questions.splice(index, 1);
         }
         else {

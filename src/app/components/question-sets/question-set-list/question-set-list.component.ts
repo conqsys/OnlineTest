@@ -1,5 +1,4 @@
-import { Component, ViewChild, Input, Output, OnInit, Injector } from '@angular/core';
-import {DatePipe} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
 
 import { QuestionSetModel } from '../../../model/question-set/question-set.model';
 import { QuestionSetService } from '../../../services/question-set/question-set.service';
@@ -11,7 +10,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 @Component({
     moduleId: module.id,
     selector: 'question-set-list',
-    templateUrl: 'question-set-list.component.html',
+    templateUrl: 'question-set-list.component.html'
 })
 export /**
  * QuestionSetListComponent
@@ -52,6 +51,7 @@ export /**
 
         this.router.navigate(['/questionset', this.selectedQuestionSetId]);
     }
+
     // open Question set page for add Questionset 
     addQuestionSet(): void {
         this.router.navigate(['/questionset', 0]);

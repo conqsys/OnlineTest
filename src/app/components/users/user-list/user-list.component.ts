@@ -1,5 +1,4 @@
-import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
-import {DatePipe} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { UserModel } from '../../../model/user/user.model';
@@ -21,7 +20,7 @@ export /**
     title: string;
     model: UserModel[] = [];
     selectedUserId: number;
-    
+
     constructor(private service: UserService,
         localStorageService: LocalStorageService,
         router: Router) {
@@ -43,12 +42,14 @@ export /**
                 this.model = users;
             });
     }
+
     // navigate user_id to user component.ts
     selectUser(selectedUser: UserModel): void {
         this.selectedUserId = selectedUser.user_id;
 
         this.router.navigate(['/user', this.selectedUserId]);
     }
+
     // open user page for add user
     addUser(): void {
         this.router.navigate(['/user', 0]);

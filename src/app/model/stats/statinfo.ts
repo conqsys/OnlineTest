@@ -1,7 +1,7 @@
 export /**
  * StatInfoModel
  */
-class StatInfoModel {
-   Number:number
-   StatName:string
+    class StatInfoModel {
+    Number: number;
+    StatName: string;
 }

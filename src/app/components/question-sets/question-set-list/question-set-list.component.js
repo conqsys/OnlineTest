@@ -53,7 +53,7 @@ var QuestionSetListComponent = (function (_super) {
         core_1.Component({
             moduleId: module.id,
             selector: 'question-set-list',
-            templateUrl: 'question-set-list.component.html',
+            templateUrl: 'question-set-list.component.html'
         }), 
         __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], QuestionSetListComponent);

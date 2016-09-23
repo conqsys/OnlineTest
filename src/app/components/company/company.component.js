@@ -32,8 +32,9 @@ var CompanyComponent = (function (_super) {
             this.bydefault();
             this.paramsSub = this.activatedRoute.params.subscribe(function (params) {
                 _this.company_id = Number.parseInt(params['id'], 10);
-                if (_this.company_id > 0)
+                if (_this.company_id > 0) {
                     _this.getCompanyByID(_this.company_id);
+                }
             });
         }
     };
@@ -90,7 +91,7 @@ var CompanyComponent = (function (_super) {
         // }
         this.companyService.saveCompany(this.model).then(function (result) {
             if (result) {
-                alert("Company saved successfully.!");
+                alert('Company saved successfully.!');
                 _this.router.navigate(['/companylist']);
             }
             else {

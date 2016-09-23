@@ -19,24 +19,17 @@ export class TextEditorComponent implements OnInit {
 
   constructor() {
     this.initializeFloraEditor();
-  
-
   }
 
   ngOnInit() {
-    this.editorContent = "<p>This is my awesome content</p>";
- 
+    this.editorContent = '<p>This is my awesome content</p>';
   }
 
   private initializeFloraEditor() {
-    var self = this;
-      this.editorContent = "<p>This is my awesome content</p>";
+    this.editorContent = '<p>This is my awesome content</p>';
     this.titleOptions = {
       placeholderText: 'Edit Your Content Here!',
       charCounterCount: false
-    }
-
+    };
   }
-
- 
 }

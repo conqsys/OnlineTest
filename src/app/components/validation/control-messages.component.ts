@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ValidationService } from '../../services/validation/validation.service';
 
 @Component({
@@ -8,7 +8,6 @@ import { ValidationService } from '../../services/validation/validation.service'
 })
 export class ControlMessages {
   @Input() control: FormControl;
-  constructor() { }
 
   get errorMessage() {
     for (let propertyName in this.control.errors) {
@@ -16,7 +15,7 @@ export class ControlMessages {
         return ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
       }
     }
-    
+
     return null;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {StatInfoModel} from '../../../model/stats/statinfo';
 
 
@@ -7,15 +7,7 @@ import {StatInfoModel} from '../../../model/stats/statinfo';
   selector: 'app-statinfo',
   templateUrl: '../statinfo/statinfo.component.html',
 })
-export class StatinfoComponent implements OnInit {
-@Input()
-statInfo:StatInfoModel
-
-  constructor() {
-     
-   }
-
-  ngOnInit() {
-  }
-
+export class StatinfoComponent {
+  @Input()
+  statInfo: StatInfoModel;
 }

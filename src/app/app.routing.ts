@@ -19,7 +19,7 @@ import { OnlineTestListComponent } from './components/online-test-list/online-te
 import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
- 
+
   {
     path: '',
     redirectTo: '/questions',
@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     path: 'question/:question_id',
     component: QuestionComponent
   },
-  
+
   {
     path: 'questionsets',
     component: QuestionSetListComponent
@@ -43,7 +43,7 @@ const appRoutes: Routes = [
     path: 'questionset/:question_set_id',
     component: QuestionSetComponent
   },
-   {
+  {
     path: 'topic',
     component: TopicComponent
   },
@@ -51,15 +51,15 @@ const appRoutes: Routes = [
     path: 'topic/:id',
     component: TopicComponent
   },
-   {
+  {
     path: 'topiclist',
     component: TopicListComponent
   },
-   {
+  {
     path: 'froala',
     component: TextEditorComponent
   },
-   {
+  {
     path: 'company',
     component: CompanyComponent
   },
@@ -67,19 +67,19 @@ const appRoutes: Routes = [
     path: 'company/:id',
     component: CompanyComponent
   },
-   {
+  {
     path: 'companylist',
     component: CompaniesComponent
   },
-   {
+  {
     path: 'onlinetest',
     component: OnlineTestComponent
   },
-   {
+  {
     path: 'users',
     component: UserListComponent
   },
-   {
+  {
     path: 'user/:user_id',
     component: UserComponent
   },
@@ -87,11 +87,11 @@ const appRoutes: Routes = [
     path: 'onlinetest/:id',
     component: OnlineTestComponent
   },
-   {
+  {
     path: 'onlinetestlist',
     component: OnlineTestListComponent
   },
-   {
+  {
     path: 'login',
     component: LoginComponent
   }
@@ -100,11 +100,11 @@ const appRoutes: Routes = [
 export const routing = RouterModule.forRoot(appRoutes);
 
 export const routedComponents = [
-  QuestionsComponent, QuestionComponent, 
+  QuestionsComponent, QuestionComponent,
   QuestionSetListComponent, QuestionSetComponent,
   TopicListComponent, TopicComponent,
   CompaniesComponent, CompanyComponent,
-  TextEditorComponent, HeroesComponent,CheckBoxComponent,RadioComponent,
+  TextEditorComponent, HeroesComponent, CheckBoxComponent, RadioComponent,
   UserListComponent, UserComponent,
   OnlineTestComponent, OnlineTestListComponent,
   LoginComponent

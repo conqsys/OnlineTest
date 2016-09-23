@@ -4,17 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {Router} from '@angular/router';
 import {HttpInterceptor} from './shared/httpInterceptor';
-import { Http, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers} from '@angular/http';
+import { Http, RequestOptions } from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
 import { XHRBackend } from '@angular/http';
 
-import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
-
 import './rxjs-extensions';
-import  'materialize-css'
-import {MaterializeDirective} from "angular2-materialize";
+import 'materialize-css';
+import {MaterializeDirective} from 'angular2-materialize';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
 import { AppComponent } from './app.component';
@@ -34,12 +31,12 @@ import { LoginService } from './services/login/login.service';
 
 import { ControlMessages } from './Components/validation/control-messages.component';
 import { ValidationService } from './services/validation/validation.service';;
-import { FroalaEditorDirective, FroalaViewDirective } from './components/froala/directives/froala.directives';
+import { FroalaEditorDirective } from './components/froala/directives/froala.directives';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
-    prefix: 'my-app',
-    storageType: 'sessionStorage'
+  prefix: 'my-app',
+  storageType: 'sessionStorage'
 };
 
 @NgModule({
@@ -70,20 +67,20 @@ let localStorageServiceConfig = {
     LoginService,
     ValidationService,
     LocalStorageService,
-    { 
+    {
       provide: Http,
-      useFactory: ( xhrBackend: XHRBackend, 
-                    requestOptions: RequestOptions, 
-                    router: Router,
-                    localStorageService: LocalStorageService) => new HttpInterceptor(xhrBackend, 
-                                                                  requestOptions, 
-                                                                  router,
-                                                                  localStorageService), 
-                                                                  
+      useFactory: (xhrBackend: XHRBackend,
+        requestOptions: RequestOptions,
+        router: Router,
+        localStorageService: LocalStorageService) => new HttpInterceptor(xhrBackend,
+          requestOptions,
+          router,
+          localStorageService),
+
       deps: [XHRBackend, RequestOptions, Router, LocalStorageService],
 
     },
-    {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig},
+    { provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig },
   ],
   bootstrap: [AppComponent]
 })

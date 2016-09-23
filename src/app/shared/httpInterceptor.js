@@ -21,20 +21,20 @@ var HttpInterceptor = (function (_super) {
         return this.intercept(_super.prototype.request.call(this, url, options));
     };
     HttpInterceptor.prototype.get = function (url, options) {
-        //this.requested.emit('start');
+        // this.requested.emit('start');
         options = this.addHeaders(options);
         return this.intercept(_super.prototype.get.call(this, url, options));
     };
     HttpInterceptor.prototype.post = function (url, body, options) {
-        //this.requested.emit('start');
+        // this.requested.emit('start');
         return this.intercept(_super.prototype.post.call(this, url, body, this.getRequestOptionArgs(options)));
     };
     HttpInterceptor.prototype.put = function (url, body, options) {
-        //this.requested.emit('start');
+        // this.requested.emit('start');
         return this.intercept(_super.prototype.put.call(this, url, body, this.getRequestOptionArgs(options)));
     };
     HttpInterceptor.prototype.delete = function (url, options) {
-        //this.requested.emit('start');
+        // this.requested.emit('start');
         return this.intercept(_super.prototype.delete.call(this, url, options));
     };
     HttpInterceptor.prototype.getRequestOptionArgs = function (options) {
@@ -57,11 +57,11 @@ var HttpInterceptor = (function (_super) {
     };
     HttpInterceptor.prototype.intercept = function (observable) {
         var _this = this;
-        //this.completed.emit('end');
-        //this.loadingPage.close();
+        // this.completed.emit('end');
+        // this.loadingPage.close();
         return observable.catch(function (err, source) {
-            //this.error.emit(err);
-            if (err.status == 401) {
+            // this.error.emit(err);
+            if (err.status === 401) {
                 _this.authorization = _this.localStorageService.get('authorization');
                 if (_this.authorization) {
                     _this.localStorageService.remove('authorization');
@@ -70,11 +70,11 @@ var HttpInterceptor = (function (_super) {
                 _this.router.navigate(['/login']);
                 return Rx_1.Observable.empty();
             }
-            else if (err.status == 403) {
-                console.log("you can't access api");
+            else if (err.status === 403) {
+                console.log('you can not access api');
                 return Rx_1.Observable.throw(err);
             }
-            else if (err.status == 0) {
+            else if (err.status === 0) {
                 console.log('ERR_CONNECTION_REFUSED, Api is down');
                 return Rx_1.Observable.throw(err);
             }

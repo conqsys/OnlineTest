@@ -37,7 +37,7 @@ var TopicListComponent = (function (_super) {
     TopicListComponent.prototype.getTopic = function () {
         var _this = this;
         this.service.getTopic(this.user.company_id).then(function (result) {
-            if (result != undefined && result != null) {
+            if (result) {
                 _this.topicdata = result;
             }
             else {
@@ -48,11 +48,11 @@ var TopicListComponent = (function (_super) {
     TopicListComponent.prototype.editTopic = function (item) {
         this.router.navigate(['/topic/' + item.topic_id]);
     };
-    //open topic page for add topic 
+    // open topic page for add topic 
     TopicListComponent.prototype.showTopic = function () {
         this.router.navigate(['/topic']);
     };
-    //remove Topic by topic_id
+    // remove Topic by topic_id
     TopicListComponent.prototype.removeItem = function (item) {
         var _this = this;
         // this.data = _.filter(this.data, (elem)=>elem!=item);
@@ -63,7 +63,7 @@ var TopicListComponent = (function (_super) {
             }
             else {
                 Materialize.toast('Topic not deleted!', 2000, 'rounded');
-                alert("");
+                alert('');
             }
         });
         // console.log("Remove: ", (item.SubjectID);
@@ -73,7 +73,6 @@ var TopicListComponent = (function (_super) {
             moduleId: module.id,
             selector: 'app-topiclist',
             templateUrl: 'topic-list.component.html',
-            providers: [topic_model_1.TopicModel, topic_service_1.TopicService]
         }), 
         __metadata('design:paramtypes', [topic_service_1.TopicService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_2.Router])
     ], TopicListComponent);

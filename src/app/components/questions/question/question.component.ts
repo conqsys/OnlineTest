@@ -19,10 +19,10 @@ declare var tinymce: any;
   styleUrls: ['question.component.css']
 })
 export class QuestionComponent extends BaseComponent implements OnInit {
-  @Input() model: QuestionModel
+  @Input() model: QuestionModel;
   @Output()
   setQuestionVisibility: EventEmitter<boolean>;
-  
+
   question_id: number;
 
   topics = Array<TopicModel>();
@@ -43,10 +43,10 @@ export class QuestionComponent extends BaseComponent implements OnInit {
 
     this.model = new QuestionModel();
     this.model.options = new Array<QuestionOptionModel>();
-    this.model.answer_explanation = "";
-    //this.model.question_description = "";
+    this.model.answer_explanation = '';
+    // this.model.question_description = "";
 
-    this.newOption = "";
+    this.newOption = '';
     this.model.is_multiple_option = false;
     this.model.company_id = this.user.company_id;
     this.model.created_by = this.user.user_id;
@@ -58,7 +58,7 @@ export class QuestionComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     if (this.user) {
       this.initializeFloraEditor();
-      var subscriptions = this.activatedRoute.params.subscribe(params => {
+      this.activatedRoute.params.subscribe(params => {
         this.question_id = +params['question_id']; // (+) converts string 'id' to a number
       });
 
@@ -80,10 +80,8 @@ export class QuestionComponent extends BaseComponent implements OnInit {
         .then(result => {
           if (result) {
             this.model = result;
-
-          }
-          else {
-            alert("no question found");
+          } else {
+            alert('no question found');
             this.router.navigate(['/questions']);
           }
         });
@@ -98,38 +96,37 @@ export class QuestionComponent extends BaseComponent implements OnInit {
       option.is_correct = false;
     });
   }
+
   // add option 
   addOption(): void {
-    if (this.newOption === "")
-      alert("can not be blank");
-    else
+    if (this.newOption === '') {
+      alert('can not be blank');
+    } else {
       this.model.options.push({ description: this.newOption, is_correct: false, option_id: 0, question_id: this.model.question_id });
-    this.newOption = "";
-
-  }
-
-
-  private initializeFloraEditor() {
-
-    this.froalaOptions = {
-      placeholderText: 'Edit Your Content Here!',
-      charCounterCount: false,
-      imageUploadURL: 'http://localhost:1337/file/upload'
+      this.newOption = '';
     }
-    //  this.model.question_description = "<p>This is my awesome content</p>";
-
   }
+
   // save Question 
   saveQuestion(): void {
     this.questionService.saveQuestion(this.model)
       .then(result => {
         this.router.navigate(['/questions']);
-      })
+      });
     this.setQuestionVisibility.emit(false);
   }
+
   // open  Question list 
   cancel(): void {
     this.router.navigate(['/questions']);
   }
 
+  private initializeFloraEditor() {
+    this.froalaOptions = {
+      placeholderText: 'Edit Your Content Here!',
+      charCounterCount: false,
+      imageUploadURL: 'http://localhost:1337/file/upload'
+    };
+    //  this.model.question_description = "<p>This is my awesome content</p>";
+  }
 }

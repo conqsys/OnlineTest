@@ -16,9 +16,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var base_component_1 = require('../../base.component');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
+// import {StatsComponent} from '../../shared/stats/stats.component'
 var statinfo_1 = require('../../../model/stats/statinfo');
+// import {QuestionComponent} from '../question/question.component';
 var question_service_1 = require('../../../services/question/question.service');
 var question_1 = require('../../../model/question/question');
+// import {QuestionOptionModel} from '../../../model/question/question-option';
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
 var router_1 = require('@angular/router');
 var QuestionsComponent = (function (_super) {
@@ -31,14 +34,14 @@ var QuestionsComponent = (function (_super) {
         this.questionVisibility = false;
         this.model = new Array();
         this.selectedQuestion = new question_1.QuestionModel();
-        this.selectedQuestion.answer_explanation = "";
+        this.selectedQuestion.answer_explanation = '';
         this.statInfo.Number = 23;
-        this.statInfo.StatName = "Users";
+        this.statInfo.StatName = 'Users';
         this.stats = new Array();
         this.stats.push(this.statInfo);
         this.statInfo = new statinfo_1.StatInfoModel();
         this.statInfo.Number = 4;
-        this.statInfo.StatName = "options";
+        this.statInfo.StatName = 'options';
         this.stats.push(this.statInfo);
     }
     QuestionsComponent.prototype.ngOnInit = function () {

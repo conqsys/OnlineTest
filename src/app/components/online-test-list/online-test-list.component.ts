@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {BaseComponent} from '../base.component';
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -29,35 +29,34 @@ export class OnlineTestListComponent extends BaseComponent implements OnInit {
   // get test details 
   getOnlineTests() {
     this.service.getOnlineTests().then(result => {
-      if (result != undefined && result != null) {
+      if (result) {
         this.onlineTestData = result;
-      }
-      else {
+      } else {
         // alert(result.data);
       }
     });
   }
 
-  //pass the online_test_id to online-test component.ts 
+  // pass the online_test_id to online-test component.ts 
   public editTest(item: OnlineTestModel) {
     this.router.navigate(['/onlinetest/' + item.online_test_id]);
   }
-  //open onlinetest page for add test 
+
+  // open onlinetest page for add test 
   public showOnlineTest() {
     this.router.navigate(['/onlinetest']);
   }
-  //delete test by online_test_id
+
+  // delete test by online_test_id
   public removeTest(item: OnlineTestModel) {
     // this.data = _.filter(this.data, (elem)=>elem!=item);
     this.service.removeOnlineTest(item.online_test_id).then(result => {
       if (result) {
-        alert("record succesfully deleted!");
+        alert('record succesfully deleted!');
         this.getOnlineTests();
-      }
-      else {
-        alert("record not deleted!");
+      } else {
+        alert('record not deleted!');
       }
     });
   }
-
 }

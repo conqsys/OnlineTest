@@ -33,32 +33,32 @@ var OnlineTestListComponent = (function (_super) {
     OnlineTestListComponent.prototype.getOnlineTests = function () {
         var _this = this;
         this.service.getOnlineTests().then(function (result) {
-            if (result != undefined && result != null) {
+            if (result) {
                 _this.onlineTestData = result;
             }
             else {
             }
         });
     };
-    //pass the online_test_id to online-test component.ts 
+    // pass the online_test_id to online-test component.ts 
     OnlineTestListComponent.prototype.editTest = function (item) {
         this.router.navigate(['/onlinetest/' + item.online_test_id]);
     };
-    //open onlinetest page for add test 
+    // open onlinetest page for add test 
     OnlineTestListComponent.prototype.showOnlineTest = function () {
         this.router.navigate(['/onlinetest']);
     };
-    //delete test by online_test_id
+    // delete test by online_test_id
     OnlineTestListComponent.prototype.removeTest = function (item) {
         var _this = this;
         // this.data = _.filter(this.data, (elem)=>elem!=item);
         this.service.removeOnlineTest(item.online_test_id).then(function (result) {
             if (result) {
-                alert("record succesfully deleted!");
+                alert('record succesfully deleted!');
                 _this.getOnlineTests();
             }
             else {
-                alert("record not deleted!");
+                alert('record not deleted!');
             }
         });
     };

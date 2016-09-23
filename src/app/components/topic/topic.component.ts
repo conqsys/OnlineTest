@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {BaseComponent} from '../base.component';
 import { LocalStorageService } from 'angular-2-local-storage';
 
@@ -6,9 +6,9 @@ import { TopicModel } from '../../model/topic/topic.model';
 import { TopicService } from '../../services/topic/topic.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators  } from '@angular/forms';
-import { ControlMessages } from '../../Components/validation/control-messages.component';
-import { ValidationService } from '../../services/validation/validation.service';
+import { FormBuilder, Validators  } from '@angular/forms';
+// import { ControlMessages } from '../../Components/validation/control-messages.component';
+// import { ValidationService } from '../../services/validation/validation.service';
 declare var Materialize: any;
 @Component({
   moduleId: module.id,
@@ -16,9 +16,9 @@ declare var Materialize: any;
   templateUrl: 'topic.component.html'
 })
 export class TopicComponent extends BaseComponent implements OnInit {
-  private model: TopicModel;
+  model: TopicModel;
   btnText: string;
-  topicForm: any
+  topicForm: any;
   constructor(private formBuilder: FormBuilder,
     private service: TopicService,
     private routeinfo: ActivatedRoute,
@@ -59,6 +59,7 @@ export class TopicComponent extends BaseComponent implements OnInit {
       });
     }
   }
+
   // save topic 
   saveTopic() {
     if (this.topicForm.valid) {
@@ -68,13 +69,10 @@ export class TopicComponent extends BaseComponent implements OnInit {
           Materialize.toast(this.btnText, 1000, 'rounded');
           this.router.navigate(['/topiclist']);
 
-        }
-        else {
+        } else {
           // alert(result.data);
         }
       });
     }
-
   }
-
 }

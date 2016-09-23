@@ -19,7 +19,7 @@ var http_2 = require('@angular/http');
 var http_3 = require('@angular/http');
 require('./rxjs-extensions');
 require('materialize-css');
-var angular2_materialize_1 = require("angular2-materialize");
+var angular2_materialize_1 = require('angular2-materialize');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');

@@ -33,8 +33,9 @@ var OnlineTestComponent = (function (_super) {
             this.bydefault();
             this.paramsSub = this.activatedRoute.params.subscribe(function (params) {
                 _this.online_test_id = Number.parseInt(params['id'], 10);
-                if (_this.online_test_id > 0)
+                if (_this.online_test_id > 0) {
                     _this.getOnlineTestByID(_this.online_test_id);
+                }
             });
         }
     };
@@ -67,7 +68,7 @@ var OnlineTestComponent = (function (_super) {
         var _this = this;
         this.service.saveOnlineTest(this.model).then(function (result) {
             if (result) {
-                alert("Company saved successfully.!");
+                alert('Company saved successfully.!');
                 _this.router.navigate(['/onlinetestlist']);
             }
             else {

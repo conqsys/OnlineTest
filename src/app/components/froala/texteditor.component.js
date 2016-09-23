@@ -14,11 +14,10 @@ var TextEditorComponent = (function () {
         this.initializeFloraEditor();
     }
     TextEditorComponent.prototype.ngOnInit = function () {
-        this.editorContent = "<p>This is my awesome content</p>";
+        this.editorContent = '<p>This is my awesome content</p>';
     };
     TextEditorComponent.prototype.initializeFloraEditor = function () {
-        var self = this;
-        this.editorContent = "<p>This is my awesome content</p>";
+        this.editorContent = '<p>This is my awesome content</p>';
         this.titleOptions = {
             placeholderText: 'Edit Your Content Here!',
             charCounterCount: false

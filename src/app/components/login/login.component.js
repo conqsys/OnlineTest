@@ -19,11 +19,9 @@ var LoginComponent = (function () {
         this.router = router;
         this.localStorageService = localStorageService;
         this.model = new login_model_1.Login();
-        this.model.username = "amit8774@gmail.com";
-        this.model.password = "Ff3VvbeE";
+        this.model.username = 'amit8774@gmail.com';
+        this.model.password = 'Ff3VvbeE';
     }
-    LoginComponent.prototype.ngOnInit = function () {
-    };
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.loginService.login(this.model)
@@ -37,7 +35,7 @@ var LoginComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'login',
-            templateUrl: 'login.component.html',
+            templateUrl: 'login.component.html'
         }), 
         __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router, angular_2_local_storage_1.LocalStorageService])
     ], LoginComponent);

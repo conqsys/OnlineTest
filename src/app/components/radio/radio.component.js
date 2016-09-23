@@ -13,8 +13,6 @@ var question_option_1 = require('../../model/question/question-option');
 var RadioComponent = (function () {
     function RadioComponent() {
     }
-    RadioComponent.prototype.ngOnInit = function () {
-    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', question_option_1.QuestionOptionModel)

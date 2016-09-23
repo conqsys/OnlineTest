@@ -6,12 +6,8 @@
  */
 
 module.exports = {
-<<<<<<< .mine
-    getQuestionSets: function (req, res) {
-=======
   // get QuestionSets by company_id from  database
 	getQuestionSets: function (req, res) {
->>>>>>> .r92
         var companyId = req.param('company_id');
         QuestionSet.find({ company_id: companyId })
             .exec(function (err, result) {

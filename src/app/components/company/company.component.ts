@@ -12,8 +12,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
   templateUrl: 'company.component.html'
 })
 export class CompanyComponent extends BaseComponent implements OnInit {
-  private model: CompanyModel;
-  private errorMesssage: string;
+  model: CompanyModel;
+  errorMesssage: string;
   company_id: number;
   paramsSub: any;
   constructor(private companyService: CompanyService,
@@ -28,8 +28,9 @@ export class CompanyComponent extends BaseComponent implements OnInit {
       this.bydefault();
       this.paramsSub = this.activatedRoute.params.subscribe(params => {
         this.company_id = Number.parseInt(params['id'], 10);
-        if (this.company_id > 0)
+        if (this.company_id > 0) {
           this.getCompanyByID(this.company_id);
+        }
       });
     }
   }
@@ -93,21 +94,18 @@ export class CompanyComponent extends BaseComponent implements OnInit {
 
     this.companyService.saveCompany(this.model).then(result => {
       if (result) {
-        alert("Company saved successfully.!");
+        alert('Company saved successfully.!');
         this.router.navigate(['/companylist']);
-      }
-      else {
+      } else {
         alert(result);
       }
     });
-
   }
+
   // get companies details from service
   getCompanyByID(id: any) {
     this.companyService.getCompanyById(id).then(result => {
       this.model = result;
-    })
+    });
   }
-
-
 }

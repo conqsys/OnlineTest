@@ -15,7 +15,7 @@ var TopicService = (function () {
     function TopicService(http) {
         this.http = http;
     }
-    //save topic into database
+    // save topic into database
     TopicService.prototype.saveTopic = function (topic) {
         return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'savetopic', topic).toPromise()
             .then(function (response) { return response.json(); })

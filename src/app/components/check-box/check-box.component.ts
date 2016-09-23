@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {QuestionOptionModel} from '../../model/question/question-option'
 
 @Component({
@@ -7,12 +7,6 @@ import {QuestionOptionModel} from '../../model/question/question-option'
   templateUrl: 'check-box.component.html',
   styleUrls: ['check-box.component.css']
 })
-export class CheckBoxComponent implements OnInit {
-  @Input()model:QuestionOptionModel;
-  constructor() { }
-
-  ngOnInit() {
-    
-  }
-
+export class CheckBoxComponent {
+  @Input() model: QuestionOptionModel;
 }

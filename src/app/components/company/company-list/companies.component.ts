@@ -27,15 +27,15 @@ export class CompaniesComponent extends BaseComponent implements OnInit {
     }
   }
 
-  //get company details 
+  // get company details 
   getCompanies() {
     this.companyService.getCompanies().then(result => {
       this.model = result;
-    })
+    });
   }
+
   // open add company page from company list
   addCompany() {
     this.router.navigate(['/company']);
   }
-
 }

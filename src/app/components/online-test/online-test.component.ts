@@ -30,8 +30,9 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
       this.bydefault();
       this.paramsSub = this.activatedRoute.params.subscribe(params => {
         this.online_test_id = Number.parseInt(params['id'], 10);
-        if (this.online_test_id > 0)
+        if (this.online_test_id > 0) {
           this.getOnlineTestByID(this.online_test_id);
+        }
       });
     }
   }
@@ -58,29 +59,26 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
       if (result) {
         this.questionSetData = result;
       }
-    }
-    )
+    });
   }
+
   // save test details 
   addOnlineTest() {
 
     this.service.saveOnlineTest(this.model).then(result => {
       if (result) {
-        alert("Company saved successfully.!");
+        alert('Company saved successfully.!');
         this.router.navigate(['/onlinetestlist']);
-      }
-      else {
+      } else {
         alert(result);
       }
     });
-
   }
+
   // get test details by online_test_id 
   getOnlineTestByID(id: number) {
     this.service.getOnlineTestById(id).then(result => {
       this.model = result;
-    })
+    });
   }
-
-
 }

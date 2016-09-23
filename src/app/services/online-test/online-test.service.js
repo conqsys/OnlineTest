@@ -39,7 +39,7 @@ var OnlineTestService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    //Remove test from database
+    // Remove test from database
     OnlineTestService.prototype.removeOnlineTest = function (id) {
         return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'deletetest/' + id).toPromise()
             .then(function (response) { return response.json(); })

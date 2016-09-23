@@ -29,7 +29,7 @@ var CompaniesComponent = (function (_super) {
             this.getCompanies();
         }
     };
-    //get company details 
+    // get company details 
     CompaniesComponent.prototype.getCompanies = function () {
         var _this = this;
         this.companyService.getCompanies().then(function (result) {

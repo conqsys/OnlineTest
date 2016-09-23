@@ -1,5 +1,4 @@
-import { Component, ViewChild, Input, Output, OnInit } from '@angular/core';
-import {DatePipe} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionSetModel, QuestionSetQuestionsModel } from '../../../model/question-set/question-set.model';
 import { QuestionModel } from '../../../model/question/question';
@@ -44,25 +43,25 @@ export /**
 
     ngOnInit(): void {
         if (this.user) {
-            var subscriptions = this.activatedRoute.params.subscribe(params => {
+            this.activatedRoute.params.subscribe(params => {
                 this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
             });
 
-            if (this.question_set_id != 0 && this.question_set_id != undefined) {
+            if (this.question_set_id !== 0 && this.question_set_id !== undefined) {
                 this.getQuestionSet(this.user.company_id, this.question_set_id);
-            }
-            else {
+            } else {
                 this.model.question_set_id = this.question_set_id;
-                this.model.question_set_title = "";
-                this.model.total_time = "";
+                this.model.question_set_title = '';
+                this.model.total_time = '';
                 this.model.company_id = this.user.company_id;
                 this.model.total_questions = 0;
                 this.model.is_randomize = false;
-                this.model.option_series = "Numerical Order";
+                this.model.option_series = 'Numerical Order';
                 this.model.question_set_questions = [];
             }
         }
     }
+
     // get Question Set by company_id and question_set_id
     getQuestionSet(company_id: number, question_set_id: number): void {
         this.service.getQuestionSet(company_id, question_set_id)
@@ -70,6 +69,7 @@ export /**
                 this.model = questionSet;
             });
     }
+
     // get topic_id by company_id then get Question by topic_id 
     showQuestions(): void {
         this.isAddQuestion = true;
@@ -82,34 +82,41 @@ export /**
                 }
             });
     }
+
     // get Question by topic_id 
     getQuestions(topic_id: number): void {
         this.questionService.getQuestionsByTopic(topic_id)
             .then(questions => {
                 this.questions = [];
-                for (var i = 0; i < questions.length; i++) {
-                    var selectedQuestion = this.model.question_set_questions.filter(
+                for (let i = 0; i < questions.length; i++) {
+                    let selectedQuestion = this.model.question_set_questions.filter(
                         ques => ques.question_id === questions[i].question_id && ques.is_deleted === 0);
 
-                    if (selectedQuestion.length == 0) {
+                    if (selectedQuestion.length === 0) {
                         this.questions.splice(this.questions.length, 0, questions[i]);
                     }
                 }
             });
     }
+
     // add Question in Question Set
     addQuestionsInQuestionSet(): void {
         this.isAddQuestion = false;
 
-        var selectedQuestions = this.questions.filter(ques => ques.is_selected === true);
-        for (var i = 0; i < selectedQuestions.length; i++) {
-            var deletedQuestion = this.model.question_set_questions.filter(ques => ques.question_id === selectedQuestions[i].question_id);
+        let selectedQuestions = this.questions.filter(ques => ques.is_selected === true);
+        for (let i = 0; i < selectedQuestions.length; i++) {
+            let deletedQuestion = this.model.question_set_questions.filter(ques => ques.question_id === selectedQuestions[i].question_id);
             if (deletedQuestion.length > 0) {
                 deletedQuestion[0].is_deleted = 0;
-            }
-            else {
-                var obj = { set_question_id: 0, question_set_id: this.question_set_id, question_id: selectedQuestions[i].question_id, question_description: selectedQuestions[i].question_description, is_deleted: 0 }
-                this.model.question_set_questions.splice(this.model.question_set_questions.length, 0, obj)
+            } else {
+                let obj = {
+                    set_question_id: 0,
+                    question_set_id: this.question_set_id,
+                    question_id: selectedQuestions[i].question_id,
+                    question_description: selectedQuestions[i].question_description,
+                    is_deleted: 0
+                };
+                this.model.question_set_questions.splice(this.model.question_set_questions.length, 0, obj);
             }
         }
     }
@@ -123,14 +130,13 @@ export /**
                 this.router.navigate(['/questionsets']);
             });
     }
+
     // delete Question set by question_id
     deleteSetQuestion(question: QuestionSetQuestionsModel, index: number): void {
-        if (question.set_question_id == 0) {
+        if (question.set_question_id === 0) {
             this.model.question_set_questions.splice(index, 1);
-        }
-        else {
+        } else {
             question.is_deleted = 1;
         }
     }
-
 }

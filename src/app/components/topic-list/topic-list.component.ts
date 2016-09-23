@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {BaseComponent} from '../base.component';
 import { LocalStorageService } from 'angular-2-local-storage';
 
@@ -12,10 +12,9 @@ declare var Materialize: any;
   moduleId: module.id,
   selector: 'app-topiclist',
   templateUrl: 'topic-list.component.html',
-  providers: [TopicModel, TopicService]
 })
 export class TopicListComponent extends BaseComponent implements OnInit {
-  private selectedTopic: TopicModel;
+  selectedTopic: TopicModel;
   topicdata: any;
   constructor(private service: TopicService,
     private routeinfo: ActivatedRoute,
@@ -34,11 +33,10 @@ export class TopicListComponent extends BaseComponent implements OnInit {
   // get Topic by company_id
   getTopic() {
     this.service.getTopic(this.user.company_id).then(result => {
-      if (result != undefined && result != null) {
+      if (result) {
         this.topicdata = result;
         // Materialize.toast('Topic Loaded !', 2000, 'rounded');    
-      }
-      else {
+      } else {
         // alert(result.data);
       }
     });
@@ -47,24 +45,24 @@ export class TopicListComponent extends BaseComponent implements OnInit {
   public editTopic(item: TopicModel) {
     this.router.navigate(['/topic/' + item.topic_id]);
   }
-  //open topic page for add topic 
+
+  // open topic page for add topic 
   public showTopic() {
     this.router.navigate(['/topic']);
   }
-  //remove Topic by topic_id
+
+  // remove Topic by topic_id
   public removeItem(item: any) {
     // this.data = _.filter(this.data, (elem)=>elem!=item);
     this.service.removeTopic(item.topic_id).then(result => {
       if (result) {
         Materialize.toast('Topic deleted!', 2000, 'rounded');
         this.getTopic();
-      }
-      else {
+      } else {
         Materialize.toast('Topic not deleted!', 2000, 'rounded');
-        alert("");
+        alert('');
       }
     });
     // console.log("Remove: ", (item.SubjectID);
   }
-
 }

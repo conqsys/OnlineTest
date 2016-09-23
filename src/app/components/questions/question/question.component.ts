@@ -5,7 +5,7 @@ import {BaseComponent} from '../../base.component';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import {QuestionModel} from '../../../model/question/question';
-import {QuestionOptionModel} from '../../../model/question/question-option'
+import {QuestionOptionModel} from '../../../model/question/question-option';
 import { TopicService } from '../../../services/topic/topic.service';
 import { QuestionService } from '../../../services/question/question.service';
 import { TopicModel } from '../../../model/topic/topic.model';

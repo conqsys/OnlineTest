@@ -30,7 +30,7 @@ import { UserService } from './services/user/user.service';
 import { LoginService } from './services/login/login.service';
 
 import { ControlMessages } from './Components/validation/control-messages.component';
-import { ValidationService } from './services/validation/validation.service';;
+import { ValidationService } from './services/validation/validation.service';
 import { FroalaEditorDirective } from './components/froala/directives/froala.directives';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:

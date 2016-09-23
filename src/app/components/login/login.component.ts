@@ -14,7 +14,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 export class LoginComponent {
 	model: Login;
 
-	constructor(private loginService: LoginService,
+	constructor(
+		private loginService: LoginService,
 		private router: Router,
 		private localStorageService: LocalStorageService) {
 

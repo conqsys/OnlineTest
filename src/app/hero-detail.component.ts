@@ -27,10 +27,9 @@ export class HeroDetailComponent implements OnInit {
         let id = +params['id'];
         this.navigated = true;
         this.heroService.getHero(id)
-            .then(hero =>{ 
-              this.hero = hero
-              
-            });
+          .then(hero => {
+            this.hero = hero;
+          });
       } else {
         this.navigated = false;
         this.hero = new Hero();
@@ -40,12 +39,12 @@ export class HeroDetailComponent implements OnInit {
 
   save(): void {
     this.heroService
-        .save(this.hero)
-        .then(hero => {
-          this.hero = hero; // saved hero, w/ id if new
-          this.goBack(hero);
-        })
-        .catch(error => this.error = error); // TODO: Display error message
+      .save(this.hero)
+      .then(hero => {
+        this.hero = hero; // saved hero, w/ id if new
+        this.goBack(hero);
+      })
+      .catch(error => this.error = error); // TODO: Display error message
   }
 
   goBack(savedHero: Hero = null): void {

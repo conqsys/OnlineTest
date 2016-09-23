@@ -1,7 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
-import { FroalaEditorDirective, FroalaViewDirective } from './directives/froala.directives';
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'text-editor',

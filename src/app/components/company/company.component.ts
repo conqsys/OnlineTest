@@ -41,20 +41,20 @@ export class CompanyComponent extends BaseComponent implements OnInit {
 
   bydefault() {
     this.model = new CompanyModel();
-    this.model.company_id = 0
-    this.model.company_title = "";
-    this.model.company_address = "";
-    this.model.company_phone = "";
-    this.model.company_url = "";
-    this.model.company_email = "";
-    this.model.company_hr_phone = "";
-    this.model.company_hr_emailid = "";
-    this.model.smtp_host = "";
+    this.model.company_id = 0;
+    this.model.company_title = '';
+    this.model.company_address = '';
+    this.model.company_phone = '';
+    this.model.company_url = '';
+    this.model.company_email = '';
+    this.model.company_hr_phone = '';
+    this.model.company_hr_emailid = '';
+    this.model.smtp_host = '';
     this.model.smtp_port = 0;
-    this.model.smtp_username = "";
-    this.model.smtp_password = "";
-    this.model.created_by = 'Harendra Maurya';
-    this.model.updated_by = 'Harendra Maurya';
+    this.model.smtp_username = '';
+    this.model.smtp_password = '';
+    this.model.created_by = this.user.user_id;
+    this.model.updated_by = this.user.user_id;
   }
 
   // save company  

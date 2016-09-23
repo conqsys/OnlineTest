@@ -1,7 +1,7 @@
-import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, Output, EventEmitter } from '@angular/core';
 
 // non-typescript definitions
-declare var $:any;
+declare var $: any;
 
 @Directive({
   selector: '[froalaEditor]'
@@ -38,7 +38,7 @@ export class FroalaEditorDirective {
     let element: any = el.nativeElement;
 
     // check if the element is a special tag
-    if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) != -1) {
+    if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) !== -1) {
       this._hasSpecialTag = true;
     }
 
@@ -51,10 +51,16 @@ export class FroalaEditorDirective {
     this._opts = opts || this._opts;
   }
 
+  // froalaModel directive as output: update model if editor contentChanged
+  @Output() froalaModelChange: EventEmitter<any> = new EventEmitter<any>();
+
+  // froalaInit directive as output: send manual editor initialization
+  @Output() froalaInit: EventEmitter<Object> = new EventEmitter<Object>();
+
   // froalaModel directive as input: store initial editor content
   @Input() set froalaModel(content: string) {
 
-    if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
+    if (JSON.stringify(this._oldModel) === JSON.stringify(content)) {
       return;
     }
     this._model = content;
@@ -63,11 +69,22 @@ export class FroalaEditorDirective {
       this.setContent();
     }
   }
-  // froalaModel directive as output: update model if editor contentChanged
-  @Output() froalaModelChange: EventEmitter<any> = new EventEmitter<any>();
 
-  // froalaInit directive as output: send manual editor initialization
-  @Output() froalaInit: EventEmitter<Object> = new EventEmitter<Object>();
+  // TODO not sure if ngOnInit is executed after @inputs
+  ngOnInit() {
+
+    // check if output froalaInit is present. Maybe observers is private and should not be used?? 
+    // TODO how to better test that an output directive is present. 
+    if (!this.froalaInit.observers.length) {
+      this.createEditor();
+    } else {
+      this.generateManualController();
+    }
+  }
+
+  ngOnDestroy() {
+    this.destroyEditor();
+  }
 
   // update model if editor contentChanged
   private updateModel() {
@@ -79,10 +96,10 @@ export class FroalaEditorDirective {
       let attributeNodes = this._$element[0].attributes;
       let attrs = {};
 
-      for (let i = 0; i < attributeNodes.length; i++ ) {
+      for (let i = 0; i < attributeNodes.length; i++) {
 
         let attrName = attributeNodes[i].name;
-        if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
+        if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) !== -1) {
           continue;
         }
         attrs[attrName] = attributeNodes[i].value;
@@ -106,7 +123,7 @@ export class FroalaEditorDirective {
   }
 
   // register event on jquery element
-  private registerEvent(element:any, eventName:any, callback:any) {
+  private registerEvent(element: any, eventName: any, callback: any) {
 
     if (!element || !eventName || !callback) {
       return;
@@ -121,12 +138,12 @@ export class FroalaEditorDirective {
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._$element, 'froalaEditor.contentChanged',function () {
+    this.registerEvent(this._$element, 'froalaEditor.contentChanged', function () {
       self.updateModel();
     });
     if (this._opts.immediateAngularModelUpdate) {
       this.registerEvent(this._editor, 'keyup', function () {
-        self.updateModel(); 
+        self.updateModel();
       });
     }
   }
@@ -169,7 +186,7 @@ export class FroalaEditorDirective {
 
     let self = this;
     // set initial content
-    if (this._model || this._model == '') {
+    if (this._model || this._model === '') {
       this._oldModel = this._model;
       if (this._hasSpecialTag) {
 
@@ -179,7 +196,7 @@ export class FroalaEditorDirective {
         if (tags) {
 
           for (let attr in tags) {
-            if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
+            if (tags.hasOwnProperty(attr) && attr !== this.INNER_HTML_ATTR) {
               this._$element.attr(attr, tags[attr]);
             }
           }
@@ -190,18 +207,18 @@ export class FroalaEditorDirective {
         }
       } else {
 
-       
+
 
         if (firstTime) {
           this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
             self._$element.froalaEditor('html.set', self._model || '', true);
-          //This will reset the undo stack everytime the model changes externally. Can we fix this?
-          self._$element.froalaEditor('undo.reset');
-          self._$element.froalaEditor('undo.saveStep');
+            // This will reset the undo stack everytime the model changes externally. Can we fix this?
+            self._$element.froalaEditor('undo.reset');
+            self._$element.froalaEditor('undo.saveStep');
           });
         } else {
           self._$element.froalaEditor('html.set', self._model || '', true);
-          //This will reset the undo stack everytime the model changes externally. Can we fix this?
+          // This will reset the undo stack everytime the model changes externally. Can we fix this?
           self._$element.froalaEditor('undo.reset');
           self._$element.froalaEditor('undo.saveStep');
         }
@@ -214,7 +231,7 @@ export class FroalaEditorDirective {
 
     if (this._$element) {
 
-      this._$element.off(this._listeningEvents.join(" "));
+      this._$element.off(this._listeningEvents.join(' '));
       this._editor.off('keyup');
       this._$element.froalaEditor('destroy');
       this._listeningEvents.length = 0;
@@ -233,7 +250,6 @@ export class FroalaEditorDirective {
   // send manual editor initialization
   private generateManualController() {
 
-    let self = this;
     let controls = {
       initialize: this.createEditor.bind(this),
       destroy: this.destroyEditor.bind(this),
@@ -242,20 +258,6 @@ export class FroalaEditorDirective {
     this.froalaInit.emit(controls);
   }
 
-  // TODO not sure if ngOnInit is executed after @inputs
-  ngOnInit() {
-
-    // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present. 
-    if (!this.froalaInit.observers.length) {
-      this.createEditor();
-    } else {
-      this.generateManualController();
-    }
-  }
-
-  ngOnDestroy() {
-    this.destroyEditor();
-  }
 }
 
 @Directive({
@@ -264,18 +266,17 @@ export class FroalaEditorDirective {
 export class FroalaViewDirective {
 
   private _element: HTMLElement;
-  private _content: any;
 
   constructor(private renderer: Renderer, element: ElementRef) {
     this._element = element.nativeElement;
   }
 
   // update content model as it comes
-  @Input() set froalaView(content: string){
+  @Input() set froalaView(content: string) {
     this._element.innerHTML = content;
   }
 
   ngAfterViewInit() {
-    this.renderer.setElementClass(this._element, "fr-view", true);
+    this.renderer.setElementClass(this._element, 'fr-view', true);
   }
 }

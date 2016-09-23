@@ -45,14 +45,14 @@ export class TopicComponent extends BaseComponent implements OnInit {
     this.model = new TopicModel();
     this.btnText = 'Save Topic';
     this.model.topic_id = 0;
-    this.model.topic_title = "";
+    this.model.topic_title = '';
     this.model.company_id = this.user.company_id;
     this.model.created_by = this.user.user_id;
     this.model.updated_by = this.user.user_id;
   }
   // get Topic by topic_id
   getTopicByID(param: any) {
-    if (param.value.id != undefined) {
+    if (param.value.id !== undefined) {
       this.service.getTopicByID(param.value.id).then(result => {
         this.model = result[0];
         this.btnText = 'Update Topic';

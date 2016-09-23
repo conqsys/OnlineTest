@@ -39,7 +39,7 @@ var froala_directives_1 = require('./components/froala/directives/froala.directi
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 var localStorageServiceConfig = {
     prefix: 'my-app',
-    storageType: 'sessionStorage'
+    storageType: 'localStorage'
 };
 var AppModule = (function () {
     function AppModule() {

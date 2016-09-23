@@ -36,7 +36,7 @@ import { FroalaEditorDirective } from './components/froala/directives/froala.dir
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
   prefix: 'my-app',
-  storageType: 'sessionStorage'
+  storageType: 'localStorage'
 };
 
 @NgModule({
@@ -78,7 +78,6 @@ let localStorageServiceConfig = {
           localStorageService),
 
       deps: [XHRBackend, RequestOptions, Router, LocalStorageService],
-
     },
     { provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig },
   ],

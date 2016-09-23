@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,13 +15,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var router_1 = require('@angular/router');
 var core_1 = require('@angular/core');
+var base_component_1 = require('../../base.component');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
 var companyService_1 = require('../../../services/company/companyService');
-var CompaniesComponent = (function () {
-    function CompaniesComponent(companyService, router) {
+var CompaniesComponent = (function (_super) {
+    __extends(CompaniesComponent, _super);
+    function CompaniesComponent(companyService, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.companyService = companyService;
-        this.router = router;
-        this.getCompanies();
     }
+    CompaniesComponent.prototype.ngOnInit = function () {
+        if (this.user) {
+            this.getCompanies();
+        }
+    };
     //get company details 
     CompaniesComponent.prototype.getCompanies = function () {
         var _this = this;
@@ -30,12 +42,13 @@ var CompaniesComponent = (function () {
     };
     CompaniesComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'app-companies',
-            templateUrl: '../app/components/company/company-list/companies.component.html',
+            templateUrl: 'companies.component.html',
         }), 
-        __metadata('design:paramtypes', [companyService_1.CompanyService, router_1.Router])
+        __metadata('design:paramtypes', [companyService_1.CompanyService, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], CompaniesComponent);
     return CompaniesComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.CompaniesComponent = CompaniesComponent;
 //# sourceMappingURL=companies.component.js.map

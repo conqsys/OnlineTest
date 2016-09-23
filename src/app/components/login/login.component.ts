@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Login } from '../../model/login/login.model';
 import { LoginService } from '../../services/login/login.service';
 
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
 	moduleId: module.id,
@@ -16,34 +16,23 @@ export class LoginComponent implements OnInit {
 	model: Login;
 
 	constructor(private loginService: LoginService,
-				private router: Router,
-				private cookie:CookieService) { 
+		private router: Router,
+		private localStorageService: LocalStorageService) {
 		this.model = new Login();
-		this.model.username="b@b.com"
-		this.model.password="vuedlHlS"
+		this.model.username = "amit8774@gmail.com"
+		this.model.password = "Ff3VvbeE"
 	}
 
 	ngOnInit() {
-		
+
 	}
 
 	login(): void {
 		this.loginService.login(this.model)
-            .then(result => { 
-				
-				var obj = { user_id: result.user_id, 
-							user_name: result.user_name, 
-							user_email: result.user_email,
-							user_mobile_no: result.user_mobile_no,
-							role_id: result.role_id,
-							role_name: result.role_name,
-							company_id: result.company_id
-						  };
+            .then(result => {
 
-				this.cookie.putObject("user", result.user);
-				this.cookie.put("Authorization", "Bearer " + result.token);
-				
-				
+				this.localStorageService.set('user', result.user);
+				this.localStorageService.set('authorization', 'Bearer ' + result.token);
 
                 this.router.navigate(['/questionsets']);
             });

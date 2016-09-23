@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -14,38 +19,42 @@ var question_set_model_1 = require('../../../model/question-set/question-set.mod
 var question_set_service_1 = require('../../../services/question-set/question-set.service');
 var question_service_1 = require('../../../services/question/question.service');
 var topic_service_1 = require('../../../services/topic/topic.service');
-var QuestionSetComponent = (function () {
-    function QuestionSetComponent(service, questionService, topicService, activatedRoute, router) {
+var base_component_1 = require('../../base.component');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
+var QuestionSetComponent = (function (_super) {
+    __extends(QuestionSetComponent, _super);
+    function QuestionSetComponent(service, questionService, topicService, activatedRoute, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.service = service;
         this.questionService = questionService;
         this.topicService = topicService;
         this.activatedRoute = activatedRoute;
-        this.router = router;
         this.questions = [];
         this.topics = [];
         this.title = 'Question Sets';
         this.model = new question_set_model_1.QuestionSetModel();
         this.model.question_set_questions = Array();
         this.isAddQuestion = false;
-        this.company_id = 1;
     }
     QuestionSetComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var subscriptions = this.activatedRoute.params.subscribe(function (params) {
-            _this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
-        });
-        if (this.question_set_id != 0 && this.question_set_id != undefined) {
-            this.getQuestionSet(this.company_id, this.question_set_id);
-        }
-        else {
-            this.model.question_set_id = this.question_set_id;
-            this.model.question_set_title = "";
-            this.model.total_time = "";
-            this.model.company_id = this.company_id;
-            this.model.total_questions = 0;
-            this.model.is_randomize = false;
-            this.model.option_series = "Numerical Order";
-            this.model.question_set_questions = [];
+        if (this.user) {
+            var subscriptions = this.activatedRoute.params.subscribe(function (params) {
+                _this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
+            });
+            if (this.question_set_id != 0 && this.question_set_id != undefined) {
+                this.getQuestionSet(this.user.company_id, this.question_set_id);
+            }
+            else {
+                this.model.question_set_id = this.question_set_id;
+                this.model.question_set_title = "";
+                this.model.total_time = "";
+                this.model.company_id = this.user.company_id;
+                this.model.total_questions = 0;
+                this.model.is_randomize = false;
+                this.model.option_series = "Numerical Order";
+                this.model.question_set_questions = [];
+            }
         }
     };
     // get Question Set by company_id and question_set_id
@@ -60,7 +69,7 @@ var QuestionSetComponent = (function () {
     QuestionSetComponent.prototype.showQuestions = function () {
         var _this = this;
         this.isAddQuestion = true;
-        this.topicService.getTopic(this.company_id)
+        this.topicService.getTopic(this.user.company_id)
             .then(function (topics) {
             _this.topics = topics;
             if (_this.topics.length > 0) {
@@ -101,8 +110,8 @@ var QuestionSetComponent = (function () {
     // save Question Set  
     QuestionSetComponent.prototype.saveQuestionSet = function () {
         var _this = this;
-        this.model.created_by = 'admin';
-        this.model.updated_by = 'admin';
+        this.model.created_by = this.user.user_id;
+        this.model.updated_by = this.user.user_id;
         this.service.saveQuestionSet(this.model)
             .then(function (result) {
             _this.router.navigate(['/questionsets']);
@@ -123,9 +132,9 @@ var QuestionSetComponent = (function () {
             selector: 'question-set',
             templateUrl: 'question-set.component.html',
         }), 
-        __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], QuestionSetComponent);
     return QuestionSetComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.QuestionSetComponent = QuestionSetComponent;
 //# sourceMappingURL=question-set.component.js.map

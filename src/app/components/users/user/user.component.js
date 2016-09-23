@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,26 +17,30 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var user_model_1 = require('../../../model/user/user.model');
 var user_service_1 = require('../../../services/user/user.service');
-var UserComponent = (function () {
-    function UserComponent(service, activatedRoute, router) {
+var base_component_1 = require('../../base.component');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
+var UserComponent = (function (_super) {
+    __extends(UserComponent, _super);
+    function UserComponent(service, activatedRoute, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.service = service;
         this.activatedRoute = activatedRoute;
-        this.router = router;
         this.title = 'User';
         this.model = new user_model_1.UserModel();
-        this.company_id = 1;
         this.disabled = false;
     }
     UserComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var subscriptions = this.activatedRoute.params.subscribe(function (params) {
-            _this.user_id = +params['user_id']; // (+) converts string 'id' to a number
-        });
-        if (this.user_id != 0 && this.user_id != undefined) {
-            this.getUser(this.company_id, this.user_id);
-        }
-        else {
-            this.createUserObject("");
+        if (this.user) {
+            var subscriptions = this.activatedRoute.params.subscribe(function (params) {
+                _this.user_id = +params['user_id']; // (+) converts string 'id' to a number
+            });
+            if (this.user_id != 0 && this.user_id != undefined) {
+                this.getUser(this.user.company_id, this.user_id);
+            }
+            else {
+                this.createUserObject("");
+            }
         }
     };
     // create user object for save user 
@@ -47,9 +56,9 @@ var UserComponent = (function () {
         this.model.user_exp_month = 0;
         this.model.user_exp_year = 0;
         this.model.role_id = 3;
-        this.model.created_by = "admin";
-        this.model.updated_by = "admin";
-        this.model.company_id = this.company_id;
+        this.model.created_by = this.user.user_id;
+        this.model.updated_by = this.user.user_id;
+        this.model.company_id = this.user.company_id;
     };
     // get user by company_id and user_id
     UserComponent.prototype.getUser = function (company_id, user_id) {
@@ -58,7 +67,7 @@ var UserComponent = (function () {
             .then(function (user) {
             if (user.user_id) {
                 _this.model = user;
-                _this.model.company_id = _this.company_id;
+                _this.model.company_id = _this.user.company_id;
             }
             else {
                 _this.router.navigate(['/users']);
@@ -73,7 +82,7 @@ var UserComponent = (function () {
             if (user.user_id) {
                 _this.disabled = true;
                 _this.model = user;
-                _this.model.company_id = _this.company_id;
+                _this.model.company_id = _this.user.company_id;
             }
             else {
                 _this.disabled = false;
@@ -99,9 +108,9 @@ var UserComponent = (function () {
             selector: 'app-user',
             templateUrl: 'user.component.html',
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], UserComponent);
     return UserComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.UserComponent = UserComponent;
 //# sourceMappingURL=user.component.js.map

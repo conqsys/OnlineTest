@@ -11,7 +11,9 @@ var map = {
     "materialize-css": "node_modules/materialize-css",
     "angular2-materialize": "node_modules/angular2-materialize",
     "jquery": "node_modules/jquery",
-    'angular2-cookie': 'node_modules/angular2-cookie'
+    'angular2-cookie': 'node_modules/angular2-cookie',
+    'angular2-localstorage': 'node_modules/angular2-localstorage',
+    'angular-2-local-storage': 'node_modules/angular-2-local-storage'
 };
 // packages tells the System loader how to load when no filename and/or no
 // extension
@@ -29,10 +31,9 @@ var packages = {
         "main": "dist/index",
         "defaultExtension": "js"
     },
-    'angular2-cookie': {
-        main: './core.js',
-        defaultExtension: 'js'
-    }
+    'angular2-cookie': { main: './core.js', defaultExtension: 'js' },
+    'angular2-localstorage': { main: './index.js', defaultExtension: 'js' },
+    'angular-2-local-storage': { main: './src/angular-2-local-storage.js', defaultExtension: 'js' }
 };
 var barrels = [
     // App specific barrels.
@@ -57,7 +58,7 @@ var ngPackageNames = [
     'platform-browser-dynamic',
     'router',
     'router-deprecated',
-    'upgrade',
+    'upgrade'
 ];
 // Individual files (~300 requests):
 function packIndex(pkgName) {

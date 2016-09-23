@@ -1,31 +1,37 @@
-
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyModel } from '../../model/company/company';
 import { CompanyService } from '../../services/company/companyService';
+
+import {BaseComponent} from '../base.component';
+import { LocalStorageService } from 'angular-2-local-storage';
+
 @Component({
   moduleId: module.id,
   selector: 'app-company',
-  templateUrl: 'company.component.html',
-  providers: [CompanyModel, CompanyService]
+  templateUrl: 'company.component.html'
 })
-export class CompanyComponent {
+export class CompanyComponent extends BaseComponent implements OnInit {
   private model: CompanyModel;
   private errorMesssage: string;
   company_id: number;
   paramsSub: any;
-  constructor(private companyService: CompanyService, private activatedRoute: ActivatedRoute, private router: Router) {
-    //this.model = new Array<CompanyModel>
-    this.bydefault();
-
+  constructor(private companyService: CompanyService,
+    private activatedRoute: ActivatedRoute,
+    localStorageService: LocalStorageService,
+    router: Router) {
+    super(localStorageService, router);
   }
 
   ngOnInit() {
-    this.paramsSub = this.activatedRoute.params.subscribe(params => {
-      this.company_id = Number.parseInt(params['id'], 10);
-      if (this.company_id > 0)
-        this.getCompanyByID(this.company_id);
-    });
+    if (this.user) {
+      this.bydefault();
+      this.paramsSub = this.activatedRoute.params.subscribe(params => {
+        this.company_id = Number.parseInt(params['id'], 10);
+        if (this.company_id > 0)
+          this.getCompanyByID(this.company_id);
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -34,7 +40,7 @@ export class CompanyComponent {
 
   bydefault() {
     this.model = new CompanyModel();
-     this.model.company_id =0
+    this.model.company_id = 0
     this.model.company_title = "";
     this.model.company_address = "";
     this.model.company_phone = "";
@@ -88,8 +94,8 @@ export class CompanyComponent {
     this.companyService.saveCompany(this.model).then(result => {
       if (result) {
         alert("Company saved successfully.!");
-         this.router.navigate(['/companylist']);
-        }
+        this.router.navigate(['/companylist']);
+      }
       else {
         alert(result);
       }

@@ -9,10 +9,10 @@ var http_1 = require('@angular/http');
 var Rx_1 = require('rxjs/Rx');
 var HttpInterceptor = (function (_super) {
     __extends(HttpInterceptor, _super);
-    function HttpInterceptor(backend, defaultOptions, router, cookie) {
+    function HttpInterceptor(backend, defaultOptions, router, localStorageService) {
         _super.call(this, backend, defaultOptions);
         this.router = router;
-        this.cookie = cookie;
+        this.localStorageService = localStorageService;
         this.requested = new core_1.EventEmitter();
         this.completed = new core_1.EventEmitter();
         this.error = new core_1.EventEmitter();
@@ -22,16 +22,7 @@ var HttpInterceptor = (function (_super) {
     };
     HttpInterceptor.prototype.get = function (url, options) {
         //this.requested.emit('start');
-        if (options == null) {
-            options = new http_1.RequestOptions();
-        }
-        if (options.headers == null) {
-            options.headers = new http_1.Headers();
-        }
-        var authorization = this.cookie.get('Authorization');
-        if (authorization) {
-            options.headers.append('Authorization', authorization);
-        }
+        options = this.addHeaders(options);
         return this.intercept(_super.prototype.get.call(this, url, options));
     };
     HttpInterceptor.prototype.post = function (url, body, options) {
@@ -47,16 +38,20 @@ var HttpInterceptor = (function (_super) {
         return this.intercept(_super.prototype.delete.call(this, url, options));
     };
     HttpInterceptor.prototype.getRequestOptionArgs = function (options) {
+        options = this.addHeaders(options);
+        options.headers.append('Content-Type', 'application/json');
+        return options;
+    };
+    HttpInterceptor.prototype.addHeaders = function (options) {
         if (options == null) {
             options = new http_1.RequestOptions();
         }
         if (options.headers == null) {
             options.headers = new http_1.Headers();
         }
-        options.headers.append('Content-Type', 'application/json');
-        var authorization = this.cookie.get('Authorization');
-        if (authorization) {
-            options.headers.append('Authorization', authorization);
+        this.authorization = this.localStorageService.get('authorization');
+        if (this.authorization) {
+            options.headers.append('Authorization', this.authorization);
         }
         return options;
     };
@@ -67,9 +62,10 @@ var HttpInterceptor = (function (_super) {
         return observable.catch(function (err, source) {
             //this.error.emit(err);
             if (err.status == 401) {
-                var authorization = _this.cookie.get('Authorization');
-                if (authorization) {
-                    _this.cookie.removeAll();
+                _this.authorization = _this.localStorageService.get('authorization');
+                if (_this.authorization) {
+                    _this.localStorageService.remove('authorization');
+                    _this.localStorageService.remove('user');
                 }
                 _this.router.navigate(['/login']);
                 return Rx_1.Observable.empty();

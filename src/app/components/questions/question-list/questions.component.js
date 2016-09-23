@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,16 +14,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var base_component_1 = require('../../base.component');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
 var statinfo_1 = require('../../../model/stats/statinfo');
 var question_service_1 = require('../../../services/question/question.service');
 var question_1 = require('../../../model/question/question');
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
 var router_1 = require('@angular/router');
-var QuestionsComponent = (function () {
-    function QuestionsComponent(service, questionOptionService, router) {
+var QuestionsComponent = (function (_super) {
+    __extends(QuestionsComponent, _super);
+    function QuestionsComponent(service, questionOptionService, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.service = service;
         this.questionOptionService = questionOptionService;
-        this.router = router;
         this.statInfo = new statinfo_1.StatInfoModel();
         this.questionVisibility = false;
         this.model = new Array();
@@ -34,17 +42,16 @@ var QuestionsComponent = (function () {
         this.stats.push(this.statInfo);
     }
     QuestionsComponent.prototype.ngOnInit = function () {
+        if (this.user) {
+            this.getQuestions();
+        }
+    };
+    QuestionsComponent.prototype.getQuestions = function () {
         var _this = this;
-        this.service.getQuestions(1)
+        this.service.getQuestions(this.user.company_id)
             .then(function (questions) {
             _this.model = questions;
         });
-        // this.Service.getQuestions(1).then()
-        //   .subscribe(result => {
-        //     this.model = result;
-        //     this.selectedQuestion = this.model[0];
-        //     this.selectedQuestion.options = new Array<QuestionOptionModel>();
-        //   });
     };
     // set question show or not 
     QuestionsComponent.prototype.SetQuestionVisibility = function (value) {
@@ -66,9 +73,9 @@ var QuestionsComponent = (function () {
             templateUrl: 'questions.component.html',
             styleUrls: ['questions.component.css'],
         }), 
-        __metadata('design:paramtypes', [question_service_1.QuestionService, question_option_service_1.QuestionOptionService, router_1.Router])
+        __metadata('design:paramtypes', [question_service_1.QuestionService, question_option_service_1.QuestionOptionService, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], QuestionsComponent);
     return QuestionsComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.QuestionsComponent = QuestionsComponent;
 //# sourceMappingURL=questions.component.js.map

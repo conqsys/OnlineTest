@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import {BaseComponent} from '../../base.component';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import {QuestionModel} from '../../../model/question/question';
 import {QuestionOptionModel} from '../../../model/question/question-option'
@@ -16,39 +18,78 @@ declare var tinymce: any;
   templateUrl: 'question.component.html',
   styleUrls: ['question.component.css']
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent extends BaseComponent implements OnInit {
   @Input() model: QuestionModel
   @Output()
   setQuestionVisibility: EventEmitter<boolean>;
-  company_id: number;
-  question_id: number
+  
+  question_id: number;
 
   topics = Array<TopicModel>();
   selectedTopic: number;
- 
+
   froalaOptions: any;
 
   private newOption: string;
- 
+
   constructor(private questionService: QuestionService,
-    private topicService: TopicService, private activatedRoute: ActivatedRoute,
+    private topicService: TopicService,
+    private activatedRoute: ActivatedRoute,
     private questionOptionService: QuestionOptionService,
-    private router: Router) {
+    localStorageService: LocalStorageService,
+    router: Router) {
+    super(localStorageService, router);
     this.setQuestionVisibility = new EventEmitter<boolean>();
 
     this.model = new QuestionModel();
     this.model.options = new Array<QuestionOptionModel>();
     this.model.answer_explanation = "";
     //this.model.question_description = "";
-    this.company_id = 1;
+
     this.newOption = "";
     this.model.is_multiple_option = false;
-    this.model.company_id = 1;
-    this.model.created_by = "admin";
-    this.model.updated_by = "admin";
+    this.model.company_id = this.user.company_id;
+    this.model.created_by = this.user.user_id;
+    this.model.updated_by = this.user.user_id;
     this.model.question_id = 0;
 
   }
+
+  ngOnInit(): void {
+    if (this.user) {
+      this.initializeFloraEditor();
+      var subscriptions = this.activatedRoute.params.subscribe(params => {
+        this.question_id = +params['question_id']; // (+) converts string 'id' to a number
+      });
+
+      this.getTopic();
+    }
+  }
+
+  getTopic() {
+    this.topicService.getTopic(this.user.company_id)
+      .then(result => {
+        this.topics = result;
+        this.getQuestionById();
+      });
+  }
+
+  getQuestionById() {
+    if (this.question_id !== 0) {
+      this.questionService.getQuestionById(this.question_id)
+        .then(result => {
+          if (result) {
+            this.model = result;
+
+          }
+          else {
+            alert("no question found");
+            this.router.navigate(['/questions']);
+          }
+        });
+    }
+  }
+
   valueChanged(value: boolean): void {
     // alert(JSON.stringify(value));
     console.log(value);
@@ -57,7 +98,7 @@ export class QuestionComponent implements OnInit {
       option.is_correct = false;
     });
   }
-// add option 
+  // add option 
   addOption(): void {
     if (this.newOption === "")
       alert("can not be blank");
@@ -66,44 +107,16 @@ export class QuestionComponent implements OnInit {
     this.newOption = "";
 
   }
-  // get Question by question_id or get Topic by company_id
-  ngOnInit(): void {
-    this.initializeFloraEditor();
-    var subscriptions = this.activatedRoute.params.subscribe(params => {
-      this.question_id = +params['question_id']; // (+) converts string 'id' to a number
-    });
-    if (this.question_id !== 0) {
-      this.questionService.getQuestionById(this.question_id)
-        .then(result => {
-          if (result){
-            this.model = result;
-           
-          }
-          else {
-            alert("no question found");
-            this.router.navigate(['/questions']);
-          }
-        });
-    }
 
-    this.topicService.getTopic(this.company_id)
-      .then(result => {
-        this.topics = result;
-        if (this.topics.length > 0) {
 
-        }
-      });
-         
+  private initializeFloraEditor() {
 
-  }
- private initializeFloraEditor() {
-   
     this.froalaOptions = {
       placeholderText: 'Edit Your Content Here!',
       charCounterCount: false,
       imageUploadURL: 'http://localhost:1337/file/upload'
     }
-   //  this.model.question_description = "<p>This is my awesome content</p>";
+    //  this.model.question_description = "<p>This is my awesome content</p>";
 
   }
   // save Question 

@@ -1,5 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import {BaseComponent} from '../base.component';
+import { LocalStorageService } from 'angular-2-local-storage';
+
 import { OnlineTestModel } from '../../model/online-test/online-test.model';
 import { OnlineTestService } from '../../services/online-test/online-test.service';
 
@@ -9,16 +12,25 @@ import { OnlineTestService } from '../../services/online-test/online-test.servic
   templateUrl: 'online-test-list.component.html',
 
 })
-export class OnlineTestListComponent {
+export class OnlineTestListComponent extends BaseComponent implements OnInit {
   private onlineTestData: Array<OnlineTestModel>;
-  constructor(private service: OnlineTestService, private router: Router) {
-    this.getOnlineTests();
+  constructor(private service: OnlineTestService,
+    localStorageService: LocalStorageService,
+    router: Router) {
+    super(localStorageService, router);
   }
-// get test details 
+
+  ngOnInit(): void {
+    if (this.user) {
+      this.getOnlineTests();
+    }
+  }
+
+  // get test details 
   getOnlineTests() {
     this.service.getOnlineTests().then(result => {
       if (result != undefined && result != null) {
-         this.onlineTestData = result;
+        this.onlineTestData = result;
       }
       else {
         // alert(result.data);
@@ -34,7 +46,7 @@ export class OnlineTestListComponent {
   public showOnlineTest() {
     this.router.navigate(['/onlinetest']);
   }
-//delete test by online_test_id
+  //delete test by online_test_id
   public removeTest(item: OnlineTestModel) {
     // this.data = _.filter(this.data, (elem)=>elem!=item);
     this.service.removeOnlineTest(item.online_test_id).then(result => {

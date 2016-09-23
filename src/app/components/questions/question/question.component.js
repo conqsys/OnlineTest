@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,31 +15,66 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var base_component_1 = require('../../base.component');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
 var question_1 = require('../../../model/question/question');
 var topic_service_1 = require('../../../services/topic/topic.service');
 var question_service_1 = require('../../../services/question/question.service');
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
-var QuestionComponent = (function () {
-    function QuestionComponent(questionService, topicService, activatedRoute, questionOptionService, router) {
+var QuestionComponent = (function (_super) {
+    __extends(QuestionComponent, _super);
+    function QuestionComponent(questionService, topicService, activatedRoute, questionOptionService, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.questionService = questionService;
         this.topicService = topicService;
         this.activatedRoute = activatedRoute;
         this.questionOptionService = questionOptionService;
-        this.router = router;
         this.topics = Array();
         this.setQuestionVisibility = new core_1.EventEmitter();
         this.model = new question_1.QuestionModel();
         this.model.options = new Array();
         this.model.answer_explanation = "";
         //this.model.question_description = "";
-        this.company_id = 1;
         this.newOption = "";
         this.model.is_multiple_option = false;
-        this.model.company_id = 1;
-        this.model.created_by = "admin";
-        this.model.updated_by = "admin";
+        this.model.company_id = this.user.company_id;
+        this.model.created_by = this.user.user_id;
+        this.model.updated_by = this.user.user_id;
         this.model.question_id = 0;
     }
+    QuestionComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (this.user) {
+            this.initializeFloraEditor();
+            var subscriptions = this.activatedRoute.params.subscribe(function (params) {
+                _this.question_id = +params['question_id']; // (+) converts string 'id' to a number
+            });
+            this.getTopic();
+        }
+    };
+    QuestionComponent.prototype.getTopic = function () {
+        var _this = this;
+        this.topicService.getTopic(this.user.company_id)
+            .then(function (result) {
+            _this.topics = result;
+            _this.getQuestionById();
+        });
+    };
+    QuestionComponent.prototype.getQuestionById = function () {
+        var _this = this;
+        if (this.question_id !== 0) {
+            this.questionService.getQuestionById(this.question_id)
+                .then(function (result) {
+                if (result) {
+                    _this.model = result;
+                }
+                else {
+                    alert("no question found");
+                    _this.router.navigate(['/questions']);
+                }
+            });
+        }
+    };
     QuestionComponent.prototype.valueChanged = function (value) {
         // alert(JSON.stringify(value));
         console.log(value);
@@ -50,32 +90,6 @@ var QuestionComponent = (function () {
         else
             this.model.options.push({ description: this.newOption, is_correct: false, option_id: 0, question_id: this.model.question_id });
         this.newOption = "";
-    };
-    // get Question by question_id or get Topic by company_id
-    QuestionComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.initializeFloraEditor();
-        var subscriptions = this.activatedRoute.params.subscribe(function (params) {
-            _this.question_id = +params['question_id']; // (+) converts string 'id' to a number
-        });
-        if (this.question_id !== 0) {
-            this.questionService.getQuestionById(this.question_id)
-                .then(function (result) {
-                if (result) {
-                    _this.model = result;
-                }
-                else {
-                    alert("no question found");
-                    _this.router.navigate(['/questions']);
-                }
-            });
-        }
-        this.topicService.getTopic(this.company_id)
-            .then(function (result) {
-            _this.topics = result;
-            if (_this.topics.length > 0) {
-            }
-        });
     };
     QuestionComponent.prototype.initializeFloraEditor = function () {
         this.froalaOptions = {
@@ -113,9 +127,9 @@ var QuestionComponent = (function () {
             templateUrl: 'question.component.html',
             styleUrls: ['question.component.css']
         }), 
-        __metadata('design:paramtypes', [question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, question_option_service_1.QuestionOptionService, router_1.Router])
+        __metadata('design:paramtypes', [question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, question_option_service_1.QuestionOptionService, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], QuestionComponent);
     return QuestionComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.QuestionComponent = QuestionComponent;
 //# sourceMappingURL=question.component.js.map

@@ -15,7 +15,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 import './rxjs-extensions';
 import  'materialize-css'
 import {MaterializeDirective} from "angular2-materialize";
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
 import { AppComponent } from './app.component';
 import { routing, routedComponents } from './app.routing';
@@ -35,6 +35,12 @@ import { LoginService } from './services/login/login.service';
 import { ControlMessages } from './Components/validation/control-messages.component';
 import { ValidationService } from './services/validation/validation.service';;
 import { FroalaEditorDirective, FroalaViewDirective } from './components/froala/directives/froala.directives';
+
+// Create config options (see ILocalStorageServiceConfigOptions) for deets:
+let localStorageServiceConfig = {
+    prefix: 'my-app',
+    storageType: 'sessionStorage'
+};
 
 @NgModule({
   imports: [
@@ -63,18 +69,21 @@ import { FroalaEditorDirective, FroalaViewDirective } from './components/froala/
     UserService,
     LoginService,
     ValidationService,
-    CookieService,
+    LocalStorageService,
     { 
-      provide: Http, 
+      provide: Http,
       useFactory: ( xhrBackend: XHRBackend, 
                     requestOptions: RequestOptions, 
                     router: Router,
-                    cookie: CookieService) => new HttpInterceptor(xhrBackend, 
+                    localStorageService: LocalStorageService) => new HttpInterceptor(xhrBackend, 
                                                                   requestOptions, 
-                                                                  router, 
-                                                                  cookie), 
-      deps: [XHRBackend, RequestOptions, Router, CookieService]
+                                                                  router,
+                                                                  localStorageService), 
+                                                                  
+      deps: [XHRBackend, RequestOptions, Router, LocalStorageService],
+
     },
+    {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig},
   ],
   bootstrap: [AppComponent]
 })

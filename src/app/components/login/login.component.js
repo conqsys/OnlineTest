@@ -12,15 +12,15 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_model_1 = require('../../model/login/login.model');
 var login_service_1 = require('../../services/login/login.service');
-var cookies_service_1 = require('angular2-cookie/services/cookies.service');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
 var LoginComponent = (function () {
-    function LoginComponent(loginService, router, cookie) {
+    function LoginComponent(loginService, router, localStorageService) {
         this.loginService = loginService;
         this.router = router;
-        this.cookie = cookie;
+        this.localStorageService = localStorageService;
         this.model = new login_model_1.Login();
-        this.model.username = "b@b.com";
-        this.model.password = "vuedlHlS";
+        this.model.username = "amit8774@gmail.com";
+        this.model.password = "Ff3VvbeE";
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
@@ -28,16 +28,8 @@ var LoginComponent = (function () {
         var _this = this;
         this.loginService.login(this.model)
             .then(function (result) {
-            var obj = { user_id: result.user_id,
-                user_name: result.user_name,
-                user_email: result.user_email,
-                user_mobile_no: result.user_mobile_no,
-                role_id: result.role_id,
-                role_name: result.role_name,
-                company_id: result.company_id
-            };
-            _this.cookie.putObject("user", result.user);
-            _this.cookie.put("Authorization", "Bearer " + result.token);
+            _this.localStorageService.set('user', result.user);
+            _this.localStorageService.set('authorization', 'Bearer ' + result.token);
             _this.router.navigate(['/questionsets']);
         });
     };
@@ -47,7 +39,7 @@ var LoginComponent = (function () {
             selector: 'login',
             templateUrl: 'login.component.html',
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router, cookies_service_1.CookieService])
+        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router, angular_2_local_storage_1.LocalStorageService])
     ], LoginComponent);
     return LoginComponent;
 }());

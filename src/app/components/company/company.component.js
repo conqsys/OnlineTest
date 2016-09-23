@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,21 +17,25 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var company_1 = require('../../model/company/company');
 var companyService_1 = require('../../services/company/companyService');
-var CompanyComponent = (function () {
-    function CompanyComponent(companyService, activatedRoute, router) {
+var base_component_1 = require('../base.component');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
+var CompanyComponent = (function (_super) {
+    __extends(CompanyComponent, _super);
+    function CompanyComponent(companyService, activatedRoute, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.companyService = companyService;
         this.activatedRoute = activatedRoute;
-        this.router = router;
-        //this.model = new Array<CompanyModel>
-        this.bydefault();
     }
     CompanyComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.paramsSub = this.activatedRoute.params.subscribe(function (params) {
-            _this.company_id = Number.parseInt(params['id'], 10);
-            if (_this.company_id > 0)
-                _this.getCompanyByID(_this.company_id);
-        });
+        if (this.user) {
+            this.bydefault();
+            this.paramsSub = this.activatedRoute.params.subscribe(function (params) {
+                _this.company_id = Number.parseInt(params['id'], 10);
+                if (_this.company_id > 0)
+                    _this.getCompanyByID(_this.company_id);
+            });
+        }
     };
     CompanyComponent.prototype.ngOnDestroy = function () {
         this.paramsSub.unsubscribe();
@@ -100,12 +109,11 @@ var CompanyComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'app-company',
-            templateUrl: 'company.component.html',
-            providers: [company_1.CompanyModel, companyService_1.CompanyService]
+            templateUrl: 'company.component.html'
         }), 
-        __metadata('design:paramtypes', [companyService_1.CompanyService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [companyService_1.CompanyService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], CompanyComponent);
     return CompanyComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.CompanyComponent = CompanyComponent;
 //# sourceMappingURL=company.component.js.map

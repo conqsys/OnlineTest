@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,30 +15,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var base_component_1 = require('../base.component');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
 var online_test_model_1 = require('../../model/online-test/online-test.model');
 var online_test_service_1 = require('../../services/online-test/online-test.service');
-var OnlineTestComponent = (function () {
-    function OnlineTestComponent(service, activatedRoute, router) {
+var OnlineTestComponent = (function (_super) {
+    __extends(OnlineTestComponent, _super);
+    function OnlineTestComponent(service, activatedRoute, localStorageService, router) {
+        _super.call(this, localStorageService, router);
         this.service = service;
         this.activatedRoute = activatedRoute;
-        this.router = router;
-        this.bydefault();
+        this.model = new online_test_model_1.OnlineTestModel();
     }
     OnlineTestComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.paramsSub = this.activatedRoute.params.subscribe(function (params) {
-            _this.online_test_id = Number.parseInt(params['id'], 10);
-            if (_this.online_test_id > 0)
-                _this.getOnlineTestByID(_this.online_test_id);
-        });
-    };
-    OnlineTestComponent.prototype.ngOnDestroy = function () {
-        this.paramsSub.unsubscribe();
+        if (this.user) {
+            this.bydefault();
+            this.paramsSub = this.activatedRoute.params.subscribe(function (params) {
+                _this.online_test_id = Number.parseInt(params['id'], 10);
+                if (_this.online_test_id > 0)
+                    _this.getOnlineTestByID(_this.online_test_id);
+            });
+        }
     };
     OnlineTestComponent.prototype.bydefault = function () {
-        this.model = new online_test_model_1.OnlineTestModel();
         this.model.online_test_id = 0;
-        this.model.company_id = 1;
+        this.model.company_id = this.user.company_id;
         this.model.online_test_title = "";
         this.model.test_start_date = "";
         this.model.test_start_time = "";
@@ -42,8 +49,8 @@ var OnlineTestComponent = (function () {
         this.model.question_set_id = 0;
         this.model.test_support_text = "";
         this.model.test_experience_years = 0;
-        this.model.created_by = 'Vipin';
-        this.model.updated_by = 'Vipin';
+        this.model.created_by = this.user.user_id;
+        this.model.updated_by = this.user.user_id;
         this.getQuestionSet();
     };
     // get qustionset
@@ -57,35 +64,7 @@ var OnlineTestComponent = (function () {
     };
     // save test details 
     OnlineTestComponent.prototype.addOnlineTest = function () {
-        // if (this.model.company_title == "") {
-        //   alert("Please enter company title.");
-        //   return;
-        // }
-        // if( this.model.company_address ==  ""){
-        //     alert("Please enter company address");
-        //       return;
-        // }
-        // if( this.model.company_phone  ==  ""){
-        //     alert("Please enter company phone");
-        //       return;
-        // }
-        // if (this.model.company_url == "") {
-        //   alert("Please enter company url.");
-        //   return;
-        // }
         var _this = this;
-        // if (this.model.company_email == "") {
-        //   alert("Please enter company title.");
-        //   return;
-        // }
-        // if (this.model.company_hr_phone == "") {
-        //   alert("Please enter company hr phone.");
-        //   return;
-        // }
-        // if (this.model.company_hr_emailid == "") {
-        //   alert("Please enter company hr emailID.");
-        //   return;
-        // }
         this.service.saveOnlineTest(this.model).then(function (result) {
             if (result) {
                 alert("Company saved successfully.!");
@@ -109,9 +88,9 @@ var OnlineTestComponent = (function () {
             selector: 'online-test',
             templateUrl: 'online-test.component.html',
         }), 
-        __metadata('design:paramtypes', [online_test_service_1.OnlineTestService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [online_test_service_1.OnlineTestService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], OnlineTestComponent);
     return OnlineTestComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.OnlineTestComponent = OnlineTestComponent;
 //# sourceMappingURL=online-test.component.js.map

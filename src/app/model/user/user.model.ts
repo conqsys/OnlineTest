@@ -1,6 +1,6 @@
 
 export /**
- * question-set-model
+ * User-Model
  */
 class UserModel {
     user_id: number

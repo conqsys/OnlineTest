@@ -1,12 +1,25 @@
-import { Directive, ElementRef, Renderer, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Renderer,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 // non-typescript definitions
-declare var $: any;
+declare let $: any;
 
 @Directive({
   selector: '[froalaEditor]'
 })
 export class FroalaEditorDirective {
+
+  // froalaModel directive as output: update model if editor contentChanged
+  @Output() froalaModelChange: EventEmitter<any> = new EventEmitter<any>();
+
+  // froalaInit directive as output: send manual editor initialization
+  @Output() froalaInit: EventEmitter<Object> = new EventEmitter<Object>();
 
   // editor options
   private _opts: any = {
@@ -50,12 +63,6 @@ export class FroalaEditorDirective {
   @Input() set froalaEditor(opts: any) {
     this._opts = opts || this._opts;
   }
-
-  // froalaModel directive as output: update model if editor contentChanged
-  @Output() froalaModelChange: EventEmitter<any> = new EventEmitter<any>();
-
-  // froalaInit directive as output: send manual editor initialization
-  @Output() froalaInit: EventEmitter<Object> = new EventEmitter<Object>();
 
   // froalaModel directive as input: store initial editor content
   @Input() set froalaModel(content: string) {

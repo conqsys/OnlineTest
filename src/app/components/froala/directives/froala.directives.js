@@ -11,6 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var FroalaEditorDirective = (function () {
     function FroalaEditorDirective(el) {
+        // froalaModel directive as output: update model if editor contentChanged
+        this.froalaModelChange = new core_1.EventEmitter();
+        // froalaInit directive as output: send manual editor initialization
+        this.froalaInit = new core_1.EventEmitter();
         // editor options
         this._opts = {
             immediateAngularModelUpdate: false,
@@ -22,10 +26,6 @@ var FroalaEditorDirective = (function () {
         this._listeningEvents = [];
         this._editorInitialized = false;
         this._oldModel = null;
-        // froalaModel directive as output: update model if editor contentChanged
-        this.froalaModelChange = new core_1.EventEmitter();
-        // froalaInit directive as output: send manual editor initialization
-        this.froalaInit = new core_1.EventEmitter();
         var element = el.nativeElement;
         // check if the element is a special tag
         if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) !== -1) {
@@ -203,11 +203,6 @@ var FroalaEditorDirective = (function () {
         this.froalaInit.emit(controls);
     };
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object), 
-        __metadata('design:paramtypes', [Object])
-    ], FroalaEditorDirective.prototype, "froalaEditor", null);
-    __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], FroalaEditorDirective.prototype, "froalaModelChange", void 0);
@@ -215,6 +210,11 @@ var FroalaEditorDirective = (function () {
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], FroalaEditorDirective.prototype, "froalaInit", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object), 
+        __metadata('design:paramtypes', [Object])
+    ], FroalaEditorDirective.prototype, "froalaEditor", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String), 

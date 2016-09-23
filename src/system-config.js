@@ -8,9 +8,9 @@ var map = {
     '@angular': 'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs': 'node_modules/rxjs',
-    "materialize-css": "node_modules/materialize-css",
-    "angular2-materialize": "node_modules/angular2-materialize",
-    "jquery": "node_modules/jquery",
+    'materialize-css': 'node_modules/materialize-css',
+    'angular2-materialize': 'node_modules/angular2-materialize',
+    'jquery': 'node_modules/jquery',
     'angular2-cookie': 'node_modules/angular2-cookie',
     'angular2-localstorage': 'node_modules/angular2-localstorage',
     'angular-2-local-storage': 'node_modules/angular-2-local-storage'
@@ -23,13 +23,13 @@ var packages = {
     'rxjs': { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
     'materialize-css': {
-        "format": "global",
-        "main": "dist/js/materialize",
-        "defaultExtension": "js"
+        'format': 'global',
+        'main': 'dist/js/materialize',
+        'defaultExtension': 'js'
     },
     'angular2-materialize': {
-        "main": "dist/index",
-        "defaultExtension": "js"
+        'main': 'dist/index',
+        'defaultExtension': 'js'
     },
     'angular2-cookie': { main: './core.js', defaultExtension: 'js' },
     'angular2-localstorage': { main: './index.js', defaultExtension: 'js' },

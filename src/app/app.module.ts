@@ -5,7 +5,8 @@ import { HttpModule } from '@angular/http';
 import {Router} from '@angular/router';
 import {HttpInterceptor} from './shared/httpInterceptor';
 import { Http, RequestOptions } from '@angular/http';
-
+import {StatinfoComponent} from './components/shared/statinfo/statinfo.component'
+import {StatsComponent} from './components/shared/stats/stats.component'
 // Imports for loading & configuring the in-memory web api
 import { XHRBackend } from '@angular/http';
 
@@ -53,7 +54,9 @@ let localStorageServiceConfig = {
     HeroSearchComponent,
     routedComponents,
     MaterializeDirective,
-    FroalaEditorDirective
+    FroalaEditorDirective,
+    StatinfoComponent,
+    StatsComponent
   ],
   providers: [
     HeroService,

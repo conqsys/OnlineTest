@@ -13,18 +13,20 @@ module.exports = {
             if (err) return res.serverError(err);
             else {
                 if (req.body.options.length > 0) {
-                    req.body.options.forEach(function (option) {
+                    req.body.options.forEach(function (option,index) {
                         var str = "CALL spSaveQuestionOption(" + option.option_id + ",'" + option.description + "'," + option.is_correct + "," + result[0][0].id + ")";
                         Question.query(str, function (err, result) {
-
+                            if (err) return res.serverError(err);
+                            if(index===req.body.options.length-1)
+                            return res.json("Save success");
                         })
-
                     });
-                    res.json("Save success");
+                }
+                else {
+                    return res.json("Save success");
                 }
             }
         });
-        // res.json("result");
     },
     // get Questions by company_id from  database 
     getQuestions: function (req, res) {
@@ -47,6 +49,19 @@ module.exports = {
             }
         })
     },
+      // get QuestionSets by user_id and question_set_id from  database
+    getQuestionsbyUser : function (req, res) {
+        var userId = req.param('user_id');
+         var qusSetid = req.param('question_set_id');
+        var str = "CALL spGetTestQuestion("+ userId + "," + qusSetid + ")";
+        Question.query(str, function (err, result) {
+            if (err) return res.serverError(err);
+            else {
+                 return res.json(result);
+            }
+        })
+    },
+
     // get Question by question_id from  database 
     getQuestionByQuestionID: function (req, res) {
         var question_id = req.param('question_id');
@@ -62,14 +77,13 @@ module.exports = {
                             return res.json(result);
                         }
                     })
-
             }
             else {
                 return res.json(result);
             }
         })
     },
-     // delete Question by question_id from  database 
+    // delete Question by question_id from  database 
     deleteQuestion: function (req, res) {
         var question_id = req.param('question_id');
         var str = "delete from  question where question_id =" + question_id;

@@ -10,4 +10,7 @@ import {StatInfoModel} from '../../../model/stats/statinfo';
 export class StatinfoComponent {
   @Input()
   statInfo: StatInfoModel;
+  constructor(){
+    
+  }
 }

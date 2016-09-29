@@ -66,11 +66,13 @@ module.exports.routes = {
 
   'get /questionSet/:company_id': 'QuestionSetController.getQuestionSets',
   'get /questionSet/:company_id/:question_set_id': 'QuestionSetController.getQuestionSet',
+  'get /questionSets/:user_id': 'QuestionSetController.getQuestionSetsbyUser',
   'post /saveQuestionSet': 'QuestionSetController.saveQuestionSet',
 
   'post /question':'QuestionController.saveQuestion',
   'get /questions/:company_id': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',
+  'get /getQuestions/:user_id/:question_set_id': 'QuestionController.getQuestionsbyUser',
   'get /questionoptions/:question_id': 'QuestionOptionController.getQuestionOptions',
   'post /file/upload' :'FileController.upload',
   'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',

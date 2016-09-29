@@ -43,6 +43,10 @@ var QuestionsComponent = (function (_super) {
         this.statInfo.Number = 4;
         this.statInfo.StatName = 'options';
         this.stats.push(this.statInfo);
+        this.statInfo = new statinfo_1.StatInfoModel();
+        this.statInfo.Number = 5;
+        this.statInfo.StatName = 'question sets';
+        this.stats.push(this.statInfo);
     }
     QuestionsComponent.prototype.ngOnInit = function () {
         if (this.user) {

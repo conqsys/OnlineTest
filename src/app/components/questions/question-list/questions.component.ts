@@ -42,6 +42,10 @@ export class QuestionsComponent extends BaseComponent implements OnInit {
     this.statInfo.Number = 4;
     this.statInfo.StatName = 'options';
     this.stats.push(this.statInfo);
+    this.statInfo = new StatInfoModel();
+    this.statInfo.Number = 5;
+    this.statInfo.StatName = 'question sets';
+    this.stats.push(this.statInfo);
   }
 
   ngOnInit(): void {

@@ -111,7 +111,7 @@ module.exports = {
         var text = "";
         var possible = "hijklRSmnABCDEJKLp4MNOPcQTUVWXYZabdeFGHIfgo56qrstxyz0123uvw789";
 
-        for( var i=0; i < 8; i++ )
+        for( var i=0; i < 2; i++ )
             text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         return text;

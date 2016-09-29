@@ -15,6 +15,8 @@ var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
 var httpInterceptor_1 = require('./shared/httpInterceptor');
 var http_2 = require('@angular/http');
+var statinfo_component_1 = require('./components/shared/statinfo/statinfo.component');
+var stats_component_1 = require('./components/shared/stats/stats.component');
 // Imports for loading & configuring the in-memory web api
 var http_3 = require('@angular/http');
 require('./rxjs-extensions');
@@ -59,7 +61,9 @@ var AppModule = (function () {
                 hero_search_component_1.HeroSearchComponent,
                 app_routing_1.routedComponents,
                 angular2_materialize_1.MaterializeDirective,
-                froala_directives_1.FroalaEditorDirective
+                froala_directives_1.FroalaEditorDirective,
+                statinfo_component_1.StatinfoComponent,
+                stats_component_1.StatsComponent
             ],
             providers: [
                 hero_service_1.HeroService,

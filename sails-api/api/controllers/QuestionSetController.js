@@ -6,8 +6,8 @@
  */
 
 module.exports = {
-  // get QuestionSets by company_id from  database
-	getQuestionSets: function (req, res) {
+    // get QuestionSets by company_id from  database
+    getQuestionSets: function (req, res) {
         var companyId = req.param('company_id');
         QuestionSet.find({ company_id: companyId })
             .exec(function (err, result) {
@@ -15,7 +15,7 @@ module.exports = {
                 else return res.json(result);
             })
     },
- // get QuestionSets by company_id and question_id from  database
+    // get QuestionSets by company_id and question_id from  database
     getQuestionSet: function (req, res) {
         var companyId = req.param('company_id');
         var quesSetId = req.param('question_set_id');
@@ -43,7 +43,19 @@ module.exports = {
                 }
             })
     },
- // save QuestionSets into database
+    // get QuestionSets by user_id from  database
+    getQuestionSetsbyUser : function (req, res) {
+        var userId = req.param('user_id');
+        var str = "CALL spGetQuestionSets(" + userId + ")";
+        QuestionSet.query(str, function (err, result) {
+            if (err) return res.serverError(err);
+            else {
+                 return res.json(result[0]);
+            }
+        });
+    },
+
+    // save QuestionSets into database
     saveQuestionSet: function (req, res) {
 
         var question_set_questions = req.body.question_set_questions;

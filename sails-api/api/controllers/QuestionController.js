@@ -83,6 +83,18 @@ module.exports = {
             }
         })
     },
+
+    // get question Stateinfo
+    getQuestionState: function (req, res) {
+        
+       var str = "CALL spGetQuestionStateInfo()";
+        Question.query(str, function (err, result) {
+            if (err) return res.serverError(err);
+            else {
+                 return res.json(result[0]);
+            }
+        })
+    },
     // delete Question by question_id from  database 
     deleteQuestion: function (req, res) {
         var question_id = req.param('question_id');

@@ -39,6 +39,14 @@ var QuestionService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    // get Question StateInfo from database
+    QuestionService.prototype.getQuestionsStateInfo = function () {
+        return this.http
+            .get(api_url_component_1.ApiUrl.baseUrl + 'questionStateInfo')
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     // save Question into database
     QuestionService.prototype.saveQuestion = function (data) {
         return this.http

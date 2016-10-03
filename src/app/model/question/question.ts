@@ -1,8 +1,5 @@
 import {QuestionOptionModel} from './question-option';
-export /**
- * question-model
- */
-    class QuestionModel {
+export class QuestionModel {
     question_id: number;
     question_description: string;
     company_id: number;
@@ -14,6 +11,8 @@ export /**
     created_datetime: string;
     updated_datetime: string;
     options: Array<QuestionOptionModel>;
-
+    QuestionStateInfo:string;
     is_selected: boolean;
 }
+
+   

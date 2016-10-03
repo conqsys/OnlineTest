@@ -23,7 +23,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit {
   model: Array<QuestionModel>;
   selectedQuestion: QuestionModel;
   questionVisibility: boolean;
-
+  
   constructor(private service: QuestionService,
     private questionOptionService: QuestionOptionService,
     localStorageService: LocalStorageService,
@@ -46,11 +46,13 @@ export class QuestionsComponent extends BaseComponent implements OnInit {
     this.statInfo.Number = 5;
     this.statInfo.StatName = 'question sets';
     this.stats.push(this.statInfo);
+    
   }
 
   ngOnInit(): void {
     if (this.user) {
       this.getQuestions();
+       
     }
   }
 
@@ -58,6 +60,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit {
     this.service.getQuestions(this.user.company_id)
       .then(questions => {
         this.model = questions;
+        
       });
   }
 

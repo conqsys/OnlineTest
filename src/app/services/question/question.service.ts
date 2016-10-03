@@ -37,7 +37,14 @@ export class QuestionService {
       .then(response => response.json() as QuestionModel[])
       .catch(this.handleError);
   }
-
+ // get Question StateInfo from database
+  getQuestionsStateInfo(): Promise<any[]> {
+    return this.http
+      .get(ApiUrl.baseUrl + 'questionStateInfo')
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
   // save Question into database
   saveQuestion(data: any): Promise<string> {
     return this.http

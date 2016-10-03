@@ -10,12 +10,12 @@ import { Router} from '@angular/router';
 @Component({
   moduleId: module.id,
   selector: 'app-statinfo',
-  templateUrl: '../statinfo/statinfo.component.html',
+  templateUrl: './statinfo.component.html',
 })
 export class StatinfoComponent extends BaseComponent implements OnInit {
   
   statInfo: StatInfoModel;
-   Stats: any[] = [];
+  //  Stats: any[] = [];
   constructor(private service: QuestionService,
   localStorageService: LocalStorageService,
     router: Router) {
@@ -25,16 +25,16 @@ export class StatinfoComponent extends BaseComponent implements OnInit {
 
  ngOnInit(): void {
     if (this.user) {
-      this.getQuestionStateInfo();
+      // this.getQuestionStateInfo();
        
     }
   }
-getQuestionStateInfo() {
-    this.service.getQuestionsStateInfo()
-        .then(result => {
-          if (result) {
-            this.Stats = result;
-          } 
-        });
-  }
+// getQuestionStateInfo() {
+//     this.service.getQuestionsStateInfo()
+//         .then(result => {
+//           if (result) {
+//             this.Stats = result;
+//           } 
+//         });
+//   }
 } 

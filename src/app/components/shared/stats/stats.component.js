@@ -21,7 +21,7 @@ var StatsComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'app-stats',
-            templateUrl: '../stats/stats.component.html'
+            templateUrl: './stats.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], StatsComponent);

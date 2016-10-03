@@ -24,13 +24,13 @@ var QuestionService = (function () {
             .catch(this.handleError);
     };
     // get Question by company_id from database
-    QuestionService.prototype.getQuestions = function (company_id) {
-        return this.http
-            .get(api_url_component_1.ApiUrl.baseUrl + 'questions/' + company_id)
-            .toPromise()
-            .then(function (response) { return response.json(); })
-            .catch(this.handleError);
-    };
+    // getQuestions(company_id: any): Promise<QuestionModel[]> {
+    //   return this.http
+    //     .get(ApiUrl.baseUrl + 'questions/' + company_id)
+    //     .toPromise()
+    //     .then(response => response.json() as QuestionModel[])
+    //     .catch(this.handleError);
+    // }
     // get Question by topic_id from database
     QuestionService.prototype.getQuestionsByTopic = function (topic_id) {
         return this.http
@@ -40,9 +40,9 @@ var QuestionService = (function () {
             .catch(this.handleError);
     };
     // get Question StateInfo from database
-    QuestionService.prototype.getQuestionsStateInfo = function () {
+    QuestionService.prototype.getQuestionsStateInfo = function (company_id) {
         return this.http
-            .get(api_url_component_1.ApiUrl.baseUrl + 'questionStateInfo')
+            .get(api_url_component_1.ApiUrl.baseUrl + 'questionStateInfo/' + company_id)
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);

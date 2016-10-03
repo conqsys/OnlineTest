@@ -29,15 +29,15 @@ module.exports = {
         });
     },
     // get Questions by company_id from  database 
-    getQuestions: function (req, res) {
-        var companyId = req.param('company_id');
-        Question.find({ company_id: companyId }).exec(function (err, result) {
-            if (err) return res.serverError(err);
-            else {
-                return res.json(result);
-            }
-        })
-    },
+    // getQuestions: function (req, res) {
+    //    var companyId = req.param('company_id');
+    //    Question.find({ company_id: companyId }).exec(function (err, result) {
+    //        if (err) return res.serverError(err);
+    //        else {
+    //            return res.json(result);
+    //        }
+    //    })
+    // },
     // get Questions by topic_id from  database 
     getQuestionsByTopic: function (req, res) {
         var topicId = req.param('topic_id');
@@ -86,8 +86,8 @@ module.exports = {
 
     // get question Stateinfo
     getQuestionState: function (req, res) {
-        
-       var str = "CALL spGetQuestionStateInfo()";
+        var companyId = req.param('company_id');
+        var str = "CALL spGetQuestionStateInfo(" + companyId + ")";
         Question.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else {

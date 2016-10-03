@@ -23,7 +23,7 @@ export class QuestionsComponent extends BaseComponent implements OnInit {
   model: Array<QuestionModel>;
   selectedQuestion: QuestionModel;
   questionVisibility: boolean;
-  
+  Stats: any[] = [];
   constructor(private service: QuestionService,
     private questionOptionService: QuestionOptionService,
     localStorageService: LocalStorageService,
@@ -34,34 +34,43 @@ export class QuestionsComponent extends BaseComponent implements OnInit {
     this.model = new Array<QuestionModel>();
     this.selectedQuestion = new QuestionModel();
     this.selectedQuestion.answer_explanation = '';
-    this.statInfo.Number = 23;
-    this.statInfo.StatName = 'Users';
-    this.stats = new Array<StatInfoModel>();
-    this.stats.push(this.statInfo);
-    this.statInfo = new StatInfoModel();
-    this.statInfo.Number = 4;
-    this.statInfo.StatName = 'options';
-    this.stats.push(this.statInfo);
-    this.statInfo = new StatInfoModel();
-    this.statInfo.Number = 5;
-    this.statInfo.StatName = 'question sets';
-    this.stats.push(this.statInfo);
+    // this.statInfo.Number = 23;
+    // this.statInfo.StatName = 'Users';
+    // this.stats = new Array<StatInfoModel>();
+    // this.stats.push(this.statInfo);
+    // this.statInfo = new StatInfoModel();
+    // this.statInfo.Number = 4;
+    // this.statInfo.StatName = 'options';
+    // this.stats.push(this.statInfo);
+    // this.statInfo = new StatInfoModel();
+    // this.statInfo.Number = 5;
+    // this.statInfo.StatName = 'question sets';
+    // this.stats.push(this.statInfo);
     
   }
 
   ngOnInit(): void {
     if (this.user) {
-      this.getQuestions();
-       
+      //  this.getQuestions();
+       this.getQuestionStateInfo();
     }
   }
 
-  getQuestions() {
-    this.service.getQuestions(this.user.company_id)
-      .then(questions => {
-        this.model = questions;
-        
-      });
+  // getQuestions() {
+  //   this.service.getQuestions(this.user.company_id)
+  //     .then(questions => {
+  //       this.model = questions;
+  //       this.getQuestionStateInfo();
+  //     });
+  // }
+  //GET stateInfo
+  getQuestionStateInfo() {
+    this.service.getQuestionsStateInfo(this.user.company_id)
+        .then(result => {
+          if (result) {
+            this.Stats = result;
+          } 
+        });
   }
 
   // set question show or not 

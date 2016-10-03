@@ -21,13 +21,13 @@ export class QuestionService {
   }
 
   // get Question by company_id from database
-  getQuestions(company_id: any): Promise<QuestionModel[]> {
-    return this.http
-      .get(ApiUrl.baseUrl + 'questions/' + company_id)
-      .toPromise()
-      .then(response => response.json() as QuestionModel[])
-      .catch(this.handleError);
-  }
+  // getQuestions(company_id: any): Promise<QuestionModel[]> {
+  //   return this.http
+  //     .get(ApiUrl.baseUrl + 'questions/' + company_id)
+  //     .toPromise()
+  //     .then(response => response.json() as QuestionModel[])
+  //     .catch(this.handleError);
+  // }
 
   // get Question by topic_id from database
   getQuestionsByTopic(topic_id: number): Promise<QuestionModel[]> {
@@ -38,9 +38,9 @@ export class QuestionService {
       .catch(this.handleError);
   }
  // get Question StateInfo from database
-  getQuestionsStateInfo(): Promise<any[]> {
+  getQuestionsStateInfo(company_id: any): Promise<QuestionModel[]> {
     return this.http
-      .get(ApiUrl.baseUrl + 'questionStateInfo')
+      .get(ApiUrl.baseUrl + 'questionStateInfo/'+ company_id)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);

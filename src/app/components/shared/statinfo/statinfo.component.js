@@ -20,30 +20,20 @@ var angular_2_local_storage_1 = require('angular-2-local-storage');
 var router_1 = require('@angular/router');
 var StatinfoComponent = (function (_super) {
     __extends(StatinfoComponent, _super);
+    //  Stats: any[] = [];
     function StatinfoComponent(service, localStorageService, router) {
         _super.call(this, localStorageService, router);
         this.service = service;
-        this.Stats = [];
     }
     StatinfoComponent.prototype.ngOnInit = function () {
         if (this.user) {
-            this.getQuestionStateInfo();
         }
-    };
-    StatinfoComponent.prototype.getQuestionStateInfo = function () {
-        var _this = this;
-        this.service.getQuestionsStateInfo()
-            .then(function (result) {
-            if (result) {
-                _this.Stats = result;
-            }
-        });
     };
     StatinfoComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'app-statinfo',
-            templateUrl: '../statinfo/statinfo.component.html',
+            templateUrl: './statinfo.component.html',
         }), 
         __metadata('design:paramtypes', [question_service_1.QuestionService, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], StatinfoComponent);

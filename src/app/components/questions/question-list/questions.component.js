@@ -30,34 +30,46 @@ var QuestionsComponent = (function (_super) {
         _super.call(this, localStorageService, router);
         this.service = service;
         this.questionOptionService = questionOptionService;
+        this.Stats = [];
         this.statInfo = new statinfo_1.StatInfoModel();
         this.questionVisibility = false;
         this.model = new Array();
         this.selectedQuestion = new question_1.QuestionModel();
         this.selectedQuestion.answer_explanation = '';
-        this.statInfo.Number = 23;
-        this.statInfo.StatName = 'Users';
-        this.stats = new Array();
-        this.stats.push(this.statInfo);
-        this.statInfo = new statinfo_1.StatInfoModel();
-        this.statInfo.Number = 4;
-        this.statInfo.StatName = 'options';
-        this.stats.push(this.statInfo);
-        this.statInfo = new statinfo_1.StatInfoModel();
-        this.statInfo.Number = 5;
-        this.statInfo.StatName = 'question sets';
-        this.stats.push(this.statInfo);
+        // this.statInfo.Number = 23;
+        // this.statInfo.StatName = 'Users';
+        // this.stats = new Array<StatInfoModel>();
+        // this.stats.push(this.statInfo);
+        // this.statInfo = new StatInfoModel();
+        // this.statInfo.Number = 4;
+        // this.statInfo.StatName = 'options';
+        // this.stats.push(this.statInfo);
+        // this.statInfo = new StatInfoModel();
+        // this.statInfo.Number = 5;
+        // this.statInfo.StatName = 'question sets';
+        // this.stats.push(this.statInfo);
     }
     QuestionsComponent.prototype.ngOnInit = function () {
         if (this.user) {
-            this.getQuestions();
+            //  this.getQuestions();
+            this.getQuestionStateInfo();
         }
     };
-    QuestionsComponent.prototype.getQuestions = function () {
+    // getQuestions() {
+    //   this.service.getQuestions(this.user.company_id)
+    //     .then(questions => {
+    //       this.model = questions;
+    //       this.getQuestionStateInfo();
+    //     });
+    // }
+    //GET stateInfo
+    QuestionsComponent.prototype.getQuestionStateInfo = function () {
         var _this = this;
-        this.service.getQuestions(this.user.company_id)
-            .then(function (questions) {
-            _this.model = questions;
+        this.service.getQuestionsStateInfo(this.user.company_id)
+            .then(function (result) {
+            if (result) {
+                _this.Stats = result;
+            }
         });
     };
     // set question show or not 

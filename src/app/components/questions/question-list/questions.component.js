@@ -68,7 +68,7 @@ var QuestionsComponent = (function (_super) {
         this.service.getQuestionsStateInfo(this.user.company_id)
             .then(function (result) {
             if (result) {
-                _this.Stats = result;
+                _this.model = result;
             }
         });
     };

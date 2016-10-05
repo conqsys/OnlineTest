@@ -13,12 +13,12 @@ module.exports = {
             if (err) return res.serverError(err);
             else {
                 if (req.body.options.length > 0) {
-                    req.body.options.forEach(function (option,index) {
+                    req.body.options.forEach(function (option, index) {
                         var str = "CALL spSaveQuestionOption(" + option.option_id + ",'" + option.description + "'," + option.is_correct + "," + result[0][0].id + ")";
                         Question.query(str, function (err, result) {
                             if (err) return res.serverError(err);
-                            if(index===req.body.options.length-1)
-                            return res.json("Save success");
+                            if (index === req.body.options.length - 1)
+                                return res.json("Save success");
                         })
                     });
                 }
@@ -49,15 +49,62 @@ module.exports = {
             }
         })
     },
-      // get QuestionSets by user_id and question_set_id from  database
-    getQuestionsbyUser : function (req, res) {
+
+    saveAns: function (req, res, next) {
+        var userId = req.body.question.user_id;
+        var qusSetid = req.body.question.question_set_id;
+        var selectedOptions = "";
+        for (var i = 0; i < req.body.selectedOptions.length; i++) {
+            if (i == 0) {
+                selectedOptions = req.body.selectedOptions[i].option_id;
+            } else {
+                selectedOptions = selectedOptions + ',' + req.body.selectedOptions[i].option_id;
+            }
+        }
+        var str = "CALL spSaveAnswer(" + req.body.question.question_id + ",'" + req.body.question.question_description + "','" + selectedOptions + "'," + req.body.question.online_test_user_id + ")";
+        Topic.query(str, function (err, result) {
+            if (err) return res.serverError(err);
+            else {
+                //return res.json(result);
+                var str = "CALL spGetTestQuestion(" + userId + "," + qusSetid + ")";
+                Question.query(str, function (err, result) {
+                    if (err) return res.serverError(err);
+                    else {
+                        if (result) {
+                            var str = "CALL spGetQuestionOption(" + result[0][0].question_id + ")";
+                            Question.query(str, function (err, options) {
+                                if (err) return res.serverError(err);
+                                else {
+                                    result[0][0].options = options[0];
+                                    return res.json(result);
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        });
+    },
+
+
+    // get QuestionSets by user_id and question_set_id from  database
+    getQuestionsbyUser: function (req, res) {
         var userId = req.param('user_id');
-         var qusSetid = req.param('question_set_id');
-        var str = "CALL spGetTestQuestion("+ userId + "," + qusSetid + ")";
+        var qusSetid = req.param('question_set_id');
+        var str = "CALL spGetTestQuestion(" + userId + "," + qusSetid + ")";
         Question.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else {
-                 return res.json(result);
+                if (result) {
+                    var str = "CALL spGetQuestionOption(" + result[0][0].question_id + ")";
+                    Question.query(str, function (err, options) {
+                        if (err) return res.serverError(err);
+                        else {
+                            result[0][0].options = options[0];
+                            return res.json(result);
+                        }
+                    })
+                }
             }
         })
     },
@@ -91,7 +138,7 @@ module.exports = {
         Question.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else {
-                 return res.json(result[0]);
+                return res.json(result[0]);
             }
         })
     },

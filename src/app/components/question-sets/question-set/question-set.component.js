@@ -106,7 +106,7 @@ var QuestionSetComponent = (function (_super) {
             }
             else {
                 var obj = {
-                    set_question_id: 0,
+                    question_set_question_id: 0,
                     question_set_id: this_1.question_set_id,
                     question_id: selectedQuestions[i].question_id,
                     question_description: selectedQuestions[i].question_description,
@@ -132,7 +132,7 @@ var QuestionSetComponent = (function (_super) {
     };
     // delete Question set by question_id
     QuestionSetComponent.prototype.deleteSetQuestion = function (question, index) {
-        if (question.set_question_id === 0) {
+        if (question.question_set_question_id === 0) {
             this.model.question_set_questions.splice(index, 1);
         }
         else {

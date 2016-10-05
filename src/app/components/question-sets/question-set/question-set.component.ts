@@ -110,7 +110,7 @@ export /**
                 deletedQuestion[0].is_deleted = 0;
             } else {
                 let obj = {
-                    set_question_id: 0,
+                    question_set_question_id: 0,
                     question_set_id: this.question_set_id,
                     question_id: selectedQuestions[i].question_id,
                     question_description: selectedQuestions[i].question_description,
@@ -133,7 +133,7 @@ export /**
 
     // delete Question set by question_id
     deleteSetQuestion(question: QuestionSetQuestionsModel, index: number): void {
-        if (question.set_question_id === 0) {
+        if (question.question_set_question_id === 0) {
             this.model.question_set_questions.splice(index, 1);
         } else {
             question.is_deleted = 1;

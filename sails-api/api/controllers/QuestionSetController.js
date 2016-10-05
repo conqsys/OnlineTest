@@ -72,7 +72,7 @@ module.exports = {
             + req.body.company_id + ","
             + req.body.total_questions + ","
             + req.body.is_randomize + ",'"
-            + req.body.option_series + "','"
+            + req.body.option_series_id + "','"
             + req.body.created_by + "','"
             + req.body.updated_by + "')";
         QuestionSet.query(str, function (err, result) {

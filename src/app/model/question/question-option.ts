@@ -8,3 +8,11 @@ export /**
     question_id: number;
     is_correct: boolean;
  }
+
+export /**
+ * OptionSeries-Model
+ */
+    class OptionSeriesModel {
+    option_series_id: number;
+    option_series_name: string;
+ }

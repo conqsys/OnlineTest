@@ -34,8 +34,8 @@ module.exports = {
     is_randomize:{
       type:"boolean"
     },
-    option_series:{
-      type:"string"
+    option_series_id:{
+      type:"integer"
     }
   }
 };

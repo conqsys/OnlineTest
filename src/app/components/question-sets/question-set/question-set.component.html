@@ -51,13 +51,12 @@
         </div>
         <div class="row">
            <div class="input-field col s6">
-              <select [(ngModel)]="model.option_series" name="optionSeries" 
-                    materialize="material_select" [materializeSelectOptions]="topics">
-                <option value="0" disabled selected>Choose Option Series</option>
-                <option value="Numerical Order">Numerical Order</option>
-                <option value="Alphabetical Order">Alphabetical Order</option>
-              </select>
-              <label for="optionSeries" class="active" style="top:2px;">Select Option Series</label>
+              <select [(ngModel)]="model.option_series_id" name="selectedOptionSeries"  
+                        materialize="material_select" [materializeSelectOptions]="optionSeries">
+                    <option value="0" disabled selected>Choose your Series</option>
+                    <option *ngFor="let optSeries of optionSeries" [value]="optSeries.option_series_id">{{optSeries.option_series_name}}</option>
+                </select>
+              <label for="selectedOptionSeries" class="active" style="top:2px;">Select Option Series</label>
             </div>
         </div>
         <div class="row" [hidden]="isAddQuestion">

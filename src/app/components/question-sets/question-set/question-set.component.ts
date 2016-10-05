@@ -3,9 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionSetModel, QuestionSetQuestionsModel } from '../../../model/question-set/question-set.model';
 import { QuestionModel } from '../../../model/question/question';
 import { TopicModel } from '../../../model/topic/topic.model';
+import { OptionSeriesModel } from '../../../model/question/question-option';
 import { QuestionSetService } from '../../../services/question-set/question-set.service';
 import { QuestionService } from '../../../services/question/question.service';
 import { TopicService } from '../../../services/topic/topic.service';
+import { QuestionOptionService } from '../../../services/question-option/question-option.service';
 
 import {BaseComponent} from '../../base.component';
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -24,6 +26,7 @@ export /**
     model: QuestionSetModel;
     questions: QuestionModel[] = [];
     topics: TopicModel[] = [];
+    optionSeries: OptionSeriesModel[] = [];
     selectedTopic: number;
     isAddQuestion: boolean;
     question_set_id: number;
@@ -31,6 +34,7 @@ export /**
     constructor(private service: QuestionSetService,
         private questionService: QuestionService,
         private topicService: TopicService,
+        private questionOptionService: QuestionOptionService,
         private activatedRoute: ActivatedRoute,
         localStorageService: LocalStorageService,
         router: Router) {
@@ -46,6 +50,13 @@ export /**
             this.activatedRoute.params.subscribe(params => {
                 this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
             });
+            this.getOptionSeries();
+        }
+    }
+
+    getOptionSeries(): void {
+        this.questionOptionService.getOptionSeries().then(optionSeries => {
+            this.optionSeries = optionSeries;
 
             if (this.question_set_id !== 0 && this.question_set_id !== undefined) {
                 this.getQuestionSet(this.user.company_id, this.question_set_id);
@@ -56,10 +67,10 @@ export /**
                 this.model.company_id = this.user.company_id;
                 this.model.total_questions = 0;
                 this.model.is_randomize = false;
-                this.model.option_series = 'Numerical Order';
+                this.model.option_series_id = 2;
                 this.model.question_set_questions = [];
             }
-        }
+        });
     }
 
     // get Question Set by company_id and question_set_id
@@ -125,6 +136,7 @@ export /**
     saveQuestionSet(): void {
         this.model.created_by = this.user.user_id;
         this.model.updated_by = this.user.user_id;
+
         this.service.saveQuestionSet(this.model)
             .then(result => {
                 this.router.navigate(['/questionsets']);

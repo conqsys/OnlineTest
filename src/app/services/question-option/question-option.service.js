@@ -17,7 +17,22 @@ var QuestionOptionService = (function () {
     }
     // get Question option from database
     QuestionOptionService.prototype.getQuestionOptions = function (question_id) {
-        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'questionoptions/' + question_id);
+        return this.http
+            .get(api_url_component_1.ApiUrl.baseUrl + 'questionOptions/' + question_id)
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    QuestionOptionService.prototype.getOptionSeries = function () {
+        return this.http
+            .get(api_url_component_1.ApiUrl.baseUrl + 'optionSeries')
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    QuestionOptionService.prototype.handleError = function (error) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
     };
     QuestionOptionService = __decorate([
         core_1.Injectable(), 

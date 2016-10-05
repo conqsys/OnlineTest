@@ -19,18 +19,21 @@ var question_set_model_1 = require('../../../model/question-set/question-set.mod
 var question_set_service_1 = require('../../../services/question-set/question-set.service');
 var question_service_1 = require('../../../services/question/question.service');
 var topic_service_1 = require('../../../services/topic/topic.service');
+var question_option_service_1 = require('../../../services/question-option/question-option.service');
 var base_component_1 = require('../../base.component');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
 var QuestionSetComponent = (function (_super) {
     __extends(QuestionSetComponent, _super);
-    function QuestionSetComponent(service, questionService, topicService, activatedRoute, localStorageService, router) {
+    function QuestionSetComponent(service, questionService, topicService, questionOptionService, activatedRoute, localStorageService, router) {
         _super.call(this, localStorageService, router);
         this.service = service;
         this.questionService = questionService;
         this.topicService = topicService;
+        this.questionOptionService = questionOptionService;
         this.activatedRoute = activatedRoute;
         this.questions = [];
         this.topics = [];
+        this.optionSeries = [];
         this.title = 'Question Sets';
         this.model = new question_set_model_1.QuestionSetModel();
         this.model.question_set_questions = Array();
@@ -42,20 +45,27 @@ var QuestionSetComponent = (function (_super) {
             this.activatedRoute.params.subscribe(function (params) {
                 _this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
             });
-            if (this.question_set_id !== 0 && this.question_set_id !== undefined) {
-                this.getQuestionSet(this.user.company_id, this.question_set_id);
+            this.getOptionSeries();
+        }
+    };
+    QuestionSetComponent.prototype.getOptionSeries = function () {
+        var _this = this;
+        this.questionOptionService.getOptionSeries().then(function (optionSeries) {
+            _this.optionSeries = optionSeries;
+            if (_this.question_set_id !== 0 && _this.question_set_id !== undefined) {
+                _this.getQuestionSet(_this.user.company_id, _this.question_set_id);
             }
             else {
-                this.model.question_set_id = this.question_set_id;
-                this.model.question_set_title = '';
-                this.model.total_time = '';
-                this.model.company_id = this.user.company_id;
-                this.model.total_questions = 0;
-                this.model.is_randomize = false;
-                this.model.option_series = 'Numerical Order';
-                this.model.question_set_questions = [];
+                _this.model.question_set_id = _this.question_set_id;
+                _this.model.question_set_title = '';
+                _this.model.total_time = '';
+                _this.model.company_id = _this.user.company_id;
+                _this.model.total_questions = 0;
+                _this.model.is_randomize = false;
+                _this.model.option_series_id = 2;
+                _this.model.question_set_questions = [];
             }
-        }
+        });
     };
     // get Question Set by company_id and question_set_id
     QuestionSetComponent.prototype.getQuestionSet = function (company_id, question_set_id) {
@@ -145,7 +155,7 @@ var QuestionSetComponent = (function (_super) {
             selector: 'question-set',
             templateUrl: 'question-set.component.html',
         }), 
-        __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, question_service_1.QuestionService, topic_service_1.TopicService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_1.Router])
+        __metadata('design:paramtypes', [question_set_service_1.QuestionSetService, question_service_1.QuestionService, topic_service_1.TopicService, question_option_service_1.QuestionOptionService, router_1.ActivatedRoute, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], QuestionSetComponent);
     return QuestionSetComponent;
 }(base_component_1.BaseComponent));

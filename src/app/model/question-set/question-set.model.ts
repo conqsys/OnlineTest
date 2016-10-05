@@ -9,7 +9,7 @@ export /**
     company_id: number;
     total_questions: number;
     is_randomize: boolean;
-    option_series: string;
+    option_series_id: number;
     created_by: string;
     updated_by: string;
     created_datetime: string;

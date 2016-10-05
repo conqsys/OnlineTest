@@ -57,7 +57,7 @@ module.exports.routes = {
   'post /onlineTest':'OnlineTestController.saveOnlineTest',
   'get /getQuestions': 'OnlineTestController.getAllQuestions',
    'get /getOnlineTests': 'OnlineTestController.getOnlineTests',
-   'get /getOnlineTestById/:online_test_id': 'OnlineTestController.getOnlineTestByID',
+   'get /logout/:online_test_id': 'OnlineTestController.getOnlineTestByID',
     'get /deletetest/:online_test_id': 'OnlineTestController.removeTest',
     
    'post /company':'CompanyController.saveCompany',
@@ -70,13 +70,15 @@ module.exports.routes = {
   'post /saveQuestionSet': 'QuestionSetController.saveQuestionSet',
 
   'post /question':'QuestionController.saveQuestion',
-  'get /questions/:company_id': 'QuestionController.getQuestions',
+  // 'get /questions/:company_id': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',
-  'get /getQuestions/:user_id/:question_set_id': 'QuestionController.getQuestionsbyUser',
+  'get /getQuestionsbyUser/:user_id/:question_set_id': 'QuestionController.getQuestionsbyUser',
+  'post /saveAnswer': 'QuestionController.saveAns',
   'get /questionoptions/:question_id': 'QuestionOptionController.getQuestionOptions',
+
   'post /file/upload' :'FileController.upload',
   'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',
-
+  'get /questionStateInfo/:company_id': 'QuestionController.getQuestionState',
   'get /users/:company_id': 'UserController.getUser',
   'get /user/:email_id': 'UserController.searchUserByEmail',
   'get /user/:company_id/:user_id': 'UserController.getUserById',

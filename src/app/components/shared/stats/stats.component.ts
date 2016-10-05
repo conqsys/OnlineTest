@@ -5,7 +5,7 @@ import {StatInfoModel} from '../../../model/stats/statinfo';
 @Component({
   moduleId: module.id,
   selector: 'app-stats',
-  templateUrl: '../stats/stats.component.html'
+  templateUrl: './stats.component.html'
 })
 export class StatsComponent {
   @Input()

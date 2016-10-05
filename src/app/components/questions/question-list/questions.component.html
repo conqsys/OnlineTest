@@ -1,6 +1,6 @@
 
 <div *ngIf="!questionVisibility">
-      <div class="col-md-6">
+      <div class="col-md-6" style="background: #dae5f4;">
         <!--<cool-loading-indicator [hidden]="!isLoading">
           <div class="my-loading">
             <div class="dimmer"></div>
@@ -22,6 +22,12 @@
               [ngClass]="{'row-background': question.question_id==selectedQuestionId }">
             <td>{{question.question_description}}</td>
             <td>{{question.answer_explanation}}</td>
+            <td>{{question.CandidateFail}}</td>
+            <td>{{question.CandidatePass}}</td>
+            <td>{{question.OnlineTestCount}}</td>
+            <td>{{question.OptionCount}}</td>
+            <td>{{question.QuestionSetCount}}</td>
+            <td>{{question.UserCount}}</td>
             <td><a >delete</a></td>
 
             <!--<div style="width:500px">
@@ -34,5 +40,5 @@
         
       </div>
 </div>     
-   <app-stats [stats]="stats"></app-stats>
+   <!--<app-stats [stats]="stats"></app-stats>-->
    <!--<app-question *ngIf="questionVisibility" [model]="selectedQuestion" (setQuestionVisibility)="SetQuestionVisibility($event)"></app-question>-->

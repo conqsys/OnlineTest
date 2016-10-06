@@ -8,10 +8,9 @@ var question_set_list_component_1 = require('./components/question-sets/question
 var question_set_component_1 = require('./components/question-sets/question-set/question-set.component');
 var topic_list_component_1 = require('./components/topic-list/topic-list.component');
 var companies_component_1 = require('./components/company/company-list/companies.component');
-var texteditor_component_1 = require('./components/froala/texteditor.component');
-var heroes_component_1 = require('./heroes.component');
-var check_box_component_1 = require('./components/check-box/check-box.component');
-var radio_component_1 = require('./components/radio/radio.component');
+var texteditor_component_1 = require('./components/shared/froala/texteditor.component');
+var check_box_component_1 = require('./components/shared/check-box/check-box.component');
+var radio_component_1 = require('./components/shared/radio/radio.component');
 var online_test_component_1 = require('./components/online-test/online-test.component');
 var user_list_component_1 = require('./components/users/user-list/user-list.component');
 var user_component_1 = require('./components/users/user/user.component');
@@ -98,7 +97,7 @@ exports.routedComponents = [
     question_set_list_component_1.QuestionSetListComponent, question_set_component_1.QuestionSetComponent,
     topic_list_component_1.TopicListComponent, topic_component_1.TopicComponent,
     companies_component_1.CompaniesComponent, company_component_1.CompanyComponent,
-    texteditor_component_1.TextEditorComponent, heroes_component_1.HeroesComponent, check_box_component_1.CheckBoxComponent, radio_component_1.RadioComponent,
+    texteditor_component_1.TextEditorComponent, check_box_component_1.CheckBoxComponent, radio_component_1.RadioComponent,
     user_list_component_1.UserListComponent, user_component_1.UserComponent,
     online_test_component_1.OnlineTestComponent, online_test_list_component_1.OnlineTestListComponent,
     login_component_1.LoginComponent

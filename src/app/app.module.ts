@@ -18,8 +18,6 @@ import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-loc
 import { AppComponent } from './app.component';
 import { routing, routedComponents } from './app.routing';
 
-import { HeroSearchComponent } from './hero-search.component';
-import { HeroService } from './hero.service';
 
 import { QuestionService } from './services/question/question.service';
 import { TopicService } from './services/topic/topic.service';
@@ -32,7 +30,7 @@ import { LoginService } from './services/login/login.service';
 
 import { ControlMessages } from './Components/validation/control-messages.component';
 import { ValidationService } from './services/validation/validation.service';
-import { FroalaEditorDirective } from './components/froala/directives/froala.directives';
+import { FroalaEditorDirective } from './components/shared/froala/directives/froala.directives';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -51,7 +49,6 @@ let localStorageServiceConfig = {
   declarations: [
     AppComponent,
     ControlMessages,
-    HeroSearchComponent,
     routedComponents,
     MaterializeDirective,
     FroalaEditorDirective,
@@ -59,7 +56,6 @@ let localStorageServiceConfig = {
     StatsComponent
   ],
   providers: [
-    HeroService,
     QuestionService,
     TopicService,
     QuestionOptionService,

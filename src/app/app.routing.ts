@@ -8,10 +8,9 @@ import { QuestionSetListComponent } from './components/question-sets/question-se
 import { QuestionSetComponent } from './components/question-sets/question-set/question-set.component';
 import {TopicListComponent} from './components/topic-list/topic-list.component';
 import {CompaniesComponent} from './components/company/company-list/companies.component';
-import {TextEditorComponent} from './components/froala/texteditor.component';
-import {HeroesComponent} from './heroes.component';
-import {CheckBoxComponent} from './components/check-box/check-box.component';
-import {RadioComponent} from './components/radio/radio.component';
+import {TextEditorComponent} from './components/shared/froala/texteditor.component';
+import {CheckBoxComponent} from './components/shared/check-box/check-box.component';
+import {RadioComponent} from './components/shared/radio/radio.component';
 import { OnlineTestComponent } from './components/online-test/online-test.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { UserComponent } from './components/users/user/user.component';
@@ -104,7 +103,7 @@ export const routedComponents = [
   QuestionSetListComponent, QuestionSetComponent,
   TopicListComponent, TopicComponent,
   CompaniesComponent, CompanyComponent,
-  TextEditorComponent, HeroesComponent, CheckBoxComponent, RadioComponent,
+  TextEditorComponent, CheckBoxComponent, RadioComponent,
   UserListComponent, UserComponent,
   OnlineTestComponent, OnlineTestListComponent,
   LoginComponent

@@ -1,8 +1,8 @@
 # Getting Started
 
 ```
-git clone https://github.com/johnpapa/angular2-tour-of-heroes.git toh
-cd toh
+git clone https://github.com/conqsys/OnlineTest.git OnlineTest
+cd OnlineTest
 npm i
 npm start
 ```

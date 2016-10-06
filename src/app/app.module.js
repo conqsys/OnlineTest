@@ -15,9 +15,6 @@ var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
 var httpInterceptor_1 = require('./shared/httpInterceptor');
 var http_2 = require('@angular/http');
-var statinfo_component_1 = require('./components/shared/statinfo/statinfo.component');
-var stats_component_1 = require('./components/shared/stats/stats.component');
-// Imports for loading & configuring the in-memory web api
 var http_3 = require('@angular/http');
 require('./rxjs-extensions');
 require('materialize-css');
@@ -25,10 +22,12 @@ var angular2_materialize_1 = require('angular2-materialize');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
+var statinfo_component_1 = require('./components/shared/statinfo/statinfo.component');
+var stats_component_1 = require('./components/shared/stats/stats.component');
 var question_service_1 = require('./services/question/question.service');
 var topic_service_1 = require('./services/topic/topic.service');
 var question_option_service_1 = require('./services/question-option/question-option.service');
-var companyService_1 = require('./services/company/companyService');
+var company_service_1 = require('./services/company/company.service');
 var question_set_service_1 = require('./services/question-set/question-set.service');
 var online_test_service_1 = require('./services/online-test/online-test.service');
 var user_service_1 = require('./services/user/user.service');
@@ -66,7 +65,7 @@ var AppModule = (function () {
                 question_service_1.QuestionService,
                 topic_service_1.TopicService,
                 question_option_service_1.QuestionOptionService,
-                companyService_1.CompanyService,
+                company_service_1.CompanyService,
                 question_set_service_1.QuestionSetService,
                 online_test_service_1.OnlineTestService,
                 user_service_1.UserService,

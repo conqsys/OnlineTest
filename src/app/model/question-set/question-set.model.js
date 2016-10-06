@@ -1,14 +1,14 @@
 "use strict";
-var QuestionSetModel = (function () {
-    function QuestionSetModel() {
+var QuestionSet = (function () {
+    function QuestionSet() {
     }
-    return QuestionSetModel;
+    return QuestionSet;
 }());
-exports.QuestionSetModel = QuestionSetModel;
-var QuestionSetQuestionsModel = (function () {
-    function QuestionSetQuestionsModel() {
+exports.QuestionSet = QuestionSet;
+var QuestionSetQuestion = (function () {
+    function QuestionSetQuestion() {
     }
-    return QuestionSetQuestionsModel;
+    return QuestionSetQuestion;
 }());
-exports.QuestionSetQuestionsModel = QuestionSetQuestionsModel;
+exports.QuestionSetQuestion = QuestionSetQuestion;
 //# sourceMappingURL=question-set.model.js.map

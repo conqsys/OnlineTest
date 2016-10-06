@@ -1,8 +1,8 @@
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
+
 import { ApiUrl } from '../../shared/api-url.component';
-import {OnlineTestModel} from '../../model/online-test/online-test.model';
-import { QuestionSetModel } from '../../model/question-set/question-set.model';
+import { OnlineTest } from '../../model/online-test/online-test.model';
 
 @Injectable()
 export class OnlineTestService {
@@ -10,38 +10,31 @@ export class OnlineTestService {
 
   }
 
-  // get Question from database
-  getQuestion(): Promise<QuestionSetModel[]> {
-    return this.http.get(ApiUrl.baseUrl + 'getQuestions').toPromise()
-      .then(response => response.json() as QuestionSetModel[])
-      .catch(this.handleError);
-  }
-
   // save test into database
-  saveOnlineTest(onlineTest: any): Promise<OnlineTestModel[]> {
+  saveOnlineTest(onlineTest: any): Promise<OnlineTest[]> {
     return this.http.post(ApiUrl.baseUrl + 'onlineTest', onlineTest).toPromise()
-      .then(response => response.json() as OnlineTestModel[])
+      .then(response => response.json() as OnlineTest[])
       .catch(this.handleError);
   }
 
   // get Test from database
-  getOnlineTests(): Promise<OnlineTestModel[]> {
+  getOnlineTests(): Promise<OnlineTest[]> {
     return this.http.get(ApiUrl.baseUrl + 'getOnlineTests').toPromise()
-      .then(response => response.json() as OnlineTestModel[])
+      .then(response => response.json() as OnlineTest[])
       .catch(this.handleError);
   }
 
   // get Test by test from database
-  getOnlineTestById(id: any): Promise<OnlineTestModel> {
+  getOnlineTestById(id: any): Promise<OnlineTest> {
     return this.http.get(ApiUrl.baseUrl + 'getOnlineTestById/' + id).toPromise()
-      .then(response => response.json() as OnlineTestModel)
+      .then(response => response.json() as OnlineTest)
       .catch(this.handleError);
   }
 
   // Remove test from database
-  removeOnlineTest(id: any): Promise<OnlineTestModel[]> {
+  removeOnlineTest(id: any): Promise<OnlineTest[]> {
     return this.http.get(ApiUrl.baseUrl + 'deletetest/' + id).toPromise()
-      .then(response => response.json() as OnlineTestModel[])
+      .then(response => response.json() as OnlineTest[])
       .catch(this.handleError);
   }
 

@@ -1,7 +1,7 @@
 export /**
  * ClassModel
  */
-    class TopicModel {
+    class Topic {
     topic_id: number;
     topic_title: string;
     company_id: number;

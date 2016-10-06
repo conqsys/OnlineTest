@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {QuestionOptionModel} from '../../../model/question/question-option';
+import { QuestionOption } from '../../../model/question/question-option.model';
 
 @Component({
   moduleId: module.id,
@@ -8,5 +8,5 @@ import {QuestionOptionModel} from '../../../model/question/question-option';
   styleUrls: ['check-box.component.css']
 })
 export class CheckBoxComponent {
-  @Input() model: QuestionOptionModel;
+  @Input() model: QuestionOption;
 }

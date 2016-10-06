@@ -1,7 +1,8 @@
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
+
 import { ApiUrl } from '../../shared/api-url.component';
-import {TopicModel} from '../../model/topic/topic.model';
+import { Topic } from '../../model/topic/topic.model';
 
 @Injectable()
 export class TopicService {
@@ -10,32 +11,32 @@ export class TopicService {
   }
 
   // save topic into database
-  saveTopic(topic: any): Promise<TopicModel[]> {
+  saveTopic(topic: any): Promise<Topic[]> {
     return this.http.post(ApiUrl.baseUrl + 'savetopic', topic).toPromise()
-      .then(response => response.json() as TopicModel[])
+      .then(response => response.json() as Topic[])
       .catch(this.handleError);
   }
 
   // get topic by companyId from database
-  getTopic(companyId: number): Promise<TopicModel[]> {
+  getTopic(companyId: number): Promise<Topic[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'gettopics/' + companyId)
       .toPromise()
-      .then(response => response.json() as TopicModel[])
+      .then(response => response.json() as Topic[])
       .catch(this.handleError);
   }
 
   // get topic by topicId from database
-  getTopicByID(topicId: any): Promise<TopicModel> {
+  getTopicByID(topicId: any): Promise<Topic> {
     return this.http.get(ApiUrl.baseUrl + 'gettopic/' + topicId).toPromise()
-      .then(response => response.json() as TopicModel)
+      .then(response => response.json() as Topic)
       .catch(this.handleError);
   }
 
   // get topic by topicId from database
-  removeTopic(topicId: any): Promise<TopicModel[]> {
+  removeTopic(topicId: any): Promise<Topic[]> {
     return this.http.get(ApiUrl.baseUrl + 'deletetopic/' + topicId).toPromise()
-      .then(response => response.json() as TopicModel[])
+      .then(response => response.json() as Topic[])
       .catch(this.handleError);
   }
 

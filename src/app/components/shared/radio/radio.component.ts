@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {QuestionOptionModel} from '../../../model/question/question-option';
+import { QuestionOption } from '../../../model/question/question-option.model';
 @Component({
   moduleId: module.id,
   selector: 'app-radio',
@@ -7,7 +7,7 @@ import {QuestionOptionModel} from '../../../model/question/question-option';
   styleUrls: ['radio.component.css']
 })
 export class RadioComponent {
-  @Input() model: QuestionOptionModel;
+  @Input() model: QuestionOption;
 
   //  valueChanged(value) {
   //   // alert(JSON.stringify(value));

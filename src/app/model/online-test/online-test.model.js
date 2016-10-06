@@ -1,8 +1,8 @@
 "use strict";
-var OnlineTestModel = (function () {
-    function OnlineTestModel() {
+var OnlineTest = (function () {
+    function OnlineTest() {
     }
-    return OnlineTestModel;
+    return OnlineTest;
 }());
-exports.OnlineTestModel = OnlineTestModel;
+exports.OnlineTest = OnlineTest;
 //# sourceMappingURL=online-test.model.js.map

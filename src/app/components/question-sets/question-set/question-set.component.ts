@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { QuestionSetModel, QuestionSetQuestionsModel } from '../../../model/question-set/question-set.model';
-import { QuestionModel } from '../../../model/question/question';
-import { TopicModel } from '../../../model/topic/topic.model';
-import { OptionSeriesModel } from '../../../model/question/question-option';
+import { LocalStorageService } from 'angular-2-local-storage';
+
+import {BaseComponent} from '../../base.component';
+
+import { QuestionSet, QuestionSetQuestion } from '../../../model/question-set/question-set.model';
+import { Question } from '../../../model/question/question.model';
+import { Topic } from '../../../model/topic/topic.model';
+import { OptionSeries } from '../../../model/question/question-option.model';
+
 import { QuestionSetService } from '../../../services/question-set/question-set.service';
 import { QuestionService } from '../../../services/question/question.service';
 import { TopicService } from '../../../services/topic/topic.service';
 import { QuestionOptionService } from '../../../services/question-option/question-option.service';
-
-import {BaseComponent} from '../../base.component';
-import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
     moduleId: module.id,
@@ -23,15 +25,15 @@ export /**
     class QuestionSetComponent extends BaseComponent implements OnInit {
 
     title: string;
-    model: QuestionSetModel;
-    questions: QuestionModel[] = [];
-    topics: TopicModel[] = [];
-    optionSeries: OptionSeriesModel[] = [];
+    model: QuestionSet;
+    questions: Question[] = [];
+    topics: Topic[] = [];
+    optionSeries: OptionSeries[] = [];
     selectedTopic: number;
     isAddQuestion: boolean;
     question_set_id: number;
 
-    constructor(private service: QuestionSetService,
+    constructor(private questionSetService: QuestionSetService,
         private questionService: QuestionService,
         private topicService: TopicService,
         private questionOptionService: QuestionOptionService,
@@ -40,8 +42,8 @@ export /**
         router: Router) {
         super(localStorageService, router);
         this.title = 'Question Sets';
-        this.model = new QuestionSetModel();
-        this.model.question_set_questions = Array<QuestionSetQuestionsModel>();
+        this.model = new QuestionSet();
+        this.model.question_set_questions = Array<QuestionSetQuestion>();
         this.isAddQuestion = false;
     }
 
@@ -75,7 +77,7 @@ export /**
 
     // get Question Set by company_id and question_set_id
     getQuestionSet(company_id: number, question_set_id: number): void {
-        this.service.getQuestionSet(company_id, question_set_id)
+        this.questionSetService.getQuestionSet(company_id, question_set_id)
             .then(questionSet => {
                 this.model = questionSet;
             });
@@ -137,14 +139,14 @@ export /**
         this.model.created_by = this.user.user_id;
         this.model.updated_by = this.user.user_id;
 
-        this.service.saveQuestionSet(this.model)
+        this.questionSetService.saveQuestionSet(this.model)
             .then(result => {
-                this.router.navigate(['/questionsets']);
+                this.router.navigate(['/questionSets']);
             });
     }
 
     // delete Question set by question_id
-    deleteSetQuestion(question: QuestionSetQuestionsModel, index: number): void {
+    deleteSetQuestion(question: QuestionSetQuestion, index: number): void {
         if (question.question_set_question_id === 0) {
             this.model.question_set_questions.splice(index, 1);
         } else {

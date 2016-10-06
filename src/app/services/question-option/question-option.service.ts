@@ -1,7 +1,7 @@
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
 import { ApiUrl } from '../../shared/api-url.component';
-import { OptionSeriesModel } from '../../model/question/question-option';
+import { OptionSeries } from '../../model/question/question-option.model';
 
 @Injectable()
 export class QuestionOptionService {
@@ -19,11 +19,11 @@ export class QuestionOptionService {
       .catch(this.handleError);
   }
 
-  getOptionSeries(): Promise<OptionSeriesModel[]> {
+  getOptionSeries(): Promise<OptionSeries[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'optionSeries')
       .toPromise()
-      .then(response => response.json() as OptionSeriesModel[])
+      .then(response => response.json() as OptionSeries[])
       .catch(this.handleError);
   }
 

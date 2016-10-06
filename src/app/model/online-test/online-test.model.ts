@@ -1,4 +1,4 @@
-export class OnlineTestModel {
+export class OnlineTest {
     online_test_id: number;
     company_id: number;
     online_test_title: string;

@@ -6,13 +6,7 @@
  */
 
 module.exports = {
- // get Questionsets from  database 
-    getAllQuestions: function (req, res, next) {
-        QuestionSet.find().exec(function (err, result) {
-            if (err) return res.serverError(err);
-            else return res.json(result);
-        })
-    },
+ 
 // save Test details into database 
     saveOnlineTest: function (req, res, next) {
         var start_date = req.body.test_start_date.split("/");

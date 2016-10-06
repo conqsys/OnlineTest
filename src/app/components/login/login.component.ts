@@ -1,23 +1,11 @@
-import {
-    Component
-} from '@angular/core';
-import {
-    Router
-} from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage';
 
-import {
-    Login
-} from '../../model/login/login.model';
-import {
-    LoginService
-} from '../../services/login/login.service';
+import { BaseComponent } from '../base.component';
 
-import {
-    BaseComponent
-} from '../base.component';
-import {
-    LocalStorageService
-} from 'angular-2-local-storage';
+import { Login } from '../../model/login/login.model';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
     moduleId: module.id,
@@ -43,7 +31,7 @@ export class LoginComponent extends BaseComponent {
             .then(result => {
                 this.localStorageService.set('user', result.user);
                 this.localStorageService.set('authorization', 'Bearer ' + result.token);
-                this.router.navigate(['/questionsets']);
+                this.router.navigate(['/questionSets']);
             });
     }
 }

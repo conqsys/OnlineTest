@@ -15,12 +15,6 @@ var OnlineTestService = (function () {
     function OnlineTestService(http) {
         this.http = http;
     }
-    // get Question from database
-    OnlineTestService.prototype.getQuestion = function () {
-        return this.http.get(api_url_component_1.ApiUrl.baseUrl + 'getQuestions').toPromise()
-            .then(function (response) { return response.json(); })
-            .catch(this.handleError);
-    };
     // save test into database
     OnlineTestService.prototype.saveOnlineTest = function (onlineTest) {
         return this.http.post(api_url_component_1.ApiUrl.baseUrl + 'onlineTest', onlineTest).toPromise()

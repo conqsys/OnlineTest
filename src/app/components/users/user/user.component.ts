@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { UserModel } from '../../../model/user/user.model';
-import { UserService } from '../../../services/user/user.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
-import { LocalStorageService } from 'angular-2-local-storage';
+
+import { User } from '../../../model/user/user.model';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
     moduleId: module.id,
@@ -17,17 +17,17 @@ export /**
  */
     class UserComponent extends BaseComponent implements OnInit {
     title: string;
-    model: UserModel;
+    model: User;
     user_id: number;
     disabled: boolean;
 
-    constructor(private service: UserService,
+    constructor(private userService: UserService,
         private activatedRoute: ActivatedRoute,
         localStorageService: LocalStorageService,
         router: Router) {
         super(localStorageService, router);
         this.title = 'User';
-        this.model = new UserModel();
+        this.model = new User();
         this.disabled = false;
     }
 
@@ -47,7 +47,7 @@ export /**
 
     // create user object for save user 
     createUserObject(emailId: string): void {
-        this.model = new UserModel();
+        this.model = new User();
         this.model.user_id = 0;
         this.model.user_name = '';
         this.model.user_email = emailId;
@@ -67,7 +67,7 @@ export /**
 
     // get user by company_id and user_id
     getUser(company_id: number, user_id: number): void {
-        this.service.getUser(company_id, user_id)
+        this.userService.getUser(company_id, user_id)
             .then(user => {
                 if (user.user_id) {
                     this.model = user;
@@ -80,7 +80,7 @@ export /**
 
     // search user by Email
     searchUserByEmail(): void {
-        this.service.searchUserByEmail(this.model.user_email)
+        this.userService.searchUserByEmail(this.model.user_email)
             .then(user => {
                 if (user.user_id) {
                     this.disabled = true;
@@ -95,7 +95,7 @@ export /**
 
     // save user 
     saveUser(): void {
-        this.service.saveUser(this.model)
+        this.userService.saveUser(this.model)
             .then(user => {
                 this.router.navigate(['/users']);
             });

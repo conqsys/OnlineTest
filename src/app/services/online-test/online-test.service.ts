@@ -25,8 +25,8 @@ export class OnlineTestService {
   }
 
   // get Test by test from database
-  getOnlineTestById(id: any): Promise<OnlineTest> {
-    return this.http.get(ApiUrl.baseUrl + 'getOnlineTestById/' + id).toPromise()
+  getOnlineTest(online_test_id: number, company_id: number): Promise<OnlineTest> {
+    return this.http.get(ApiUrl.baseUrl + 'getOnlineTest/' + online_test_id + '/' + company_id).toPromise()
       .then(response => response.json() as OnlineTest)
       .catch(this.handleError);
   }

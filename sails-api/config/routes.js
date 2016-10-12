@@ -52,10 +52,11 @@ module.exports.routes = {
   'post /savetopic': 'TopicController.saveTopic',
 
 
+  'get /getOnlineTest/:online_test_id/:company_id': 'OnlineTestController.getOnlineTest',
   'post /onlineTest':'OnlineTestController.saveOnlineTest',
    'get /getOnlineTests': 'OnlineTestController.getOnlineTests',
-   'get /logout/:online_test_id': 'OnlineTestController.getOnlineTestByID',
     'get /deletetest/:online_test_id': 'OnlineTestController.removeTest',
+   
     
    'post /company':'CompanyController.saveCompany',
    'get /getCompanies': 'CompanyController.getAllCompanies',

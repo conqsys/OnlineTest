@@ -59,7 +59,7 @@ var appRoutes = [
         component: online_test_list_component_1.OnlineTestListComponent
     },
     {
-        path: 'onlineTest/:id',
+        path: 'onlineTest/:online_test_id',
         component: online_test_component_1.OnlineTestComponent
     },
     {

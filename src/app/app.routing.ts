@@ -68,7 +68,7 @@ const appRoutes: Routes = [
     component: OnlineTestListComponent
   },
   {
-    path: 'onlineTest/:id',
+    path: 'onlineTest/:online_test_id',
     component: OnlineTestComponent
   },
   {

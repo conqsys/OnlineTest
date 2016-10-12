@@ -13,4 +13,17 @@ export class OnlineTest {
     updated_by: string;
     created_datetime: string;
     updated_datetime: string;
+
+    onlineTestUsers: OnlineTestUser[];
+}
+
+export class OnlineTestUser {
+    online_test_user_id: number;
+    user_id: number;
+    online_test_id: number;
+    test_completed_date: Date;
+    test_start_date_time: string;
+    test_end_date_time: string;
+    is_abandoned: number;
+    is_completed: number;
 }

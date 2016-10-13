@@ -2,7 +2,7 @@
 export /**
  * question-set-model
  */
-    class QuestionSetModel {
+    class QuestionSet {
     question_set_id: number;
     question_set_title: string;
     total_time: string;
@@ -14,13 +14,13 @@ export /**
     updated_by: string;
     created_datetime: string;
     updated_datetime: string;
-    question_set_questions: Array<QuestionSetQuestionsModel>;
+    question_set_questions: Array<QuestionSetQuestion>;
 }
 
 export /**
  * question-set-questions-model
  */
-    class QuestionSetQuestionsModel {
+    class QuestionSetQuestion {
     question_set_question_id: number;
     question_set_id: number;
     question_id: number;

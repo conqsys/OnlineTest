@@ -1,8 +1,8 @@
 "use strict";
-var UserModel = (function () {
-    function UserModel() {
+var User = (function () {
+    function User() {
     }
-    return UserModel;
+    return User;
 }());
-exports.UserModel = UserModel;
+exports.User = User;
 //# sourceMappingURL=user.model.js.map

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-
-import { UserModel } from '../../../model/user/user.model';
-import { UserService } from '../../../services/user/user.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
-import { LocalStorageService } from 'angular-2-local-storage';
+
+import { User } from '../../../model/user/user.model';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
     moduleId: module.id,
@@ -18,15 +18,15 @@ export /**
     class UserListComponent extends BaseComponent implements OnInit {
 
     title: string;
-    model: UserModel[] = [];
+    model: User[] = [];
     selectedUserId: number;
 
-    constructor(private service: UserService,
+    constructor(private userService: UserService,
         localStorageService: LocalStorageService,
         router: Router) {
         super(localStorageService, router);
         this.title = 'Users';
-        this.model = new Array<UserModel>();
+        this.model = new Array<User>();
     }
 
     ngOnInit(): void {
@@ -37,14 +37,14 @@ export /**
 
     // get user by company_id
     getUsers(company_id: number): void {
-        this.service.getUsers(company_id)
+        this.userService.getUsers(company_id)
             .then(users => {
                 this.model = users;
             });
     }
 
     // navigate user_id to user component.ts
-    selectUser(selectedUser: UserModel): void {
+    selectUser(selectedUser: User): void {
         this.selectedUserId = selectedUser.user_id;
 
         this.router.navigate(['/user', this.selectedUserId]);

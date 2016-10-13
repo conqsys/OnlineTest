@@ -2,7 +2,7 @@
 export /**
  * User-Model
  */
-    class UserModel {
+    class User {
     user_id: number;
     user_name: string;
     user_email: string;
@@ -10,7 +10,7 @@ export /**
     user_address: string;
     user_pwd: string;
     is_active: boolean;
-    is_fresher: boolean;
+    is_fresher: number;
     user_exp_month: number;
     user_exp_year: number;
     role_id: number;

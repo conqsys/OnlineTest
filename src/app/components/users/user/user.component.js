@@ -15,18 +15,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
+var base_component_1 = require('../../base.component');
 var user_model_1 = require('../../../model/user/user.model');
 var user_service_1 = require('../../../services/user/user.service');
-var base_component_1 = require('../../base.component');
-var angular_2_local_storage_1 = require('angular-2-local-storage');
 var UserComponent = (function (_super) {
     __extends(UserComponent, _super);
-    function UserComponent(service, activatedRoute, localStorageService, router) {
+    function UserComponent(userService, activatedRoute, localStorageService, router) {
         _super.call(this, localStorageService, router);
-        this.service = service;
+        this.userService = userService;
         this.activatedRoute = activatedRoute;
         this.title = 'User';
-        this.model = new user_model_1.UserModel();
+        this.model = new user_model_1.User();
         this.disabled = false;
     }
     UserComponent.prototype.ngOnInit = function () {
@@ -45,7 +45,7 @@ var UserComponent = (function (_super) {
     };
     // create user object for save user 
     UserComponent.prototype.createUserObject = function (emailId) {
-        this.model = new user_model_1.UserModel();
+        this.model = new user_model_1.User();
         this.model.user_id = 0;
         this.model.user_name = '';
         this.model.user_email = emailId;
@@ -63,7 +63,7 @@ var UserComponent = (function (_super) {
     // get user by company_id and user_id
     UserComponent.prototype.getUser = function (company_id, user_id) {
         var _this = this;
-        this.service.getUser(company_id, user_id)
+        this.userService.getUser(company_id, user_id)
             .then(function (user) {
             if (user.user_id) {
                 _this.model = user;
@@ -77,7 +77,7 @@ var UserComponent = (function (_super) {
     // search user by Email
     UserComponent.prototype.searchUserByEmail = function () {
         var _this = this;
-        this.service.searchUserByEmail(this.model.user_email)
+        this.userService.searchUserByEmail(this.model.user_email)
             .then(function (user) {
             if (user.user_id) {
                 _this.disabled = true;
@@ -93,7 +93,7 @@ var UserComponent = (function (_super) {
     // save user 
     UserComponent.prototype.saveUser = function () {
         var _this = this;
-        this.service.saveUser(this.model)
+        this.userService.saveUser(this.model)
             .then(function (user) {
             _this.router.navigate(['/users']);
         });

@@ -2,7 +2,7 @@ import {Http } from '@angular/http';
 import {Injectable} from '@angular/core';
 
 import { ApiUrl } from '../../shared/api-url.component';
-import {QuestionModel} from '../../model/question/question';
+import { Question } from '../../model/question/question.model';
 
 @Injectable()
 export class QuestionService {
@@ -16,29 +16,29 @@ export class QuestionService {
     return this.http
       .get(ApiUrl.baseUrl + 'questionbyid/' + question_id)
       .toPromise()
-      .then(response => response.json() as QuestionModel)
+      .then(response => response.json() as Question)
       .catch(this.handleError);
   }
 
   // get Question by company_id from database
-  // getQuestions(company_id: any): Promise<QuestionModel[]> {
-  //   return this.http
-  //     .get(ApiUrl.baseUrl + 'questions/' + company_id)
-  //     .toPromise()
-  //     .then(response => response.json() as QuestionModel[])
-  //     .catch(this.handleError);
-  // }
+  getQuestions(company_id: any): Promise<Question[]> {
+    return this.http
+      .get(ApiUrl.baseUrl + 'questions/' + company_id)
+      .toPromise()
+      .then(response => response.json() as Question[])
+      .catch(this.handleError);
+  }
 
   // get Question by topic_id from database
-  getQuestionsByTopic(topic_id: number): Promise<QuestionModel[]> {
+  getQuestionsByTopic(topic_id: number): Promise<Question[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'question/' + topic_id)
       .toPromise()
-      .then(response => response.json() as QuestionModel[])
+      .then(response => response.json() as Question[])
       .catch(this.handleError);
   }
  // get Question StateInfo from database
-  getQuestionsStateInfo(company_id: any): Promise<QuestionModel[]> {
+  getQuestionsStateInfo(company_id: any): Promise<Question[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'questionStateInfo/'+ company_id)
       .toPromise()

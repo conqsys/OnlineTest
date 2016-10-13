@@ -29,15 +29,15 @@ module.exports = {
         });
     },
     // get Questions by company_id from  database 
-    // getQuestions: function (req, res) {
-    //    var companyId = req.param('company_id');
-    //    Question.find({ company_id: companyId }).exec(function (err, result) {
-    //        if (err) return res.serverError(err);
-    //        else {
-    //            return res.json(result);
-    //        }
-    //    })
-    // },
+    getQuestions: function (req, res) {
+        var companyId = req.param('company_id');
+        Question.find({ company_id: companyId }).exec(function (err, result) {
+            if (err) return res.serverError(err);
+            else {
+                return res.json(result);
+            }
+        })
+    },
     // get Questions by topic_id from  database 
     getQuestionsByTopic: function (req, res) {
         var topicId = req.param('topic_id');
@@ -61,27 +61,31 @@ module.exports = {
                 selectedOptions = selectedOptions + ',' + req.body.selectedOptions[i].option_id;
             }
         }
-        var str = "CALL spSaveAnswer(" + req.body.question.question_id + ",'" + req.body.question.question_description + "','" + selectedOptions + "'," + req.body.question.online_test_user_id + ")";
-        Topic.query(str, function (err, result) {
-            if (err) return res.serverError(err);
+
+        var str = "CALL spSaveAnswer(" + req.body.question.question_id + ",'" + req.body.question.question_description + "','" + selectedOptions + "'," + req.body.question.online_test_user_id + "," + userId + "," + qusSetid + ")";
+        Question.query(str, function (err, result) {
+            if (err) {
+                return res.serverError(err);
+            }
             else {
-                //return res.json(result);
-                var str = "CALL spGetTestQuestion(" + userId + "," + qusSetid + ")";
-                Question.query(str, function (err, result) {
-                    if (err) return res.serverError(err);
-                    else {
-                        if (result) {
-                            var str = "CALL spGetQuestionOption(" + result[0][0].question_id + ")";
-                            Question.query(str, function (err, options) {
-                                if (err) return res.serverError(err);
-                                else {
-                                    result[0][0].options = options[0];
-                                    return res.json(result);
-                                }
-                            })
+                var message = { question: {}, isExist: false };
+                if (result[0] && result[0].length > 0) {
+                    message.question = result[0][0];
+                    message.isExist = true;
+                    var str = "CALL spGetQuestionOption(" + question.question_id + ")";
+                    Question.query(str, function (err, options) {
+                        if (err) {
+                            return res.serverError(err);
                         }
-                    }
-                })
+                        else {
+                            message.question.options = options[0];
+                            return res.json(message);
+                        }
+                    })
+                }
+                else {
+                    return res.json(message);
+                }
             }
         });
     },
@@ -93,17 +97,27 @@ module.exports = {
         var qusSetid = req.param('question_set_id');
         var str = "CALL spGetTestQuestion(" + userId + "," + qusSetid + ")";
         Question.query(str, function (err, result) {
-            if (err) return res.serverError(err);
+            if (err) {
+                return res.serverError(err);
+            }
             else {
-                if (result) {
-                    var str = "CALL spGetQuestionOption(" + result[0][0].question_id + ")";
+                var message = { question: {}, isExist: false };
+                if (result[0] && result[0].length > 0) {
+                    message.question = result[0][0];
+                    message.isExist = true;
+                    var str = "CALL spGetQuestionOption(" + message.question.question_id + ")";
                     Question.query(str, function (err, options) {
-                        if (err) return res.serverError(err);
+                        if (err) {
+                            return res.serverError(err);
+                        }
                         else {
-                            result[0][0].options = options[0];
-                            return res.json(result);
+                            message.question.options = options[0];
+                            return res.json(message);
                         }
                     })
+                }
+                else {
+                    return res.json(message);
                 }
             }
         })

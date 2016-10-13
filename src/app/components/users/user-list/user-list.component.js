@@ -15,14 +15,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var user_service_1 = require('../../../services/user/user.service');
-var base_component_1 = require('../../base.component');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
+var base_component_1 = require('../../base.component');
+var user_service_1 = require('../../../services/user/user.service');
 var UserListComponent = (function (_super) {
     __extends(UserListComponent, _super);
-    function UserListComponent(service, localStorageService, router) {
+    function UserListComponent(userService, localStorageService, router) {
         _super.call(this, localStorageService, router);
-        this.service = service;
+        this.userService = userService;
         this.model = [];
         this.title = 'Users';
         this.model = new Array();
@@ -35,7 +35,7 @@ var UserListComponent = (function (_super) {
     // get user by company_id
     UserListComponent.prototype.getUsers = function (company_id) {
         var _this = this;
-        this.service.getUsers(company_id)
+        this.userService.getUsers(company_id)
             .then(function (users) {
             _this.model = users;
         });

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {StatInfoModel} from '../../../model/stats/statinfo';
-// import {StatinfoComponent} from '../statinfo/statinfo.component';
+import { StatInfo } from '../../../model/stats/stat-info.model';
 
 @Component({
   moduleId: module.id,
@@ -9,5 +8,5 @@ import {StatInfoModel} from '../../../model/stats/statinfo';
 })
 export class StatsComponent {
   @Input()
-  stats: Array<StatInfoModel>;
+  stats: Array<StatInfo>;
 }

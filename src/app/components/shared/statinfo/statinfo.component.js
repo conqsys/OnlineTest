@@ -14,10 +14,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var question_service_1 = require('../../../services/question/question.service');
-var base_component_1 = require('../../base.component');
-var angular_2_local_storage_1 = require('angular-2-local-storage');
 var router_1 = require('@angular/router');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
+var base_component_1 = require('../../base.component');
+var question_service_1 = require('../../../services/question/question.service');
 var StatinfoComponent = (function (_super) {
     __extends(StatinfoComponent, _super);
     //  Stats: any[] = [];

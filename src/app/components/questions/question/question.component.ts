@@ -1,14 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import {BaseComponent} from '../../base.component';
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import {QuestionModel} from '../../../model/question/question';
-import {QuestionOptionModel} from '../../../model/question/question-option';
+import {BaseComponent} from '../../base.component';
+
+import { Question } from '../../../model/question/question.model';
+import { QuestionOption } from '../../../model/question/question-option.model';
+import { Topic } from '../../../model/topic/topic.model';
+
 import { TopicService } from '../../../services/topic/topic.service';
 import { QuestionService } from '../../../services/question/question.service';
-import { TopicModel } from '../../../model/topic/topic.model';
 import { QuestionOptionService } from '../../../services/question-option/question-option.service';
 
 declare var tinymce: any;
@@ -19,13 +20,13 @@ declare var tinymce: any;
   styleUrls: ['question.component.css']
 })
 export class QuestionComponent extends BaseComponent implements OnInit {
-  @Input() model: QuestionModel;
+  @Input() model: Question;
   @Output()
   setQuestionVisibility: EventEmitter<boolean>;
 
   question_id: number;
 
-  topics = Array<TopicModel>();
+  topics = Array<Topic>();
   selectedTopic: number;
 
   froalaOptions: any;
@@ -41,10 +42,9 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     super(localStorageService, router);
     this.setQuestionVisibility = new EventEmitter<boolean>();
 
-    this.model = new QuestionModel();
-    this.model.options = new Array<QuestionOptionModel>();
+    this.model = new Question();
+    this.model.options = new Array<QuestionOption>();
     this.model.answer_explanation = '';
-    // this.model.question_description = "";
 
     this.newOption = '';
     this.model.is_multiple_option = false;
@@ -89,8 +89,6 @@ export class QuestionComponent extends BaseComponent implements OnInit {
   }
 
   valueChanged(value: boolean): void {
-    // alert(JSON.stringify(value));
-    console.log(value);
     this.model.is_multiple_option = !this.model.is_multiple_option;
     this.model.options.forEach(function (option) {
       option.is_correct = false;

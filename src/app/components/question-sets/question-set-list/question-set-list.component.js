@@ -14,15 +14,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var question_set_service_1 = require('../../../services/question-set/question-set.service');
 var router_1 = require('@angular/router');
-var base_component_1 = require('../../base.component');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
+var base_component_1 = require('../../base.component');
+var question_set_service_1 = require('../../../services/question-set/question-set.service');
 var QuestionSetListComponent = (function (_super) {
     __extends(QuestionSetListComponent, _super);
-    function QuestionSetListComponent(service, localStorageService, router) {
+    function QuestionSetListComponent(questionSetService, localStorageService, router) {
         _super.call(this, localStorageService, router);
-        this.service = service;
+        this.questionSetService = questionSetService;
         this.model = [];
         this.title = 'Question Sets';
         this.model = new Array();
@@ -35,7 +35,7 @@ var QuestionSetListComponent = (function (_super) {
     // get Question set by company_id
     QuestionSetListComponent.prototype.getQuestionSets = function () {
         var _this = this;
-        this.service.getQuestionSets(this.user.company_id)
+        this.questionSetService.getQuestionSets(this.user.company_id)
             .then(function (questionSets) {
             _this.model = questionSets;
         });
@@ -43,11 +43,11 @@ var QuestionSetListComponent = (function (_super) {
     // navigate question_set_id to Question set component.ts
     QuestionSetListComponent.prototype.selectQuestionSet = function (selectedQuestionSet) {
         this.selectedQuestionSetId = selectedQuestionSet.question_set_id;
-        this.router.navigate(['/questionset', this.selectedQuestionSetId]);
+        this.router.navigate(['/questionSet', this.selectedQuestionSetId]);
     };
     // open Question set page for add Questionset 
     QuestionSetListComponent.prototype.addQuestionSet = function () {
-        this.router.navigate(['/questionset', 0]);
+        this.router.navigate(['/questionSet', 0]);
     };
     QuestionSetListComponent = __decorate([
         core_1.Component({

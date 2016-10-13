@@ -45,8 +45,6 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'get /students': 'StudentController.getAll',
-
   
   'get /gettopics/:company_id': 'TopicController.getAllTopic',
   'get /gettopic/:topic_id': 'TopicController.getTopic',
@@ -54,11 +52,11 @@ module.exports.routes = {
   'post /savetopic': 'TopicController.saveTopic',
 
 
+  'get /getOnlineTest/:online_test_id/:company_id': 'OnlineTestController.getOnlineTest',
   'post /onlineTest':'OnlineTestController.saveOnlineTest',
-  'get /getQuestions': 'OnlineTestController.getAllQuestions',
    'get /getOnlineTests': 'OnlineTestController.getOnlineTests',
-   'get /logout/:online_test_id': 'OnlineTestController.getOnlineTestByID',
     'get /deletetest/:online_test_id': 'OnlineTestController.removeTest',
+   
     
    'post /company':'CompanyController.saveCompany',
    'get /getCompanies': 'CompanyController.getAllCompanies',
@@ -70,16 +68,19 @@ module.exports.routes = {
   'post /saveQuestionSet': 'QuestionSetController.saveQuestionSet',
 
   'post /question':'QuestionController.saveQuestion',
-  // 'get /questions/:company_id': 'QuestionController.getQuestions',
+  'get /questions/:company_id': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',
   'get /getQuestionsbyUser/:user_id/:question_set_id': 'QuestionController.getQuestionsbyUser',
+  'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',
+  'get /questionStateInfo/:company_id': 'QuestionController.getQuestionState',
+
   'post /saveAnswer': 'QuestionController.saveAns',
+  
   'get /questionOptions/:question_id': 'QuestionOptionController.getQuestionOptions',
   'get /optionSeries': 'QuestionOptionController.getOptionSeries',
 
   'post /file/upload' :'FileController.upload',
-  'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',
-  'get /questionStateInfo/:company_id': 'QuestionController.getQuestionState',
+  
   'get /users/:company_id': 'UserController.getUser',
   'get /user/:email_id': 'UserController.searchUserByEmail',
   'get /user/:company_id/:user_id': 'UserController.getUserById',

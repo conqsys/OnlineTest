@@ -15,10 +15,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
+var base_component_1 = require('../base.component');
 var login_model_1 = require('../../model/login/login.model');
 var login_service_1 = require('../../services/login/login.service');
-var base_component_1 = require('../base.component');
-var angular_2_local_storage_1 = require('angular-2-local-storage');
 var LoginComponent = (function (_super) {
     __extends(LoginComponent, _super);
     function LoginComponent(loginService, localStorageService, router) {
@@ -34,7 +34,7 @@ var LoginComponent = (function (_super) {
             .then(function (result) {
             _this.localStorageService.set('user', result.user);
             _this.localStorageService.set('authorization', 'Bearer ' + result.token);
-            _this.router.navigate(['/questionsets']);
+            _this.router.navigate(['/questionSets']);
         });
     };
     LoginComponent = __decorate([

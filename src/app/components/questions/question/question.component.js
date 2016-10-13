@@ -15,9 +15,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var base_component_1 = require('../../base.component');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
-var question_1 = require('../../../model/question/question');
+var base_component_1 = require('../../base.component');
+var question_model_1 = require('../../../model/question/question.model');
 var topic_service_1 = require('../../../services/topic/topic.service');
 var question_service_1 = require('../../../services/question/question.service');
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
@@ -31,10 +31,9 @@ var QuestionComponent = (function (_super) {
         this.questionOptionService = questionOptionService;
         this.topics = Array();
         this.setQuestionVisibility = new core_1.EventEmitter();
-        this.model = new question_1.QuestionModel();
+        this.model = new question_model_1.Question();
         this.model.options = new Array();
         this.model.answer_explanation = '';
-        // this.model.question_description = "";
         this.newOption = '';
         this.model.is_multiple_option = false;
         this.model.company_id = this.user.company_id;
@@ -76,8 +75,6 @@ var QuestionComponent = (function (_super) {
         }
     };
     QuestionComponent.prototype.valueChanged = function (value) {
-        // alert(JSON.stringify(value));
-        console.log(value);
         this.model.is_multiple_option = !this.model.is_multiple_option;
         this.model.options.forEach(function (option) {
             option.is_correct = false;
@@ -116,7 +113,7 @@ var QuestionComponent = (function (_super) {
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', question_1.QuestionModel)
+        __metadata('design:type', question_model_1.Question)
     ], QuestionComponent.prototype, "model", void 0);
     __decorate([
         core_1.Output(), 

@@ -1,7 +1,8 @@
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
+
 import { ApiUrl } from '../../shared/api-url.component';
-import { QuestionSetModel } from '../../model/question-set/question-set.model';
+import { QuestionSet } from '../../model/question-set/question-set.model';
 
 @Injectable()
 export class QuestionSetService {
@@ -11,20 +12,20 @@ export class QuestionSetService {
   }
 
   // get Question by company_id from database
-  getQuestionSets(company_id: number): Promise<QuestionSetModel[]> {
+  getQuestionSets(company_id: number): Promise<QuestionSet[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'questionSet/' + company_id)
       .toPromise()
-      .then(response => response.json() as QuestionSetModel[])
+      .then(response => response.json() as QuestionSet[])
       .catch(this.handleError);
   }
 
   // get Question by company_id and question_set_id from database
-  getQuestionSet(company_id: number, question_set_id: number): Promise<QuestionSetModel> {
+  getQuestionSet(company_id: number, question_set_id: number): Promise<QuestionSet> {
     return this.http
       .get(ApiUrl.baseUrl + 'questionSet/' + company_id + '/' + question_set_id)
       .toPromise()
-      .then(response => response.json() as QuestionSetModel)
+      .then(response => response.json() as QuestionSet)
       .catch(this.handleError);
   }
 

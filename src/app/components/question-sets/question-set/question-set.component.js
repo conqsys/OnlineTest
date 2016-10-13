@@ -15,18 +15,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var angular_2_local_storage_1 = require('angular-2-local-storage');
+var base_component_1 = require('../../base.component');
 var question_set_model_1 = require('../../../model/question-set/question-set.model');
 var question_set_service_1 = require('../../../services/question-set/question-set.service');
 var question_service_1 = require('../../../services/question/question.service');
 var topic_service_1 = require('../../../services/topic/topic.service');
 var question_option_service_1 = require('../../../services/question-option/question-option.service');
-var base_component_1 = require('../../base.component');
-var angular_2_local_storage_1 = require('angular-2-local-storage');
 var QuestionSetComponent = (function (_super) {
     __extends(QuestionSetComponent, _super);
-    function QuestionSetComponent(service, questionService, topicService, questionOptionService, activatedRoute, localStorageService, router) {
+    function QuestionSetComponent(questionSetService, questionService, topicService, questionOptionService, activatedRoute, localStorageService, router) {
         _super.call(this, localStorageService, router);
-        this.service = service;
+        this.questionSetService = questionSetService;
         this.questionService = questionService;
         this.topicService = topicService;
         this.questionOptionService = questionOptionService;
@@ -35,7 +35,7 @@ var QuestionSetComponent = (function (_super) {
         this.topics = [];
         this.optionSeries = [];
         this.title = 'Question Sets';
-        this.model = new question_set_model_1.QuestionSetModel();
+        this.model = new question_set_model_1.QuestionSet();
         this.model.question_set_questions = Array();
         this.isAddQuestion = false;
     }
@@ -70,7 +70,7 @@ var QuestionSetComponent = (function (_super) {
     // get Question Set by company_id and question_set_id
     QuestionSetComponent.prototype.getQuestionSet = function (company_id, question_set_id) {
         var _this = this;
-        this.service.getQuestionSet(company_id, question_set_id)
+        this.questionSetService.getQuestionSet(company_id, question_set_id)
             .then(function (questionSet) {
             _this.model = questionSet;
         });
@@ -135,9 +135,9 @@ var QuestionSetComponent = (function (_super) {
         var _this = this;
         this.model.created_by = this.user.user_id;
         this.model.updated_by = this.user.user_id;
-        this.service.saveQuestionSet(this.model)
+        this.questionSetService.saveQuestionSet(this.model)
             .then(function (result) {
-            _this.router.navigate(['/questionsets']);
+            _this.router.navigate(['/questionSets']);
         });
     };
     // delete Question set by question_id

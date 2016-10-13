@@ -1,5 +1,5 @@
 {
-  "name": "angular2-tour-of-heroes",
+  "name": "Online-Test",
   "version": "0.1.0",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
@@ -21,7 +21,6 @@
     "@angular/router": "3.0.0",
     "@angular/upgrade": "2.0.0",
     "angular-2-local-storage": "0.0.18",
-    "angular2-in-memory-web-api": "0.0.20",
     "angular2-materialize": "^5.1.4",
     "core-js": "^2.4.1",
     "jquery": "^3.1.0",

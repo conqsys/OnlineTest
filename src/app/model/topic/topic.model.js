@@ -1,8 +1,8 @@
 "use strict";
-var TopicModel = (function () {
-    function TopicModel() {
+var Topic = (function () {
+    function Topic() {
     }
-    return TopicModel;
+    return Topic;
 }());
-exports.TopicModel = TopicModel;
+exports.Topic = Topic;
 //# sourceMappingURL=topic.model.js.map

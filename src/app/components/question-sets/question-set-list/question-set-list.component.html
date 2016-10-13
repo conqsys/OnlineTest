@@ -23,15 +23,6 @@
   <div class="form-group">
     
       <div class="col-md-6">
-        <!--<cool-loading-indicator [hidden]="!isLoading">
-          <div class="my-loading">
-            <div class="dimmer"></div>
-            <div class="loading-bg">
-              <img src="/app/image/loader.gif"/>
-            </div>
-          </div>
-        </cool-loading-indicator> -->
-        
         <button name="addQuestionSet" class="btn btn-info btn-block pull-right" (click)="addQuestionSet()" >+ Add Question Set</button>
         <table class="table TFtable">
           <tr style="background: #dae5f4;">
@@ -48,10 +39,6 @@
             <td>{{qset.total_questions}}</td>
             <td>{{qset.is_randomize}}</td>
             <td><a >delete</a></td>
-
-            <!--<div style="width:500px">
-              <student-info [student]="student" (updateStudentInfo)="UpdateStudentInfo($event)"></student-info>
-            </div>-->
           </tr>
         </table>
       </div>

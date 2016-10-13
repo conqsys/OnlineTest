@@ -1,1 +1,0 @@
-{"version":3,"file":"stats.component.js","sourceRoot":"","sources":["stats.component.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,qBAAiC,eAAe,CAAC,CAAA;AAQjD;IAAA;IAGA,CAAC;IAFC;QAAC,YAAK,EAAE;;iDAAA;IANV;QAAC,gBAAS,CAAC;YACT,QAAQ,EAAE,MAAM,CAAC,EAAE;YACnB,QAAQ,EAAE,WAAW;YACrB,WAAW,EAAE,wBAAwB;SACtC,CAAC;;sBAAA;IAIF,qBAAC;AAAD,CAAC,AAHD,IAGC;AAHY,sBAAc,iBAG1B,CAAA"}

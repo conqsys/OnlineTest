@@ -75,7 +75,6 @@ export /**
         });
     }
 
-    // get Question Set by company_id and question_set_id
     getQuestionSet(company_id: number, question_set_id: number): void {
         this.questionSetService.getQuestionSet(company_id, question_set_id)
             .then(questionSet => {
@@ -83,7 +82,6 @@ export /**
             });
     }
 
-    // get topic_id by company_id then get Question by topic_id 
     showQuestions(): void {
         this.isAddQuestion = true;
         this.topicService.getTopic(this.user.company_id)
@@ -96,7 +94,6 @@ export /**
             });
     }
 
-    // get Question by topic_id 
     getQuestions(topic_id: number): void {
         this.questionService.getQuestionsByTopic(topic_id)
             .then(questions => {
@@ -112,7 +109,6 @@ export /**
             });
     }
 
-    // add Question in Question Set
     addQuestionsInQuestionSet(): void {
         this.isAddQuestion = false;
 
@@ -134,7 +130,6 @@ export /**
         }
     }
 
-    // save Question Set  
     saveQuestionSet(): void {
         this.model.created_by = this.user.user_id;
         this.model.updated_by = this.user.user_id;
@@ -145,7 +140,6 @@ export /**
             });
     }
 
-    // delete Question set by question_id
     deleteSetQuestion(question: QuestionSetQuestion, index: number): void {
         if (question.question_set_question_id === 0) {
             this.model.question_set_questions.splice(index, 1);

@@ -15,7 +15,7 @@ import { QuestionService } from '../../../services/question/question.service';
 export class StatinfoComponent extends BaseComponent implements OnInit {
 
   statInfo: StatInfo;
-  //  Stats: any[] = [];
+
   constructor(private service: QuestionService,
     localStorageService: LocalStorageService,
     router: Router) {
@@ -24,18 +24,5 @@ export class StatinfoComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.user) {
-      // this.getQuestionStateInfo();
-
-    }
   }
-
-  // getQuestionStateInfo() {
-  //     this.service.getQuestionsStateInfo()
-  //         .then(result => {
-  //           if (result) {
-  //             this.Stats = result;
-  //           } 
-  //         });
-  //   }
 }

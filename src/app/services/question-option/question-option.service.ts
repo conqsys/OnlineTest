@@ -10,8 +10,7 @@ export class QuestionOptionService {
 
   }
 
-  // get Question option from database
-  getQuestionOptions(question_id: any): any {
+  getQuestionOptions(question_id: number): any {
     return this.http
       .get(ApiUrl.baseUrl + 'questionOptions/' + question_id)
       .toPromise()

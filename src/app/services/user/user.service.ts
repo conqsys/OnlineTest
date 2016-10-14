@@ -10,7 +10,6 @@ export class UserService {
 
   }
 
-  // get User by company_id from database
   getUsers(company_id: number): Promise<User[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'users/' + company_id)
@@ -19,7 +18,6 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  // get User by company_id and user_id from database
   getUser(company_id: number, user_id: number): Promise<User> {
     return this.http
       .get(ApiUrl.baseUrl + 'user/' + company_id + '/' + user_id)
@@ -28,7 +26,6 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  // get User by emailId from database
   searchUserByEmail(emailId: string): Promise<User> {
     return this.http
       .get(ApiUrl.baseUrl + 'user/' + emailId)
@@ -37,7 +34,6 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  // save User into database
   saveUser(data: User): Promise<string> {
     return this.http
       .post(ApiUrl.baseUrl + 'user', JSON.stringify(data))

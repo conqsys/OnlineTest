@@ -37,7 +37,7 @@ export /**
                 this.user_id = +params['user_id']; // (+) converts string 'id' to a number
             });
 
-            if (this.user_id !== 0 && this.user_id !== undefined) {
+            if (this.user_id && this.user_id !== 0) {
                 this.getUser(this.user.company_id, this.user_id);
             } else {
                 this.createUserObject('');
@@ -45,7 +45,6 @@ export /**
         }
     }
 
-    // create user object for save user 
     createUserObject(emailId: string): void {
         this.model = new User();
         this.model.user_id = 0;
@@ -53,8 +52,8 @@ export /**
         this.model.user_email = emailId;
         this.model.user_mobile_no = '';
         this.model.user_address = '';
-        this.model.is_active = true;
-        this.model.is_fresher = false;
+        this.model.is_active = 1;
+        this.model.is_fresher = 0;
         this.model.user_exp_month = 0;
         this.model.user_exp_year = 0;
         this.model.role_id = 3;
@@ -65,7 +64,6 @@ export /**
         this.model.company_id = this.user.company_id;
     }
 
-    // get user by company_id and user_id
     getUser(company_id: number, user_id: number): void {
         this.userService.getUser(company_id, user_id)
             .then(user => {
@@ -78,9 +76,9 @@ export /**
             });
     }
 
-    // search user by Email
     searchUserByEmail(): void {
-        this.userService.searchUserByEmail(this.model.user_email)
+        this.userService
+            .searchUserByEmail(this.model.user_email)
             .then(user => {
                 if (user.user_id) {
                     this.disabled = true;
@@ -93,7 +91,6 @@ export /**
             });
     }
 
-    // save user 
     saveUser(): void {
         this.userService.saveUser(this.model)
             .then(user => {
@@ -101,7 +98,6 @@ export /**
             });
     }
 
-    // open user list page
     cancel(): void {
         this.router.navigate(['/users']);
     }

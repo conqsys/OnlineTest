@@ -10,14 +10,12 @@ export class TopicService {
 
   }
 
-  // save topic into database
-  saveTopic(topic: any): Promise<Topic[]> {
+  saveTopic(topic: Topic): Promise<Topic[]> {
     return this.http.post(ApiUrl.baseUrl + 'savetopic', topic).toPromise()
       .then(response => response.json() as Topic[])
       .catch(this.handleError);
   }
 
-  // get topic by companyId from database
   getTopic(companyId: number): Promise<Topic[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'gettopics/' + companyId)
@@ -26,15 +24,13 @@ export class TopicService {
       .catch(this.handleError);
   }
 
-  // get topic by topicId from database
-  getTopicByID(topicId: any): Promise<Topic> {
+  getTopicByID(topicId: number): Promise<Topic> {
     return this.http.get(ApiUrl.baseUrl + 'gettopic/' + topicId).toPromise()
       .then(response => response.json() as Topic)
       .catch(this.handleError);
   }
 
-  // get topic by topicId from database
-  removeTopic(topicId: any): Promise<Topic[]> {
+  removeTopic(topicId: number): Promise<Topic[]> {
     return this.http.get(ApiUrl.baseUrl + 'deletetopic/' + topicId).toPromise()
       .then(response => response.json() as Topic[])
       .catch(this.handleError);

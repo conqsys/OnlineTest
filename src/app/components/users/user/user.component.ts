@@ -4,8 +4,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
 
-import { User } from '../../../model/user/user.model';
-import { UserService } from '../../../services/user/user.service';
+import { User } from '../../../shared/model/user/user.model';
+import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
     moduleId: module.id,

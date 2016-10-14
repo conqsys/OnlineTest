@@ -4,8 +4,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
 
-import { Company } from '../../../model/company/company.model';
-import { CompanyService } from '../../../services/company/company.service';
+import { Company } from '../../../shared/model/company/company.model';
+import { CompanyService } from '../../../shared/services/company/company.service';
 
 @Component({
   moduleId: module.id,
@@ -13,15 +13,15 @@ import { CompanyService } from '../../../services/company/company.service';
   templateUrl: 'company.component.html'
 })
 export class CompanyComponent extends BaseComponent implements OnInit {
-  model: Company;
-  errorMesssage: string;
-  company_id: number;
+  private model: Company;
+  private company_id: number;
 
   constructor(private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
     localStorageService: LocalStorageService,
     router: Router) {
     super(localStorageService, router);
+    this.model = new Company();
   }
 
   ngOnInit() {
@@ -38,7 +38,6 @@ export class CompanyComponent extends BaseComponent implements OnInit {
   }
 
   initializeModel() {
-    this.model = new Company();
     this.model.company_id = 0;
     this.model.company_title = '';
     this.model.company_address = '';

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { QuestionOption } from '../../../model/question/question-option.model';
+import { QuestionOption } from '../../../shared/model/question/question-option.model';
 
 @Component({
   moduleId: module.id,

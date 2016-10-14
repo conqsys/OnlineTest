@@ -4,8 +4,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
 
-import { OnlineTest } from '../../../model/online-test/online-test.model';
-import { OnlineTestService } from '../../../services/online-test/online-test.service';
+import { OnlineTest } from '../../../shared/model/online-test/online-test.model';
+import { OnlineTestService } from '../../../shared/services/online-test/online-test.service';
 
 @Component({
   moduleId: module.id,

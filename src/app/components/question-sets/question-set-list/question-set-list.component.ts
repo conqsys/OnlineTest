@@ -4,8 +4,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
 
-import { QuestionSet } from '../../../model/question-set/question-set.model';
-import { QuestionSetService } from '../../../services/question-set/question-set.service';
+import { QuestionSet } from '../../../shared/model/question-set/question-set.model';
+import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
 
 @Component({
     moduleId: module.id,

@@ -52,7 +52,7 @@ const appRoutes: Routes = [
     component: TopicListComponent
   },
   {
-    path: 'topic/:topic_id',
+    path: 'topic/:topicId',
     component: TopicComponent
   },
   {

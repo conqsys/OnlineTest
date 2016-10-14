@@ -47,12 +47,13 @@ module.exports = {
                 result.test_end_date = result.test_end_date.getDate() + "/" + result.test_end_date.getMonth() + "/" + result.test_end_date.getFullYear()
                 var onlineTest = result;
                 onlineTest.onlineTestUsers = [];
-                OnlineTestUser.find({online_test_id: online_test_id}).exec(function(err, result){
-                    if(err) {
+                var str = "call spGetOnlineTestUser(" + online_test_id + "," + company_id + ")";
+                OnlineTest.query(str, function (err, result) {
+                    if (err) {
                         return res.serverError(err);
                     }
                     else {
-                        onlineTest.onlineTestUsers = result;
+                        onlineTest.onlineTestUsers = result[0];
                         return res.json(onlineTest);
                     }
                 })

@@ -4,15 +4,15 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
 
-import { QuestionSet, QuestionSetQuestion } from '../../../model/question-set/question-set.model';
-import { Question } from '../../../model/question/question.model';
-import { Topic } from '../../../model/topic/topic.model';
-import { OptionSeries } from '../../../model/question/question-option.model';
+import { QuestionSet, QuestionSetQuestion } from '../../../shared/model/question-set/question-set.model';
+import { Question } from '../../../shared/model/question/question.model';
+import { Topic } from '../../../shared/model/topic/topic.model';
+import { OptionSeries } from '../../../shared/model/question/question-option.model';
 
-import { QuestionSetService } from '../../../services/question-set/question-set.service';
-import { QuestionService } from '../../../services/question/question.service';
-import { TopicService } from '../../../services/topic/topic.service';
-import { QuestionOptionService } from '../../../services/question-option/question-option.service';
+import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
+import { QuestionService } from '../../../shared/services/question/question.service';
+import { TopicService } from '../../../shared/services/topic/topic.service';
+import { QuestionOptionService } from '../../../shared/services/question-option/question-option.service';
 
 @Component({
     moduleId: module.id,

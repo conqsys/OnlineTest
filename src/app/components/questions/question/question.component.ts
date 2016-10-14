@@ -4,13 +4,13 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
 
-import { Question } from '../../../model/question/question.model';
-import { QuestionOption } from '../../../model/question/question-option.model';
-import { Topic } from '../../../model/topic/topic.model';
+import { Question } from '../../../shared/model/question/question.model';
+import { QuestionOption } from '../../../shared/model/question/question-option.model';
+import { Topic } from '../../../shared/model/topic/topic.model';
 
-import { TopicService } from '../../../services/topic/topic.service';
-import { QuestionService } from '../../../services/question/question.service';
-import { QuestionOptionService } from '../../../services/question-option/question-option.service';
+import { TopicService } from '../../../shared/services/topic/topic.service';
+import { QuestionService } from '../../../shared/services/question/question.service';
+import { QuestionOptionService } from '../../../shared/services/question-option/question-option.service';
 
 declare var tinymce: any;
 @Component({

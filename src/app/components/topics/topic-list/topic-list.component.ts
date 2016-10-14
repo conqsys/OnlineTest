@@ -4,8 +4,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
 
-import { Topic } from '../../../model/topic/topic.model';
-import { TopicService } from '../../../services/topic/topic.service';
+import { Topic } from '../../../shared/model/topic/topic.model';
+import { TopicService } from '../../../shared/services/topic/topic.service';
 
 declare var Materialize: any;
 
@@ -15,14 +15,14 @@ declare var Materialize: any;
   templateUrl: 'topic-list.component.html',
 })
 export class TopicListComponent extends BaseComponent implements OnInit {
-  selectedTopic: Topic;
-  topicdata: any;
-  constructor(private service: TopicService,
-    private routeinfo: ActivatedRoute,
+  private selectedTopic: Topic;
+  private model: Topic[] = [];
+  constructor(private topicService: TopicService,
     localStorageService: LocalStorageService,
     router: Router) {
     super(localStorageService, router);
     this.selectedTopic = new Topic();
+    this.model = new Array<Topic>();
   }
 
   ngOnInit(): void {
@@ -31,29 +31,29 @@ export class TopicListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  getTopic() {
-    this.service.getTopic(this.user.company_id).then(result => {
-      if (result) {
-        this.topicdata = result;
-      }
-    });
+  editTopic(topicId: number) {
+    this.router.navigate(['/topic/' + topicId]);
   }
 
-  public editTopic(item: Topic) {
-    this.router.navigate(['/topic/' + item.topic_id]);
+  showTopic() {
+    this.router.navigate(['/topic/0']);
   }
 
-  public showTopic() {
-    this.router.navigate(['/topic']);
-  }
-
-  public removeItem(item: any) {
-    this.service.removeTopic(item.topic_id).then(result => {
+  removeItem(item: Topic) {
+    this.topicService.removeTopic(item.topic_id).then(result => {
       if (result) {
         Materialize.toast('Topic deleted!', 2000, 'rounded');
         this.getTopic();
       } else {
         Materialize.toast('Topic not deleted!', 2000, 'rounded');
+      }
+    });
+  }
+
+  private getTopic() {
+    this.topicService.getTopic(this.user.company_id).then(result => {
+      if (result) {
+        this.model = result;
       }
     });
   }

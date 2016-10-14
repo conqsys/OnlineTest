@@ -4,12 +4,12 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
 
-import { OnlineTest, OnlineTestUser } from '../../../model/online-test/online-test.model';
-import { QuestionSet } from '../../../model/question-set/question-set.model';
+import { OnlineTest, OnlineTestUser } from '../../../shared/model/online-test/online-test.model';
+import { QuestionSet } from '../../../shared/model/question-set/question-set.model';
 
-import { OnlineTestService } from '../../../services/online-test/online-test.service';
-import { QuestionSetService } from '../../../services/question-set/question-set.service';
-import { UserService } from '../../../services/user/user.service';
+import { OnlineTestService } from '../../../shared/services/online-test/online-test.service';
+import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
+import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
   moduleId: module.id,

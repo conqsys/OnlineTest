@@ -4,8 +4,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
 
-import { Company } from '../../../model/company/company.model';
-import { CompanyService } from '../../../services/company/company.service';
+import { Company } from '../../../shared/model/company/company.model';
+import { CompanyService } from '../../../shared/services/company/company.service';
 
 @Component({
   moduleId: module.id,
@@ -36,5 +36,9 @@ export class CompanyListComponent extends BaseComponent implements OnInit {
 
   addCompany() {
     this.router.navigate(['/company/0']);
+  }
+
+  editCompany(companyId: number) {
+    this.router.navigate(['/company/' + companyId]);
   }
 }

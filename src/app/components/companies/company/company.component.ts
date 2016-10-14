@@ -22,6 +22,7 @@ export class CompanyComponent extends BaseComponent implements OnInit {
     localStorageService: LocalStorageService,
     router: Router) {
     super(localStorageService, router);
+    this.model = new Company();
   }
 
   ngOnInit() {
@@ -38,7 +39,6 @@ export class CompanyComponent extends BaseComponent implements OnInit {
   }
 
   initializeModel() {
-    this.model = new Company();
     this.model.company_id = 0;
     this.model.company_title = '';
     this.model.company_address = '';

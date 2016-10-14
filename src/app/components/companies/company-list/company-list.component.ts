@@ -37,4 +37,8 @@ export class CompanyListComponent extends BaseComponent implements OnInit {
   addCompany() {
     this.router.navigate(['/company/0']);
   }
+
+  editCompany(companyId: number) {
+    this.router.navigate(['/company/' + companyId]);
+  }
 }

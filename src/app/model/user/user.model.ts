@@ -9,7 +9,7 @@ export /**
     user_mobile_no: string;
     user_address: string;
     user_pwd: string;
-    is_active: boolean;
+    is_active: number;
     is_fresher: number;
     user_exp_month: number;
     user_exp_year: number;
@@ -20,4 +20,5 @@ export /**
     updated_datetime: string;
 
     company_id: number;
+    isSelected: boolean;
 }

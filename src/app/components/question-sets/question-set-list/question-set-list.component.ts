@@ -37,7 +37,6 @@ export /**
         }
     }
 
-    // get Question set by company_id
     getQuestionSets(): void {
         this.questionSetService.getQuestionSets(this.user.company_id)
             .then(questionSets => {
@@ -45,14 +44,11 @@ export /**
             });
     }
 
-    // navigate question_set_id to Question set component.ts
     selectQuestionSet(selectedQuestionSet: QuestionSet): void {
         this.selectedQuestionSetId = selectedQuestionSet.question_set_id;
-
         this.router.navigate(['/questionSet', this.selectedQuestionSetId]);
     }
 
-    // open Question set page for add Questionset 
     addQuestionSet(): void {
         this.router.navigate(['/questionSet', 0]);
     }

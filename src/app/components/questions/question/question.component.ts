@@ -81,7 +81,6 @@ export class QuestionComponent extends BaseComponent implements OnInit {
           if (result) {
             this.model = result;
           } else {
-            alert('no question found');
             this.router.navigate(['/questions']);
           }
         });
@@ -95,17 +94,20 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     });
   }
 
-  // add option 
   addOption(): void {
     if (this.newOption === '') {
       alert('can not be blank');
     } else {
-      this.model.options.push({ description: this.newOption, is_correct: false, option_id: 0, question_id: this.model.question_id });
+      this.model.options.push({
+        description: this.newOption,
+        is_correct: false,
+        option_id: 0,
+        question_id: this.model.question_id
+      });
       this.newOption = '';
     }
   }
 
-  // save Question 
   saveQuestion(): void {
     this.questionService.saveQuestion(this.model)
       .then(result => {
@@ -114,7 +116,6 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     this.setQuestionVisibility.emit(false);
   }
 
-  // open  Question list 
   cancel(): void {
     this.router.navigate(['/questions']);
   }
@@ -125,6 +126,6 @@ export class QuestionComponent extends BaseComponent implements OnInit {
       charCounterCount: false,
       imageUploadURL: 'http://localhost:1337/file/upload'
     };
-    //  this.model.question_description = "<p>This is my awesome content</p>";
+
   }
 }

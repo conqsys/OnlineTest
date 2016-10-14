@@ -11,7 +11,6 @@ export class QuestionSetService {
 
   }
 
-  // get Question by company_id from database
   getQuestionSets(company_id: number): Promise<QuestionSet[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'questionSet/' + company_id)
@@ -20,7 +19,6 @@ export class QuestionSetService {
       .catch(this.handleError);
   }
 
-  // get Question by company_id and question_set_id from database
   getQuestionSet(company_id: number, question_set_id: number): Promise<QuestionSet> {
     return this.http
       .get(ApiUrl.baseUrl + 'questionSet/' + company_id + '/' + question_set_id)
@@ -29,8 +27,7 @@ export class QuestionSetService {
       .catch(this.handleError);
   }
 
-  // save Question into database
-  saveQuestionSet(data: any): Promise<string> {
+  saveQuestionSet(data: QuestionSet): Promise<string> {
     return this.http
       .post(ApiUrl.baseUrl + 'saveQuestionSet', JSON.stringify(data))
       .toPromise()

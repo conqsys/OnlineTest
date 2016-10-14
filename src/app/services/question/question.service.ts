@@ -11,17 +11,15 @@ export class QuestionService {
 
   }
 
-  // get Question by question_id from database
-  getQuestionById(question_id: any) {
+  getQuestionById(questionId: number) {
     return this.http
-      .get(ApiUrl.baseUrl + 'questionbyid/' + question_id)
+      .get(ApiUrl.baseUrl + 'questionbyid/' + questionId)
       .toPromise()
       .then(response => response.json() as Question)
       .catch(this.handleError);
   }
 
-  // get Question by company_id from database
-  getQuestions(company_id: any): Promise<Question[]> {
+  getQuestions(company_id: number): Promise<Question[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'questions/' + company_id)
       .toPromise()
@@ -29,7 +27,6 @@ export class QuestionService {
       .catch(this.handleError);
   }
 
-  // get Question by topic_id from database
   getQuestionsByTopic(topic_id: number): Promise<Question[]> {
     return this.http
       .get(ApiUrl.baseUrl + 'question/' + topic_id)
@@ -37,16 +34,16 @@ export class QuestionService {
       .then(response => response.json() as Question[])
       .catch(this.handleError);
   }
- // get Question StateInfo from database
-  getQuestionsStateInfo(company_id: any): Promise<Question[]> {
+
+  getQuestionsStateInfo(company_id: number): Promise<Question[]> {
     return this.http
-      .get(ApiUrl.baseUrl + 'questionStateInfo/'+ company_id)
+      .get(ApiUrl.baseUrl + 'questionStateInfo/' + company_id)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }
-  // save Question into database
-  saveQuestion(data: any): Promise<string> {
+
+  saveQuestion(data: Question): Promise<string> {
     return this.http
       .post(ApiUrl.baseUrl + 'question', JSON.stringify(data))
       .toPromise()
@@ -54,8 +51,7 @@ export class QuestionService {
       .catch(this.handleError);
   }
 
-  // delete from  database
-  deleteQuestion(id: any): any {
+  deleteQuestion(id: number): any {
     return this.http.get(ApiUrl.baseUrl + 'deleteQuestion?questionID=' + id);
   }
 

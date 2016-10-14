@@ -19,9 +19,9 @@ export class QuestionService {
       .catch(this.handleError);
   }
 
-  getQuestions(company_id: number): Promise<Question[]> {
+  getQuestions(): Promise<Question[]> {
     return this.http
-      .get(ApiUrl.baseUrl + 'questions/' + company_id)
+      .get(ApiUrl.baseUrl + 'questions')
       .toPromise()
       .then(response => response.json() as Question[])
       .catch(this.handleError);
@@ -35,9 +35,9 @@ export class QuestionService {
       .catch(this.handleError);
   }
 
-  getQuestionsStateInfo(company_id: number): Promise<Question[]> {
+  getQuestionsStateInfo(): Promise<Question[]> {
     return this.http
-      .get(ApiUrl.baseUrl + 'questionStateInfo/' + company_id)
+      .get(ApiUrl.baseUrl + 'questionStateInfo')
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);

@@ -8,8 +8,9 @@
 module.exports = {
 // save company details into database 
     saveCompany: function (req, res, next) {
+        var createdBy = req.token.user.user_id;
         var str = "CALL spSaveCompany(" + req.body.company_id + ",'" + req.body.company_title + "','" + req.body.company_url + "','" + req.body.company_address + "','" + req.body.company_phone + "','" + req.body.company_email + "','" 
-        + req.body.company_hr_phone + "','"+ req.body.company_hr_emailid+ "','" + req.body.smtp_host + "'," + req.body.smtp_port + ",'" + req.body.smtp_username + "','" + req.body.smtp_password + "','" + req.body.created_by + "','" + req.body.updated_by + "')";
+        + req.body.company_hr_phone + "','"+ req.body.company_hr_emailid+ "','" + req.body.smtp_host + "'," + req.body.smtp_port + ",'" + req.body.smtp_username + "','" + req.body.smtp_password + "','" + createdBy + "','" + createdBy + "')";
         Company.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else return res.json(result);

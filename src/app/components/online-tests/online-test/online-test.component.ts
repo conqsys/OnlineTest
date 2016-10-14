@@ -47,15 +47,11 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
   }
 
   initializeModel() {
-    this.model.company_id = this.user.company_id;
-    this.model.created_by = this.user.user_id;
-    this.model.updated_by = this.user.user_id;
-
     this.model.onlineTestUsers = new Array<OnlineTestUser>();
   }
 
   getQuestionSet() {
-    this.questionSetService.getQuestionSets(this.user.company_id).then(questionSets => {
+    this.questionSetService.getQuestionSets().then(questionSets => {
       if (questionSets) {
         this.questionSets = questionSets;
 
@@ -69,7 +65,7 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
   }
 
   getOnlineTest(online_test_id: number) {
-    this.onlineTestService.getOnlineTest(online_test_id, this.user.company_id).then(result => {
+    this.onlineTestService.getOnlineTest(online_test_id).then(result => {
       this.model = result;
 
       this.users = this.model.onlineTestUsers.filter(user => +user.is_selected === 0);

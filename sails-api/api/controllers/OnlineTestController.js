@@ -13,7 +13,22 @@ module.exports = {
         req.body.test_start_date = start_date[2] + "-" + start_date[1] + "-" + start_date[0];
         var end_date = req.body.test_end_date.split("/");
         req.body.test_end_date = end_date[2] + "-" + end_date[1] + "-" + end_date[0];
-        var str = "CALL spSaveOnlinetest(" + req.body.online_test_id + "," + req.body.company_id + ",'" + req.body.online_test_title + "','" + req.body.test_start_date + "','" + req.body.test_start_time + "','" + req.body.test_end_date + "','" + req.body.test_end_time + "'," + req.body.question_set_id + ",'" + req.body.test_support_text + "'," + req.body.test_experience_years + ",'" + req.body.created_by + "','" + req.body.updated_by + "')";
+
+        var companyId = req.token.user.company_id;
+        var createdBy = req.token.user.user_id;
+
+        var str = "CALL spSaveOnlinetest("  + req.body.online_test_id + "," 
+                                            + companyId + ",'" 
+                                            + req.body.online_test_title + "','" 
+                                            + req.body.test_start_date + "','" 
+                                            + req.body.test_start_time + "','" 
+                                            + req.body.test_end_date + "','" 
+                                            + req.body.test_end_time + "'," 
+                                            + req.body.question_set_id + ",'" 
+                                            + req.body.test_support_text + "'," 
+                                            + req.body.test_experience_years + ",'" 
+                                            + createdBy + "','" 
+                                            + createdBy + "')";
         OnlineTest.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else return res.json(result);
@@ -21,7 +36,7 @@ module.exports = {
     },
     // get Tests from  database  
     getOnlineTests: function (req, res) {
-        OnlineTest.find().exec(function (err, result) {
+        OnlineTest.find({ company_id: req.token.user.company_id }).exec(function (err, result) {
             if (err) {
                 return res.serverError(err);
             }
@@ -37,8 +52,8 @@ module.exports = {
     // get Test from  database 
     getOnlineTest: function (req, res) {
         var online_test_id = req.param('online_test_id');
-        var company_id = req.param('company_id');
-        OnlineTest.findOne({ online_test_id: online_test_id, company_id: company_id }).exec(function (err, result) {
+        var companyId = req.token.user.company_id;
+        OnlineTest.findOne({ online_test_id: online_test_id, company_id: companyId }).exec(function (err, result) {
             if (err) {
                 return res.serverError(err);
             }
@@ -47,7 +62,7 @@ module.exports = {
                 result.test_end_date = result.test_end_date.getDate() + "/" + result.test_end_date.getMonth() + "/" + result.test_end_date.getFullYear()
                 var onlineTest = result;
                 onlineTest.onlineTestUsers = [];
-                var str = "call spGetOnlineTestUser(" + online_test_id + "," + company_id + ")";
+                var str = "call spGetOnlineTestUser(" + online_test_id + "," + companyId + ")";
                 OnlineTest.query(str, function (err, result) {
                     if (err) {
                         return res.serverError(err);

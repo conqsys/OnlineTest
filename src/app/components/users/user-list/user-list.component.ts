@@ -31,12 +31,12 @@ export /**
 
     ngOnInit(): void {
         if (this.user) {
-            this.getUsers(this.user.company_id);
+            this.getUsers();
         }
     }
 
-    getUsers(company_id: number): void {
-        this.userService.getUsers(company_id)
+    getUsers(): void {
+        this.userService.getUsers()
             .then(users => {
                 this.model = users;
             });

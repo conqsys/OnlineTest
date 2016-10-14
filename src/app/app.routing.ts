@@ -60,7 +60,7 @@ const appRoutes: Routes = [
     component: CompanyListComponent
   },
   {
-    path: 'company/:company_id',
+    path: 'company/:companyId',
     component: CompanyComponent
   },
   {

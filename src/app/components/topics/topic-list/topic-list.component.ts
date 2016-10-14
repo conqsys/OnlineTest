@@ -51,7 +51,7 @@ export class TopicListComponent extends BaseComponent implements OnInit {
   }
 
   private getTopic() {
-    this.topicService.getTopic(this.user.company_id).then(result => {
+    this.topicService.getTopic().then(result => {
       if (result) {
         this.model = result;
       }

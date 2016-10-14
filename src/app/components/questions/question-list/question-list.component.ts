@@ -43,7 +43,7 @@ export class QuestionListComponent extends BaseComponent implements OnInit {
 
   getQuestionStateInfo() {
     this.questionService
-      .getQuestionsStateInfo(this.user.company_id)
+      .getQuestionsStateInfo()
       .then(result => {
         if (result) {
           this.model = result;

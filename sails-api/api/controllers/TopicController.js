@@ -8,7 +8,7 @@
 module.exports = {
     // save topic into  database
 	saveTopic: function (req, res, next) {
-            var str = "CALL spSaveTopic(" + req.body.topic_id + ",'" + req.body.topic_title + "','" + req.body.company_id + "','" + req.body.created_by +"','" +  req.body.updated_by + "')";
+            var str = "CALL spSaveTopic(" + req.body.topic_id + ",'" + req.body.topic_title + "','" + req.token.user.company_id + "','" + req.token.user.user_id +"','" +  req.token.user.user_id + "')";
             Topic.query(str, function (err, result) {
                 if (err) return res.serverError(err); 
                 else return res.json(result);
@@ -16,8 +16,7 @@ module.exports = {
     },
 // get all topic from  database
     getAllTopic: function (req, res) {
-        var companyId = req.param('company_id');
-        Topic.find({ company_id: companyId }).exec(function(err,result){
+        Topic.find({ company_id: req.token.user.company_id }).exec(function(err,result){
             if (err) return res.serverError(err); 
                 else return res.json(result);
         })    

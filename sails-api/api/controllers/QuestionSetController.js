@@ -8,7 +8,7 @@
 module.exports = {
     // get QuestionSets by company_id from  database
     getQuestionSets: function (req, res) {
-        var companyId = req.param('company_id');
+        var companyId = req.token.user.company_id;
         QuestionSet.find({ company_id: companyId })
             .exec(function (err, result) {
                 if (err) {
@@ -20,7 +20,7 @@ module.exports = {
     },
     // get QuestionSets by company_id and question_id from  database
     getQuestionSet: function (req, res) {
-        var companyId = req.param('company_id');
+        var companyId = req.token.user.company_id;
         var quesSetId = req.param('question_set_id');
 
         QuestionSet.findOne({ company_id: companyId, question_set_id: quesSetId })
@@ -74,21 +74,25 @@ module.exports = {
 
         var question_set_questions = req.body.question_set_questions;
 
+        var companyId = req.token.user.company_id;
+        var createdBy = req.token.user.user_id;
+
         var str = "CALL spSaveQuestionSet(" + req.body.question_set_id + ",'"
             + req.body.question_set_title + "','"
             + req.body.total_time + "',"
-            + req.body.company_id + ","
+            + companyId + ","
             + req.body.total_questions + ","
             + req.body.is_randomize + ",'"
             + req.body.option_series_id + "','"
-            + req.body.created_by + "','"
-            + req.body.updated_by + "')";
+            + createdBy + "','"
+            + createdBy + "')";
         QuestionSet.query(str, function (err, result) {
             if (err) {
                 return res.serverError(err);
             } else {
                 var question_set_id = result[0][0].id;
                 if (question_set_questions.length > 0) {
+                    var j = 0;
                     for (var i = 0; i < question_set_questions.length; i++) {
                         if (question_set_questions[i].question_set_question_id === 0) {
                             str = "CALL spSaveQuestionSetQuestion(" + question_set_questions[i].question_set_question_id + "," + question_set_id + "," + question_set_questions[i].question_id + ")";
@@ -102,15 +106,17 @@ module.exports = {
                                 if (err) {
                                     return res.serverError(err);
                                 } else {
-                                    if (i == question_set_questions.length - 1) {
+                                    if (j == question_set_questions.length - 1) {
                                         return res.json(result);
                                     }
                                 }
+                                j++;
                             })
                         } else {
-                            if (i == question_set_questions.length - 1) {
+                            if (j == question_set_questions.length - 1) {
                                 return res.json(question_set_id);
                             }
+                            j++;
                         }
                     }
                 }

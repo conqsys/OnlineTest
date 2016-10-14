@@ -38,7 +38,7 @@ export /**
             });
 
             if (this.user_id && this.user_id !== 0) {
-                this.getUser(this.user.company_id, this.user_id);
+                this.getUser(this.user_id);
             } else {
                 this.createUserObject('');
             }
@@ -57,19 +57,13 @@ export /**
         this.model.user_exp_month = 0;
         this.model.user_exp_year = 0;
         this.model.role_id = 3;
-
-        this.model.created_by = this.user.user_id;
-        this.model.updated_by = this.user.user_id;
-
-        this.model.company_id = this.user.company_id;
     }
 
-    getUser(company_id: number, user_id: number): void {
-        this.userService.getUser(company_id, user_id)
+    getUser(userId: number): void {
+        this.userService.getUser(userId)
             .then(user => {
                 if (user.user_id) {
                     this.model = user;
-                    this.model.company_id = this.user.company_id;
                 } else {
                     this.router.navigate(['/users']);
                 }
@@ -83,7 +77,6 @@ export /**
                 if (user.user_id) {
                     this.disabled = true;
                     this.model = user;
-                    this.model.company_id = this.user.company_id;
                 } else {
                     this.disabled = false;
                     this.createUserObject(this.model.user_email);

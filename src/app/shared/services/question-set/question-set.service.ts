@@ -11,17 +11,17 @@ export class QuestionSetService {
 
   }
 
-  getQuestionSets(company_id: number): Promise<QuestionSet[]> {
+  getQuestionSets(): Promise<QuestionSet[]> {
     return this.http
-      .get(ApiUrl.baseUrl + 'questionSet/' + company_id)
+      .get(ApiUrl.baseUrl + 'questionSet')
       .toPromise()
       .then(response => response.json() as QuestionSet[])
       .catch(this.handleError);
   }
 
-  getQuestionSet(company_id: number, question_set_id: number): Promise<QuestionSet> {
+  getQuestionSet(questionSetId: number): Promise<QuestionSet> {
     return this.http
-      .get(ApiUrl.baseUrl + 'questionSet/' + company_id + '/' + question_set_id)
+      .get(ApiUrl.baseUrl + 'questionSet/' + questionSetId)
       .toPromise()
       .then(response => response.json() as QuestionSet)
       .catch(this.handleError);

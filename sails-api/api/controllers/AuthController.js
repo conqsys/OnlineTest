@@ -38,7 +38,7 @@ module.exports = {
                             return res.forbidden(err);
                         } else {
                             var userData = result[0][0];
-                            var token = jwToken.issue({id : userData.user_id })
+                            var token = jwToken.issue({user : userData })
                             res.json({
                                 user: userData,
                                 token: token

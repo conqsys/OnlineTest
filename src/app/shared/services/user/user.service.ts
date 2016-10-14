@@ -11,17 +11,17 @@ export class UserService {
 
   }
 
-  getUsers(company_id: number): Promise<User[]> {
+  getUsers(): Promise<User[]> {
     return this.http
-      .get(ApiUrl.baseUrl + 'users/' + company_id)
+      .get(ApiUrl.baseUrl + 'users')
       .toPromise()
       .then(response => response.json() as User[])
       .catch(this.handleError);
   }
 
-  getUser(company_id: number, user_id: number): Promise<User> {
+  getUser(userId: number): Promise<User> {
     return this.http
-      .get(ApiUrl.baseUrl + 'user/' + company_id + '/' + user_id)
+      .get(ApiUrl.baseUrl + 'user/' + userId)
       .toPromise()
       .then(response => response.json() as User)
       .catch(this.handleError);
@@ -29,7 +29,7 @@ export class UserService {
 
   searchUserByEmail(emailId: string): Promise<User> {
     return this.http
-      .get(ApiUrl.baseUrl + 'user/' + emailId)
+      .get(ApiUrl.baseUrl + 'userEmail/' + emailId)
       .toPromise()
       .then(response => response.json() as User)
       .catch(this.handleError);

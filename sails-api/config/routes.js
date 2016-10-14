@@ -46,13 +46,13 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   
-  'get /gettopics/:company_id': 'TopicController.getAllTopic',
-  'get /gettopic/:topic_id': 'TopicController.getTopic',
-  'get /deletetopic/:topic_id': 'TopicController.removeTopic',
+  'get /getTopics': 'TopicController.getAllTopic',
+  'get /getTopic/:topic_id': 'TopicController.getTopic',
+  'delete /deleteTopic/:topic_id': 'TopicController.removeTopic',
   'post /savetopic': 'TopicController.saveTopic',
 
 
-  'get /getOnlineTest/:online_test_id/:company_id': 'OnlineTestController.getOnlineTest',
+  'get /getOnlineTest/:online_test_id': 'OnlineTestController.getOnlineTest',
   'post /onlineTest':'OnlineTestController.saveOnlineTest',
    'get /getOnlineTests': 'OnlineTestController.getOnlineTests',
     'get /deletetest/:online_test_id': 'OnlineTestController.removeTest',
@@ -62,36 +62,36 @@ module.exports.routes = {
    'get /getCompanies': 'CompanyController.getAllCompanies',
    'get /getCompanyById/:company_id': 'CompanyController.getCompanyByID',
 
-  'get /questionSet/:company_id': 'QuestionSetController.getQuestionSets',
-  'get /questionSet/:company_id/:question_set_id': 'QuestionSetController.getQuestionSet',
+  'get /questionSet': 'QuestionSetController.getQuestionSets',
+  'get /questionSet/:question_set_id': 'QuestionSetController.getQuestionSet',
   'get /questionSets/:user_id': 'QuestionSetController.getQuestionSetsbyUser',
   'post /saveQuestionSet': 'QuestionSetController.saveQuestionSet',
 
   'post /question':'QuestionController.saveQuestion',
-  'get /questions/:company_id': 'QuestionController.getQuestions',
+  'get /questions': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',
   'get /getQuestionsbyUser/:user_id/:question_set_id': 'QuestionController.getQuestionsbyUser',
   'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',
-  'get /questionStateInfo/:company_id': 'QuestionController.getQuestionState',
+  'get /questionStateInfo': 'QuestionController.getQuestionState',
 
-  'post /saveAnswer': 'QuestionController.saveAns',
-  
   'get /questionOptions/:question_id': 'QuestionOptionController.getQuestionOptions',
   'get /optionSeries': 'QuestionOptionController.getOptionSeries',
 
   'post /file/upload' :'FileController.upload',
   
-  'get /users/:company_id': 'UserController.getUser',
-  'get /user/:email_id': 'UserController.searchUserByEmail',
-  'get /user/:company_id/:user_id': 'UserController.getUserById',
+  'get /users': 'UserController.getUser',
+  'get /userEmail/:email_id': 'UserController.searchUserByEmail',
+  'get /user/:user_id': 'UserController.getUserById',
   'post /user' :'UserController.saveUser',
   
   'get /email': 'EmailController.email',
 
   'post /login': 'AuthController.login',
 
-  '/logout': 'AuthController.logout'
+  '/logout': 'AuthController.logout',
   
-  
+  'post /onlineTestTimeOut': 'AnswerController.testTimeOut',
+  'post /saveAnswer': 'AnswerController.saveAns',
+  'get /testResult': 'AnswerController.getTestResult'
 
 };

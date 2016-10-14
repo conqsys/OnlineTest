@@ -48,11 +48,7 @@ export class QuestionComponent extends BaseComponent implements OnInit {
 
     this.newOption = '';
     this.model.is_multiple_option = false;
-    this.model.company_id = this.user.company_id;
-    this.model.created_by = this.user.user_id;
-    this.model.updated_by = this.user.user_id;
     this.model.question_id = 0;
-
   }
 
   ngOnInit(): void {
@@ -67,7 +63,7 @@ export class QuestionComponent extends BaseComponent implements OnInit {
   }
 
   getTopic() {
-    this.topicService.getTopic(this.user.company_id)
+    this.topicService.getTopic()
       .then(result => {
         this.topics = result;
         this.getQuestionById();

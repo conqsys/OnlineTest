@@ -31,7 +31,7 @@ export /**
     optionSeries: OptionSeries[] = [];
     selectedTopic: number;
     isAddQuestion: boolean;
-    question_set_id: number;
+    questionSetId: number;
 
     constructor(private questionSetService: QuestionSetService,
         private questionService: QuestionService,
@@ -50,7 +50,7 @@ export /**
     ngOnInit(): void {
         if (this.user) {
             this.activatedRoute.params.subscribe(params => {
-                this.question_set_id = +params['question_set_id']; // (+) converts string 'id' to a number
+                this.questionSetId = +params['question_set_id']; // (+) converts string 'id' to a number
             });
             this.getOptionSeries();
         }
@@ -60,13 +60,12 @@ export /**
         this.questionOptionService.getOptionSeries().then(optionSeries => {
             this.optionSeries = optionSeries;
 
-            if (this.question_set_id !== 0 && this.question_set_id !== undefined) {
-                this.getQuestionSet(this.user.company_id, this.question_set_id);
+            if (this.questionSetId && this.questionSetId !== 0) {
+                this.getQuestionSet(this.questionSetId);
             } else {
-                this.model.question_set_id = this.question_set_id;
+                this.model.question_set_id = this.questionSetId;
                 this.model.question_set_title = '';
                 this.model.total_time = '';
-                this.model.company_id = this.user.company_id;
                 this.model.total_questions = 0;
                 this.model.is_randomize = false;
                 this.model.option_series_id = 2;
@@ -75,8 +74,8 @@ export /**
         });
     }
 
-    getQuestionSet(company_id: number, question_set_id: number): void {
-        this.questionSetService.getQuestionSet(company_id, question_set_id)
+    getQuestionSet(question_set_id: number): void {
+        this.questionSetService.getQuestionSet(question_set_id)
             .then(questionSet => {
                 this.model = questionSet;
             });
@@ -84,7 +83,8 @@ export /**
 
     showQuestions(): void {
         this.isAddQuestion = true;
-        this.topicService.getTopic(this.user.company_id)
+        this.topicService
+            .getTopic()
             .then(topics => {
                 this.topics = topics;
                 if (this.topics.length > 0) {
@@ -120,7 +120,7 @@ export /**
             } else {
                 let obj = {
                     question_set_question_id: 0,
-                    question_set_id: this.question_set_id,
+                    question_set_id: this.questionSetId,
                     question_id: selectedQuestions[i].question_id,
                     question_description: selectedQuestions[i].question_description,
                     is_deleted: 0
@@ -131,9 +131,6 @@ export /**
     }
 
     saveQuestionSet(): void {
-        this.model.created_by = this.user.user_id;
-        this.model.updated_by = this.user.user_id;
-
         this.questionSetService.saveQuestionSet(this.model)
             .then(result => {
                 this.router.navigate(['/questionSets']);

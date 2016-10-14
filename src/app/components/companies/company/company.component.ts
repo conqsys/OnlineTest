@@ -14,7 +14,7 @@ import { CompanyService } from '../../../shared/services/company/company.service
 })
 export class CompanyComponent extends BaseComponent implements OnInit {
   private model: Company;
-  private company_id: number;
+  private companyId: number;
 
   constructor(private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
@@ -27,42 +27,22 @@ export class CompanyComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     if (this.user) {
       this.activatedRoute.params.subscribe(params => {
-        this.company_id = Number.parseInt(params['company_id'], 10);
+        this.companyId = Number.parseInt(params['companyId'], 10);
       });
-      if (this.company_id > 0) {
-        this.getCompanyByID(this.company_id);
-      } else {
-        this.initializeModel();
+      if (this.companyId > 0) {
+        this.getCompanyByID();
       }
     }
   }
 
-  initializeModel() {
-    this.model.company_id = 0;
-    this.model.company_title = '';
-    this.model.company_address = '';
-    this.model.company_phone = '';
-    this.model.company_url = '';
-    this.model.company_email = '';
-    this.model.company_hr_phone = '';
-    this.model.company_hr_emailid = '';
-    this.model.smtp_host = '';
-    this.model.smtp_port = 0;
-    this.model.smtp_username = '';
-    this.model.smtp_password = '';
-    this.model.created_by = this.user.user_id;
-    this.model.updated_by = this.user.user_id;
-  }
-
   saveCompany() {
-    this.model.updated_by = this.user.user_id;
     this.companyService.saveCompany(this.model).then(result => {
       this.router.navigate(['/companies']);
     });
   }
 
-  getCompanyByID(company_id: any) {
-    this.companyService.getCompanyById(company_id).then(result => {
+  private getCompanyByID() {
+    this.companyService.getCompanyById(this.companyId).then(result => {
       this.model = result;
     });
   }

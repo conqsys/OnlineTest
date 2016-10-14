@@ -38,7 +38,7 @@ export /**
     }
 
     getQuestionSets(): void {
-        this.questionSetService.getQuestionSets(this.user.company_id)
+        this.questionSetService.getQuestionSets()
             .then(questionSets => {
                 this.model = questionSets;
             });

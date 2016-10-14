@@ -8,7 +8,9 @@
 module.exports = {
     // save Question from  database 
     saveQuestion: function (req, res, next) {
-        var str = "CALL spSaveQuestion(" + req.body.question_id + ",'" + req.body.question_description + "'," + req.body.topic_id + "," + req.body.is_multiple_option + ",'" + req.body.answer_explanation + "'," + req.body.company_id + ",'" + req.body.created_by + "','" + req.body.updated_by + "')";
+        var companyId = req.token.user.company_id;
+        var createdBy = req.token.user.user_id;
+        var str = "CALL spSaveQuestion(" + req.body.question_id + ",'" + req.body.question_description + "'," + req.body.topic_id + "," + req.body.is_multiple_option + ",'" + req.body.answer_explanation + "'," + companyId + ",'" + createdBy + "','" + createdBy + "')";
         Question.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else {
@@ -30,8 +32,7 @@ module.exports = {
     },
     // get Questions by company_id from  database 
     getQuestions: function (req, res) {
-        var companyId = req.param('company_id');
-        Question.find({ company_id: companyId }).exec(function (err, result) {
+        Question.find({ company_id: req.token.user.company_id }).exec(function (err, result) {
             if (err) return res.serverError(err);
             else {
                 return res.json(result);
@@ -49,47 +50,6 @@ module.exports = {
             }
         })
     },
-
-    saveAns: function (req, res, next) {
-        var userId = req.body.question.user_id;
-        var qusSetid = req.body.question.question_set_id;
-        var selectedOptions = "";
-        for (var i = 0; i < req.body.selectedOptions.length; i++) {
-            if (i == 0) {
-                selectedOptions = req.body.selectedOptions[i].option_id;
-            } else {
-                selectedOptions = selectedOptions + ',' + req.body.selectedOptions[i].option_id;
-            }
-        }
-
-        var str = "CALL spSaveAnswer(" + req.body.question.question_id + ",'" + req.body.question.question_description + "','" + selectedOptions + "'," + req.body.question.online_test_user_id + "," + userId + "," + qusSetid + ")";
-        Question.query(str, function (err, result) {
-            if (err) {
-                return res.serverError(err);
-            }
-            else {
-                var message = { question: {}, isExist: false };
-                if (result[0] && result[0].length > 0) {
-                    message.question = result[0][0];
-                    message.isExist = true;
-                    var str = "CALL spGetQuestionOption(" + question.question_id + ")";
-                    Question.query(str, function (err, options) {
-                        if (err) {
-                            return res.serverError(err);
-                        }
-                        else {
-                            message.question.options = options[0];
-                            return res.json(message);
-                        }
-                    })
-                }
-                else {
-                    return res.json(message);
-                }
-            }
-        });
-    },
-
 
     // get QuestionSets by user_id and question_set_id from  database
     getQuestionsbyUser: function (req, res) {
@@ -147,8 +107,7 @@ module.exports = {
 
     // get question Stateinfo
     getQuestionState: function (req, res) {
-        var companyId = req.param('company_id');
-        var str = "CALL spGetQuestionStateInfo(" + companyId + ")";
+        var str = "CALL spGetQuestionStateInfo(" + req.token.user.company_id + ")";
         Question.query(str, function (err, result) {
             if (err) return res.serverError(err);
             else {

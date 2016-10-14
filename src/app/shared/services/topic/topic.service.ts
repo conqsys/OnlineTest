@@ -16,22 +16,22 @@ export class TopicService {
       .catch(this.handleError);
   }
 
-  getTopic(companyId: number): Promise<Topic[]> {
+  getTopic(): Promise<Topic[]> {
     return this.http
-      .get(ApiUrl.baseUrl + 'gettopics/' + companyId)
+      .get(ApiUrl.baseUrl + 'getTopics')
       .toPromise()
       .then(response => response.json() as Topic[])
       .catch(this.handleError);
   }
 
   getTopicByID(topicId: number): Promise<Topic> {
-    return this.http.get(ApiUrl.baseUrl + 'gettopic/' + topicId).toPromise()
+    return this.http.get(ApiUrl.baseUrl + 'getTopic/' + topicId).toPromise()
       .then(response => response.json() as Topic)
       .catch(this.handleError);
   }
 
   removeTopic(topicId: number): Promise<Topic[]> {
-    return this.http.get(ApiUrl.baseUrl + 'deletetopic/' + topicId).toPromise()
+    return this.http.delete(ApiUrl.baseUrl + 'deleteTopic/' + topicId).toPromise()
       .then(response => response.json() as Topic[])
       .catch(this.handleError);
   }

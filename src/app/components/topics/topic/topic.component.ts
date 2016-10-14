@@ -28,6 +28,7 @@ export class TopicComponent extends BaseComponent implements OnInit {
     localStorageService: LocalStorageService,
     router: Router) {
     super(localStorageService, router);
+    this.model = new Topic();
   }
 
   ngOnInit(): void {
@@ -47,7 +48,7 @@ export class TopicComponent extends BaseComponent implements OnInit {
   }
 
   bydefault() {
-    this.model = new Topic();
+
     this.btnText = 'Save Topic';
     this.model.topic_id = 0;
     this.model.topic_title = '';
@@ -65,11 +66,10 @@ export class TopicComponent extends BaseComponent implements OnInit {
 
   saveTopic() {
     if (this.topicForm.valid) {
-      this.model.company_id = this.user.company_id;
       this.topicService.saveTopic(this.model).then(result => {
         if (result) {
           Materialize.toast(this.btnText, 1000, 'rounded');
-          this.router.navigate(['/topiclist']);
+          this.router.navigate(['/topics']);
         } else {
           // alert(result.data);
         }

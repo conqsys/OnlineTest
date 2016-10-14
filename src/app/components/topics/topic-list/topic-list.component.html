@@ -11,17 +11,17 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let item of topicdata">
-        <td>{{item.topic_title}}</td>
-        <td>{{item.created_by}}</td>
-        <td>{{item.updated_by}}</td>
+      <tr *ngFor="let topic of model">
+        <td>{{topic.topic_title}}</td>
+        <td>{{topic.created_by}}</td>
+        <td>{{topic.updated_by}}</td>
         <td>
-          <button class="btn-floating btn-Medium green" title="edit" (click)="editTopic(item)">
+          <button class="btn-floating btn-Medium green" title="edit" (click)="editTopic(topic.topic_id)">
             <i class="Medium material-icons">mode_edit</i>
             </button>
         </td>
         <td>
-          <a class="btn-floating btn-Medium red" title="remove" (click)="removeItem(item)">
+          <a class="btn-floating btn-Medium red" title="remove" (click)="removeItem(topic)">
             <i class="Medium material-icons">delete</i>
           </a>
         </td>

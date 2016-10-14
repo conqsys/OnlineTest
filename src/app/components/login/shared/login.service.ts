@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { ApiUrl } from '../../shared/api-url.component';
-import { Login } from '../../model/login/login.model';
+import { ApiUrl } from '../../../shared/api-url.component';
+import { Login } from './login.model';
 
 @Injectable()
 export class LoginService {

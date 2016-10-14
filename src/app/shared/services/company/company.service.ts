@@ -1,7 +1,7 @@
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
 
-import { ApiUrl } from '../../shared/api-url.component';
+import { ApiUrl } from '../../api-url.component';
 import { Company } from '../../model/company/company.model';
 
 @Injectable()

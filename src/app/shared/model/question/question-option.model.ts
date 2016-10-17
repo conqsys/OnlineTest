@@ -1,18 +1,12 @@
 
-export /**
- * questionOption-model
- */
-    class QuestionOption {
-    option_id: number;
-    description: string;
-    question_id: number;
-    is_correct: boolean;
- }
+export class QuestionOption {
+  option_id: number = 0;
+  description: string = '';
+  question_id: number = 0;
+  is_correct: boolean = false;
+}
 
-export /**
- * OptionSeries-Model
- */
-    class OptionSeries {
-    option_series_id: number;
-    option_series_name: string;
- }
+export class OptionSeries {
+  option_series_id: number = 0;
+  option_series_name: string = '';
+}

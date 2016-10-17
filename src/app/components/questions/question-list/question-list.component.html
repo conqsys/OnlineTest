@@ -1,30 +1,27 @@
-
 <div *ngIf="!questionVisibility">
-      <div class="col-md-6" style="background: #dae5f4;">
-        
-        <button name="addQuestionSet" class="btn btn-info btn-block pull-right" (click)="addQuestion()" >+ Add Question</button>
-        <table class="table TFtable">
-          <tr style="background: #dae5f4;">
-            <td>Description</td>
-            <td>Answer Explanation</td>
-            <td></td>
-          </tr>
-          <tr *ngFor="let question of model" style="cursor:hand;" 
-              (click)="selectQuestion(question)"
-              [ngClass]="{'row-background': question.question_id==selectedQuestionId }">
-            <td>{{question.question_description}}</td>
-            <td>{{question.answer_explanation}}</td>
-            <td>{{question.CandidateFail}}</td>
-            <td>{{question.CandidatePass}}</td>
-            <td>{{question.OnlineTestCount}}</td>
-            <td>{{question.OptionCount}}</td>
-            <td>{{question.QuestionSetCount}}</td>
-            <td>{{question.UserCount}}</td>
-            <td><a >delete</a></td>
-          </tr>
-        </table>
-      </div>
-      <div class="col-md-6">
-        
-      </div>
-</div>     
+  <div class="col-md-6" style="background: #dae5f4;">
+
+    <button name="addQuestionSet" class="btn btn-info btn-block pull-right" (click)="addQuestion()">+ Add Question</button>
+    <table class="table TFtable">
+      <tr style="background: #dae5f4;">
+        <td>Description</td>
+        <td>Answer Explanation</td>
+        <td></td>
+      </tr>
+      <tr *ngFor="let question of model" style="cursor:hand;" (click)="selectQuestion(question)" [ngClass]="{'row-background': question.question_id==selectedQuestionId }">
+        <td>{{question.question_description}}</td>
+        <td>{{question.answer_explanation}}</td>
+        <td>{{question.CandidateFail}}</td>
+        <td>{{question.CandidatePass}}</td>
+        <td>{{question.OnlineTestCount}}</td>
+        <td>{{question.OptionCount}}</td>
+        <td>{{question.QuestionSetCount}}</td>
+        <td>{{question.UserCount}}</td>
+        <td><a>delete</a></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
+
+  </div>
+</div>

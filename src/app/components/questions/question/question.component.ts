@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
+
+import { ApiUrl } from '../../../shared/api-url.component';
 
 import { Question } from '../../../shared/model/question/question.model';
 import { QuestionOption } from '../../../shared/model/question/question-option.model';
@@ -21,16 +23,10 @@ declare var tinymce: any;
 })
 export class QuestionComponent extends BaseComponent implements OnInit {
   @Input() model: Question;
-  @Output()
-  setQuestionVisibility: EventEmitter<boolean>;
 
-  question_id: number;
-
-  topics = Array<Topic>();
-  selectedTopic: number;
-
-  froalaOptions: any;
-
+  private questionId: number;
+  private topics: Topic[] = [];
+  private froalaOptions: any;
   private newOption: string;
 
   constructor(private questionService: QuestionService,
@@ -40,7 +36,6 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     localStorageService: LocalStorageService,
     router: Router) {
     super(localStorageService, router);
-    this.setQuestionVisibility = new EventEmitter<boolean>();
 
     this.model = new Question();
     this.model.options = new Array<QuestionOption>();
@@ -55,31 +50,10 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     if (this.user) {
       this.initializeFloraEditor();
       this.activatedRoute.params.subscribe(params => {
-        this.question_id = +params['question_id']; // (+) converts string 'id' to a number
+        this.questionId = +params['questionId']; // (+) converts string 'id' to a number
       });
 
       this.getTopic();
-    }
-  }
-
-  getTopic() {
-    this.topicService.getTopic()
-      .then(result => {
-        this.topics = result;
-        this.getQuestionById();
-      });
-  }
-
-  getQuestionById() {
-    if (this.question_id !== 0) {
-      this.questionService.getQuestionById(this.question_id)
-        .then(result => {
-          if (result) {
-            this.model = result;
-          } else {
-            this.router.navigate(['/questions']);
-          }
-        });
     }
   }
 
@@ -92,7 +66,7 @@ export class QuestionComponent extends BaseComponent implements OnInit {
 
   addOption(): void {
     if (this.newOption === '') {
-      alert('can not be blank');
+      alert('can not be blank');  // should be removed
     } else {
       this.model.options.push({
         description: this.newOption,
@@ -105,11 +79,11 @@ export class QuestionComponent extends BaseComponent implements OnInit {
   }
 
   saveQuestion(): void {
-    this.questionService.saveQuestion(this.model)
+    this.questionService
+      .saveQuestion(this.model)
       .then(result => {
         this.router.navigate(['/questions']);
       });
-    this.setQuestionVisibility.emit(false);
   }
 
   cancel(): void {
@@ -120,8 +94,32 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     this.froalaOptions = {
       placeholderText: 'Edit Your Content Here!',
       charCounterCount: false,
-      imageUploadURL: 'http://localhost:1337/file/upload'
+      imageUploadURL: ApiUrl.baseUrl + 'file/upload'
     };
 
   }
+
+  private getTopic() {
+    this.topicService
+      .getTopic()
+      .then(result => {
+        this.topics = result;
+        this.getQuestionById();
+      });
+  }
+
+  private getQuestionById() {
+    if (this.questionId !== 0) {
+      this.questionService
+        .getQuestionById(this.questionId)
+        .then(result => {
+          if (result) {
+            this.model = result;
+          } else {
+            this.router.navigate(['/questions']);
+          }
+        });
+    }
+  }
+
 }

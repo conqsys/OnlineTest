@@ -12,7 +12,8 @@ export class QuestionService {
   }
 
   getQuestionById(questionId: number) {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'questionbyid/' + questionId)
       .toPromise()
       .then(response => response.json() as Question)
@@ -20,23 +21,26 @@ export class QuestionService {
   }
 
   getQuestions(): Promise<Question[]> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'questions')
       .toPromise()
       .then(response => response.json() as Question[])
       .catch(this.handleError);
   }
 
-  getQuestionsByTopic(topic_id: number): Promise<Question[]> {
-    return this.http
-      .get(ApiUrl.baseUrl + 'question/' + topic_id)
+  getQuestionsByTopic(topicId: number): Promise<Question[]> {
+    return this
+      .http
+      .get(ApiUrl.baseUrl + 'question/' + topicId)
       .toPromise()
       .then(response => response.json() as Question[])
       .catch(this.handleError);
   }
 
   getQuestionsStateInfo(): Promise<Question[]> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'questionStateInfo')
       .toPromise()
       .then(response => response.json())
@@ -44,7 +48,8 @@ export class QuestionService {
   }
 
   saveQuestion(data: Question): Promise<string> {
-    return this.http
+    return this
+      .http
       .post(ApiUrl.baseUrl + 'question', JSON.stringify(data))
       .toPromise()
       .then(res => res.json())
@@ -52,7 +57,9 @@ export class QuestionService {
   }
 
   deleteQuestion(id: number): any {
-    return this.http.get(ApiUrl.baseUrl + 'deleteQuestion?questionID=' + id);
+    return this
+      .http
+      .get(ApiUrl.baseUrl + 'deleteQuestion?questionID=' + id);
   }
 
   private handleError(error: any): Promise<any> {

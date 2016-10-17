@@ -8,48 +8,46 @@ import { QuestionSet } from '../../../shared/model/question-set/question-set.mod
 import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
 
 @Component({
-    moduleId: module.id,
-    selector: 'question-set-list',
-    templateUrl: 'question-set-list.component.html'
+  moduleId: module.id,
+  selector: 'question-set-list',
+  templateUrl: 'question-set-list.component.html'
 })
-export /**
- * QuestionSetListComponent
- */
-    class QuestionSetListComponent extends BaseComponent implements OnInit {
+export class QuestionSetListComponent extends BaseComponent implements OnInit {
 
-    title: string;
-    model: QuestionSet[] = [];
-    selectedQuestionSetId: number;
-    questionSetVisibility: boolean;
+  private title: string;
+  private model: QuestionSet[] = [];
+  private selectedQuestionSetId: number;
 
-    constructor(private questionSetService: QuestionSetService,
-        localStorageService: LocalStorageService,
-        router: Router) {
-        super(localStorageService, router);
+  constructor(private questionSetService: QuestionSetService,
+    localStorageService: LocalStorageService,
+    router: Router) {
+    super(localStorageService, router);
 
-        this.title = 'Question Sets';
-        this.model = new Array<QuestionSet>();
+    this.title = 'Question Sets';
+    this.model = new Array<QuestionSet>();
+  }
+
+  ngOnInit(): void {
+    if (this.user) {
+      this.getQuestionSets();
     }
+  }
 
-    ngOnInit(): void {
-        if (this.user) {
-            this.getQuestionSets();
-        }
-    }
+  selectQuestionSet(selectedQuestionSet: QuestionSet): void {
+    this.selectedQuestionSetId = selectedQuestionSet.question_set_id;
+    this.router.navigate(['/questionSet', this.selectedQuestionSetId]);
+  }
 
-    getQuestionSets(): void {
-        this.questionSetService.getQuestionSets()
-            .then(questionSets => {
-                this.model = questionSets;
-            });
-    }
+  addQuestionSet(): void {
+    this.router.navigate(['/questionSet', 0]);
+  }
 
-    selectQuestionSet(selectedQuestionSet: QuestionSet): void {
-        this.selectedQuestionSetId = selectedQuestionSet.question_set_id;
-        this.router.navigate(['/questionSet', this.selectedQuestionSetId]);
-    }
+  private getQuestionSets(): void {
+    this.questionSetService
+      .getQuestionSets()
+      .then(questionSets => {
+        this.model = questionSets;
+      });
+  }
 
-    addQuestionSet(): void {
-        this.router.navigate(['/questionSet', 0]);
-    }
 }

@@ -45,7 +45,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  
+
   'get /getTopics': 'TopicController.getAllTopic',
   'get /getTopic/:topic_id': 'TopicController.getTopic',
   'delete /deleteTopic/:topic_id': 'TopicController.removeTopic',
@@ -53,21 +53,21 @@ module.exports.routes = {
 
 
   'get /getOnlineTest/:online_test_id': 'OnlineTestController.getOnlineTest',
-  'post /onlineTest':'OnlineTestController.saveOnlineTest',
-   'get /getOnlineTests': 'OnlineTestController.getOnlineTests',
-    'get /deletetest/:online_test_id': 'OnlineTestController.removeTest',
-   
-    
-   'post /company':'CompanyController.saveCompany',
-   'get /getCompanies': 'CompanyController.getAllCompanies',
-   'get /getCompanyById/:company_id': 'CompanyController.getCompanyByID',
+  'post /onlineTest': 'OnlineTestController.saveOnlineTest',
+  'get /getOnlineTests': 'OnlineTestController.getOnlineTests',
+  'get /deletetest/:online_test_id': 'OnlineTestController.removeTest',
+
+
+  'post /company': 'CompanyController.saveCompany',
+  'get /getCompanies': 'CompanyController.getAllCompanies',
+  'get /getCompanyById/:company_id': 'CompanyController.getCompanyByID',
 
   'get /questionSet': 'QuestionSetController.getQuestionSets',
   'get /questionSet/:question_set_id': 'QuestionSetController.getQuestionSet',
   'get /questionSets/:user_id': 'QuestionSetController.getQuestionSetsbyUser',
   'post /saveQuestionSet': 'QuestionSetController.saveQuestionSet',
 
-  'post /question':'QuestionController.saveQuestion',
+  'post /question': 'QuestionController.saveQuestion',
   'get /questions': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',
   'get /getQuestionsbyUser/:user_id/:question_set_id': 'QuestionController.getQuestionsbyUser',
@@ -77,19 +77,17 @@ module.exports.routes = {
   'get /questionOptions/:question_id': 'QuestionOptionController.getQuestionOptions',
   'get /optionSeries': 'QuestionOptionController.getOptionSeries',
 
-  'post /file/upload' :'FileController.upload',
-  
+  'post /file/upload': 'FileController.upload',
+
   'get /users': 'UserController.getUser',
   'get /userEmail/:email_id': 'UserController.searchUserByEmail',
   'get /user/:user_id': 'UserController.getUserById',
-  'post /user' :'UserController.saveUser',
-  
+  'post /user': 'UserController.saveUser',
+
   'get /email': 'EmailController.email',
 
   'post /login': 'AuthController.login',
 
-  '/logout': 'AuthController.logout',
-  
   'post /onlineTestTimeOut': 'AnswerController.testTimeOut',
   'post /saveAnswer': 'AnswerController.saveAns',
   'get /testResult': 'AnswerController.getTestResult'

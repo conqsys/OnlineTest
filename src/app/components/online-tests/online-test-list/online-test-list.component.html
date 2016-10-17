@@ -5,11 +5,11 @@
         <th data-field="id">Company_Id</th>
         <th data-field="name">Test Title</th>
         <th data-field="price">Test Start Date</th>
-         <th data-field="name">Test Start Time</th>
+        <th data-field="name">Test Start Time</th>
         <th data-field="price">Test End Date</th>
-         <th data-field="name">Test End Time</th>
+        <th data-field="name">Test End Time</th>
         <th data-field="price">Question Set Id</th>
-         <th data-field="name">Test Support Text</th>
+        <th data-field="name">Test Support Text</th>
         <th data-field="price">Test Eperience Years</th>
         <th data-field="price">Edit</th>
         <th data-field="price">Delete</th>
@@ -21,10 +21,10 @@
         <td>{{item.company_id}}</td>
         <td>{{item.online_test_title}}</td>
         <td>{{item.test_start_date}}</td>
-         <td>{{item.test_start_time}}</td>
+        <td>{{item.test_start_time}}</td>
         <td>{{item.test_end_date}}</td>
         <td>{{item.test_end_time}}</td>
-         <td>{{item.question_set_id}}</td>
+        <td>{{item.question_set_id}}</td>
         <td>{{item.test_support_text}}</td>
         <td>{{item.test_experience_years}}</td>
         <td>
@@ -35,13 +35,14 @@
         <td>
           <a class="btn-floating btn-Medium red" title="remove" (click)="removeTest(item)">
             <i class="Medium material-icons">delete</i>
-           </a>
+          </a>
         </td>
-        
+
       </tr>
     </tbody>
   </table>
 
- <button name="addOnlineTest" class="btn btn-info btn-block" (click)="showTest(0)"><i class="material-icons left">add</i>
-   Add Test</button>
-  
+  <button name="addOnlineTest" class="btn btn-info btn-block" (click)="showTest(0)"><i class="material-icons left">add</i>
+   Add Test
+   </button>
+</div>

@@ -12,7 +12,8 @@ export class UserService {
   }
 
   getUsers(): Promise<User[]> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'users')
       .toPromise()
       .then(response => response.json() as User[])
@@ -20,7 +21,8 @@ export class UserService {
   }
 
   getUser(userId: number): Promise<User> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'user/' + userId)
       .toPromise()
       .then(response => response.json() as User)
@@ -28,7 +30,8 @@ export class UserService {
   }
 
   searchUserByEmail(emailId: string): Promise<User> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'userEmail/' + emailId)
       .toPromise()
       .then(response => response.json() as User)
@@ -36,7 +39,8 @@ export class UserService {
   }
 
   saveUser(data: User): Promise<string> {
-    return this.http
+    return this
+      .http
       .post(ApiUrl.baseUrl + 'user', JSON.stringify(data))
       .toPromise()
       .then(res => res.json())

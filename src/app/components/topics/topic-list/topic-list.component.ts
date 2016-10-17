@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
@@ -17,6 +17,7 @@ declare var Materialize: any;
 export class TopicListComponent extends BaseComponent implements OnInit {
   private selectedTopic: Topic;
   private model: Topic[] = [];
+
   constructor(private topicService: TopicService,
     localStorageService: LocalStorageService,
     router: Router) {
@@ -31,30 +32,34 @@ export class TopicListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  editTopic(topicId: number) {
-    this.router.navigate(['/topic/' + topicId]);
+  editTopic(topicId: number): void {
+    this.router.navigate(['/topic', topicId]);
   }
 
-  showTopic() {
-    this.router.navigate(['/topic/0']);
+  showTopic(): void {
+    this.router.navigate(['/topic', 0]);
   }
 
-  removeItem(item: Topic) {
-    this.topicService.removeTopic(item.topic_id).then(result => {
-      if (result) {
-        Materialize.toast('Topic deleted!', 2000, 'rounded');
-        this.getTopic();
-      } else {
-        Materialize.toast('Topic not deleted!', 2000, 'rounded');
-      }
-    });
+  removeItem(item: Topic): void {
+    this.topicService
+      .removeTopic(item.topic_id)
+      .then(result => {
+        if (result) {
+          Materialize.toast('Topic deleted!', 2000, 'rounded');
+          this.getTopic();
+        } else {
+          Materialize.toast('Topic not deleted!', 2000, 'rounded');
+        }
+      });
   }
 
-  private getTopic() {
-    this.topicService.getTopic().then(result => {
-      if (result) {
-        this.model = result;
-      }
-    });
+  private getTopic(): void {
+    this.topicService
+      .getTopic()
+      .then(result => {
+        if (result) {
+          this.model = result;
+        }
+      });
   }
 }

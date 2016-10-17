@@ -12,7 +12,8 @@ export class QuestionSetService {
   }
 
   getQuestionSets(): Promise<QuestionSet[]> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'questionSet')
       .toPromise()
       .then(response => response.json() as QuestionSet[])
@@ -20,7 +21,8 @@ export class QuestionSetService {
   }
 
   getQuestionSet(questionSetId: number): Promise<QuestionSet> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'questionSet/' + questionSetId)
       .toPromise()
       .then(response => response.json() as QuestionSet)
@@ -28,7 +30,8 @@ export class QuestionSetService {
   }
 
   saveQuestionSet(data: QuestionSet): Promise<string> {
-    return this.http
+    return this
+      .http
       .post(ApiUrl.baseUrl + 'saveQuestionSet', JSON.stringify(data))
       .toPromise()
       .then(res => res.json())

@@ -36,7 +36,7 @@ const appRoutes: Routes = [
     component: QuestionListComponent
   },
   {
-    path: 'question/:question_id',
+    path: 'question/:questionId',
     component: QuestionComponent
   },
   {
@@ -44,7 +44,7 @@ const appRoutes: Routes = [
     component: QuestionSetListComponent
   },
   {
-    path: 'questionSet/:question_set_id',
+    path: 'questionSet/:questionSetId',
     component: QuestionSetComponent
   },
   {
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
     component: OnlineTestListComponent
   },
   {
-    path: 'onlineTest/:online_test_id',
+    path: 'onlineTest/:onlineTestId',
     component: OnlineTestComponent
   },
   {
@@ -76,16 +76,12 @@ const appRoutes: Routes = [
     component: UserListComponent
   },
   {
-    path: 'user/:user_id',
+    path: 'user/:userId',
     component: UserComponent
   },
   {
     path: 'login',
     component: LoginComponent
-  },
-  {
-    path: 'froala',
-    component: TextEditorComponent
   }
 ];
 

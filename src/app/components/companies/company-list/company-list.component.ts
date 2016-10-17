@@ -14,7 +14,7 @@ import { CompanyService } from '../../../shared/services/company/company.service
 })
 export class CompanyListComponent extends BaseComponent implements OnInit {
 
-  model: Company[] = [];
+  private model: Company[] = [];
 
   constructor(private companyService: CompanyService,
     localStorageService: LocalStorageService,
@@ -28,17 +28,19 @@ export class CompanyListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  getCompanies() {
-    this.companyService.getCompanies().then(companies => {
-      this.model = companies;
-    });
-  }
-
-  addCompany() {
+  addCompany(): void {
     this.router.navigate(['/company/0']);
   }
 
-  editCompany(companyId: number) {
+  editCompany(companyId: number): void {
     this.router.navigate(['/company/' + companyId]);
+  }
+
+  private getCompanies(): void {
+    this.companyService
+      .getCompanies()
+      .then(companies => {
+        this.model = companies;
+      });
   }
 }

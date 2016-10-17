@@ -11,16 +11,18 @@ export class QuestionOptionService {
 
   }
 
-  getQuestionOptions(question_id: number): any {
-    return this.http
-      .get(ApiUrl.baseUrl + 'questionOptions/' + question_id)
+  getQuestionOptions(questionId: number): any {
+    return this
+      .http
+      .get(ApiUrl.baseUrl + 'questionOptions/' + questionId)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }
 
   getOptionSeries(): Promise<OptionSeries[]> {
-    return this.http
+    return this
+      .http
       .get(ApiUrl.baseUrl + 'optionSeries')
       .toPromise()
       .then(response => response.json() as OptionSeries[])

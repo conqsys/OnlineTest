@@ -17,11 +17,9 @@ import { QuestionOptionService } from '../../../shared/services/question-option/
   styleUrls: ['question-list.component.css'],
 })
 export class QuestionListComponent extends BaseComponent implements OnInit {
-  statInfo: StatInfo;
-  stats: StatInfo[] = [];
-  model: Question[] = [];
-  selectedQuestion: Question;
-  questionVisibility: boolean;
+  private statInfo: StatInfo;
+  private model: Question[] = [];
+  private selectedQuestion: Question;
 
   constructor(private questionService: QuestionService,
     private questionOptionService: QuestionOptionService,
@@ -29,7 +27,6 @@ export class QuestionListComponent extends BaseComponent implements OnInit {
     router: Router) {
     super(localStorageService, router);
     this.statInfo = new StatInfo();
-    this.questionVisibility = false;
     this.model = new Array<Question>();
     this.selectedQuestion = new Question();
     this.selectedQuestion.answer_explanation = '';
@@ -41,7 +38,16 @@ export class QuestionListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  getQuestionStateInfo() {
+  selectQuestion(selectedQuestion: Question): void {
+    this.selectedQuestion = selectedQuestion;
+    this.router.navigate(['/question', selectedQuestion.question_id]);
+  }
+
+  addQuestion(): void {
+    this.router.navigate(['/question', 0]);
+  }
+
+  private getQuestionStateInfo(): void {
     this.questionService
       .getQuestionsStateInfo()
       .then(result => {
@@ -51,16 +57,4 @@ export class QuestionListComponent extends BaseComponent implements OnInit {
       });
   }
 
-  SetQuestionVisibility(value: boolean): void {
-    this.questionVisibility = value;
-  }
-
-  selectQuestion(selectedQuestion: Question): void {
-    this.selectedQuestion = selectedQuestion;
-    this.router.navigate(['/question', selectedQuestion.question_id]);
-  }
-
-  addQuestion(): void {
-    this.router.navigate(['/question', 0]);
-  }
 }

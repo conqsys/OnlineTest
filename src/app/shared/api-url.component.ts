@@ -1,6 +1,6 @@
 
 export class ApiUrl {
 
-    static baseUrl: String = 'http://localhost:1337/';
+  static baseUrl: String = 'http://localhost:1337/';
 
 }

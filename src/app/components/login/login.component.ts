@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../base.component';
@@ -17,6 +18,7 @@ export class LoginComponent extends BaseComponent {
   private model: Login;
 
   constructor(private loginService: LoginService,
+    private location: Location,
     localStorageService: LocalStorageService,
     router: Router) {
     super(localStorageService, router);
@@ -32,7 +34,8 @@ export class LoginComponent extends BaseComponent {
       .then(result => {
         this.localStorageService.set('user', result.user);
         this.localStorageService.set('authorization', 'Bearer ' + result.token);
-        this.router.navigate(['/questionSets']);
+        this.location.replaceState('/questionSets');
+        location.reload();
       });
   }
 

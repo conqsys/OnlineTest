@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,11 +15,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var common_1 = require('@angular/common');
 var angular_2_local_storage_1 = require('angular-2-local-storage');
-var AppComponent = (function () {
-    function AppComponent(router, localStorageService) {
-        this.router = router;
-        this.localStorageService = localStorageService;
+var base_component_1 = require('./components/base.component');
+var AppComponent = (function (_super) {
+    __extends(AppComponent, _super);
+    function AppComponent(location, localStorageService, router) {
+        _super.call(this, localStorageService, router);
+        this.location = location;
         this.title = 'Online Test';
     }
     AppComponent.prototype.logout = function () {
@@ -23,18 +31,19 @@ var AppComponent = (function () {
             this.localStorageService.remove('authorization');
             this.localStorageService.remove('user');
         }
-        this.router.navigate(['/login']);
+        this.location.replaceState('/login');
+        location.reload();
     };
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'my-app',
-            template: "<div class=\"col-md-12\">\n      \n          <a class=\"btn\" routerLink=\"/questions\" routerLinkActive=\"active\">Questions</a>\n          <a class=\"btn\" routerLink=\"/questionSets\" routerLinkActive=\"active\">Question Sets</a>\n          <a class=\"btn\" routerLink=\"/topics\" routerLinkActive=\"active\">Topic</a>\n          <a class=\"btn\" routerLink=\"/companies\" routerLinkActive=\"active\">Companies</a>\n          <a class=\"btn\" routerLink=\"/users\" routerLinkActive=\"active\">Users</a>\n          <a class=\"btn\" routerLink=\"/onlineTests\" routerLinkActive=\"active\">Online Test</a>\n          <a class=\"btn\" routerLink=\"/login\" routerLinkActive=\"active\">Login</a>\n          <a class=\"btn\" (click)=logout()>Logout</a>\n\n    </div>\n    <div class=\"col-md-12\">\n    <router-outlet></router-outlet></div>",
+            template: "<div class=\"col-md-12\" [hidden]=\"!user\">\n      \n          <a class=\"btn\" routerLink=\"/questions\" routerLinkActive=\"active\">Questions</a>\n          <a class=\"btn\" routerLink=\"/questionSets\" routerLinkActive=\"active\">Question Sets</a>\n          <a class=\"btn\" routerLink=\"/topics\" routerLinkActive=\"active\">Topic</a>\n          <a class=\"btn\" routerLink=\"/companies\" routerLinkActive=\"active\">Companies</a>\n          <a class=\"btn\" routerLink=\"/users\" routerLinkActive=\"active\">Users</a>\n          <a class=\"btn\" routerLink=\"/onlineTests\" routerLinkActive=\"active\">Online Test</a>\n          <a class=\"btn\" (click)=logout()>Logout</a>\n\n    </div>\n    <div class=\"col-md-12\">\n    <router-outlet></router-outlet></div>",
             styleUrls: ['app.component.css']
         }), 
-        __metadata('design:paramtypes', [router_1.Router, angular_2_local_storage_1.LocalStorageService])
+        __metadata('design:paramtypes', [common_1.Location, angular_2_local_storage_1.LocalStorageService, router_1.Router])
     ], AppComponent);
     return AppComponent;
-}());
+}(base_component_1.BaseComponent));
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

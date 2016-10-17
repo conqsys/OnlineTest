@@ -88,8 +88,6 @@ module.exports.routes = {
 
   'post /login': 'AuthController.login',
 
-  '/logout': 'AuthController.logout',
-
   'post /onlineTestTimeOut': 'AnswerController.testTimeOut',
   'post /saveAnswer': 'AnswerController.saveAns',
   'get /testResult/:testUserId': 'AnswerController.getTestResult'

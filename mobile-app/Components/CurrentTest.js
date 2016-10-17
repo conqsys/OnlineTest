@@ -47,89 +47,81 @@ class CurrentTest extends Component {
             console.log("error:" + error.message);
         }
     }
-    // checkIsMultiOptions() {
-    //     if (this.state.isMultiOptions == 0) {
-    //         this.setState.maxselectOptions = this.state.optionsArr.length;
-    //     }
-    //     else {
-    //         this.setState.maxselectOptions = 1;
-    //     }
-    // }
-
+   
     async getQuestions() {
         try {
             questionService.getQuestions(this.state).then((responseData) => {
                 if (responseData) {
-                    var optionsDescription = responseData.question.options.map(function (val) {
-                        return val.description;
-                    });
-                   
-                    this.setState({ isMultiOptions: responseData.question.is_multiple_option })
-                    if (this.state.isMultiOptions == 0) {
-                        this.setState.maxselectOptions = this.state.optionsArr.length;
-                    }
-                    this.setState({ question: responseData.question });
-                    this.setState({ optionsArr: optionsDescription });
-                    this.setState({ optionsa: responseData.question.options });
+                   this.setQuestion(responseData);
                 }
             })
-            .catch((error) => {
-                console.log("error" + error);
-            });
+                .catch((error) => {
+                    console.log("error" + error);
+                });
         } catch (error) {
             console.log("error" + JSON.stringify(error));
         }
     }
     selectedOption(option) {
-        // this.setState({ selectedOptions  });
+        //alert(JSON.stringify(this.state.selectedOptions));
+        if (this.state.isMultiOptions != 1) {
+            this.state.selectedOptions = [];
+        }
         var selectedvalue = this.state.question.options.filter(function (obj) {
             return obj.description === option;
         })[0];
-        if (this.state.selectedOptions.indexOf(selectedvalue) >= 0)
+        if (this.state.selectedOptions.indexOf(selectedvalue) > -1) {
             this.state.selectedOptions.splice(this.state.selectedOptions.indexOf(selectedvalue), 1);
-        else
+        }
+        else {
             this.state.selectedOptions.splice(this.state.selectedOptions.length, 0, selectedvalue);
+        }
     }
-
     next() {
-        //alert(JSON.stringify(this.state.selectedOptions));
+       // alert(JSON.stringify(this.state.selectedOptions));
         try {
             JSON.stringify(this.state);
+            alert(JSON.stringify(this.state.selectedOptions));
             questionService.saveAns(this.state).then((responseData) => {
                 if (responseData) {
-                    var optionsDescription = responseData.question.options.map(function (val) {
-                        return val.description;
-                    });
-                    this.setState({ isMultiOptions:  responseData.question.is_multiple_option });
-                    this.setState({ question: responseData.question });
-                    this.setState({ optionsArr: optionsDescription});
-                    this.setState({ optionsa: responseData.question.options});
-                    if (this.state.isMultiOptions == 0) {
-                        this.setState.maxselectOptions = this.state.optionsArr.length;  
-                    }
+                    this.setQuestion(responseData);
                 }
-                else{
-                     this.navigate('FinishTest'); 
+                else {
+                    this.navigate('FinishTest');
                 }
             });
         } catch (error) {
             console.log("error" + JSON.stringify(error));
         }
     }
+    setQuestion(question) {
+        this.state.selectedOptions = [];
+        var optionsDescription = question.question.options.map(function (val) {
+            return val.description;
+        });
+        this.setState({ question: question.question });
+        this.setState({ optionsArr: optionsDescription });
+        this.setState({ optionsa: question.question.options });
+        this.state.isMultiOptions = question.question.is_multiple_option;
+        if (this.state.isMultiOptions == 1) {
+            this.setState({maxselectOptions : this.state.optionsArr.length});
+        }
+    }
+
     render() {
         var htmlContent = this.state.question.question_description;
 
         return (
             <View style={styles.container}>
-                    <CountDown />       
-                    <Text> TestTitle: {this.state.question.online_test_title}</Text>
-                    <HTMLView value={htmlContent} stylesheet={styles} />
-                    <MultipleChoice enableEmptySections={true}
-                        options={this.state.optionsArr}
-                        maxSelectedOptions={this.state.maxselectOptions}
-                        onSelection={(option) => this.selectedOption(option) }
-                        />
-                  <TouchableHighlight style={styles.button} onPress={() => this.next() }>
+                <CountDown navigator={this.props.navigator}/>
+                <Text> TestTitle: {this.state.question.online_test_title}</Text>
+                <HTMLView value={htmlContent} stylesheet={styles} />
+                <MultipleChoice
+                    options={this.state.optionsArr}
+                    maxSelectedOptions={this.state.maxselectOptions}
+                    onSelection={(option) => this.selectedOption(option)}
+                    />
+                <TouchableHighlight style={styles.button} onPress={() => this.next()}>
                     <Text style={styles.buttonText} >
                         Next
                     </Text>

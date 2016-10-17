@@ -5,7 +5,8 @@ import {
     TextInput,
     TouchableHighlight,
     AsyncStorage,
-    View
+    View,
+    Navigator
 } from 'react-native';
 
 import { Button, Subheader, COLOR } from 'react-native-material-design';
@@ -53,6 +54,7 @@ class Login extends Component {
                     if (responseData.user.user_id) {
                         this.storedUserdata(responseData);
                         this.redirect('Tests');
+                       
                     }
                     else {
                         this.setState.error({ error: responseData.err });

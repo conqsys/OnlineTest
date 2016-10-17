@@ -1,4 +1,4 @@
-import React, { Component} from 'react'
+import React, { Component } from 'react'
 var TimerMixin = require('react-timer-mixin');
 var reactMixin = require('react-mixin');
 
@@ -10,15 +10,15 @@ import {
     AsyncStorage,
     Image,
     Text,
+    Navigator
 } from 'react-native'
-
+import questionService from '../Services/QuestionService';
 class Countdown extends Component {
-    constructor() {
-        super();
-        var date = new Date();
-        date.setMinutes(150);
+    constructor(props) {
+        super(props);
+
         this.state = {
-            targetDate: date.toString(),
+            targetDate: new Date().toString(),
             time: {
                 total: 0,
                 days: 0,
@@ -27,24 +27,46 @@ class Countdown extends Component {
                 seconds: 0
             }
         }
-
+    }
+    navigate(routeName) {
+        // debugger;
+        this.props.navigator.push({
+            name: routeName
+        });
+    }
+    redirect(routeName, id) {
+        this.props.navigator.push({
+            routeName: routeName,
+            passProps: {
+                testUserId: id,
+            }
+        });
     }
 
-    componentDidMount() {
+
+    componentWillMount() {
         this._loadInitialState().done();
+    }
+    componentDidMount() {
+
         this.timer = TimerMixin.setInterval(() => {
-            console.log('Refreshing ' + this.state.time.seconds);
+
             this.refresh();
         }, 1000);
     }
- async _loadInitialState() {
+    async _loadInitialState() {
         try {
+            var date = new Date();
+            var uservalue = await AsyncStorage.getItem('user');
+            var userdata = JSON.parse(uservalue);
+            this.state.clientToken = userdata.token;
             var value = await AsyncStorage.getItem('QuestionSetDetails');
             var questionSetDetails = JSON.parse(value);
-            this.setState({ testStartTime: questionSetDetails.test_start_time });
-            this.setState({ testEndTime: questionSetDetails.test_end_time });
+            this.state.onlineTestUserId = questionSetDetails.online_test_user_id;
             this.setState({ totalTime: questionSetDetails.total_time });
-          } catch (error) {
+            var targetDate = new Date(date.setMinutes(date.getMinutes() + 1))
+            this.setState({ targetDate: targetDate });
+        } catch (error) {
             console.log("error:" + error.message);
         }
     }
@@ -65,18 +87,35 @@ class Countdown extends Component {
             'minutes': minutes,
             'seconds': seconds
         };
-
         this.setState({ targetDate: this.state.targetDate, time: time });
+        if (this.state.time.total == 0) {
+            TimerMixin.clearTimeout(this.timer);
+            this.setState({ isTestBegin: 0 });
+            questionService.testTimeOut(this.state).then((responseData) => {
+                if (responseData.id) {
+                    this.finishTest(responseData.id);
+                    // this.props.navigate('FinishTest');
+                }
+            });
+        }
+    }
+    finishTest(id) {
+        this.redirect('FinishTest', id);
     }
 
     render() {
         return (
-            <View style={styles.container}><View ><Text >
-        Time Remaining {this.state.time.minutes}
-        </Text></View>
-        <View ><Text >
-       : {this.state.time.seconds}
-        </Text></View></View>
+            <View style={styles.container}>
+                <View ><Text>
+                    Time Remaining {this.state.time.hours}
+                </Text></View>
+                <View><Text>
+                    : {this.state.time.minutes}
+                </Text></View>
+                <View ><Text>
+                    : {this.state.time.seconds}
+                </Text></View>
+            </View>
         )
     }
 }
@@ -86,7 +125,6 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-       
         backgroundColor: '#F5FCFF',
     },
     rightContainer: {

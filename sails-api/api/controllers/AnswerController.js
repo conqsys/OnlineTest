@@ -55,19 +55,22 @@ module.exports = {
                 return res.serverError(err);
             }
             else {
-                return res.json(result);
+               var resultData = result[0][0];
+               console.log(result[0][0]);
+                return res.json(result[0][0]);
             }
         });
     },
      getTestResult: function (req, res) {
-        var testId = req.body.onlineTestUserId;
+        var testId = req.params.testUserId;
         var str = "call spGetTestResult(" + testId + ")";
         OnlineTest.query(str, function (err, result) {
             if (err) {
                 return res.serverError(err);
             }
             else {
-                return res.json(result);
+               var resultData = result[0][0];
+                return res.json(resultData);
             }
         });
     },

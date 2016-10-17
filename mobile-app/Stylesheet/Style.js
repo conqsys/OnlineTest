@@ -193,7 +193,7 @@ export default StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
     padding: 20,
-    marginTop: Platform.OS === 'android' ? 56 : 0,
+    marginTop: Platform.OS === 'android' ? 0 : 0,
   },
   rowpattern: {
     flex: 1,
@@ -232,13 +232,15 @@ export default StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
+    color: '#00796B',
     margin: 10,
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#C62828',
     marginTop: 10, marginBottom: 20,
   },
+   
   legendLabel: {
     textAlign: 'center',
     color: '#666666',

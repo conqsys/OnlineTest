@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Login from './Components/Login';
 import Tests from './Components/Tests';
 import CurrentTest from './Components/CurrentTest';
+import Finish from './Components/FinishTest'
 import styles from './Stylesheet/nav';
 
 class OnlineTest extends Component {
@@ -27,28 +28,26 @@ class OnlineTest extends Component {
             case "Login":
                 return (
 
-                    <Login {...globalNavigatorProps}/>
+                    <Login {...globalNavigatorProps} />
                 )
 
             case "Tests":
                 return (
 
-                    <Tests {...globalNavigatorProps}/>
+                    <Tests {...globalNavigatorProps} />
                 )
 
             case "CurrentTest":
                 return (
 
-                    <CurrentTest {...globalNavigatorProps}/>
+                    <CurrentTest {...globalNavigatorProps} />
                 )
             case "FinishTest":
                 return (
 
-                    <CurrentTest {...globalNavigatorProps}/>
+                    <Finish {...globalNavigatorProps} {...route.passProps} />
                 )
-
         }
-
     }
     render() {
         return (
@@ -92,7 +91,6 @@ const NavigationBarRouteMapper = {
         return (
             <TouchableOpacity
                 style={styles.navBarRightButton}>
-
             </TouchableOpacity>
         )
     },

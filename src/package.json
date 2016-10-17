@@ -1,6 +1,6 @@
 {
   "name": "Online-Test",
-  "version": "0.1.0.1",
+  "version": "0.1.0",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",

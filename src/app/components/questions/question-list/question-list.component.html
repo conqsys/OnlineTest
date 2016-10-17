@@ -1,4 +1,4 @@
-<div *ngIf="!questionVisibility">
+<div>
   <div class="col-md-6" style="background: #dae5f4;">
 
     <button name="addQuestionSet" class="btn btn-info btn-block pull-right" (click)="addQuestion()">+ Add Question</button>
@@ -19,6 +19,8 @@
         <td>{{question.UserCount}}</td>
         <td><a>delete</a></td>
       </tr>
+
+      <app-stats [stats]="stats"></app-stats>
     </table>
   </div>
   <div class="col-md-6">

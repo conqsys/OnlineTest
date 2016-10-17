@@ -1,4 +1,4 @@
 export class StatInfo {
-  Number: number = 0;
-  StatName: string = '';
+  statValue: number = 0;
+  statName: string = '';
 }

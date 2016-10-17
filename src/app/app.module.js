@@ -24,7 +24,6 @@ var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var statinfo_component_1 = require('./components/shared/statinfo/statinfo.component');
 var stats_component_1 = require('./components/shared/stats/stats.component');
-var login_service_1 = require('./components/login/shared/login.service');
 var question_service_1 = require('./shared/services/question/question.service');
 var topic_service_1 = require('./shared/services/topic/topic.service');
 var question_option_service_1 = require('./shared/services/question-option/question-option.service');
@@ -69,7 +68,6 @@ var AppModule = (function () {
                 question_set_service_1.QuestionSetService,
                 online_test_service_1.OnlineTestService,
                 user_service_1.UserService,
-                login_service_1.LoginService,
                 validation_service_1.ValidationService,
                 angular_2_local_storage_1.LocalStorageService,
                 {

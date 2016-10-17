@@ -10,7 +10,8 @@ import { LoginService } from './shared/login.service';
 @Component({
   moduleId: module.id,
   selector: 'login',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  providers: [LoginService]
 })
 export class LoginComponent extends BaseComponent {
   private model: Login;
@@ -33,5 +34,11 @@ export class LoginComponent extends BaseComponent {
         this.localStorageService.set('authorization', 'Bearer ' + result.token);
         this.router.navigate(['/questionSets']);
       });
+  }
+
+  validateLogin(): void {
+    if (!this.model.username && this.model.username === '') {
+
+    }
   }
 }

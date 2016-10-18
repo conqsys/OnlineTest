@@ -1,4 +1,8 @@
-  <div *ngFor="let statinfo of stats">
-      <app-statinfo ></app-statinfo>
+<div *ngFor="let statInfo of stats">
+  <div>
+    {{statInfo.statValue}}
   </div>
-   
+  <div>
+    {{statInfo.statName}}
+  </div>
+</div>

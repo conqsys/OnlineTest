@@ -24,5 +24,6 @@ export class StatinfoComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // start logic here
   }
 }

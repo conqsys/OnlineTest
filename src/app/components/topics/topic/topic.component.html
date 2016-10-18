@@ -4,19 +4,18 @@
   }
 </style>
 
-<div>
-  <form materialize class="col s12" [formGroup]="topicForm" (submit)="saveTopic()">
-    <div class="row">
-      <div class="input-field col s6">
-        <input class="validate" formControlName="title" id="title" type="text" [(ngModel)]="model.topic_title" placeholder="Topic Name">
-        <label for="title">Topic Title</label>
-        <control-messages class="validate" [control]="topicForm.controls.title"></control-messages>
-      </div>
+<div materialize>
+  <div class="row">
+    <div class="input-field col s6">
+      <input class="validate" type="text" id="topic_title" placeholder="Topic Title" [(ngModel)]="model.topic_title" [ngModelOptions]="{standalone: true}"
+      />
+      <label for="topic_title">Topic Title</label>
     </div>
+  </div>
 
-    <button class="waves-effect waves-light btn" type="submit" [disabled]="!topicForm.valid">{{btnText}}</button>
+  <button class="waves-effect waves-light btn" type="button" (click)="saveTopic()">{{btnText}}</button>
 
-    <!--
+  <!--
     <label for="name">Name</label>
   <input formControlName="name" id="name" />
   <control-messages class="validate" [control]="userForm.controls.name"></control-messages>
@@ -30,5 +29,4 @@
   <control-messages [control]="userForm.controls.profile"></control-messages>
 
   <button type="submit" [disabled]="!userForm.valid">Submit</button>-->
-  </form>
 </div>

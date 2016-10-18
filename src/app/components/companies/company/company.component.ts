@@ -24,10 +24,10 @@ export class CompanyComponent extends BaseComponent implements OnInit {
     this.model = new Company();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.user) {
-      this.activatedRoute.params.subscribe(params => {
-        this.companyId = Number.parseInt(params['companyId'], 10);
+      this.activatedRoute.params.subscribe((params: any) => {
+        this.companyId = +params['companyId'];
       });
       if (this.companyId > 0) {
         this.getCompanyByID();
@@ -35,15 +35,19 @@ export class CompanyComponent extends BaseComponent implements OnInit {
     }
   }
 
-  saveCompany() {
-    this.companyService.saveCompany(this.model).then(result => {
-      this.router.navigate(['/companies']);
-    });
+  saveCompany(): void {
+    this.companyService
+      .saveCompany(this.model)
+      .then(result => {
+        this.router.navigate(['/companies']);
+      });
   }
 
-  private getCompanyByID() {
-    this.companyService.getCompanyById(this.companyId).then(result => {
-      this.model = result;
-    });
+  private getCompanyByID(): void {
+    this.companyService
+      .getCompanyById(this.companyId)
+      .then(result => {
+        this.model = result;
+      });
   }
 }

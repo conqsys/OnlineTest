@@ -11,19 +11,28 @@ export class CompanyService {
   }
 
   getCompanies(): Promise<Company[]> {
-    return this.http.get(ApiUrl.baseUrl + 'getCompanies').toPromise()
+    return this
+      .http
+      .get(ApiUrl.baseUrl + 'getCompanies')
+      .toPromise()
       .then(response => response.json() as Company[])
       .catch(this.handleError);
   }
 
-  getCompanyById(company_id: number): Promise<Company> {
-    return this.http.get(ApiUrl.baseUrl + 'getCompanyById/' + company_id).toPromise()
+  getCompanyById(companyId: number): Promise<Company> {
+    return this
+      .http
+      .get(ApiUrl.baseUrl + 'getCompanyById/' + companyId)
+      .toPromise()
       .then(response => response.json() as Company)
       .catch(this.handleError);
   }
 
   saveCompany(company: Company): Promise<number> {
-    return this.http.post(ApiUrl.baseUrl + 'company', company).toPromise()
+    return this
+      .http
+      .post(ApiUrl.baseUrl + 'company', company)
+      .toPromise()
       .then(response => response.json() as number)
       .catch(this.handleError);
   }

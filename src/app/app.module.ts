@@ -18,7 +18,6 @@ import { routing, routedComponents } from './app.routing';
 import { StatinfoComponent } from './components/shared/statinfo/statinfo.component';
 import { StatsComponent } from './components/shared/stats/stats.component';
 
-import { LoginService } from './components/login/shared/login.service';
 import { QuestionService } from './shared/services/question/question.service';
 import { TopicService } from './shared/services/topic/topic.service';
 import { QuestionOptionService } from './shared/services/question-option/question-option.service';
@@ -62,7 +61,6 @@ let localStorageServiceConfig = {
     QuestionSetService,
     OnlineTestService,
     UserService,
-    LoginService,
     ValidationService,
     LocalStorageService,
     {

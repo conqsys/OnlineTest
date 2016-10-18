@@ -8,47 +8,45 @@ import { User } from '../../../shared/model/user/user.model';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
-    moduleId: module.id,
-    selector: 'user-list',
-    templateUrl: 'user-list.component.html',
+  moduleId: module.id,
+  selector: 'user-list',
+  templateUrl: 'user-list.component.html',
 })
-export /**
- * UserListComponent
- */
-    class UserListComponent extends BaseComponent implements OnInit {
+export class UserListComponent extends BaseComponent implements OnInit {
 
-    title: string;
-    model: User[] = [];
-    selectedUserId: number;
+  private title: string;
+  private model: User[] = [];
+  private selectedUserId: number;
 
-    constructor(private userService: UserService,
-        localStorageService: LocalStorageService,
-        router: Router) {
-        super(localStorageService, router);
-        this.title = 'Users';
-        this.model = new Array<User>();
+  constructor(private userService: UserService,
+    localStorageService: LocalStorageService,
+    router: Router) {
+    super(localStorageService, router);
+    this.title = 'Users';
+    this.model = new Array<User>();
+  }
+
+  ngOnInit(): void {
+    if (this.user) {
+      this.getUsers();
     }
+  }
 
-    ngOnInit(): void {
-        if (this.user) {
-            this.getUsers();
-        }
-    }
+  selectUser(selectedUser: User): void {
+    this.selectedUserId = selectedUser.user_id;
 
-    getUsers(): void {
-        this.userService.getUsers()
-            .then(users => {
-                this.model = users;
-            });
-    }
+    this.router.navigate(['/user', this.selectedUserId]);
+  }
 
-    selectUser(selectedUser: User): void {
-        this.selectedUserId = selectedUser.user_id;
+  addUser(): void {
+    this.router.navigate(['/user', 0]);
+  }
 
-        this.router.navigate(['/user', this.selectedUserId]);
-    }
-
-    addUser(): void {
-        this.router.navigate(['/user', 0]);
-    }
+  private getUsers(): void {
+    this.userService
+      .getUsers()
+      .then(users => {
+        this.model = users;
+      });
+  }
 }

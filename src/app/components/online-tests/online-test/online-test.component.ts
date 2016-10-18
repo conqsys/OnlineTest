@@ -9,7 +9,6 @@ import { QuestionSet } from '../../../shared/model/question-set/question-set.mod
 
 import { OnlineTestService } from '../../../shared/services/online-test/online-test.service';
 import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
-import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
   moduleId: module.id,
@@ -17,63 +16,37 @@ import { UserService } from '../../../shared/services/user/user.service';
   templateUrl: 'online-test.component.html',
 })
 export class OnlineTestComponent extends BaseComponent implements OnInit {
-  model: OnlineTest;
-  online_test_id: number;
 
-  questionSets: QuestionSet[] = [];
-  onlineTestUsers: OnlineTestUser[] = [];
-  users: OnlineTestUser[] = [];
+  private model: OnlineTest;
+  private onlineTestId: number;
 
-  isAddTestUser: boolean;
+  private questionSets: QuestionSet[] = [];
+  private onlineTestUsers: OnlineTestUser[] = [];
+  private users: OnlineTestUser[] = [];
+
+  private isAddTestUser: boolean;
 
   constructor(private onlineTestService: OnlineTestService,
     private questionSetService: QuestionSetService,
-    private userService: UserService,
     private activatedRoute: ActivatedRoute,
     localStorageService: LocalStorageService,
     router: Router) {
     super(localStorageService, router);
     this.model = new OnlineTest();
+    this.model.onlineTestUsers = new Array<OnlineTestUser>();
     this.isAddTestUser = true;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.user) {
       this.activatedRoute.params.subscribe(params => {
-        this.online_test_id = Number.parseInt(params['online_test_id'], 10);
+        this.onlineTestId = +params['onlineTestId'];
       });
       this.getQuestionSet();
     }
   }
 
-  initializeModel() {
-    this.model.onlineTestUsers = new Array<OnlineTestUser>();
-  }
-
-  getQuestionSet() {
-    this.questionSetService.getQuestionSets().then(questionSets => {
-      if (questionSets) {
-        this.questionSets = questionSets;
-
-        if (this.online_test_id > 0) {
-          this.getOnlineTest(this.online_test_id);
-        } else {
-          this.initializeModel();
-        }
-      }
-    });
-  }
-
-  getOnlineTest(online_test_id: number) {
-    this.onlineTestService.getOnlineTest(online_test_id).then(result => {
-      this.model = result;
-
-      this.users = this.model.onlineTestUsers.filter(user => +user.is_selected === 0);
-      this.onlineTestUsers = this.model.onlineTestUsers.filter(user => +user.is_selected === 1);
-    });
-  }
-
-  addTestUser() {
+  addTestUser(): void {
     this.isAddTestUser = false;
     let deletedUsers = this.onlineTestUsers.filter(user => user.is_deleted === 1 && +user.is_selected === 0);
     for (let i = 0; i < deletedUsers.length; i++) {
@@ -81,7 +54,7 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
     }
   }
 
-  insertTestUser() {
+  insertTestUser(): void {
     this.isAddTestUser = true;
     let users = this.users.filter(user => +user.is_selected === 1);
     this.users = this.users.filter(user => +user.is_selected === 0);
@@ -107,14 +80,38 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
     }
   }
 
-  saveOnlineTest() {
-
-    this.onlineTestService.saveOnlineTest(this.model).then(result => {
-      if (result) {
-        this.router.navigate(['/onlinetestlist']);
-      }
-    });
+  saveOnlineTest(): void {
+    this.onlineTestService
+      .saveOnlineTest(this.model)
+      .then(result => {
+        if (result) {
+          this.router.navigate(['/onlineTests']);
+        }
+      });
   }
 
+  private getQuestionSet(): void {
+    this.questionSetService
+      .getQuestionSets()
+      .then(questionSets => {
+        if (questionSets) {
+          this.questionSets = questionSets;
 
+          if (this.onlineTestId > 0) {
+            this.getOnlineTest(this.onlineTestId);
+          }
+        }
+      });
+  }
+
+  private getOnlineTest(onlineTestId: number): void {
+    this.onlineTestService
+      .getOnlineTest(onlineTestId)
+      .then(result => {
+        this.model = result;
+
+        this.users = this.model.onlineTestUsers.filter(user => +user.is_selected === 0);
+        this.onlineTestUsers = this.model.onlineTestUsers.filter(user => +user.is_selected === 1);
+      });
+  }
 }

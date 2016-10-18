@@ -27,21 +27,26 @@ export class OnlineTestListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  getOnlineTests() {
-    this.onlineTestService.getOnlineTests().then(onlineTests => {
-      this.onlineTestData = onlineTests;
-    });
+  showTest(onlineTestId: number): void {
+    this.router.navigate(['/onlineTest/' + onlineTestId]);
   }
 
-  public showTest(online_test_id: number) {
-    this.router.navigate(['/onlineTest/' + online_test_id]);
+  removeTest(item: OnlineTest): void {
+    this.onlineTestService
+      .removeOnlineTest(item.online_test_id)
+      .then(result => {
+        if (result) {
+          this.getOnlineTests();
+        }
+      });
   }
 
-  public removeTest(item: OnlineTest) {
-    this.onlineTestService.removeOnlineTest(item.online_test_id).then(result => {
-      if (result) {
-        this.getOnlineTests();
-      }
-    });
+  private getOnlineTests(): void {
+    this.onlineTestService
+      .getOnlineTests()
+      .then(onlineTests => {
+        this.onlineTestData = onlineTests;
+      });
   }
+
 }

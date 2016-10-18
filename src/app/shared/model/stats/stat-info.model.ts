@@ -1,7 +1,4 @@
-export /**
- * StatInfoModel
- */
-    class StatInfo {
-    Number: number;
-    StatName: string;
+export class StatInfo {
+  statValue: number = 0;
+  statName: string = '';
 }

@@ -70,7 +70,7 @@ module.exports.routes = {
   'post /question': 'QuestionController.saveQuestion',
   'get /questions': 'QuestionController.getQuestions',
   'get /question/:topic_id': 'QuestionController.getQuestionsByTopic',
-  'get /getQuestionsbyUser/:user_id/:question_set_id': 'QuestionController.getQuestionsbyUser',
+  'post /getQuestionsbyUser': 'QuestionController.getQuestionsbyUser',
   'get /questionbyid/:question_id': 'QuestionController.getQuestionByQuestionID',
   'get /questionStateInfo': 'QuestionController.getQuestionState',
 

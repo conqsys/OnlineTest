@@ -193,11 +193,18 @@ export default StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
     padding: 20,
-    marginTop: Platform.OS === 'android' ? 0 : 0,
+    marginTop: Platform.OS === 'android' ? 30 : 0,
   },
-  rowpattern: {
+  contentrow: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+   // marginVertical: 15,
+    // marginHorizontal: 100,
+    //textAlign: 'center',
+    //alignItems: 'stretch',
+    //justifyContent: 'space-between',
+  //color: '#FFFFFF',
+ 
   },
   list: {
     flex: 1,
@@ -236,6 +243,7 @@ export default StyleSheet.create({
     margin: 10,
   },
   instructions: {
+    fontSize: 20,
     textAlign: 'center',
     color: '#C62828',
     marginTop: 10, marginBottom: 20,

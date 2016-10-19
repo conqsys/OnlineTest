@@ -58,7 +58,7 @@ class Finish extends Component {
     }
 
     newTest() {
-        this.navigate('Login');
+        this.redirect('Login');
     }
 
     render() {

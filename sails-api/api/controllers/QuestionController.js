@@ -53,31 +53,41 @@ module.exports = {
 
     // get QuestionSets by user_id and question_set_id from  database
     getQuestionsbyUser: function (req, res) {
-        var userId = req.param('user_id');
-        var qusSetid = req.param('question_set_id');
-        var str = "CALL spGetTestQuestion(" + userId + "," + qusSetid + ")";
+        var testUserId = req.body.onlineTestUserId;
+        var userId = req.body.userid;
+        var qusSetid = req.body.questionSetid;
+        var str = "CALL spGetTestQuestion("+ testUserId+ "," + userId + "," + qusSetid + ")";
         Question.query(str, function (err, result) {
             if (err) {
                 return res.serverError(err);
             }
             else {
-                var message = { question: {}, isExist: false };
                 if (result[0] && result[0].length > 0) {
-                    message.question = result[0][0];
-                    message.isExist = true;
-                    var str = "CALL spGetQuestionOption(" + message.question.question_id + ")";
+                     var question = result[0][0];
+                    var str = "CALL spGetQuestionOption(" + question.question_id + ")";
                     Question.query(str, function (err, options) {
                         if (err) {
                             return res.serverError(err);
                         }
                         else {
-                            message.question.options = options[0];
-                            return res.json(message);
+                            question.options = options[0];
+                            if (options[0].length > 0)
+                                var isTestBegin = 1;
+                            var str = "call spUpdateOnlineTestUser(" + testId + "," + isTestBegin + ")";
+                            OnlineTest.query(str, function (err, result) {
+                                if (err) {
+                                    return res.serverError(err);
+                                }
+                                else {
+                                    question.testUserId = result[0][0];
+                                    return res.json(question);
+                                }
+                            });
                         }
                     })
                 }
                 else {
-                    return res.json(message);
+                    return res.json(result[0][0]);
                 }
             }
         })

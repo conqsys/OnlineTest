@@ -59,7 +59,7 @@ module.exports = {
                 for (var i = 0; i < result[0].length; i++) {
                     result[0][i].test_completed_date = result[0][i].test_completed_date.getDate() + "-" + result[0][i].test_completed_date.getMonth() + "-" + result[0][i].test_completed_date.getFullYear();
                     // result[i].test_end_date = result[i].test_end_date.getDate()+"/"+result[i].test_end_date.getMonth()+"/"+result[i].test_end_date.getFullYear();
-                    result[0][i].total_time = toSeconds(result[0][i].total_time);
+                    // result[0][i].total_time = toSeconds(result[0][i].total_time);
                     result[0][i].test_start_time = tConvert(result[0][i].test_start_time);
                     result[0][i].test_end_time = tConvert(result[0][i].test_end_time);
 
@@ -138,11 +138,11 @@ function tConvert(time) {
     }
     return time.join(''); // return adjusted time or original string
 }
-function toSeconds(time_str) {
-    // Extract hours, minutes and seconds
-    var parts = time_str.split(':');
-    // compute  and return total seconds
-    return parts[0] * 60 + // an hour has 3600 seconds
-        parts[1] * 1; // a minute has 60 seconds
-       // parts[2]; // seconds
-}
+// function toSeconds(time_str) {
+//     // Extract hours, minutes and seconds
+//     var parts = time_str.split(':');
+//     // compute  and return total seconds
+//     return parts[0] * 60 + // an hour has 3600 seconds
+//         parts[1] * 1; // a minute has 60 seconds
+//        // parts[2]; // seconds
+// }

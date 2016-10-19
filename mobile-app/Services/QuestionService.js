@@ -8,11 +8,14 @@ questionService = {
         }).then((response) => response.json())
     },
     getQuestions(data) {
-        return response = fetch('http://192.168.1.124:1337/getQuestionsbyUser/' + data.userid + '/' + data.questionSetid, {
-            method: 'get',
+        return response = fetch('http://192.168.1.124:1337/getQuestionsbyUser/', {
+            method: 'post',
             headers: {
+                 'Accept': 'application.json',
+                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + data.clientToken
-            }
+            },
+             body: JSON.stringify(data)
         }).then((response) =>
             response.json()
             );

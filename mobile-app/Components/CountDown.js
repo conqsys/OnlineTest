@@ -13,6 +13,7 @@ import {
     Navigator
 } from 'react-native'
 import questionService from '../Services/QuestionService';
+import styles from '../Stylesheet/Style';
 class Countdown extends Component {
     constructor(props) {
         super(props);
@@ -43,12 +44,10 @@ class Countdown extends Component {
         });
     }
 
-
     componentWillMount() {
         this._loadInitialState().done();
     }
     componentDidMount() {
-
         this.timer = TimerMixin.setInterval(() => {
 
             this.refresh();
@@ -64,7 +63,7 @@ class Countdown extends Component {
             var questionSetDetails = JSON.parse(value);
             this.state.onlineTestUserId = questionSetDetails.online_test_user_id;
             this.setState({ totalTime: questionSetDetails.total_time });
-            var targetDate = new Date(date.setMinutes(date.getMinutes() + 1))
+            var targetDate = new Date(date.setMinutes(date.getMinutes() + this.state.totalTime))
             this.setState({ targetDate: targetDate });
         } catch (error) {
             console.log("error:" + error.message);
@@ -90,11 +89,10 @@ class Countdown extends Component {
         this.setState({ targetDate: this.state.targetDate, time: time });
         if (this.state.time.total == 0) {
             TimerMixin.clearTimeout(this.timer);
-            this.setState({ isTestBegin: 0 });
             questionService.testTimeOut(this.state).then((responseData) => {
                 if (responseData.id) {
                     this.finishTest(responseData.id);
-                    // this.props.navigate('FinishTest');
+                    //  this.redirect('FinishTest');
                 }
             });
         }
@@ -106,47 +104,14 @@ class Countdown extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View ><Text>
-                    Time Remaining {this.state.time.hours}
-                </Text></View>
-                <View><Text>
-                    : {this.state.time.minutes}
-                </Text></View>
-                <View ><Text>
-                    : {this.state.time.seconds}
-                </Text></View>
+                <View style={styles.contentrow} >
+                    <Text>Time Remaining {this.state.time.hours}</Text>
+                    <Text>: {this.state.time.minutes}</Text>
+                    <Text>: {this.state.time.seconds}</Text></View>
             </View>
         )
     }
 }
-var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    rightContainer: {
-        flex: 1,
-    },
-    title: {
-        fontSize: 9,
-        marginBottom: 8,
-        textAlign: 'center',
-    },
-    year: {
-        textAlign: 'center',
-    },
-    thumbnail: {
-        width: 53,
-        height: 81,
-    },
-    listView: {
-        paddingTop: 300,
-        backgroundColor: '#F5FCFF',
-    },
-});
 
 reactMixin(Countdown.prototype, TimerMixin);
 

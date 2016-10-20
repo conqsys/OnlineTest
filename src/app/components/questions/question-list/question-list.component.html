@@ -1,29 +1,80 @@
-<div>
-  <div class="col-md-6" style="background: #dae5f4;">
 
-    <button name="addQuestionSet" class="btn btn-info btn-block pull-right" (click)="addQuestion()">+ Add Question</button>
-    <table class="table TFtable">
-      <tr style="background: #dae5f4;">
-        <td>Description</td>
-        <td>Answer Explanation</td>
-        <td></td>
-      </tr>
-      <tr *ngFor="let question of model" style="cursor:hand;" (click)="selectQuestion(question)" [ngClass]="{'row-background': question.question_id==selectedQuestionId }">
-        <td>{{question.question_description}}</td>
-        <td>{{question.answer_explanation}}</td>
-        <td>{{question.CandidateFail}}</td>
-        <td>{{question.CandidatePass}}</td>
-        <td>{{question.OnlineTestCount}}</td>
-        <td>{{question.OptionCount}}</td>
-        <td>{{question.QuestionSetCount}}</td>
-        <td>{{question.UserCount}}</td>
-        <td><a>delete</a></td>
-      </tr>
 
-      <app-stats [stats]="stats"></app-stats>
-    </table>
-  </div>
-  <div class="col-md-6">
+<div style="margin:10px;">
+<div class="container_fluid">
+<div class="row" *ngFor="let question of model">
+  <div class="col s10 m10 l10">{{question.question_description}}</div>
+  <div class="col s2 m2 l2" >  
+  <button class="btn waves-effect waves-light btn-small red" type="submit" name="action">Delete
+    <i class="material-icons left">delete</i>
+  </button>
+</div>
+<div class="col s12 m12 l12">
+   <div class="col s1 m1 l1">   
+<div class="question-text">
+  <span>
+    {{question.QuestionSetCount}}
+  </span>
 
-  </div>
+  <span> 
+  Question Sets
+   </span>
+   </div>
+   </div>
+
+   <div class="col s1 m1 l1 ">   
+<div class="question-text">
+  <span>
+    {{question.OnlineTestCount}}
+  </span>
+  <span> 
+  Online Test
+    </span>
+   </div>
+   </div>
+
+<div class="col s1 m1 l1">   
+<div class="question-text">
+  <span>
+    {{question.UserCount}}
+  </span>
+  <span> 
+  Users
+    </span>
+   </div>
+     </div>
+     <div class="col s1 m1 l1">  
+   <div class="question-text">
+  <span>
+    {{question.OptionCount}}
+  </span>
+  <span> 
+   Options
+    </span>
+   </div>
+     </div>
+     <div class="col s1 m1 l1">  
+   <div class="question-text">
+  <span>
+    {{question.CandidatePass}}
+  </span>
+  <span> 
+   pass
+    </span>
+   </div>
+     </div>
+     <div class="col s1 m1 l1">  
+   <div class="question-text">
+  <span>
+    {{question.CandidateFail}}
+  </span>
+  <span> 
+   fail
+    </span>
+   </div>
+</div> 
+</div>
+
+</div> 
+</div> 
 </div>

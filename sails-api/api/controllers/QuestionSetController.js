@@ -56,15 +56,16 @@ module.exports = {
             if (err) {
                 return res.serverError(err);
             } else {
-                for (var i = 0; i < result[0].length; i++) {
-                    result[0][i].test_completed_date = result[0][i].test_completed_date.getDate() + "-" + result[0][i].test_completed_date.getMonth() + "-" + result[0][i].test_completed_date.getFullYear();
-                    // result[i].test_end_date = result[i].test_end_date.getDate()+"/"+result[i].test_end_date.getMonth()+"/"+result[i].test_end_date.getFullYear();
-                    // result[0][i].total_time = toSeconds(result[0][i].total_time);
-                    result[0][i].test_start_time = tConvert(result[0][i].test_start_time);
-                    result[0][i].test_end_time = tConvert(result[0][i].test_end_time);
-
+                result = result[0];
+                for (var i = 0; i < result.length; i++) {
+                    result[i].startDate = result[i].test_start_date.getDate() + "-" + result[i].test_start_date.getMonth() + "-" + result[i].test_start_date.getFullYear();
+                    result[i].startTime = result[i].test_start_date.getHours() + ":" + result[i].test_start_date.getMinutes() + ":" + result[i].test_start_date.getSeconds();
+                    result[i].convertStartTime = tConvert(result[i].startTime);
+                    result[i].endDate = result[i].test_end_date.getDate() + "-" + result[i].test_end_date.getMonth() + "-" + result[i].test_end_date.getFullYear();
+                    result[i].endTime = result[i].test_end_date.getHours() + ":" + result[i].test_end_date.getMinutes() + ":" + result[i].test_end_date.getSeconds();
+                    result[i].convertEndTime = tConvert(result[i].endTime);
                 }
-                return res.json(result[0]);
+                return res.json(result);
             }
         });
     },
@@ -127,17 +128,29 @@ module.exports = {
     }
 };
 
-function tConvert(time) {
+function tConvert(time_str) {
     // Check correct time format and split into components
-    time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-
+   // time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+       var time = time_str.split(':');
     if (time.length > 1) { // If time format correct
-        time = time.slice(1);  // Remove full string match value
+        //time = time.slice(1);
+        time[0] = +time[0] % 12 || 12;  // Remove full string match value
         time[3] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
-        time[0] = +time[0] % 12 || 12; // Adjust hours
+        // Adjust hours
     }
-    return time.join(''); // return adjusted time or original string
+   return time[0]+':0'+ time[1] + '' + time[3];
+
+   // return time.join(': '); // return adjusted time or original string
 }
+// function tConvert(timeString) {
+//     var H = +timeString.substr(0, 2);
+//     var h = (H % 12) || 12;
+//     var ampm = H < 12 ? "AM" : "PM";
+//    // var timeString = h + timeString.substr(2, 3) + ampm;
+//     var timeString =  h+':0'+ timeString[2] + '' +  timeString[3];
+//     return timeString;
+// }
+
 // function toSeconds(time_str) {
 //     // Extract hours, minutes and seconds
 //     var parts = time_str.split(':');

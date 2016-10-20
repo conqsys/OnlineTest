@@ -90,13 +90,16 @@ class Test extends Component {
                                 {questionSet.online_test_title}
                             </Text>
                             <Text style={styles.title}>
-                               Expried Date : {questionSet.test_completed_date}
+                               Start Date : {questionSet.startDate}
                             </Text>
                             <Text style={styles.title}>
-                               Start Time : {questionSet.test_start_time}
+                               Start Time : {questionSet.convertStartTime}
+                            </Text>
+                             <Text style={styles.title}>
+                               Start Date : {questionSet.endDate}
                             </Text>
                             <Text style={styles.title}>
-                               End Time : {questionSet.test_end_time}
+                               End Time : {questionSet.convertEndTime}
                             </Text>
                             <Text style={styles.title}>
                               Total Time : {questionSet.total_time}

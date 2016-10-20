@@ -25,20 +25,7 @@ module.exports = {
                 return res.serverError(err);
             }
             else {
-                if (result[0] && result[0].length > 0) {
-                    var question = result[0][0];
-                    var str = "CALL spGetQuestionOption(" + question.question_id + ")";
-                    Question.query(str, function (err, options) {
-                        if (err) {
-                            return res.serverError(err);
-                        }
-                        else {
-                            question.options = options[0];
-                            return res.json(question);
-                        }
-                    })
-                }
-                else {
+                if (req.body.question.remainingQuestion === 0) {
                     var isTestBegin = 0;
                     var str = "call spUpdateOnlineTestUser(" + testUserId + "," + isTestBegin + ")";
                     OnlineTest.query(str, function (err, result) {
@@ -50,8 +37,21 @@ module.exports = {
                             return res.json(testUserId);
                         }
                     });
-                    //testTimeOut(req, res);
-                    // return res.json(message);
+                }
+                else {
+                    if (result[0] && result[0].length > 0) {
+                        var question = result[0][0];
+                        var str = "CALL spGetQuestionOption(" + question.question_id + ")";
+                        Question.query(str, function (err, options) {
+                            if (err) {
+                                return res.serverError(err);
+                            }
+                            else {
+                                question.options = options[0];
+                                return res.json(question);
+                            }
+                        })
+                    }
                 }
             }
         });

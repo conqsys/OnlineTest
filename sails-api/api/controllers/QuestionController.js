@@ -56,14 +56,14 @@ module.exports = {
         var testUserId = req.body.onlineTestUserId;
         var userId = req.body.userid;
         var qusSetid = req.body.questionSetid;
-        var str = "CALL spGetTestQuestion("+ testUserId+ "," + userId + "," + qusSetid + ")";
+        var str = "CALL spGetTestQuestion(" + testUserId + "," + userId + "," + qusSetid + ")";
         Question.query(str, function (err, result) {
             if (err) {
                 return res.serverError(err);
             }
             else {
                 if (result[0] && result[0].length > 0) {
-                     var question = result[0][0];
+                    var question = result[0][0];
                     var str = "CALL spGetQuestionOption(" + question.question_id + ")";
                     Question.query(str, function (err, options) {
                         if (err) {
@@ -73,13 +73,13 @@ module.exports = {
                             question.options = options[0];
                             if (options[0].length > 0)
                                 var isTestBegin = 1;
-                            var str = "call spUpdateOnlineTestUser(" + testId + "," + isTestBegin + ")";
+                            var str = "call spUpdateOnlineTestUser(" + testUserId + "," + isTestBegin + ")";
                             OnlineTest.query(str, function (err, result) {
                                 if (err) {
                                     return res.serverError(err);
                                 }
                                 else {
-                                    question.testUserId = result[0][0];
+                                    question.id = result[0][0];
                                     return res.json(question);
                                 }
                             });

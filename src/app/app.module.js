@@ -34,6 +34,7 @@ var user_service_1 = require('./shared/services/user/user.service');
 var control_messages_component_1 = require('./Components/validation/control-messages.component');
 var validation_service_1 = require('./shared/services/validation/validation.service');
 var froala_directives_1 = require('./components/shared/froala/directives/froala.directives');
+var strip_html_pipe_1 = require('./components/shared/strip-html-pipe/strip-html.pipe');
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 var localStorageServiceConfig = {
     prefix: 'my-app',
@@ -58,7 +59,8 @@ var AppModule = (function () {
                 angular2_materialize_1.MaterializeDirective,
                 froala_directives_1.FroalaEditorDirective,
                 statinfo_component_1.StatinfoComponent,
-                stats_component_1.StatsComponent
+                stats_component_1.StatsComponent,
+                strip_html_pipe_1.StripHtmlPipe
             ],
             providers: [
                 question_service_1.QuestionService,

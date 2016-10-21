@@ -3,7 +3,7 @@
 <div style="margin:10px;">
 <div class="container_fluid">
 <div class="row" *ngFor="let question of model" >
-  <div class="col s10 m10 l10">{{question.question_description}}</div>
+  <div class="col s10 m10 l10">{{question.question_description | stripHtml}}</div>
   <div class="col s2 m2 l2" >  
   <button class="btn waves-effect waves-light btn-small red" type="submit" name="action">Delete
     <i class="material-icons left">delete</i>

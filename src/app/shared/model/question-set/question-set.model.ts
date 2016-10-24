@@ -2,7 +2,7 @@
 export class QuestionSet {
   question_set_id: number = 0;
   question_set_title: string = '';
-  total_time: string = '';
+  total_time: number = 0;
   company_id: number = 0;
   total_questions: number = 0;
   is_randomize: boolean = false;

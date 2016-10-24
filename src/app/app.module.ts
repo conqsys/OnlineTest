@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, XHRBackend, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { HttpInterceptor } from './shared/httpInterceptor';
-import { Http, RequestOptions } from '@angular/http';
-
-import { XHRBackend } from '@angular/http';
 
 import './rxjs-extensions';
 import 'materialize-css';
@@ -70,12 +68,14 @@ let localStorageServiceConfig = {
       useFactory: (xhrBackend: XHRBackend,
         requestOptions: RequestOptions,
         router: Router,
+        location: Location,
         localStorageService: LocalStorageService) => new HttpInterceptor(xhrBackend,
           requestOptions,
           router,
+          location,
           localStorageService),
 
-      deps: [XHRBackend, RequestOptions, Router, LocalStorageService],
+      deps: [XHRBackend, RequestOptions, Router, Location, LocalStorageService],
     },
     { provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig },
   ],

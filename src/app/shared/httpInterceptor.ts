@@ -1,5 +1,6 @@
 import { EventEmitter} from '@angular/core';
 import {Http, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers} from '@angular/http';
+import { Location } from '@angular/common';
 import { Router} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -14,6 +15,7 @@ export class HttpInterceptor extends Http {
   constructor(backend: ConnectionBackend,
     defaultOptions: RequestOptions,
     private router: Router,
+    private location: Location,
     private localStorageService: LocalStorageService) {
     super(backend, defaultOptions);
     this.requested = new EventEmitter<string>();
@@ -84,7 +86,10 @@ export class HttpInterceptor extends Http {
           this.localStorageService.remove('authorization');
           this.localStorageService.remove('user');
         }
-        this.router.navigate(['/login']);
+        if (this.router.url !== '/login') {
+          this.location.replaceState('/login');
+          window.location.reload();
+        }
         return Observable.empty();
 
       } else if (err.status === 403) {

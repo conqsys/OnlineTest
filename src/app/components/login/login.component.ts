@@ -35,7 +35,7 @@ export class LoginComponent extends BaseComponent {
         this.localStorageService.set('user', result.user);
         this.localStorageService.set('authorization', 'Bearer ' + result.token);
         this.location.replaceState('/questionSets');
-        location.reload();
+        window.location.reload();
       });
   }
 

@@ -13,9 +13,8 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
+var common_1 = require('@angular/common');
 var httpInterceptor_1 = require('./shared/httpInterceptor');
-var http_2 = require('@angular/http');
-var http_3 = require('@angular/http');
 require('./rxjs-extensions');
 require('materialize-css');
 var angular2_materialize_1 = require('angular2-materialize');
@@ -73,11 +72,11 @@ var AppModule = (function () {
                 validation_service_1.ValidationService,
                 angular_2_local_storage_1.LocalStorageService,
                 {
-                    provide: http_2.Http,
-                    useFactory: function (xhrBackend, requestOptions, router, localStorageService) {
-                        return new httpInterceptor_1.HttpInterceptor(xhrBackend, requestOptions, router, localStorageService);
+                    provide: http_1.Http,
+                    useFactory: function (xhrBackend, requestOptions, router, location, localStorageService) {
+                        return new httpInterceptor_1.HttpInterceptor(xhrBackend, requestOptions, router, location, localStorageService);
                     },
-                    deps: [http_3.XHRBackend, http_2.RequestOptions, router_1.Router, angular_2_local_storage_1.LocalStorageService],
+                    deps: [http_1.XHRBackend, http_1.RequestOptions, router_1.Router, common_1.Location, angular_2_local_storage_1.LocalStorageService],
                 },
                 { provide: angular_2_local_storage_1.LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig },
             ],

@@ -34,9 +34,9 @@
         <label for="ques_set_title" class="active">Title</label>
       </div>
       <div class="input-field col s6">
-        <input class="validate ng-valid ng-dirty ng-touched flow-text" type="time" id="total_time" [(ngModel)]="model.total_time"
-          [ngModelOptions]="{standalone: true}" placeholder="Total Time" />
-        <label for="total_time" style="margin-top:-25px;font-size:0.8rem">Total Time</label>
+        <input class="validate ng-valid ng-dirty ng-touched flow-text" id="total_time" placeholder="Total Time" type="number"
+          [(ngModel)]="model.total_time" [ngModelOptions]="{standalone: true}">
+        <label for="total_time" class="active">Total Time</label>
       </div>
     </div>
 

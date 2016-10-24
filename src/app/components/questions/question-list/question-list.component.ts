@@ -1,5 +1,6 @@
 import { Component, OnInit , Input,  trigger, state, style, transition, animate,keyframes,SecurityContext,Sanitizer} from '@angular/core';
 import { Router} from '@angular/router';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 
@@ -51,9 +52,11 @@ export class QuestionListComponent extends BaseComponent implements OnInit {
 
   constructor(private questionService: QuestionService,
     private questionOptionService: QuestionOptionService,
+    private sanitize: Sanitizer,
     localStorageService: LocalStorageService,
-    router: Router,private sanitize:Sanitizer) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
     this.statInfo = new StatInfo();
     this.model = new Array<Question>();
     this.selectedQuestion = new Question();

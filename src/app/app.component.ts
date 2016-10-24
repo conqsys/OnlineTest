@@ -25,10 +25,11 @@ import { BaseComponent } from './components/base.component';
 export class AppComponent extends BaseComponent {
   authorization: any;
   title = 'Online Test';
-  constructor(private location: Location,
+  constructor(
     localStorageService: LocalStorageService,
-    router: Router) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
   }
 
   logout(): void {

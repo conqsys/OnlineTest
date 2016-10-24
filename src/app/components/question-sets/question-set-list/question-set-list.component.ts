@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
@@ -20,8 +21,9 @@ export class QuestionSetListComponent extends BaseComponent implements OnInit {
 
   constructor(private questionSetService: QuestionSetService,
     localStorageService: LocalStorageService,
-    router: Router) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
 
     this.title = 'Question Sets';
     this.model = new Array<QuestionSet>();

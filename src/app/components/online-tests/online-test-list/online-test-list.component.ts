@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
@@ -17,8 +18,9 @@ export class OnlineTestListComponent extends BaseComponent implements OnInit {
 
   constructor(private onlineTestService: OnlineTestService,
     localStorageService: LocalStorageService,
-    router: Router) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
   }
 
   ngOnInit(): void {

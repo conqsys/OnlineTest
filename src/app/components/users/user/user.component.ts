@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
@@ -21,8 +22,9 @@ export class UserComponent extends BaseComponent implements OnInit {
   constructor(private userService: UserService,
     private activatedRoute: ActivatedRoute,
     localStorageService: LocalStorageService,
-    router: Router) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
     this.title = 'User';
     this.model = new User();
     this.disabled = false;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import { BaseComponent } from '../../base.component';
@@ -19,8 +20,9 @@ export class CompanyComponent extends BaseComponent implements OnInit {
   constructor(private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
     localStorageService: LocalStorageService,
-    router: Router) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
     this.model = new Company();
   }
 

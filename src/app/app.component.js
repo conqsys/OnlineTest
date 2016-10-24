@@ -20,9 +20,8 @@ var angular_2_local_storage_1 = require('angular-2-local-storage');
 var base_component_1 = require('./components/base.component');
 var AppComponent = (function (_super) {
     __extends(AppComponent, _super);
-    function AppComponent(location, localStorageService, router) {
-        _super.call(this, localStorageService, router);
-        this.location = location;
+    function AppComponent(localStorageService, router, location) {
+        _super.call(this, localStorageService, router, location);
         this.title = 'Online Test';
     }
     AppComponent.prototype.logout = function () {
@@ -41,7 +40,7 @@ var AppComponent = (function (_super) {
             template: "<div class=\"col-md-12\" [hidden]=\"!user\">\n      \n          <a class=\"btn\" routerLink=\"/questions\" routerLinkActive=\"active\">Questions</a>\n          <a class=\"btn\" routerLink=\"/questionSets\" routerLinkActive=\"active\">Question Sets</a>\n          <a class=\"btn\" routerLink=\"/topics\" routerLinkActive=\"active\">Topic</a>\n          <a class=\"btn\" routerLink=\"/companies\" routerLinkActive=\"active\">Companies</a>\n          <a class=\"btn\" routerLink=\"/users\" routerLinkActive=\"active\">Users</a>\n          <a class=\"btn\" routerLink=\"/onlineTests\" routerLinkActive=\"active\">Online Test</a>\n          <a class=\"btn\" (click)=logout()>Logout</a>\n\n    </div>\n    <div class=\"col-md-12\">\n    <router-outlet></router-outlet></div>",
             styleUrls: ['app.component.css']
         }), 
-        __metadata('design:paramtypes', [common_1.Location, angular_2_local_storage_1.LocalStorageService, router_1.Router])
+        __metadata('design:paramtypes', [angular_2_local_storage_1.LocalStorageService, router_1.Router, common_1.Location])
     ], AppComponent);
     return AppComponent;
 }(base_component_1.BaseComponent));

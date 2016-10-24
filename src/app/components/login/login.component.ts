@@ -18,10 +18,10 @@ export class LoginComponent extends BaseComponent {
   private model: Login;
 
   constructor(private loginService: LoginService,
-    private location: Location,
     localStorageService: LocalStorageService,
-    router: Router) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
 
     this.model = new Login();
     this.model.username = 'amit8774@gmail.com';

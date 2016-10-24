@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
 import {BaseComponent} from '../../base.component';
@@ -34,8 +35,9 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private questionOptionService: QuestionOptionService,
     localStorageService: LocalStorageService,
-    router: Router) {
-    super(localStorageService, router);
+    router: Router,
+    location: Location) {
+    super(localStorageService, router, location);
 
     this.model = new Question();
     this.model.options = new Array<QuestionOption>();

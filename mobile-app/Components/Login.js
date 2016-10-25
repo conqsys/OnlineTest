@@ -6,6 +6,7 @@ import {
     TouchableHighlight,
     AsyncStorage,
     View,
+    ToastAndroid,
     Navigator
 } from 'react-native';
 
@@ -56,9 +57,12 @@ class Login extends Component {
                         this.redirect('Tests');
                        
                     }
-                    else {
-                        this.setState.error({ error: responseData.err });
-                    }
+                     else {
+                    ToastAndroid.show('Test not alloted', ToastAndroid.LONG)
+                }
+                    // else {
+                    //     this.setState.error({ error: responseData.err });
+                    // }
                 });
         } catch (error) {
             console.log("error" + JSON.stringify(error));
@@ -66,7 +70,7 @@ class Login extends Component {
     }
     render() {
            return (
-            <View style={styles.container} >
+            <View style={styles.maincontainer} >
                 <Text style={styles.welcome}>
                     Welcome to Online Test!
                 </Text>
@@ -84,7 +88,7 @@ class Login extends Component {
                         />
                 </View>
 
-                <TouchableHighlight style={styles.button} onPress={this._onLogin.bind(this) }>
+                <TouchableHighlight style={styles.login} onPress={this._onLogin.bind(this) }>
                     <Text style={styles.buttonText} >
                         Login
                     </Text>

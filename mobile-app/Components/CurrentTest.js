@@ -105,7 +105,6 @@ class CurrentTest extends Component {
                     this.setQuestion(responseData);
                 }
                 else if (responseData.id) {
-
                     this.redirect('FinishTest', responseData.id);
                 }
                 else {
@@ -136,8 +135,9 @@ class CurrentTest extends Component {
     }
 
     render() {
-        var htmlContent = this.state.question_description;
-
+        var HTML = "<h3>vipin</h3>"//'<img src="asdf" alt="image not available"></img>'// 
+        var url = "<Image source={require('./abc.png')} alt='image not available'></Image>"
+        var htmlContent = this.state.question.question_description;
         return (
             <View style={styles.container}>
                 <View style={styles.contentrow}>
@@ -148,8 +148,39 @@ class CurrentTest extends Component {
                     </View>
                 </View>
                 <Text> TestTitle: {this.state.question.online_test_title}</Text>
-                <HTMLView value={htmlContent} stylesheet={styles} />
-                <MultipleChoice
+                <View style={styles.contentrow} >
+                    <Text style={{paddingTop:10}}>Q.No: {this.state.question.selectedQuestion}</Text>
+                    <WebView
+                        style={{
+                            marginLeft: 20,
+                            backgroundColor: '#F5FCFF',
+                            height: 100,
+                        }}
+                        ref="webview"
+                        automaticallyAdjustContentInsets={false}
+                        javaScriptEnabled={true}
+                        domStorageEnabled={true}
+                        decelerationRate="normal"
+                        startInLoadingState={true}
+                        source={{ html: htmlContent }}
+                        scalesPageToFit={true}
+                        />
+                </View>
+                 <MultipleChoice
+                    style={{
+                        borderWidth: 2,
+                        borderColor: '#000000',
+                        backgroundColor: '#ffe6e6',
+                    }}
+                    optionStyle={{
+                        borderTopColor: '#808080',
+                        borderTopWidth: 1,
+                        paddingLeft: 15,
+                        borderBottomWidth: 1,
+                        borderBottomColor: '#808080',
+                        alignItems: 'stretch',
+                        flexWrap: 'wrap'
+                    }}
                     options={this.state.optionsArr}
                     maxSelectedOptions={this.state.maxselectOptions}
                     onSelection={(option) => this.selectedOption(option)}
@@ -163,5 +194,6 @@ class CurrentTest extends Component {
         );
     }
 }
+
 
 module.exports = CurrentTest

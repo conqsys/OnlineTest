@@ -5,8 +5,10 @@ import {
     TouchableOpacity,
     AsyncStorage,
     ScrollView,
+    ToastAndroid,
     ListView,
-    View } from 'react-native';
+    View
+} from 'react-native';
 import { Subheader, Divider } from 'react-native-material-design';
 import styles from '../Stylesheet/Style';
 import navstyle from '../Stylesheet/nav';
@@ -43,7 +45,7 @@ class Test extends Component {
             this.setState({ userName: userdata.user.user_name });
             this.setState({ clientToken: userdata.token });
             this.setState({ userid: userdata.user.user_id });
-            console.log('Login User Data =>' + userdata);
+            // console.log('Login User Data =>' + userdata);
             this.getQuestionSet();
 
         } catch (error) {
@@ -63,13 +65,19 @@ class Test extends Component {
         try {
 
             questionService.questionSet(this.state).then((responseData) => {
-                if (responseData) {
-
+                if (responseData.length > 0) {
                     this.setState({
                         dataSource: this.state.dataSource.cloneWithRows(responseData),
-                        loaded: true,
+                        loaded: false,
                     });
                     // console.log(this.state.dataSource);
+                }
+                else {
+                    ToastAndroid.showWithGravity('Test not allow!',
+                        ToastAndroid.LONG,
+                        ToastAndroid.CENTER,
+                    )
+                   // this.navigate('Login');
                 }
             });
         } catch (error) {
@@ -84,25 +92,28 @@ class Test extends Component {
         return (
             <ScrollView style={styles.scrollView}>
                 <View style={styles.container}>
+                    <Text style={styles.buttonText}>
+                        Welcome {this.state.userName}
+                    </Text>
                     <View>
-                        <TouchableOpacity style={styles.list} onPress={() => this.selectQuestionSet(questionSet) }>
+                        <TouchableOpacity style={styles.list} onPress={() => this.selectQuestionSet(questionSet)}>
                             <Text style={styles.row}>
                                 {questionSet.online_test_title}
                             </Text>
                             <Text style={styles.title}>
-                               Start Date : {questionSet.startDate}
+                                Start Date : {questionSet.startDate}
                             </Text>
                             <Text style={styles.title}>
-                               Start Time : {questionSet.convertStartTime}
-                            </Text>
-                             <Text style={styles.title}>
-                               Start Date : {questionSet.endDate}
+                                Start Time : {questionSet.convertStartTime}
                             </Text>
                             <Text style={styles.title}>
-                               End Time : {questionSet.convertEndTime}
+                                Start Date : {questionSet.endDate}
                             </Text>
                             <Text style={styles.title}>
-                              Total Time : {questionSet.total_time}
+                                End Time : {questionSet.convertEndTime}
+                            </Text>
+                            <Text style={styles.title}>
+                                Total Time : {questionSet.total_time}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -113,9 +124,6 @@ class Test extends Component {
     render() {
         return (
             <View style={styles.container} >
-                <Text  style={styles.buttonText}>
-                    Welcome {this.state.userName}
-                </Text>
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderTest} />

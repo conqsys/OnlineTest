@@ -5,18 +5,23 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'stretch',
+        flexDirection: 'column',
+        backgroundColor: 'transparent'
     },
     navBar: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: .5,
         backgroundColor: '#009788',
     },
     navBarText: {
         color: 'white',
         fontSize: 16,
         marginVertical: 10
-        
+
     },
     navBarTitleText: {
-       // fontWeight: '500',
+        // fontWeight: '500',
         marginVertical: 15,
         marginHorizontal: 75,
         //marginLeft:100,

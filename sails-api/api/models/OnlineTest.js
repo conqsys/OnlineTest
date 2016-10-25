@@ -28,15 +28,7 @@ module.exports = {
       type: "string",
       required: false
     },
-    test_start_time: {
-      type: "string",
-      required: false
-    },
     test_end_date: {
-      type: "string",
-      required: false
-    },
-    test_end_time: {
       type: "string",
       required: false
     },

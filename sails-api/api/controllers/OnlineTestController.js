@@ -10,20 +10,18 @@ module.exports = {
     // save Test details into database 
     saveOnlineTest: function (req, res, next) {
         var start_date = req.body.test_start_date.split("/");
-        req.body.test_start_date = start_date[2] + "-" + start_date[1] + "-" + start_date[0];
+        req.body.test_start_date = start_date[2] + "-" + start_date[1] + "-" + start_date[0] + " " + req.body.test_start_time;
         var end_date = req.body.test_end_date.split("/");
-        req.body.test_end_date = end_date[2] + "-" + end_date[1] + "-" + end_date[0];
+        req.body.test_end_date = end_date[2] + "-" + end_date[1] + "-" + end_date[0] + " " + req.body.test_end_time;
 
         var companyId = req.token.user.company_id;
         var createdBy = req.token.user.user_id;
 
-        var str = "CALL spSaveOnlinetest("  + req.body.online_test_id + "," 
+        var str = "CALL spSaveOnlineTest("  + req.body.online_test_id + "," 
                                             + companyId + ",'" 
                                             + req.body.online_test_title + "','" 
                                             + req.body.test_start_date + "','" 
-                                            + req.body.test_start_time + "','" 
-                                            + req.body.test_end_date + "','" 
-                                            + req.body.test_end_time + "'," 
+                                            + req.body.test_end_date + "'," 
                                             + req.body.question_set_id + ",'" 
                                             + req.body.test_support_text + "'," 
                                             + req.body.test_experience_years + ",'" 
@@ -42,8 +40,8 @@ module.exports = {
             }
             else {
                 for (var i = 0; i < result.length; i++) {
-                    result[i].test_start_date = result[i].test_start_date.getDate() + "/" + result[i].test_start_date.getMonth() + "/" + result[i].test_start_date.getFullYear();
-                    result[i].test_end_date = result[i].test_end_date.getDate() + "/" + result[i].test_end_date.getMonth() + "/" + result[i].test_end_date.getFullYear()
+                    result[i].test_start_date = result[i].test_start_date.toDateString() + " " + result[i].test_start_date.toLocaleTimeString();
+                    result[i].test_end_date = result[i].test_end_date.toDateString() + " " + result[i].test_end_date.toLocaleTimeString();
                 }
                 return res.json(result);
             }
@@ -53,14 +51,13 @@ module.exports = {
     getOnlineTest: function (req, res) {
         var online_test_id = req.param('online_test_id');
         var companyId = req.token.user.company_id;
-        OnlineTest.findOne({ online_test_id: online_test_id, company_id: companyId }).exec(function (err, result) {
+        var str = "call spGetOnlineTest(" + online_test_id + "," + companyId + ")";
+        OnlineTest.query(str, function (err, result) {
             if (err) {
                 return res.serverError(err);
             }
             else {
-                result.test_start_date = result.test_start_date.getDate() + "/" + result.test_start_date.getMonth() + "/" + result.test_start_date.getFullYear();
-                result.test_end_date = result.test_end_date.getDate() + "/" + result.test_end_date.getMonth() + "/" + result.test_end_date.getFullYear()
-                var onlineTest = result;
+                var onlineTest = result[0][0];
                 onlineTest.onlineTestUsers = [];
                 var str = "call spGetOnlineTestUser(" + online_test_id + "," + companyId + ")";
                 OnlineTest.query(str, function (err, result) {

@@ -202,9 +202,7 @@ CREATE TABLE `onlinetest` (
   `company_id` bigint(20) NOT NULL,
   `online_test_title` varchar(200) NOT NULL,
   `test_start_date` datetime NOT NULL,
-  `test_start_time` time NOT NULL,
   `test_end_date` datetime NOT NULL,
-  `test_end_time` time NOT NULL,
   `question_set_id` bigint(20) NOT NULL,
   `test_support_text` text NOT NULL,
   `test_experience_years` int(11) NOT NULL,
@@ -226,7 +224,7 @@ CREATE TABLE `onlinetest` (
 
 LOCK TABLES `onlinetest` WRITE;
 /*!40000 ALTER TABLE `onlinetest` DISABLE KEYS */;
-INSERT INTO `onlinetest` VALUES (2,1,'fresher ','2016-10-15 10:00:00','10:00:00','2016-10-28 11:00:00','11:00:00',1,'abc',0,'Vipin ','Vipin','2016-09-19 17:44:13','2016-10-18 12:26:58'),(4,1,'exprience','2016-10-10 00:00:00','10:00:00','2016-10-10 00:00:00','12:00:00',1,'it is hard test',2,'Vipin','Vipin','2016-09-19 19:33:25','2016-09-19 19:33:25'),(5,1,'exprience','2016-10-01 00:00:00','01:00:00','2016-10-01 00:00:00','02:00:00',2,'superab',3,'Vipin','Vipin','2016-09-19 20:48:45','2016-09-19 20:48:45'),(6,1,'fresher','2016-08-16 00:00:00','14:00:00','2016-08-17 00:00:00','15:00:00',3,'cccccccccccc',0,'Vipin','Vipin','2016-09-20 15:13:30','2016-09-20 16:56:05'),(7,1,'sasa','2016-09-14 00:00:00','11:01:00','2016-09-15 00:00:00','00:01:00',2,'aaaaa',4,'Vipin','Vipin','2016-09-20 15:57:08','2016-09-20 15:57:08');
+INSERT INTO `onlinetest` VALUES (2,1,'fresher ','2016-10-15 10:00:00','2016-10-28 20:00:00',1,'abc',3,'Vipin ','4','2016-09-19 17:44:13','2016-10-25 10:48:05'),(4,1,'exprience','2016-10-10 00:00:00','2016-10-10 00:00:00',1,'it is hard test',2,'Vipin','Vipin','2016-09-19 19:33:25','2016-09-19 19:33:25'),(5,1,'exprience','2016-10-01 00:00:00','2016-10-01 00:00:00',2,'superab',3,'Vipin','Vipin','2016-09-19 20:48:45','2016-09-19 20:48:45'),(6,1,'fresher','2016-08-16 00:00:00','2016-08-17 00:00:00',3,'cccccccccccc',0,'Vipin','Vipin','2016-09-20 15:13:30','2016-09-20 16:56:05'),(7,1,'sasa','2016-09-14 00:00:00','2016-09-15 00:00:00',2,'aaaaa',4,'Vipin','Vipin','2016-09-20 15:57:08','2016-09-20 15:57:08');
 /*!40000 ALTER TABLE `onlinetest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -595,6 +593,47 @@ FROM	user u
         INNER JOIN company c ON c.company_id = cu.company_id
         INNER JOIN role ON role.role_id = u.role_id
 WHERE	u.user_id = userId;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `spGetOnlineTest` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `spGetOnlineTest`(
+IN onlineTestId BIGINT,
+IN companyId BIGINT
+)
+BEGIN
+
+SELECT 	online_test_id,
+		company_id,
+        online_test_title,
+        DATE_FORMAT(test_start_date,'%d/%m/%Y') test_start_date,
+        DATE_FORMAT(test_start_date,'%T') test_start_time,
+        DATE_FORMAT(test_end_date,'%d/%m/%Y') test_end_date,
+        DATE_FORMAT(test_end_date,'%T') test_end_time,
+        question_set_id,
+        test_support_text,
+        test_experience_years,
+        created_by,
+        updated_by,
+        created_datetime,
+        updated_datetime
+        
+FROM	OnlineTest
+WHERE	online_test_id = onlineTestId
+		AND company_id = companyId;
 
 END ;;
 DELIMITER ;
@@ -1233,7 +1272,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `spSaveOnlinetest` */;
+/*!50003 DROP PROCEDURE IF EXISTS `spSaveOnlineTest` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1243,18 +1282,16 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `spSaveOnlinetest`(
+CREATE DEFINER=`root`@`%` PROCEDURE `spSaveOnlineTest`(
 IN id INT, 
 IN company_id bigint(20) ,
 IN online_test_title varchar(200), 
-IN test_start_date datetime ,
-IN test_start_time time ,
-IN test_end_date datetime ,
-IN test_end_time time ,
-IN question_set_id bigint(20) ,
-IN test_support_text text ,
-IN test_experience_years int(11) ,
-IN created_by varchar(50) ,
+IN test_start_date datetime,
+IN test_end_date datetime,
+IN question_set_id bigint(20),
+IN test_support_text text,
+IN test_experience_years int(11),
+IN created_by varchar(50),
 IN updated_by varchar(50) 
 )
 BEGIN
@@ -1265,9 +1302,7 @@ THEN
             company_id, 
 			online_test_title ,
 			test_start_date ,
-			test_start_time ,
 			test_end_date ,
-			test_end_time ,
 			question_set_id,
 			test_support_text,
 			test_experience_years,
@@ -1281,9 +1316,7 @@ THEN
 			company_id, 
 			online_test_title ,
 			test_start_date ,
-			test_start_time ,
 			test_end_date ,
-			test_end_time ,
 			question_set_id,
 			test_support_text,
 			test_experience_years,
@@ -1299,9 +1332,7 @@ ELSE
 		company_id = company_id,
         online_test_title = online_test_title,
         test_start_date = test_start_date,
-        test_start_time = test_start_time,
         test_end_date = test_end_date,
-        test_end_time = test_end_time,
         question_set_id = question_set_id,
         test_support_text = test_support_text,
         test_experience_years =test_experience_years,
@@ -1827,4 +1858,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-25 13:35:49
+-- Dump completed on 2016-10-25 16:20:21

@@ -2,18 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
-import {BaseComponent} from '../../base.component';
-
+import { BaseComponent } from '../../base.component';
 import { QuestionSet, QuestionSetQuestion } from '../../../shared/model/question-set/question-set.model';
 import { Question } from '../../../shared/model/question/question.model';
 import { Topic } from '../../../shared/model/topic/topic.model';
 import { OptionSeries } from '../../../shared/model/question/question-option.model';
-
 import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
 import { QuestionService } from '../../../shared/services/question/question.service';
 import { TopicService } from '../../../shared/services/topic/topic.service';
 import { QuestionOptionService } from '../../../shared/services/question-option/question-option.service';
+import { MessageService } from '../../../shared/services/message/message.service';
 
 @Component({
   moduleId: module.id,
@@ -31,7 +29,7 @@ export class QuestionSetComponent extends BaseComponent implements OnInit {
   private isAddQuestion: boolean;
   private questionSetId: number;
 
-  constructor(private questionSetService: QuestionSetService,
+  constructor(private questionSetService: QuestionSetService, private messageService: MessageService,
     private questionService: QuestionService,
     private topicService: TopicService,
     private questionOptionService: QuestionOptionService,
@@ -109,6 +107,7 @@ export class QuestionSetComponent extends BaseComponent implements OnInit {
     this.questionSetService
       .saveQuestionSet(this.model)
       .then(result => {
+        this.messageService.showMessage('Save Questionset');
         this.router.navigate(['/questionSets']);
       });
   }

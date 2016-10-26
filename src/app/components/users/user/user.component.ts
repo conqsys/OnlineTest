@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
-import {BaseComponent} from '../../base.component';
-
+import { BaseComponent } from '../../base.component';
+import { MessageService } from '../../../shared/services/message/message.service';
 import { User } from '../../../shared/model/user/user.model';
 import { UserService } from '../../../shared/services/user/user.service';
 
@@ -21,6 +20,7 @@ export class UserComponent extends BaseComponent implements OnInit {
 
   constructor(private userService: UserService,
     private activatedRoute: ActivatedRoute,
+    private messageService:MessageService,
     localStorageService: LocalStorageService,
     router: Router,
     location: Location) {
@@ -59,7 +59,10 @@ export class UserComponent extends BaseComponent implements OnInit {
     this.userService
       .saveUser(this.model)
       .then(user => {
-        this.router.navigate(['/users']);
+        if (user) {
+          this.messageService.showMessage('user saved successfully');
+          this.router.navigate(['/users']);
+        }
       });
   }
 

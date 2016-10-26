@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
 import { BaseComponent } from '../../base.component';
-
+import { MessageService } from '../../../shared/services/message/message.service';
 import { QuestionSet } from '../../../shared/model/question-set/question-set.model';
 import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
 
@@ -20,6 +19,7 @@ export class QuestionSetListComponent extends BaseComponent implements OnInit {
   private selectedQuestionSetId: number;
 
   constructor(private questionSetService: QuestionSetService,
+    private messageService: MessageService,
     localStorageService: LocalStorageService,
     router: Router,
     location: Location) {
@@ -48,6 +48,7 @@ export class QuestionSetListComponent extends BaseComponent implements OnInit {
     this.questionSetService
       .getQuestionSets()
       .then(questionSets => {
+        //this.messageService.showMessage('Questionsets loaded successfully');
         this.model = questionSets;
       });
   }

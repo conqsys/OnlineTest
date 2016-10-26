@@ -2,32 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
 import { BaseComponent } from '../../base.component';
-
 import { OnlineTest, OnlineTestUser } from '../../../shared/model/online-test/online-test.model';
 import { QuestionSet } from '../../../shared/model/question-set/question-set.model';
-
 import { OnlineTestService } from '../../../shared/services/online-test/online-test.service';
 import { QuestionSetService } from '../../../shared/services/question-set/question-set.service';
-
+import { MessageService } from '../../../shared/services/message/message.service'
 @Component({
   moduleId: module.id,
   selector: 'online-test',
   templateUrl: 'online-test.component.html',
 })
 export class OnlineTestComponent extends BaseComponent implements OnInit {
-
   private model: OnlineTest;
   private onlineTestId: number;
-
   private questionSets: QuestionSet[] = [];
   private onlineTestUsers: OnlineTestUser[] = [];
   private users: OnlineTestUser[] = [];
-
   private isAddTestUser: boolean;
 
   constructor(private onlineTestService: OnlineTestService,
+    private messageService: MessageService,
     private questionSetService: QuestionSetService,
     private activatedRoute: ActivatedRoute,
     localStorageService: LocalStorageService,
@@ -87,6 +82,7 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
       .saveOnlineTest(this.model)
       .then(result => {
         if (result) {
+          this.messageService.showMessage('OnlineTest save successfully');
           this.router.navigate(['/onlineTests']);
         }
       });
@@ -98,7 +94,6 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
       .then(questionSets => {
         if (questionSets) {
           this.questionSets = questionSets;
-
           if (this.onlineTestId > 0) {
             this.getOnlineTest(this.onlineTestId);
           }
@@ -111,7 +106,6 @@ export class OnlineTestComponent extends BaseComponent implements OnInit {
       .getOnlineTest(onlineTestId)
       .then(result => {
         this.model = result;
-
         this.users = this.model.onlineTestUsers.filter(user => +user.is_selected === 0);
         this.onlineTestUsers = this.model.onlineTestUsers.filter(user => +user.is_selected === 1);
       });

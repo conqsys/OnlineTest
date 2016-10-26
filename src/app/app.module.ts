@@ -27,6 +27,7 @@ import { UserService } from './shared/services/user/user.service';
 import { ControlMessages } from './Components/validation/control-messages.component';
 import { ValidationService } from './shared/services/validation/validation.service';
 import { FroalaEditorDirective } from './components/shared/froala/directives/froala.directives';
+import { MessageService } from './shared/services/message/message.service'
 
 import {StripHtmlPipe} from './components/shared/strip-html-pipe/strip-html.pipe'
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
@@ -63,6 +64,7 @@ let localStorageServiceConfig = {
     UserService,
     ValidationService,
     LocalStorageService,
+    MessageService,
     {
       provide: Http,
       useFactory: (xhrBackend: XHRBackend,

@@ -2,15 +2,12 @@ import { Component, OnInit , Input,  trigger, state, style, transition, animate,
 import { Router} from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
-
 import { BaseComponent } from '../../base.component';
-
 import { StatInfo } from '../../../shared/model/stats/stat-info.model';
 import { Question } from '../../../shared/model/question/question.model';
-
 import { QuestionService } from '../../../shared/services/question/question.service';
 import { QuestionOptionService } from '../../../shared/services/question-option/question-option.service';
+import { MessageService } from '../../../shared/services/message/message.service';
 
 @Component({
   moduleId: module.id,
@@ -53,6 +50,7 @@ export class QuestionListComponent extends BaseComponent implements OnInit {
   constructor(private questionService: QuestionService,
     private questionOptionService: QuestionOptionService,
     private sanitize: Sanitizer,
+    private messageService : MessageService,
     localStorageService: LocalStorageService,
     router: Router,
     location: Location) {
@@ -86,6 +84,7 @@ export class QuestionListComponent extends BaseComponent implements OnInit {
       .getQuestionsStateInfo()
       .then(result => {
         if (result) {
+          this.messageService.showMessage('questions loaded successfully');
           this.model = result;
         }
       });

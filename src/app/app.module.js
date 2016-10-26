@@ -33,6 +33,7 @@ var user_service_1 = require('./shared/services/user/user.service');
 var control_messages_component_1 = require('./Components/validation/control-messages.component');
 var validation_service_1 = require('./shared/services/validation/validation.service');
 var froala_directives_1 = require('./components/shared/froala/directives/froala.directives');
+var message_service_1 = require('./shared/services/message/message.service');
 var strip_html_pipe_1 = require('./components/shared/strip-html-pipe/strip-html.pipe');
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 var localStorageServiceConfig = {
@@ -71,6 +72,7 @@ var AppModule = (function () {
                 user_service_1.UserService,
                 validation_service_1.ValidationService,
                 angular_2_local_storage_1.LocalStorageService,
+                message_service_1.MessageService,
                 {
                     provide: http_1.Http,
                     useFactory: function (xhrBackend, requestOptions, router, location, localStorageService) {

@@ -3,17 +3,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import {BaseComponent} from '../../base.component';
+import { BaseComponent } from '../../base.component';
 
 import { ApiUrl } from '../../../shared/api-url.component';
 
 import { Question } from '../../../shared/model/question/question.model';
 import { QuestionOption } from '../../../shared/model/question/question-option.model';
 import { Topic } from '../../../shared/model/topic/topic.model';
-
+import { MessageService } from '../../../shared/services/message/message.service';
 import { TopicService } from '../../../shared/services/topic/topic.service';
 import { QuestionService } from '../../../shared/services/question/question.service';
 import { QuestionOptionService } from '../../../shared/services/question-option/question-option.service';
+
 
 declare var tinymce: any;
 @Component({
@@ -31,6 +32,7 @@ export class QuestionComponent extends BaseComponent implements OnInit {
   private newOption: string;
 
   constructor(private questionService: QuestionService,
+    private messageService: MessageService,
     private topicService: TopicService,
     private activatedRoute: ActivatedRoute,
     private questionOptionService: QuestionOptionService,
@@ -84,6 +86,9 @@ export class QuestionComponent extends BaseComponent implements OnInit {
     this.questionService
       .saveQuestion(this.model)
       .then(result => {
+        if(result){
+          this.messageService.showMessage('save question succesfully');
+        }
         this.router.navigate(['/questions']);
       });
   }

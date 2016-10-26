@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
 import {BaseComponent} from '../../base.component';
-
+import { MessageService } from '../../../shared/services/message/message.service';
 import { User } from '../../../shared/model/user/user.model';
 import { UserService } from '../../../shared/services/user/user.service';
 
@@ -20,6 +19,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
   private selectedUserId: number;
 
   constructor(private userService: UserService,
+  private messageService: MessageService,
     localStorageService: LocalStorageService,
     router: Router,
     location: Location) {
@@ -48,6 +48,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
     this.userService
       .getUsers()
       .then(users => {
+       // this.messageService.showMessage('user loaded successfully');
         this.model = users;
       });
   }

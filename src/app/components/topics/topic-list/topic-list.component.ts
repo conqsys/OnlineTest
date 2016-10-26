@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
 import { BaseComponent } from '../../base.component';
-
 import { Topic } from '../../../shared/model/topic/topic.model';
 import { TopicService } from '../../../shared/services/topic/topic.service';
-
-declare var Materialize: any;
+import { MessageService } from '../../../shared/services/message/message.service';
 
 @Component({
   moduleId: module.id,
@@ -19,7 +16,7 @@ export class TopicListComponent extends BaseComponent implements OnInit {
   private selectedTopic: Topic;
   private model: Topic[] = [];
 
-  constructor(private topicService: TopicService,
+  constructor(private topicService: TopicService, private messageService: MessageService,
     localStorageService: LocalStorageService,
     router: Router,
     location: Location) {
@@ -47,10 +44,10 @@ export class TopicListComponent extends BaseComponent implements OnInit {
       .removeTopic(item.topic_id)
       .then(result => {
         if (result) {
-          Materialize.toast('Topic deleted!', 2000, 'rounded');
+          this.messageService.showMessage('Topic deleted!');
           this.getTopic();
         } else {
-          Materialize.toast('Topic not deleted!', 2000, 'rounded');
+          this.messageService.showMessage('Topic not deleted!');
         }
       });
   }
@@ -60,6 +57,7 @@ export class TopicListComponent extends BaseComponent implements OnInit {
       .getTopic()
       .then(result => {
         if (result) {
+         // this.messageService.showMessage('Topic loaded successfully');
           this.model = result;
         }
       });

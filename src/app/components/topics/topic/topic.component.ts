@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LocalStorageService } from 'angular-2-local-storage';
-
 import {BaseComponent} from '../../base.component';
-
 import { Topic } from '../../../shared/model/topic/topic.model';
 import { TopicService } from '../../../shared/services/topic/topic.service';
+import { MessageService } from '../../../shared/services/message/message.service';
 
 declare var Materialize: any;
 @Component({
@@ -19,7 +18,7 @@ export class TopicComponent extends BaseComponent implements OnInit {
   private btnText: string;
   private topicId: number;
 
-  constructor(private topicService: TopicService,
+  constructor(private topicService: TopicService,private messageService: MessageService,
     private activatedRoute: ActivatedRoute,
     localStorageService: LocalStorageService,
     router: Router,
@@ -35,8 +34,9 @@ export class TopicComponent extends BaseComponent implements OnInit {
       });
       if (this.topicId && this.topicId !== 0) {
         this.getTopicByID(this.topicId);
+        this.btnText = 'Update Topic';
       } else {
-        this.btnText = 'Insert Topic';
+        this.btnText = 'Save Topic';
       }
     }
   }
@@ -46,10 +46,10 @@ export class TopicComponent extends BaseComponent implements OnInit {
       .saveTopic(this.model)
       .then(result => {
         if (result) {
-          Materialize.toast(this.btnText, 1000, 'rounded');
-          // this.router.navigate(['/topics']);
+          this.messageService.showMessage(this.btnText + ' successfully');
+           this.router.navigate(['/topics']);
         } else {
-          // alert(result.data);
+            this.messageService.showMessage(this.btnText + ' successfully');
         }
       });
   }
@@ -59,7 +59,7 @@ export class TopicComponent extends BaseComponent implements OnInit {
       .getTopicByID(topicId)
       .then(result => {
         this.model = result[0];
-        this.btnText = 'Update Topic';
+        
       });
   }
 
